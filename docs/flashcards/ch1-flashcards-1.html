@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Further Linear Algebra Flashcards</title>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} 
+        });
+    </script>
+    <script type="text/javascript" 
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .flashcard-container {
+            display: flex;
+            overflow: hidden;
+            width: 80%;
+            max-width: 900px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            height: 400px; /* Fixed height for flashcards */
+        }
+        .flashcard {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        .flashcard h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .flashcard p {
+            color: #555;
+            font-size: 1.1em;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+        .navigation-buttons button, .flip-button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .navigation-buttons button:hover, .flip-button:hover {
+            background-color: #0056b3;
+        }
+        .source {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 10px;
+        }
+        .card-progress {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Further Linear Algebra Flashcards</h1>
+    <div class="flashcard-container">
+        <!-- Flashcards will be inserted here by JavaScript -->
+    </div>
+    <div class="navigation-buttons">
+        <button id="prevBtn">Previous</button>
+        <button id="flipBtn">Flip Card</button>
+        <button id="nextBtn">Next</button>
+    </div>
+    <div class="card-progress">
+        Card <span id="currentCard">1</span> of <span id="totalCards"></span>
+    </div>
+
+    <script>
+        // Cookie functions
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        const flashcardsData = [
+            {
+                question: 'What is a differential equation?',
+                answer: 'A differential equation is an equation involving a function and its derivatives. We are interested in very simple types of differential equations and it is quite easy to summarise what you need to know so that we do not need a lengthy discussion of calculus.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 9'
+            },
+            {
+                question: 'Define an eigenvalue and eigenvector of a square matrix.',
+                answer: 'Suppose that $A$ is a square matrix. The number $\\lambda$ is said to be an **eigenvalue** of $A$ if for some non-zero vector $\\mathbf{x}$, $A\\mathbf{x} = \\lambda\\mathbf{x}$. Any non-zero vector $\\mathbf{x}$ for which this equation holds is called an **eigenvector** for eigenvalue $\\lambda$ or an eigenvector of $A$ corresponding to eigenvalue $\\lambda$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 234'
+            },
+            {
+                question: 'What is the characteristic polynomial of a matrix $A$?',
+                answer: 'The characteristic polynomial of a square matrix $A$ is given by $p(\\lambda) = \\det(A - \\lambda I)$, where $I$ is the identity matrix. The roots of the characteristic polynomial are the eigenvalues of $A$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 234'
+            },
+            {
+                question: 'How do you find the eigenvalues of a matrix?',
+                answer: 'To find the eigenvalues of a matrix $A$, you need to solve the characteristic equation $p(\\lambda) = \\det(A - \\lambda I) = 0$. The solutions for $\\lambda$ are the eigenvalues.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 234'
+            },
+            {
+                question: 'What is diagonalisation?',
+                answer: 'A square matrix $A$ is **diagonalisable** if it is similar to a diagonal matrix $D$. This means there exists an invertible matrix $P$ such that $P^{-1}AP = D$. The diagonal entries of $D$ are the eigenvalues of $A$, and the columns of $P$ are the corresponding eigenvectors.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            {
+                question: 'When is a matrix diagonalisable?',
+                answer: 'An $n \\times n$ matrix $A$ is diagonalisable if and only if it has $n$ linearly independent eigenvectors. This occurs if the algebraic multiplicity of each eigenvalue equals its geometric multiplicity.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 239'
+            },
+            {
+                question: 'How can diagonalisation be used to solve systems of linear differential equations?',
+                answer: 'For a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, if $A$ is diagonalisable, we can transform it into an uncoupled system of equations by letting $\\mathbf{y} = P\\mathbf{z}$, where $P$ is the matrix of eigenvectors and $\\mathbf{z}\' = D\\mathbf{z}$, where $D$ is the diagonal matrix of eigenvalues. This uncoupled system is easy to solve, and then $\\mathbf{y} = P\\mathbf{z}$ gives the solution to the original system.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10'
+            },
+            {
+                question: 'What is the Jordan normal form?',
+                answer: 'The Jordan normal form is a canonical form of a matrix that is useful when the matrix is not diagonalisable. It is a block diagonal matrix where each block is a Jordan block. A Jordan block is an upper triangular matrix with the eigenvalue on the diagonal and ones on the superdiagonal.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15'
+            },
+            {
+                question: 'When is the Jordan normal form used?',
+                answer: 'The Jordan normal form is used when a matrix is not diagonalisable. This typically happens when the algebraic multiplicity of an eigenvalue is greater than its geometric multiplicity, meaning there are not enough linearly independent eigenvectors to form a basis.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15'
+            },
+            {
+                question: 'How can the Jordan normal form be used to solve systems of linear differential equations?',
+                answer: 'For systems of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$ where $A$ is not diagonalisable, we can use the Jordan normal form $J$ of $A$. We find an invertible matrix $P$ such that $A = PJP^{-1}$. Then, by letting $\\mathbf{y} = P\\mathbf{z}$, the system transforms to $\\mathbf{z}\' = J\\mathbf{z}$, which can be solved by solving a series of simpler systems corresponding to the Jordan blocks.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 19'
+            },
+            {
+                question: 'What is a system of difference equations?',
+                answer: 'A system of difference equations describes the evolution of a sequence of vectors over discrete time steps. It is often written in the form $\\mathbf{x}_{t+1} = A\\mathbf{x}_t$, where $A$ is a square matrix and $\\mathbf{x}_t$ is a vector representing the state at time $t$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 249'
+            },
+            {
+                question: 'How can diagonalisation be used to solve systems of difference equations?',
+                answer: 'If the matrix $A$ in a system of difference equations $\\mathbf{x}_{t+1} = A\\mathbf{x}_t$ is diagonalisable, we can write $A = PDP^{-1}$, where $D$ is a diagonal matrix of eigenvalues and $P$ is the matrix of eigenvectors. Then $\\mathbf{x}_t = P D^t P^{-1} \\mathbf{x}_0$, which allows for easy calculation of $\\mathbf{x}_t$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 250'
+            },
+            {
+                question: 'What is a Markov chain?',
+                answer: 'A Markov chain is a stochastic process that describes a sequence of possible events in which the probability of each event depends only on the state attained in the previous event. In the context of linear algebra, it often involves a transition matrix $A$ where the entries $a_{ij}$ represent the probability of moving from state $j$ to state $i$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 254'
+            },
+            {
+                question: 'How is diagonalisation relevant to Markov chains?',
+                answer: 'Diagonalisation can be used to find the long-term distribution of a Markov chain. If the transition matrix $A$ is diagonalisable, we can compute $A^t$ efficiently using $A^t = P D^t P^{-1}$. For a regular Markov chain, as $t \to \infty$, $A^t$ approaches a matrix where each column is the long-term distribution vector, which is the eigenvector corresponding to the eigenvalue $\\lambda = 1$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            {
+                question: 'What is the geometric multiplicity of an eigenvalue?',
+                answer: 'The geometric multiplicity of an eigenvalue $\\lambda$ is the dimension of the eigenspace corresponding to $\\lambda$, which is the nullity of the matrix $(A - \\lambda I)$. It represents the maximum number of linearly independent eigenvectors associated with that eigenvalue.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            {
+                question: 'What is the algebraic multiplicity of an eigenvalue?',
+                answer: 'The algebraic multiplicity of an eigenvalue $\\lambda$ is its multiplicity as a root of the characteristic polynomial $p(\\lambda) = \\det(A - \\lambda I)$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            {
+                question: 'What is the relationship between algebraic and geometric multiplicity for diagonalisation?',
+                answer: 'A matrix is diagonalisable if and only if for every eigenvalue, its algebraic multiplicity is equal to its geometric multiplicity. If the geometric multiplicity is less than the algebraic multiplicity for any eigenvalue, the matrix is not diagonalisable.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 241'
+            },
+            {
+                question: 'Explain the concept of similarity of matrices.',
+                answer: 'Two square matrices $A$ and $B$ are said to be **similar** if there exists an invertible matrix $P$ such that $B = P^{-1}AP$. Similar matrices have the same eigenvalues, determinant, trace, and characteristic polynomial. Diagonalisation is a special case of similarity where $B$ is a diagonal matrix.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229'
+            },
+            {
+                question: 'What is a linear system of differential equations?',
+                answer: 'A linear system of differential equations is a set of differential equations involving multiple unknown functions and their derivatives, which can be written in matrix form as $\\mathbf{y}\' = A\\mathbf{y}$, where $\\mathbf{y}$ is a vector of functions and $A$ is a matrix of coefficients.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10'
+            },
+            {
+                question: 'How do you solve a simple first-order linear differential equation $y\ = ay$?',
+                answer: 'The general solution to the first-order linear differential equation $y\ = ay$ is $y(t) = Ce^{at}$, where $C$ is an arbitrary constant determined by initial conditions.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 9'
+            },
+            // Additional 80 flashcards will be added here.
+            // Flashcard 21
+            {
+                question: 'What is the procedure for diagonalising a matrix $A$?',
+                answer: '1. Find the eigenvalues of $A$ by solving the characteristic equation $\\det(A - \\lambda I) = 0$. 2. For each eigenvalue $\\lambda$, find a basis for the corresponding eigenspace (i.e., find the eigenvectors). 3. If there are $n$ linearly independent eigenvectors for an $n \\times n$ matrix, form the matrix $P$ whose columns are these eigenvectors. 4. The diagonal matrix $D$ will have the eigenvalues on its diagonal in the same order as their corresponding eigenvectors. Then $A = PDP^{-1}$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            // Flashcard 22
+            {
+                question: 'Given a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, how do you solve it if $A$ is diagonalisable?',
+                answer: '1. Find the eigenvalues $\\lambda_1, \\dots, \\lambda_n$ and corresponding linearly independent eigenvectors $\\mathbf{v}_1, \\dots, \\mathbf{v}_n$ of $A$. 2. Form the matrix $P = [\\mathbf{v}_1 \\dots \\mathbf{v}_n]$ and the diagonal matrix $D = \\text{diag}(\\lambda_1, \\dots, \\lambda_n)$. 3. Let $\\mathbf{y} = P\\mathbf{z}$. Then $\\mathbf{z}\' = D\\mathbf{z}$, which means $z_i\ = \\lambda_i z_i$. 4. The solutions are $z_i(t) = C_i e^{\\lambda_i t}$. 5. Substitute back to find $\\mathbf{y}(t) = P\\mathbf{z}(t)$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10'
+            },
+            // Flashcard 23
+            {
+                question: 'What is a Jordan block?',
+                answer: 'A Jordan block $J_k(\\lambda)$ is a $k \\times k$ matrix of the form: $$J_k(\\lambda) = \begin{pmatrix} \\lambda & 1 & 0 & \\dots & 0 \\ 0 & \\lambda & 1 & \\dots & 0 \\ 0 & 0 & \\lambda & \\dots & 0 \\ \\vdots & \\vdots & \\vdots & \\ddots & \\vdots \\ 0 & 0 & 0 & \\dots & \\lambda \end{pmatrix}$$ It has the eigenvalue $\\lambda$ on the main diagonal and ones on the superdiagonal.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15'
+            },
+            // Flashcard 24
+            {
+                question: 'What is the significance of the Jordan normal form?',
+                answer: 'The Jordan normal form is important because every square matrix (over complex numbers) is similar to a Jordan normal form, which is unique up to the ordering of the Jordan blocks. It provides a canonical representation for any matrix, even those that are not diagonalisable.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15'
+            },
+            // Flashcard 25
+            {
+                question: 'How do you calculate powers of a matrix $A^k$ using diagonalisation?',
+                answer: 'If $A$ is diagonalisable, so $A = PDP^{-1}$, then $A^k = (PDP^{-1})(PDP^{-1})\\dots(PDP^{-1})$ ($k$ times). This simplifies to $A^k = PD^kP^{-1}$. Since $D$ is a diagonal matrix, $D^k$ is simply the matrix with the diagonal entries raised to the power $k$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 248'
+            },
+            // Flashcard 26
+            {
+                question: 'What is a system of first-order difference equations?',
+                answer: 'A system of first-order difference equations is a set of equations that describe how a sequence of vectors changes from one time step to the next. It can be written as $\\mathbf{x}_{t+1} = A\\mathbf{x}_t$, where $A$ is a square matrix and $\\mathbf{x}_t$ is a vector representing the state at time $t$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 249'
+            },
+            // Flashcard 27
+            {
+                question: 'How can diagonalisation help in solving systems of difference equations?',
+                answer: 'If the matrix $A$ in $\\mathbf{x}_{t+1} = A\\mathbf{x}_t$ is diagonalisable ($A = PDP^{-1}$), then the solution is $\\mathbf{x}_t = A^t \\mathbf{x}_0 = PD^tP^{-1}\\mathbf{x}_0$. This allows for easy computation of $\\mathbf{x}_t$ for any $t$, as $D^t$ is easy to calculate.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 250'
+            },
+            // Flashcard 28
+            {
+                question: 'What is a steady-state vector in the context of Markov chains?',
+                answer: 'A steady-state vector (or equilibrium vector) $\\mathbf{q}$ for a Markov chain with transition matrix $A$ is a probability vector such that $A\\mathbf{q} = \\mathbf{q}$. This means that the system reaches a stable distribution over time, where the probabilities of being in each state no longer change.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            // Flashcard 29
+            {
+                question: 'How do you find the steady-state vector for a Markov chain?',
+                answer: 'To find the steady-state vector $\\mathbf{q}$ for a Markov chain with transition matrix $A$, you need to solve the equation $A\\mathbf{q} = \\mathbf{q}$, which can be rewritten as $(A - I)\\mathbf{q} = \\mathbf{0}$. Additionally, the sum of the entries in $\\mathbf{q}$ must be 1 (since it is a probability vector). The steady-state vector is an eigenvector corresponding to the eigenvalue $\\lambda = 1$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            // Flashcard 30
+            {
+                question: 'What is the condition for a matrix to be diagonalisable in terms of its eigenvalues?',
+                answer: 'An $n \\times n$ matrix $A$ is diagonalisable if and only if it has $n$ linearly independent eigenvectors. This is guaranteed if all $n$ eigenvalues are distinct. If there are repeated eigenvalues, the matrix may or may not be diagonalisable; it depends on whether the geometric multiplicity equals the algebraic multiplicity for each repeated eigenvalue.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 241'
+            },
+            // Flashcard 31
+            {
+                question: 'Explain the concept of a basis of eigenvectors.',
+                answer: 'A basis of eigenvectors for a matrix $A$ is a set of linearly independent eigenvectors of $A$ that span the entire vector space. If such a basis exists, the matrix is diagonalisable, and the change-of-basis matrix $P$ is formed by these eigenvectors.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 239'
+            },
+            // Flashcard 32
+            {
+                question: 'What is the relationship between diagonalisation and change of basis?',
+                answer: 'Diagonalisation can be viewed as finding a basis (the basis of eigenvectors) in which the linear transformation represented by the matrix $A$ becomes a simple scaling (represented by the diagonal matrix $D$). The matrix $P$ acts as the change-of-basis matrix from the eigenvector basis to the standard basis.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 225'
+            },
+            // Flashcard 33
+            {
+                question: 'How do you solve a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$ with initial conditions $\\mathbf{y}(0) = \\mathbf{y}_0$ if $A$ is diagonalisable?',
+                answer: '1. Find $P$ and $D$ such that $A = PDP^{-1}$. 2. Let $\\mathbf{y} = P\\mathbf{z}$. Solve $\\mathbf{z}\' = D\\mathbf{z}$ to get $z_i(t) = C_i e^{\\lambda_i t}$. 3. Use the initial condition $\\mathbf{y}(0) = P\\mathbf{z}(0)$ to find the constants $C_i$. Specifically, $\\mathbf{z}(0) = P^{-1}\\mathbf{y}(0)$. 4. Substitute $C_i$ back into $z_i(t)$ and then find $\\mathbf{y}(t) = P\\mathbf{z}(t)$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 11'
+            },
+            // Flashcard 34
+            {
+                question: 'What is a generalised eigenvector?',
+                answer: 'A generalised eigenvector of rank $k$ corresponding to an eigenvalue $\\lambda$ is a non-zero vector $\\mathbf{x}$ such that $(A - \\lambda I)^k \\mathbf{x} = \\mathbf{0}$ and $(A - \\lambda I)^{k-1} \\mathbf{x} \\neq \\mathbf{0}$. Generalised eigenvectors are used to construct a basis for the Jordan normal form when there are not enough ordinary eigenvectors.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 16 (implied by Jordan form discussion)'
+            },
+            // Flashcard 35
+            {
+                question: 'What is the procedure for finding the Jordan normal form of a matrix?',
+                answer: 'The procedure involves finding eigenvalues, their algebraic and geometric multiplicities, and then finding chains of generalised eigenvectors. For each eigenvalue, construct Jordan blocks based on the lengths of these chains. This is a complex process and often involves solving systems like $(A - \\lambda I)\\mathbf{x} = \\mathbf{v}$ where $\\mathbf{v}$ is an eigenvector.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 16 (general concept)'
+            },
+            // Flashcard 36
+            {
+                question: 'How do you solve $\\mathbf{z}\' = J\\mathbf{z}$ if $J$ is a Jordan block of size $2 \\times 2$?',
+                answer: 'If $J = \\begin{pmatrix} \\lambda & 1 \\ 0 & \\lambda \end{pmatrix}$, then $\\mathbf{z}\' = J\\mathbf{z}$ gives $z_1\ = \\lambda z_1 + z_2$ and $z_2\ = \\lambda z_2$. The second equation gives $z_2(t) = C_2 e^{\\lambda t}$. Substituting this into the first equation, $z_1\ - \\lambda z_1 = C_2 e^{\\lambda t}$, which can be solved using an integrating factor to get $z_1(t) = (C_1 + C_2 t)e^{\\lambda t}$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 19 (example of solving with Jordan form)'
+            },
+            // Flashcard 37
+            {
+                question: 'What is the long-term distribution of a Markov chain?',
+                answer: 'The long-term distribution of a Markov chain is the steady-state vector, which represents the probabilities of being in each state after a very large number of steps. It is the eigenvector corresponding to the eigenvalue $\\lambda = 1$ of the transition matrix, scaled so that its entries sum to 1.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            // Flashcard 38
+            {
+                question: 'What is the trace of a matrix and how is it related to eigenvalues?',
+                answer: 'The trace of a square matrix $A$, denoted $\\text{tr}(A)$, is the sum of the elements on the main diagonal. The trace of a matrix is equal to the sum of its eigenvalues (counting algebraic multiplicities).',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 254 (implied by properties of eigenvalues)'
+            },
+            // Flashcard 39
+            {
+                question: 'What is the determinant of a matrix and how is it related to eigenvalues?',
+                answer: 'The determinant of a square matrix $A$, denoted $\\det(A)$, is a scalar value that can be computed from its elements. The determinant of a matrix is equal to the product of its eigenvalues (counting algebraic multiplicities).',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 254 (implied by properties of eigenvalues)'
+            },
+            // Flashcard 40
+            {
+                question: 'What is an eigenspace?',
+                answer: 'The eigenspace $E_\\lambda$ corresponding to an eigenvalue $\\lambda$ of a matrix $A$ is the set of all eigenvectors corresponding to $\\lambda$, plus the zero vector. It is a subspace of $\\mathbb{R}^n$ (or $\\mathbb{C}^n$) and is given by $E_\\lambda = \\text{null}(A - \\lambda I)$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            // Flashcard 41
+            {
+                question: 'How do you find the eigenvectors for a given eigenvalue $\\lambda$?',
+                answer: 'To find the eigenvectors corresponding to an eigenvalue $\\lambda$, you need to solve the homogeneous system of linear equations $(A - \\lambda I)\\mathbf{x} = \\mathbf{0}$. The non-zero solutions to this system are the eigenvectors for $\\lambda$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 235'
+            },
+            // Flashcard 42
+            {
+                question: 'What is the relationship between diagonalisation and powers of matrices?',
+                answer: 'Diagonalisation provides an efficient way to compute high powers of a matrix. If $A = PDP^{-1}$, then $A^k = (PDP^{-1})(PDP^{-1})\\dots(PDP^{-1})$ ($k$ times). This simplifies to $A^k = PD^kP^{-1}$. Since $D$ is a diagonal matrix, $D^k$ is simply the matrix with the diagonal entries raised to the power $k$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 248'
+            },
+            // Flashcard 43
+            {
+                question: 'What is a transition matrix in the context of Markov chains?',
+                answer: 'A transition matrix $A$ for a Markov chain is a square matrix where each entry $a_{ij}$ represents the probability of moving from state $j$ to state $i$. The sum of the entries in each column must be 1.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 254'
+            },
+            // Flashcard 44
+            {
+                question: 'What is a regular Markov chain?',
+                answer: 'A Markov chain is **regular** if some power of its transition matrix $A^k$ has all positive entries. For a regular Markov chain, there is a unique steady-state vector, and the system will eventually approach this steady state regardless of the initial distribution.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            // Flashcard 45
+            {
+                question: 'How do you solve a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$ if $A$ is not diagonalisable but has a Jordan normal form $J$?',
+                answer: '1. Find the Jordan normal form $J$ of $A$ and the invertible matrix $P$ such that $A = PJP^{-1}$. 2. Let $\\mathbf{y} = P\\mathbf{z}$. The system transforms to $\\mathbf{z}\' = J\\mathbf{z}$. 3. Solve $\\mathbf{z}\' = J\\mathbf{z}$ by breaking it down into smaller systems corresponding to each Jordan block. 4. Substitute back to find $\\mathbf{y}(t) = P\\mathbf{z}(t)$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 19'
+            },
+            // Flashcard 46
+            {
+                question: 'What is the fundamental theorem of linear differential equations?',
+                answer: 'The fundamental theorem states that for a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, the general solution is a linear combination of $n$ linearly independent solutions, where $n$ is the dimension of the system. These solutions are often found using eigenvalues and eigenvectors.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 47
+            {
+                question: 'What is the difference between diagonalisation and Jordan normal form?',
+                answer: 'Diagonalisation transforms a matrix into a diagonal matrix using a basis of eigenvectors. This is only possible if the matrix has a full set of linearly independent eigenvectors. The Jordan normal form is a more general canonical form that exists for any square matrix, even those that are not diagonalisable, by using generalised eigenvectors.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15'
+            },
+            // Flashcard 48
+            {
+                question: 'Can a matrix have complex eigenvalues?',
+                answer: 'Yes, a real matrix can have complex eigenvalues. If a real matrix has a complex eigenvalue $\\lambda = a + bi$, then its conjugate $\\bar{\\lambda} = a - bi$ must also be an eigenvalue. The corresponding eigenvectors will also be complex.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 244 (implied by examples)'
+            },
+            // Flashcard 49
+            {
+                question: 'How do complex eigenvalues affect diagonalisation?',
+                answer: 'If a real matrix has complex eigenvalues, it cannot be diagonalised over the real numbers. However, it can be diagonalised over the complex numbers. The diagonal matrix $D$ will contain the complex eigenvalues.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 244 (implied by examples)'
+            },
+            // Flashcard 50
+            {
+                question: 'What is a defective matrix?',
+                answer: 'A matrix is **defective** if it does not have a complete set of linearly independent eigenvectors, meaning that for at least one eigenvalue, its geometric multiplicity is less than its algebraic multiplicity. Defective matrices are not diagonalisable and require the Jordan normal form.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 241' 
+            },
+            // Flashcard 51
+            {
+                question: 'How do you find the general solution of a system of differential equations $\\mathbf{y}\' = A\\mathbf{y}$ when $A$ has complex eigenvalues?',
+                answer: 'If $A$ has a complex eigenvalue $\\lambda = a + bi$ with eigenvector $\\mathbf{v}$, then a complex solution is $\\mathbf{y}(t) = e^{\\lambda t}\\mathbf{v}$. The real and imaginary parts of this complex solution form two linearly independent real solutions. For example, if $\\mathbf{v} = \\mathbf{v}_R + i\\mathbf{v}_I$, then $e^{\\lambda t}\\mathbf{v} = e^{(a+bi)t}(\\mathbf{v}_R + i\\mathbf{v}_I) = e^{at}(\\cos(bt) + i\\sin(bt))(\\mathbf{v}_R + i\\mathbf{v}_I)$. The real solutions are $e^{at}(\\cos(bt)\\mathbf{v}_R - \\sin(bt)\\mathbf{v}_I)$ and $e^{at}(\\sin(bt)\\mathbf{v}_R + \\cos(bt)\\mathbf{v}_I)$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept for complex eigenvalues)'
+            },
+            // Flashcard 52
+            {
+                question: 'What is the role of initial conditions in solving differential equations?',
+                answer: 'Initial conditions are used to determine the specific values of the arbitrary constants in the general solution of a differential equation. For a system of $n$ first-order differential equations, $n$ initial conditions are needed to find a unique particular solution.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 11'
+            },
+            // Flashcard 53
+            {
+                question: 'Explain the concept of a fundamental matrix for a system of differential equations.',
+                answer: 'A fundamental matrix $\\Psi(t)$ for a system $\\mathbf{y}\' = A\\mathbf{y}$ is a matrix whose columns are linearly independent solutions to the system. The general solution can then be written as $\\mathbf{y}(t) = \\Psi(t)\\mathbf{C}$, where $\\mathbf{C}$ is a constant vector determined by initial conditions.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (implied by solution structure)'
+            },
+            // Flashcard 54
+            {
+                question: 'What is the relationship between the eigenvalues of $A$ and $A^k$?',
+                answer: 'If $\\lambda$ is an eigenvalue of $A$, then $\\lambda^k$ is an eigenvalue of $A^k$. The corresponding eigenvector remains the same.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 248'
+            },
+            // Flashcard 55
+            {
+                question: 'How can diagonalisation be used to solve higher-order linear differential equations?',
+                answer: 'Higher-order linear differential equations can be converted into a system of first-order linear differential equations. Once in system form, if the coefficient matrix is diagonalisable, the methods of diagonalisation can be applied to find the solution.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 56
+            {
+                question: 'What is the concept of a "stable" steady state in Markov chains?',
+                answer: 'In a regular Markov chain, the steady-state vector is stable, meaning that as $t \to \\infty$, the system converges to this unique steady state regardless of the initial distribution. This is related to the fact that the dominant eigenvalue is 1, and all other eigenvalues have absolute value less than 1.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            // Flashcard 57
+            {
+                question: 'What is the significance of the eigenvalue $\\lambda = 1$ in Markov chains?',
+                answer: 'For any transition matrix of a Markov chain, $\\lambda = 1$ is always an eigenvalue. The corresponding eigenvector (when normalized) is the steady-state vector, representing the long-term distribution of the chain.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 256'
+            },
+            // Flashcard 58
+            {
+                question: 'How do you determine if a matrix is diagonalisable without finding all eigenvectors?',
+                answer: 'An $n \\times n$ matrix $A$ is diagonalisable if and only if the sum of the dimensions of its eigenspaces equals $n$. This means that for each eigenvalue, its geometric multiplicity must equal its algebraic multiplicity.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 241'
+            },
+            // Flashcard 59
+            {
+                question: 'What is a generalised eigenspace?',
+                answer: 'The generalised eigenspace corresponding to an eigenvalue $\\lambda$ is the set of all generalised eigenvectors for $\\lambda$, including the ordinary eigenvectors. It is the null space of $(A - \\lambda I)^k$ for some sufficiently large $k$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 16 (implied by Jordan form discussion)'
+            },
+            // Flashcard 60
+            {
+                question: 'How does the Jordan normal form simplify solving $\\mathbf{z}\' = J\\mathbf{z}$ for a $3 \\times 3$ Jordan block?',
+                answer: 'For a $3 \\times 3$ Jordan block $$J = \\begin{pmatrix} \\lambda & 1 & 0 \\ 0 & \\lambda & 1 \\ 0 & 0 & \\lambda \end{pmatrix}$$, the system $\\mathbf{z}\' = J\\mathbf{z}$ becomes $z_1\ = \\lambda z_1 + z_2$, $z_2\ = \\lambda z_2 + z_3$, and $z_3\ = \\lambda z_3$. This can be solved by starting from $z_3(t) = C_3 e^{\\lambda t}$, then substituting into the equation for $z_2\$ to find $z_2(t) = (C_2 + C_3 t)e^{\\lambda t}$, and finally solving for $z_1(t) = (C_1 + C_2 t + \\frac{1}{2}C_3 t^2)e^{\\lambda t}$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 20 (example of solving with Jordan form)'
+            },
+            // Flashcard 61
+            {
+                question: 'What is the concept of a "chain of generalised eigenvectors"?',
+                answer: 'A chain of generalised eigenvectors of length $k$ corresponding to an eigenvalue $\\lambda$ is a sequence of non-zero vectors $\\mathbf{v}_1, \\mathbf{v}_2, \\dots, \\mathbf{v}_k$ such that $(A - \\lambda I)\\mathbf{v}_k = \\mathbf{v}_{k-1}$, $(A - \\lambda I)\\mathbf{v}_{k-1} = \\mathbf{v}_{k-2}$, ..., $(A - \\lambda I)\\mathbf{v}_2 = \\mathbf{v}_1$, and $(A - \\lambda I)\\mathbf{v}_1 = \\mathbf{0}$. Here, $\\mathbf{v}_1$ is an eigenvector.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 16 (implied by Jordan form construction)'
+            },
+            // Flashcard 62
+            {
+                question: 'How do you solve a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$ when $A$ is a $2 \\times 2$ matrix with a repeated eigenvalue but only one linearly independent eigenvector?',
+                answer: 'In this case, $A$ is not diagonalisable and has a Jordan normal form $J = \\begin{pmatrix} \\lambda & 1 \\ 0 & \\lambda \end{pmatrix}$. Find an eigenvector $\\mathbf{v}_1$ and a generalised eigenvector $\\mathbf{v}_2$ such that $(A - \\lambda I)\\mathbf{v}_2 = \\mathbf{v}_1$. The general solution is $\\mathbf{y}(t) = C_1 e^{\\lambda t}\\mathbf{v}_1 + C_2 e^{\\lambda t}(\\mathbf{v}_2 + t\\mathbf{v}_1)$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 19 (example of solving with Jordan form)'
+            },
+            // Flashcard 63
+            {
+                question: 'What is the relationship between the eigenvalues of $A$ and $A^{-1}$?',
+                answer: 'If $\\lambda$ is a non-zero eigenvalue of an invertible matrix $A$, then $1/\\lambda$ is an eigenvalue of $A^{-1}$. The corresponding eigenvector remains the same.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 245 (implied by properties of eigenvalues)'
+            },
+            // Flashcard 64
+            {
+                question: 'How can diagonalisation be used to solve systems of linear recurrence relations?',
+                answer: 'A system of linear recurrence relations can be written in the form $\\mathbf{x}_{k+1} = A\\mathbf{x}_k$. If $A$ is diagonalisable, then $\\mathbf{x}_k = A^k \\mathbf{x}_0 = PD^kP^{-1}\\mathbf{x}_0$. This allows for direct computation of $\\mathbf{x}_k$ for any $k$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 249'
+            },
+            // Flashcard 65
+            {
+                question: 'What is the concept of a "stable" equilibrium in differential equations?',
+                answer: 'For a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, if all eigenvalues of $A$ have negative real parts, then the equilibrium point (the zero solution) is stable, meaning that all solutions converge to zero as $t \to \\infty$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 66
+            {
+                question: 'What is the concept of an "unstable" equilibrium in differential equations?',
+                answer: 'For a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, if at least one eigenvalue of $A$ has a positive real part, then the equilibrium point (the zero solution) is unstable, meaning that some solutions diverge from zero as $t \to \\infty$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 67
+            {
+                question: 'What is the concept of a "saddle point" equilibrium in differential equations?',
+                answer: 'For a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, if $A$ has both positive and negative real parts among its eigenvalues, then the equilibrium point (the zero solution) is a saddle point, meaning some solutions converge to zero while others diverge.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 68
+            {
+                question: 'How do you determine if a matrix is diagonalisable over $\\mathbb{R}$?',
+                answer: 'A matrix $A$ is diagonalisable over $\\mathbb{R}$ if and only if all its eigenvalues are real and for each eigenvalue, its algebraic multiplicity equals its geometric multiplicity.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 241'
+            },
+            // Flashcard 69
+            {
+                question: 'What is the relationship between the eigenvalues of $A$ and $A^T$?',
+                answer: 'A matrix $A$ and its transpose $A^T$ have the same eigenvalues. However, their eigenvectors may be different.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 245 (implied by properties of eigenvalues)'
+            },
+            // Flashcard 70
+            {
+                question: 'What is the definition of a symmetric matrix?',
+                answer: 'A square matrix $A$ is **symmetric** if $A = A^T$. Symmetric matrices have several important properties, including that all their eigenvalues are real and they are always diagonalisable by an orthogonal matrix.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229'
+            },
+            // Flashcard 71
+            {
+                question: 'What is an orthogonal matrix?',
+                answer: 'A square matrix $Q$ is **orthogonal** if its columns are orthonormal vectors, which means $Q^TQ = I$ (or $Q^{-1} = Q^T$). Orthogonal matrices preserve lengths and angles in vector transformations.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229 (general concept)'
+            },
+            // Flashcard 72
+            {
+                question: 'How is orthogonal diagonalisation related to symmetric matrices?',
+                answer: 'A matrix is orthogonally diagonalisable if and only if it is symmetric. This means that if $A$ is symmetric, there exists an orthogonal matrix $Q$ and a diagonal matrix $D$ such that $A = QDQ^T$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229 (general concept)'
+            },
+            // Flashcard 73
+            {
+                question: 'What is the spectral theorem for symmetric matrices?',
+                answer: 'The spectral theorem states that if $A$ is a symmetric $n \\times n$ matrix, then $A$ has $n$ real eigenvalues (counting multiplicities), the eigenvectors corresponding to distinct eigenvalues are orthogonal, and there exists an orthonormal basis of eigenvectors for $\\mathbb{R}^n$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229 (general concept)'
+            },
+            // Flashcard 74
+            {
+                question: 'How do you solve a system of difference equations $\\mathbf{x}_{t+1} = A\\mathbf{x}_t$ with initial conditions $\\mathbf{x}_0$?',
+                answer: 'The solution is $\\mathbf{x}_t = A^t \\mathbf{x}_0$. If $A$ is diagonalisable, this becomes $\\mathbf{x}_t = PD^tP^{-1}\\mathbf{x}_0$. If $A$ is not diagonalisable, $A^t$ can be computed using the Jordan normal form, but this is more complex.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 18, Page 250'
+            },
+            // Flashcard 75
+            {
+                question: 'What is the concept of "change of variables" in solving systems of differential equations?',
+                answer: 'In solving $\\mathbf{y}\' = A\\mathbf{y}$, we can introduce a change of variables $\\mathbf{y} = P\\mathbf{z}$, where $P$ is an invertible matrix. This transforms the system into $\\mathbf{z}\' = P^{-1}AP\\mathbf{z}$. The goal is to choose $P$ such that $P^{-1}AP$ is a simpler matrix (e.g., diagonal or Jordan normal form) to solve for $\\mathbf{z}$, and then convert back to $\\mathbf{y}$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10'
+            },
+            // Flashcard 76
+            {
+                question: 'What is the relationship between the eigenvalues of $A$ and $A - kI$?',
+                answer: 'If $\\lambda$ is an eigenvalue of $A$, then $\\lambda - k$ is an eigenvalue of $A - kI$. The corresponding eigenvector remains the same.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 234 (implied by characteristic polynomial)'
+            },
+            // Flashcard 77
+            {
+                question: 'What is the definition of a diagonal matrix?',
+                answer: 'A square matrix $D$ is a **diagonal matrix** if all its off-diagonal entries are zero. That is, $d_{ij} = 0$ for $i \\neq j$. Diagonal matrices are particularly easy to work with, especially when computing powers.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            // Flashcard 78
+            {
+                question: 'How do you find the matrix $P$ and $D$ for diagonalisation $A = PDP^{-1}$?',
+                answer: 'The columns of $P$ are the linearly independent eigenvectors of $A$. The diagonal entries of $D$ are the corresponding eigenvalues, in the same order as their eigenvectors in $P$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 238'
+            },
+            // Flashcard 79
+            {
+                question: 'What is the concept of "similarity transformation"?',
+                answer: 'A similarity transformation is a transformation of a matrix $A$ into $P^{-1}AP$ for some invertible matrix $P$. The resulting matrix $B = P^{-1}AP$ is said to be similar to $A$. Similarity transformations preserve eigenvalues, determinant, trace, and characteristic polynomial.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229'
+            },
+            // Flashcard 80
+            {
+                question: 'What is the role of the identity matrix $I$ in finding eigenvalues?',
+                answer: 'The identity matrix $I$ is used in the characteristic equation $\\det(A - \\lambda I) = 0$. Subtracting $\\lambda I$ from $A$ effectively subtracts $\\lambda$ from each diagonal entry of $A$, which is crucial for finding the eigenvalues.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 234'
+            },
+            // Flashcard 81
+            {
+                question: 'How do you check if a given vector is an eigenvector of a matrix $A$?',
+                answer: 'To check if a vector $\\mathbf{x}$ is an eigenvector of $A$, compute $A\\mathbf{x}$. If $A\\mathbf{x}$ is a scalar multiple of $\\mathbf{x}$ (i.e., $A\\mathbf{x} = \\lambda\\mathbf{x}$ for some scalar $\\lambda$), and $\\mathbf{x}$ is non-zero, then $\\mathbf{x}$ is an eigenvector and $\\lambda$ is its corresponding eigenvalue.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 17, Page 234'
+            },
+            // Flashcard 82
+            {
+                question: 'What is the relationship between the eigenvalues of $A$ and $A^T A$?',
+                answer: 'The eigenvalues of $A^T A$ are always real and non-negative. This is particularly relevant for symmetric matrices and singular value decomposition.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229 (general concept)'
+            },
+            // Flashcard 83
+            {
+                question: 'How do you solve a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$ when $A$ has a zero eigenvalue?',
+                answer: 'If $A$ has a zero eigenvalue ($\\lambda = 0$), then the corresponding eigenvector represents a constant solution to the system. For example, if $\\mathbf{v}$ is an eigenvector for $\\lambda = 0$, then $\\mathbf{y}(t) = C\\mathbf{v}$ is a solution, representing a steady state.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 84
+            {
+                question: 'What is the concept of "phase portrait" in differential equations?',
+                answer: 'A phase portrait is a graphical representation of the solutions of a system of differential equations in the phase plane. It shows the trajectories of solutions and helps visualize the stability and behavior of the system around equilibrium points.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 85
+            {
+                question: 'How do you determine the stability of an equilibrium point for a $2 \\times 2$ system of linear differential equations based on eigenvalues?',
+                answer: '1. If both eigenvalues are real and negative, the equilibrium is a stable node. 2. If both eigenvalues are real and positive, the equilibrium is an unstable node. 3. If eigenvalues are real and have opposite signs, it\'s a saddle point (unstable). 4. If eigenvalues are complex conjugates with negative real parts, it\'s a stable spiral. 5. If eigenvalues are complex conjugates with positive real parts, it\'s an unstable spiral. 6. If eigenvalues are purely imaginary, it\'s a center (stable, but not asymptotically stable).',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 86
+            {
+                question: 'What is the definition of a nilpotent matrix?',
+                answer: 'A square matrix $N$ is **nilpotent** if $N^k = 0$ for some positive integer $k$. Nilpotent matrices have only zero as an eigenvalue. They are not diagonalisable unless they are the zero matrix.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15 (implied by Jordan form discussion)'
+            },
+            // Flashcard 87
+            {
+                question: 'How is the Jordan normal form related to nilpotent matrices?',
+                answer: 'If a matrix $A$ has only one eigenvalue $\\lambda$, then $A - \\lambda I$ is a nilpotent matrix. The Jordan normal form of $A$ can be constructed using the properties of this nilpotent matrix.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 15 (implied by Jordan form construction)'
+            },
+            // Flashcard 88
+            {
+                question: 'What is the concept of "uncoupling" in systems of differential equations?',
+                answer: 'Uncoupling a system of differential equations means transforming it into a new system where each equation involves only one unknown function and its derivative. This simplifies the solution process significantly. Diagonalisation achieves uncoupling when possible.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10'
+            },
+            // Flashcard 89
+            {
+                question: 'How do you find the inverse of a $2 \\times 2$ matrix $A = \\begin{pmatrix} a & b \\ c & d \\end{pmatrix}$?',
+                answer: 'The inverse of a $2 \\times 2$ matrix $A$ is given by $A^{-1} = \\frac{1}{ad-bc} \\begin{pmatrix} d & -b \\ -c & a \\end{pmatrix}$, provided that the determinant $ad-bc \\neq 0$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 3, Page 38'
+            },
+            // Flashcard 90
+            {
+                question: 'What is the definition of a linear transformation?',
+                answer: 'A function $T: V \\to W$ between two vector spaces $V$ and $W$ is a **linear transformation** if for all vectors $\\mathbf{u}, \\mathbf{v}$ in $V$ and all scalars $c$, it satisfies: 1. $T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u}) + T(\\mathbf{v})$ 2. $T(c\\mathbf{u}) = cT(\\mathbf{u})$',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 15, Page 214'
+            },
+            // Flashcard 91
+            {
+                question: 'How is a linear transformation represented by a matrix?',
+                answer: 'Any linear transformation $T: \\mathbb{R}^n \\to \\mathbb{R}^m$ can be represented by an $m \\times n$ matrix $A$ such that $T(\\mathbf{x}) = A\\mathbf{x}$ for every $\\mathbf{x}$ in $\\mathbb{R}^n$. The columns of $A$ are the images of the standard basis vectors of $\\mathbb{R}^n$ under $T$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 15, Page 215'
+            },
+            // Flashcard 92
+            {
+                question: 'What is the kernel (or null space) of a linear transformation?',
+                answer: 'The **kernel** (or **null space**) of a linear transformation $T: V \\to W$, denoted $\\text{ker}(T)$ or $N(T)$, is the set of all vectors $\\mathbf{v}$ in $V$ such that $T(\\mathbf{v}) = \\mathbf{0}$. It is a subspace of $V$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 15, Page 220'
+            },
+            // Flashcard 93
+            {
+                question: 'What is the range (or image) of a linear transformation?',
+                answer: 'The **range** (or **image**) of a linear transformation $T: V \\to W$, denoted $\\text{range}(T)$ or $R(T)$, is the set of all vectors $\\mathbf{w}$ in $W$ such that $\\mathbf{w} = T(\\mathbf{v})$ for some $\\mathbf{v}$ in $V$. It is a subspace of $W$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 15, Page 220'
+            },
+            // Flashcard 94
+            {
+                question: 'What is the Rank-Nullity Theorem?',
+                answer: 'The Rank-Nullity Theorem states that for a linear transformation $T: V \\to W$, where $V$ is a finite-dimensional vector space, $\\text{dim}(\\text{ker}(T)) + \\text{dim}(\\text{range}(T)) = \\text{dim}(V)$. In terms of matrices, for an $m \\times n$ matrix $A$, $\\text{nullity}(A) + \\text{rank}(A) = n$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 15, Page 221'
+            },
+            // Flashcard 95
+            {
+                question: 'What is the concept of "change of basis" for vectors?',
+                answer: 'Changing the basis for a vector means expressing the vector\'s coordinates with respect to a new set of basis vectors. If $\\mathcal{B} = \\{\\mathbf{b}_1, \\dots, \\mathbf{b}_n\\}$ is a basis for $\\mathbb{R}^n$, then any vector $\\mathbf{x}$ can be written as $\\mathbf{x} = c_1\\mathbf{b}_1 + \\dots + c_n\\mathbf{b}_n$. The coordinate vector of $\\mathbf{x}$ relative to $\\mathcal{B}$ is $[\\mathbf{x}]_\\mathcal{B} = \\begin{pmatrix} c_1 \\ \\vdots \\ c_n \\end{pmatrix}$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 226'
+            },
+            // Flashcard 96
+            {
+                question: 'How do you change the basis of a matrix representing a linear transformation?',
+                answer: 'If $A$ is the matrix representation of a linear transformation with respect to the standard basis, and $P$ is the change-of-basis matrix from a new basis $\\mathcal{B}$ to the standard basis, then the matrix representation of the transformation with respect to $\\mathcal{B}$ is $P^{-1}AP$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 229'
+            },
+            // Flashcard 97
+            {
+                question: 'What is the definition of a transition matrix?',
+                answer: 'A **transition matrix** (or change-of-coordinates matrix) from a basis $\\mathcal{B}$ to a basis $\\mathcal{C}$ is a matrix $P_{\\mathcal{C} \\leftarrow \\mathcal{B}}$ such that $[\\mathbf{x}]_\\mathcal{C} = P_ {\\mathcal{C} \\leftarrow \\mathcal{B}} [\\mathbf{x}]_\\mathcal{B}$. Its columns are the coordinate vectors of the basis vectors in $\\mathcal{B}$ with respect to the basis $\\mathcal{C}$.',
+                source: 'MT2175/Books/1_MT1173.pdf, Chapter 16, Page 227'
+            },
+            // Flashcard 98
+            {
+                question: 'How do you find the general solution of a system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$ when $A$ is a $2 \\times 2$ matrix with distinct real eigenvalues?',
+                answer: 'If $A$ has distinct real eigenvalues $\\lambda_1, \\lambda_2$ with corresponding eigenvectors $\\mathbf{v}_1, \\mathbf{v}_2$, then the general solution is $\\mathbf{y}(t) = C_1 e^{\\lambda_1 t}\\mathbf{v}_1 + C_2 e^{\\lambda_2 t}\\mathbf{v}_2$, where $C_1$ and $C_2$ are arbitrary constants.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10'
+            },
+            // Flashcard 99
+            {
+                question: 'What is the definition of a stable node in phase portraits?',
+                answer: 'For a $2 \\times 2$ system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, if $A$ has two distinct real eigenvalues that are both negative, the equilibrium point at the origin is a **stable node**. All trajectories approach the origin as $t \to \\infty$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            },
+            // Flashcard 100
+            {
+                question: 'What is the definition of an unstable node in phase portraits?',
+                answer: 'For a $2 \\times 2$ system of linear differential equations $\\mathbf{y}\' = A\\mathbf{y}$, if $A$ has two distinct real eigenvalues that are both positive, the equilibrium point at the origin is an **unstable node**. All trajectories move away from the origin as $t \to \\infty$.',
+                source: 'MT2175/Books/1_MT2175.pdf, Chapter 2, Page 10 (general concept)'
+            }
+        ];
+
+        let currentCardIndex = 0;
+        const flashcardContainer = document.querySelector('.flashcard-container');
+
+        function createFlashcardElement(cardData, index) {
+            const flashcardDiv = document.createElement('div');
+            flashcardDiv.classList.add('flashcard');
+            flashcardDiv.dataset.index = index;
+
+            const front = document.createElement('div');
+            front.classList.add('flashcard-front');
+            front.innerHTML = `<h3>Question ${index + 1}:</h3><p>${cardData.question}</p>`;
+
+            const back = document.createElement('div');
+            back.classList.add('flashcard-back');
+            back.innerHTML = `<h3>Answer ${index + 1}:</h3><p>${cardData.answer}</p><p class="source">Source: ${cardData.source}</p>`;
+
+            flashcardDiv.appendChild(front);
+            flashcardDiv.appendChild(back);
+
+            flashcardDiv.addEventListener('click', () => {
+                flashcardDiv.classList.toggle('flipped');
+            });
+
+            return flashcardDiv;
+        }
+
+        function renderFlashcards() {
+            flashcardContainer.innerHTML = '';
+            flashcardsData.forEach((card, index) => {
+                const cardElement = createFlashcardElement(card, index);
+                flashcardContainer.appendChild(cardElement);
+            });
+            document.getElementById('totalCards').textContent = flashcardsData.length;
+
+            const savedCardIndex = getCookie('flashcardProgress');
+            if (savedCardIndex !== null && !isNaN(savedCardIndex)) {
+                currentCardIndex = parseInt(savedCardIndex);
+            }
+
+            showCard(currentCardIndex);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]); // Render MathJax for all cards
+        }
+
+        function showCard(index) {
+            const cards = document.querySelectorAll('.flashcard');
+            cards.forEach((card, i) => {
+                card.style.left = `${(i - index) * 100}%`;
+                card.classList.remove('flipped'); // Ensure card is not flipped when navigating
+            });
+            currentCardIndex = index;
+            document.getElementById('currentCard').textContent = currentCardIndex + 1;
+            setCookie('flashcardProgress', currentCardIndex, 365); // Save for 365 days
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentCardIndex > 0) {
+                showCard(currentCardIndex - 1);
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentCardIndex < flashcardsData.length - 1) {
+                showCard(currentCardIndex + 1);
+            }
+        });
+
+        document.getElementById('flipBtn').addEventListener('click', () => {
+            const currentCardElement = document.querySelector(`.flashcard[data-index="${currentCardIndex}"]`);
+            if (currentCardElement) {
+                currentCardElement.classList.toggle('flipped');
+            }
+        });
+
+        renderFlashcards();
+    </script>
+</body>
+</html>
