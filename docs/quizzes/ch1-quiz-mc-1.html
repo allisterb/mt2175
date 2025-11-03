@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 Further Linear Algebra Quiz</title>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} 
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; color: #333; }
+        .quiz-container { max-width: 900px; margin: auto; background-color: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .question { margin-bottom: 30px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fefefe; }
+        .question h2 { color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .options label { display: block; margin-bottom: 10px; padding: 10px; border: 1px solid #eee; border-radius: 5px; background-color: #fdfdfd; cursor: pointer; transition: background-color 0.2s ease; }
+        .options label:hover { background-color: #e9f5ff; }
+        .options input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
+        .feedback { margin-top: 15px; padding: 12px; border-radius: 5px; font-weight: bold; }
+        .correct { background-color: #d4edda; border-color: #28a745; color: #155724; }
+        .incorrect { background-color: #f8d7da; border-color: #dc3545; color: #721c24; }
+        .explanation { margin-top: 15px; padding: 15px; background-color: #e2f0fb; border-left: 5px solid #3498db; border-radius: 5px; display: none; }
+        .explanation strong { color: #2c3e50; }
+        .show-explanation-btn { background-color: #3498db; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 15px; font-size: 1em; transition: background-color 0.2s ease; }
+        .show-explanation-btn:hover { background-color: #2188da; }
+        .clear-answers-btn { background-color: #e74c3c; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; margin-top: 40px; font-size: 1.1em; display: block; width: fit-content; margin-left: auto; margin-right: auto; transition: background-color 0.2s ease; }
+        .clear-answers-btn:hover { background-color: #c0392b; }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 20px; }
+        p { margin-bottom: 15px; }
+        .quiz-intro { background-color: #f0f8ff; border: 1px solid #b3d9ff; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>MT2175 Further Linear Algebra Quiz</h1>
+        <div class="quiz-intro">
+            <p>Welcome to your MT2175 Further Linear Algebra exam preparation quiz! This quiz focuses on <strong>Diagonalisation, Jordan Normal Form, and Differential Equations</strong>. It covers the following key topics:</p>
+            <ul>
+                <li>Solving systems of differential equations in which the underlying matrix is diagonalisable, by using the change of variable method.</li>
+                <li>Understanding Jordan matrices and the Jordan normal form of a matrix.</li>
+                <li>Using the Jordan normal form to solve systems of differential equations.</li>
+            </ul>
+            <p>Select your answers and click "Check Answer" to see if you're correct. Your progress will be saved automatically in your browser's cookies, allowing you to resume the quiz later if you leave the page. Good luck!</p>
+        </div>
+
+        <form id="linearAlgebraQuiz">
+            <!-- Questions will be inserted here by JavaScript -->
+        </form>
+
+        <button class="clear-answers-btn" onclick="clearAllAnswers()">Clear All Saved Answers and Reset Quiz</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the general form of a linear system of differential equations for functions $y_1(t), y_2(t), \\dots, y_n(t)$?",
+                options: [
+                    { text: "$y' = Ay + b$", value: "A" },
+                    { text: "$y' = Ay$", value: "B" },
+                    { text: "$y = Ay'$", value: "C" },
+                    { text: "$y' = A + y$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A linear system of differential equations for functions $y_1(t), y_2(t), \\dots, y_n(t)$ is generally expressed in matrix form as $y' = Ay$, where $A$ is an $n \\times n$ matrix of constants and $y$ is the vector of functions.",
+                source: "`1_MT2175.pdf`, Page 16, Section 2.2; `anthony.pdf`, Page 297, Section 9.3."
+            },
+            {
+                question: "If the matrix $A$ in the system $y' = Ay$ is diagonal, say $A = \\text{diag}(\\lambda_1, \\lambda_2, \\dots, \\lambda_n)$, what is the solution for $y_i(t)$?",
+                options: [
+                    { text: "$y_i(t) = c_i t e^{\\lambda_i t}$", value: "A" },
+                    { text: "$y_i(t) = c_i e^{\\lambda_i t}$", value: "B" },
+                    { text: "$y_i(t) = c_i \\lambda_i t$", value: "C" },
+                    { text: "$y_i(t) = c_i \\lambda_i e^t$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If $A$ is a diagonal matrix with diagonal entries $\\lambda_1, \\dots, \\lambda_n$, the system decouples into $y_i' = \\lambda_i y_i$ for each $i$. The general solution for such a first-order linear differential equation is $y_i(t) = c_i e^{\\lambda_i t}$, where $c_i$ is a constant determined by initial conditions.",
+                source: "`1_MT2175.pdf`, Page 16, Section 2.2; `anthony.pdf`, Page 297, Section 9.3."
+            },
+            {
+                question: "In the change of variable method for solving $y' = Ay$ where $A$ is diagonalisable, if $P^{-1}AP = D$ (diagonal), and we set $y = Pz$, what is the transformed system for $z$?",
+                options: [
+                    { text: "$z' = Az$", value: "A" },
+                    { text: "$z' = Pz$", value: "B" },
+                    { text: "$z' = Dz$", value: "C" },
+                    { text: "$z' = P^{-1}z$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "Given $y = Pz$, then $y' = Pz'$. Substituting into $y' = Ay$ gives $Pz' = APz$. Multiplying by $P^{-1}$ on the left yields $z' = P^{-1}APz$. Since $P^{-1}AP = D$, the transformed system is $z' = Dz$.",
+                source: "`1_MT2175.pdf`, Page 17, Section 2.3; `anthony.pdf`, Page 299, Section 9.3."
+            },
+            {
+                question: "Consider the system $y' = Ay$ with $A = \\begin{pmatrix} 7 & -15 \\ 2 & -4 \\end{pmatrix}$. If $P = \\begin{pmatrix} 5 & 3 \\ 2 & 1 \\end{pmatrix}$ and $D = \\begin{pmatrix} 1 & 0 \\ 0 & 2 \\end{pmatrix}$ such that $P^{-1}AP = D$. If $y = Pz$, what is the system for $z'$?",
+                options: [
+                    { text: "$z_1' = 7z_1 - 15z_2$, $z_2' = 2z_1 - 4z_2$", value: "A" },
+                    { text: "$z_1' = z_1$, $z_2' = 2z_2$", value: "B" },
+                    { text: "$z_1' = 5z_1 + 3z_2$, $z_2' = 2z_1 + z_2$", value: "C" },
+                    { text: "$z_1' = 5z_1$, $z_2' = 3z_2$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The transformed system is $z' = Dz$. Given $D = \\begin{pmatrix} 1 & 0 \\ 0 & 2 \\end{pmatrix}$, this means $z_1' = 1z_1$ and $z_2' = 2z_2$.",
+                source: "`1_MT2175.pdf`, Page 17, Section 2.3."
+            },
+            {
+                question: "After solving the diagonal system $z' = Dz$ to get $z(t)$, how do you find the original functions $y(t)$?",
+                options: [
+                    { text: "$y(t) = P^{-1}z(t)$", value: "A" },
+                    { text: "$y(t) = Pz(t)$", value: "B" },
+                    { text: "$y(t) = D z(t)$", value: "C" },
+                    { text: "$y(t) = P D z(t)$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The change of variable was defined as $y = Pz$. Therefore, to find $y(t)$ from $z(t)$, you simply multiply $P$ by $z(t)$.",
+                source: "`1_MT2175.pdf`, Page 17, Section 2.3."
+            },
+            {
+                question: "If $y(t)$ satisfies the differential equation $y' = ay$, what is the general solution for $y(t)$?",
+                options: [
+                    { text: "$y(t) = \\beta t^a$", value: "A" },
+                    { text: "$y(t) = \\beta a^t$", value: "B" },
+                    { text: "$y(t) = \\beta e^{at}$", value: "C" },
+                    { text: "$y(t) = \\beta \\ln(at)$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "This is a fundamental result for first-order linear differential equations. The general solution is an exponential function.",
+                source: "`1_MT2175.pdf`, Page 16, Section 2.2; `anthony.pdf`, Page 296, Section 9.3."
+            },
+            {
+                question: "Given the system $y' = Ay$ with initial conditions $y(0)$, and $y = Pz$. How are the initial conditions for $z(0)$ found?",
+                options: [
+                    { text: "$z(0) = P y(0)$", value: "A" },
+                    { text: "$z(0) = P^{-1} y(0)$", value: "B" },
+                    { text: "$z(0) = D y(0)$", value: "C" },
+                    { text: "$z(0) = P D y(0)$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Since $y = Pz$, it follows that $y(0) = Pz(0)$. To solve for $z(0)$, you multiply by $P^{-1}$ on the left: $z(0) = P^{-1}y(0)$.",
+                source: "`1_MT2175.pdf`, Page 19, Section 2.3."
+            },
+            {
+                question: "What is the purpose of diagonalisation in solving systems of differential equations?",
+                options: [
+                    { text: "To make the system more complex.", value: "A" },
+                    { text: "To transform the system into an uncoupled (diagonal) system that is easy to solve.", value: "B" },
+                    { text: "To find the inverse of the matrix $A$.", value: "C" },
+                    { text: "To determine if the matrix $A$ is invertible.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The core idea of the change of variable method using diagonalisation is to transform a coupled system of differential equations into a simpler, uncoupled system (where the matrix is diagonal) that can be solved independently for each variable.",
+                source: "`1_MT2175.pdf`, Page 16, Section 2.2."
+            },
+            {
+                question: "If $y' = Ay$ is an $n 	imes n$ system, what does $y$ represent?",
+                options: [
+                    { text: "A vector of constants.", value: "A" },
+                    { text: "A vector of functions $y_1(t), \\dots, y_n(t)$.", value: "B" },
+                    { text: "A scalar function.", value: "C" },
+                    { text: "A diagonal matrix.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "In the context of linear systems of differential equations, $y$ is a column vector whose entries are functions of $t$, i.e., $y = (y_1(t), \\dots, y_n(t))^T$.",
+                source: "`1_MT2175.pdf`, Page 16, Section 2.2."
+            },
+            {
+                question: "When solving $y' = Ay$ by diagonalisation, what do the diagonal entries of the matrix $D$ represent?",
+                options: [
+                    { text: "The eigenvectors of $A$.", value: "A" },
+                    { text: "The eigenvalues of $A$.", value: "B" },
+                    { text: "The initial conditions.", value: "C" },
+                    { text: "The constants of integration.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "In the diagonalisation $P^{-1}AP = D$, the diagonal matrix $D$ contains the eigenvalues of $A$. These eigenvalues become the coefficients in the exponential solutions of the uncoupled system.",
+                source: "`1_MT2175.pdf`, Page 18, Section 2.3."
+            },
+            {
+                question: "If $y_1' = 2y_1$ and $y_1(0) = 3$, what is $y_1(t)$?",
+                options: [
+                    { text: "$y_1(t) = 2e^{3t}$", value: "A" },
+                    { text: "$y_1(t) = 3e^{2t}$", value: "B" },
+                    { text: "$y_1(t) = 3t^2$", value: "C" },
+                    { text: "$y_1(t) = 2t^3$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The general solution is $y_1(t) = c e^{2t}$. Using the initial condition $y_1(0) = 3$, we have $3 = c e^{2(0)} = c$, so $c=3$. Thus, $y_1(t) = 3e^{2t}$.",
+                source: "`1_MT2175.pdf`, Page 16, Activity 2.1."
+            },
+            {
+                question: "What is a key requirement for the change of variable method using diagonalisation to be directly applicable to $y' = Ay$ ?",
+                options: [
+                    { text: "The matrix $A$ must be symmetric.", value: "A" },
+                    { text: "The matrix $A$ must be invertible.", value: "B" },
+                    { text: "The matrix $A$ must be diagonalisable.", value: "C" },
+                    { text: "The matrix $A$ must have all positive entries.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The entire method relies on finding an invertible matrix $P$ such that $P^{-1}AP$ is a diagonal matrix $D$. This is precisely the definition of a diagonalisable matrix.",
+                source: "`1_MT2175.pdf`, Page 15, Section 2.1."
+            },
+            {
+                question: "If $y = Pz$, and $P$ has constant entries, what is the relationship between $y'$ and $z'$?",
+                options: [
+                    { text: "$y' = P^{-1}z'$", value: "A" },
+                    { text: "$y' = z'$", value: "B" },
+                    { text: "$y' = Pz'$", value: "C" },
+                    { text: "$y' = P'z$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "If $y = Pz$ and $P$ is a matrix of constants, then differentiating both sides with respect to $t$ gives $y' = Pz'$.",
+                source: "`1_MT2175.pdf`, Page 18, Section 2.3, Activity 2.3."
+            },
+            {
+                question: "When solving a system of differential equations $y' = Ay$ using diagonalisation, what do the columns of the matrix $P$ typically consist of?",
+                options: [
+                    { text: "The eigenvalues of $A$.", value: "A" },
+                    { text: "The eigenvectors of $A$.", value: "B" },
+                    { text: "The initial conditions.", value: "C" },
+                    { text: "Randomly generated vectors.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The matrix $P$ used for diagonalisation ($P^{-1}AP = D$) is formed by using the eigenvectors of $A$ as its columns.",
+                source: "`1_MT2175.pdf`, Page 18, Section 2.3."
+            },
+            {
+                question: "What is the primary benefit of transforming a system of differential equations $y' = Ay$ into $z' = Dz$ where $D$ is diagonal?",
+                options: [
+                    { text: "It makes the system harder to solve.", value: "A" },
+                    { text: "It allows for complex number solutions.", value: "B" },
+                    { text: "It decouples the equations, allowing each $z_i'$ to be solved independently.", value: "C" },
+                    { text: "It changes the order of the differential equations.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A diagonal system $z' = Dz$ means that $z_i' = d_{ii}z_i$ for each $i$, which are independent first-order differential equations that are easy to solve.",
+                source: "`1_MT2175.pdf`, Page 16, Section 2.2."
+            },
+            {
+                question: "What is a key characteristic of a matrix that is *not* diagonalisable?",
+                options: [
+                    { text: "It has only real eigenvalues.", value: "A" },
+                    { text: "It has a full set of linearly independent eigenvectors.", value: "B" },
+                    { text: "It cannot be transformed into a diagonal matrix by similarity transformation.", value: "C" },
+                    { text: "Its determinant is zero.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A matrix is diagonalisable if and only if it is similar to a diagonal matrix. If it's not diagonalisable, it means such a transformation is not possible.",
+                source: "`1_MT2175.pdf`, Page 21, Section 2.4; `anthony.pdf`, Page 279, Section 8.3."
+            },
+            {
+                question: "What is a Jordan matrix?",
+                options: [
+                    { text: "A matrix with all zero entries.", value: "A" },
+                    { text: "A matrix that is always diagonal.", value: "B" },
+                    { text: "A matrix similar to a given square matrix, which is \"almost-diagonal\" and consists of Jordan blocks.", value: "C" },
+                    { text: "A matrix whose entries are all 1s.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "For any square matrix, even if not diagonalisable, there exists a similar matrix known as a Jordan matrix, which is \"almost-diagonal\" and composed of Jordan blocks. This is called the Jordan normal form.",
+                source: "`1_MT2175.pdf`, Page 21, Section 2.4."
+            },
+            {
+                question: "What is a Jordan block $B$ of size $k \\times k$?",
+                options: [
+                    { text: "A diagonal matrix with $\\lambda$ on the diagonal.", value: "A" },
+                    { text: "A matrix with $\\lambda$ on the main diagonal, 1s on the superdiagonal, and 0s elsewhere.", value: "B" },
+                    { text: "A matrix with 1s on the main diagonal and $\\lambda$s on the superdiagonal.", value: "C" },
+                    { text: "A matrix with all entries equal to $\\lambda$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A Jordan block $B$ of size $k \\times k$ has $\\lambda$s on the main diagonal, 1s on the superdiagonal (just above the main diagonal), and 0s elsewhere.",
+                source: "`1_MT2175.pdf`, Page 23, Section 2.4."
+            },
+            {
+                question: "If a matrix $A$ is similar to a Jordan matrix $J$, what is $J$ called?",
+                options: [
+                    { text: "The diagonal form of $A$.", value: "A" },
+                    { text: "The eigenvalue matrix of $A$.", value: "B" },
+                    { text: "The Jordan normal form of $A$.", value: "C" },
+                    { text: "The identity matrix of $A$.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The Jordan matrix $J$ that is similar to a given matrix $A$ is referred to as the Jordan normal form (or Jordan canonical form) of $A$.",
+                source: "`1_MT2175.pdf`, Page 23, Section 2.4."
+            },
+            {
+                question: "Is every square matrix diagonalisable?",
+                options: [
+                    { text: "Yes, always.", value: "A" },
+                    { text: "No, only if it has distinct eigenvalues.", value: "B" },
+                    { text: "No, but every square matrix is similar to a Jordan matrix.", value: "C" },
+                    { text: "Yes, if it is symmetric.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "Not every square matrix is diagonalisable. However, every square matrix is similar to a Jordan matrix (its Jordan normal form).",
+                source: "`1_MT2175.pdf`, Page 21, Section 2.4."
+            },
+            {
+                question: "What is the significance of the \"1\"s on the superdiagonal of a Jordan block?",
+                options: [
+                    { text: "They indicate that the matrix is invertible.", value: "A" },
+                    { text: "They represent the eigenvalues.", value: "B" },
+                    { text: "They signify that the matrix is not diagonalisable but can be simplified.", value: "C" },
+                    { text: "They are arbitrary entries with no special meaning.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The 1s on the superdiagonal are what make a Jordan block \"almost-diagonal\" but not fully diagonal, indicating that the matrix is not diagonalisable but can still be simplified to a canonical form.",
+                source: "`1_MT2175.pdf`, Page 21, Section 2.4."
+            },
+            {
+                question: "If $J_1$ and $J_2$ are two Jordan matrices similar to a given matrix $A$, how can they differ?",
+                options: [
+                    { text: "They must be identical.", value: "A" },
+                    { text: "They can differ only in the order of the Jordan blocks.", value: "B" },
+                    { text: "They can have different eigenvalues.", value: "C" },
+                    { text: "They can have different sizes.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The Jordan normal form of a matrix is unique up to the ordering of its Jordan blocks.",
+                source: "`1_MT2175.pdf`, Page 23, Section 2.4."
+            },
+            {
+                question: "Consider a $3 \\times 3$ matrix $B_1 = \\begin{pmatrix} \\lambda & 1 & 0 \\ 0 & \\lambda & 1 \\ 0 & 0 & \\lambda \\end{pmatrix}$. This is an example of:",
+                options: [
+                    { text: "A diagonal matrix.", value: "A" },
+                    { text: "A Jordan block.", value: "B" },
+                    { text: "An identity matrix.", value: "C" },
+                    { text: "A zero matrix.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "This matrix fits the definition of a Jordan block with $\\lambda$ on the main diagonal and 1s on the superdiagonal.",
+                source: "`1_MT2175.pdf`, Page 23, Section 2.4."
+            },
+            {
+                question: "What is a generalised eigenvector corresponding to an eigenvalue $\\lambda$?",
+                options: [
+                    { text: "A vector $v$ such that $(A - \\lambda I)v = 0$.", value: "A" },
+                    { text: "A vector $v$ such that $(A - \\lambda I)^k v = 0$ for some $k \\ge 1$, but $(A - \\lambda I)^{k-1} v \\ne 0$.", value: "B" },
+                    { text: "Any non-zero vector.", value: "C" },
+                    { text: "A vector that is orthogonal to all other vectors.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A generalised eigenvector is a vector that is annihilated by some power of $(A - \\lambda I)$, but not by a lower power. This concept is crucial for understanding Jordan normal form when a matrix is not diagonalisable.",
+                source: "`1_MT2175.pdf`, Page 25, Section 2.5."
+            },
+            {
+                question: "If a matrix $A$ is diagonalisable, then its Jordan normal form is:",
+                options: [
+                    { text: "A matrix with 1s on the superdiagonal.", value: "A" },
+                    { text: "A diagonal matrix.", value: "B" },
+                    { text: "A zero matrix.", value: "C" },
+                    { text: "Undefined.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If a matrix is diagonalisable, its Jordan normal form is simply the diagonal matrix containing its eigenvalues.",
+                source: "`1_MT2175.pdf`, Page 21, Section 2.4."
+            },
+            {
+                question: "What is the characteristic polynomial of an $n \\times n$ matrix $A$ ?",
+                options: [
+                    { text: "$\\det(A)$", value: "A" },
+                    { text: "$\\det(A - \\lambda I)$", value: "B" },
+                    { text: "$\\det(\\lambda I - A)$", value: "C" },
+                    { text: "Both B and C (up to a sign).", value: "D" }
+                ],
+                correctAnswer: "D",
+                explanation: "The characteristic polynomial is defined as $\\det(A - \\lambda I)$ or $\\det(\\lambda I - A)$. These differ by a factor of $(-1)^n$, but both yield the same eigenvalues.",
+                source: "`anthony.pdf`, Page 264, Definition 8.2."
+            },
+            {
+                question: "What are the roots of the characteristic equation $\\det(A - \\lambda I) = 0$ called?",
+                options: [
+                    { text: "Eigenvectors.", value: "A" },
+                    { text: "Jordan blocks.", value: "B" },
+                    { text: "Eigenvalues.", value: "C" },
+                    { text: "Determinants.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The values of $\\lambda$ that satisfy the characteristic equation are the eigenvalues of the matrix $A$.",
+                source: "`anthony.pdf`, Page 264, Definition 8.2."
+            },
+            {
+                question: "What is the algebraic multiplicity of an eigenvalue $\\lambda_0$?",
+                options: [
+                    { text: "The number of linearly independent eigenvectors for $\\lambda_0$.", value: "A" },
+                    { text: "The dimension of the eigenspace for $\\lambda_0$.", value: "B" },
+                    { text: "The largest integer $k$ such that $(\\lambda - \\lambda_0)^k$ is a factor of the characteristic polynomial.", value: "C" },
+                    { text: "The number of times $\\lambda_0$ appears on the diagonal of the Jordan normal form.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The algebraic multiplicity of an eigenvalue $\\lambda_0$ is defined as the power of $(\\lambda - \\lambda_0)$ in the characteristic polynomial.",
+                source: "`1_MT2175.pdf`, Page 285, Definition 8.39."
+            },
+            {
+                question: "What is the geometric multiplicity of an eigenvalue $\\lambda_0$?",
+                options: [
+                    { text: "The largest integer $k$ such that $(\\lambda - \\lambda_0)^k$ is a factor of the characteristic polynomial.", value: "A" },
+                    { text: "The dimension of the null space $N(A - \\lambda_0 I)$.", value: "B" },
+                    { text: "The number of times $\\lambda_0$ appears on the diagonal of the Jordan normal form.", value: "C" },
+                    { text: "The number of linearly dependent eigenvectors for $\\lambda_0$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The geometric multiplicity of an eigenvalue $\\lambda_0$ is the dimension of its eigenspace, which is $N(A - \\lambda_0 I)$. This represents the number of linearly independent eigenvectors for $\\lambda_0$.",
+                source: "`1_MT2175.pdf`, Page 285, Definition 8.40."
+            },
+            {
+                question: "For a matrix to be diagonalisable, what must be true about the algebraic and geometric multiplicities of each eigenvalue?",
+                options: [
+                    { text: "Algebraic multiplicity must be greater than geometric multiplicity.", value: "A" },
+                    { text: "Geometric multiplicity must be greater than algebraic multiplicity.", value: "B" },
+                    { text: "They must be equal for all eigenvalues.", value: "C" },
+                    { text: "They are unrelated.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A matrix is diagonalisable if and only if all its eigenvalues are real and, for each eigenvalue, its geometric multiplicity equals its algebraic multiplicity.",
+                source: "`1_MT2175.pdf`, Page 287, Theorem 8.42."
+            },
+            {
+                question: "When solving $y' = Ay$ using Jordan normal form, if $A$ is not diagonalisable, we transform it to $z' = Jz$. What is the general solution for $w_k$ in a Jordan block system $w' = Bw$ where $B$ is a $k \\times k$ Jordan block with eigenvalue $\\lambda$?",
+                options: [
+                    { text: "$w_k = c_k t e^{\\lambda t}$", value: "A" },
+                    { text: "$w_k = c_k e^{\\lambda t}$", value: "B" },
+                    { text: "$w_k = c_k \\lambda t$", value: "C" },
+                    { text: "$w_k = c_k \\lambda e^t$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "For a Jordan block system $w' = Bw$, the last component $w_k$ satisfies $w_k' = \\lambda w_k$, which has the solution $w_k = c_k e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 28, Theorem 2.2."
+            },
+            {
+                question: "For a Jordan block system $w' = Bw$ with eigenvalue $\\lambda$, what is the general solution for $w_{k-1}$?",
+                options: [
+                    { text: "$w_{k-1} = c_{k-1}e^{\\lambda t}$", value: "A" },
+                    { text: "$w_{k-1} = c_{k-1}e^{\\lambda t} + c_k t e^{\\lambda t}$", value: "B" },
+                    { text: "$w_{k-1} = c_{k-1}t e^{\\lambda t}$", value: "C" },
+                    { text: "$w_{k-1} = c_{k-1}e^{\\lambda t} + c_k e^{\\lambda t}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The equation for $w_{k-1}$ is $w_{k-1}' = \\lambda w_{k-1} + w_k$. Substituting $w_k = c_k e^{\\lambda t}$ and solving this first-order linear differential equation yields $w_{k-1} = c_{k-1}e^{\\lambda t} + c_k t e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 28, Theorem 2.2."
+            },
+            {
+                question: "If a system of differential equations $y' = Ay$ is transformed into $z' = Jz$ using Jordan normal form, and $J$ consists of multiple Jordan blocks, how are the solutions for $z$ obtained?",
+                options: [
+                    { text: "By solving a single large system.", value: "A" },
+                    { text: "By solving separate sub-systems for each Jordan block.", value: "B" },
+                    { text: "By ignoring the Jordan blocks.", value: "C" },
+                    { text: "By diagonalising each Jordan block.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If $J$ is a block diagonal matrix of Jordan blocks, the system $z' = Jz$ can be separated into independent sub-systems, one for each Jordan block, which can be solved individually.",
+                source: "`1_MT2175.pdf`, Page 28, Section 2.5."
+            },
+            {
+                question: "After finding the solution $z(t)$ from $z' = Jz$, how do you obtain the solution for the original system $y(t)$?",
+                options: [
+                    { text: "$y(t) = P^{-1}z(t)$", value: "A" },
+                    { text: "$y(t) = Pz(t)$", value: "B" },
+                    { text: "$y(t) = Jz(t)$", value: "C" },
+                    { text: "$y(t) = P^{-1}Jz(t)$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The change of variable is $y = Pz$. So, once $z(t)$ is found, $y(t)$ is obtained by multiplying $P$ by $z(t)$.",
+                source: "`1_MT2175.pdf`, Page 26, Section 2.5."
+            },
+            {
+                question: "What is the general solution for $w_1$ in a $2 \\times 2$ Jordan block system $w' = Bw$ with eigenvalue $\\lambda$?",
+                options: [
+                    { text: "$w_1 = c_1 e^{\\lambda t}$", value: "A" },
+                    { text: "$w_1 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t}$", value: "B" },
+                    { text: "$w_1 = c_1 t e^{\\lambda t}$", value: "C" },
+                    { text: "$w_1 = c_2 e^{\\lambda t}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "For a $2 \\times 2$ Jordan block, $w_2 = c_2 e^{\\lambda t}$ and $w_1' = \\lambda w_1 + w_2$. Solving this gives $w_1 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 29, Section 2.5."
+            },
+            {
+                question: "What is the general solution for $w_2$ in a $2 \\times 2$ Jordan block system $w' = Bw$ with eigenvalue $\\lambda$?",
+                options: [
+                    { text: "$w_2 = c_1 e^{\\lambda t}$", value: "A" },
+                    { text: "$w_2 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t}$", value: "B" },
+                    { text: "$w_2 = c_2 e^{\\lambda t}$", value: "C" },
+                    { text: "$w_2 = c_2 t e^{\\lambda t}$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "For a $2 \\times 2$ Jordan block, the last component $w_2$ satisfies $w_2' = \\lambda w_2$, which has the solution $w_2 = c_2 e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 29, Section 2.5."
+            },
+            {
+                question: "When solving systems of differential equations using Jordan normal form, what does the matrix $P$ consist of?",
+                options: [
+                    { text: "Eigenvalues and constants.", value: "A" },
+                    { text: "Eigenvectors and generalised eigenvectors.", value: "B" },
+                    { text: "Only eigenvectors.", value: "C" },
+                    { text: "Only generalised eigenvectors.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The matrix $P$ that transforms $A$ into its Jordan normal form $J$ has columns that are eigenvectors and/or generalised eigenvectors of $A$.",
+                source: "`1_MT2175.pdf`, Page 25, Section 2.5."
+            },
+            {
+                question: "If $A$ is not diagonalisable, why is using its Jordan normal form $J$ still beneficial for solving $y' = Ay$?",
+                options: [
+                    { text: "Because $J$ is always a diagonal matrix.", value: "A" },
+                    { text: "Because $J$ is simpler to work with than $A$, even if not fully diagonal.", value: "B" },
+                    { text: "Because $J$ eliminates the need for initial conditions.", value: "C" },
+                    { text: "Because $J$ allows for arbitrary solutions.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Even if $A$ is not diagonalisable, its Jordan normal form $J$ is \"almost-diagonal\" and structured into blocks, making the system $z' = Jz$ easier to solve than the original system $y' = Ay$.",
+                source: "`1_MT2175.pdf`, Page 26, Section 2.5."
+            },
+            {
+                question: "What is the general solution for $w_1$ in a $3 \\times 3$ Jordan block system $w' = Bw$ with eigenvalue $\\lambda$?",
+                options: [
+                    { text: "$w_1 = c_1 e^{\\lambda t}$", value: "A" },
+                    { text: "$w_1 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t}$", value: "B" },
+                    { text: "$w_1 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t} + c_3 \\frac{t^2}{2} e^{\\lambda t}$", value: "C" },
+                    { text: "$w_1 = c_3 e^{\\lambda t}$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "For a $3 \\times 3$ Jordan block, the solutions are $w_3 = c_3 e^{\\lambda t}$, $w_2 = c_2 e^{\\lambda t} + c_3 t e^{\\lambda t}$, and $w_1 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t} + c_3 \\frac{t^2}{2} e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 29, Section 2.5."
+            },
+            {
+                question: "What is the general solution for $w_2$ in a $3 \\times 3$ Jordan block system $w' = Bw$ with eigenvalue $\\lambda$?",
+                options: [
+                    { text: "$w_2 = c_2 e^{\\lambda t}$", value: "A" },
+                    { text: "$w_2 = c_2 e^{\\lambda t} + c_3 t e^{\\lambda t}$", value: "B" },
+                    { text: "$w_2 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t} + c_3 \\frac{t^2}{2} e^{\\lambda t}$", value: "C" },
+                    { text: "$w_2 = c_3 e^{\\lambda t}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "For a $3 \\times 3$ Jordan block, the solutions are $w_3 = c_3 e^{\\lambda t}$, $w_2 = c_2 e^{\\lambda t} + c_3 t e^{\\lambda t}$, and $w_1 = c_1 e^{\\lambda t} + c_2 t e^{\\lambda t} + c_3 \\frac{t^2}{2} e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 29, Section 2.5."
+            },
+            {
+                question: "Which of the following is a necessary condition for a matrix $A$ to be diagonalisable?",
+                options: [
+                    { text: "$A$ must be symmetric.", value: "A" },
+                    { text: "$A$ must have $n$ linearly independent eigenvectors.", value: "B" },
+                    { text: "$A$ must have all real eigenvalues.", value: "C" },
+                    { text: "$A$ must be invertible.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A matrix $A$ is diagonalisable if and only if it has $n$ linearly independent eigenvectors (where $n$ is the dimension of the matrix).",
+                source: "`anthony.pdf`, Page 275, Theorem 8.21."
+            },
+            {
+                question: "The trace of a square matrix $A$ is equal to:",
+                options: [
+                    { text: "The product of its eigenvalues.", value: "A" },
+                    { text: "The sum of its eigenvalues.", value: "B" },
+                    { text: "The determinant of $A$.", value: "C" },
+                    { text: "The largest eigenvalue.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The trace of a square matrix is the sum of its diagonal entries, and it is also equal to the sum of its eigenvalues.",
+                source: "`anthony.pdf`, Page 270, Theorem 8.15."
+            },
+            {
+                question: "The determinant of a square matrix $A$ is equal to:",
+                options: [
+                    { text: "The sum of its eigenvalues.", value: "A" },
+                    { text: "The product of its eigenvalues.", value: "B" },
+                    { text: "The trace of $A$.", value: "C" },
+                    { text: "The largest eigenvalue.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The determinant of a square matrix is equal to the product of its eigenvalues.",
+                source: "`anthony.pdf`, Page 269, Theorem 8.11."
+            },
+            {
+                question: "If $A$ is a diagonalisable matrix, then its Jordan normal form is:",
+                options: [
+                    { text: "A matrix with 1s on the superdiagonal.", value: "A" },
+                    { text: "A diagonal matrix.", value: "B" },
+                    { text: "A zero matrix.", value: "C" },
+                    { text: "Undefined.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If a matrix is diagonalisable, its Jordan normal form is simply the diagonal matrix containing its eigenvalues.",
+                source: "`1_MT2175.pdf`, Page 21, Section 2.4."
+            },
+            {
+                question: "What is the rank-nullity theorem for an $m \\times n$ matrix $A$ ?",
+                options: [
+                    { text: "$\\text{rank}(A) + \\text{nullity}(A) = m$", value: "A" },
+                    { text: "$\\text{rank}(A) + \\text{nullity}(A) = n$", value: "B" },
+                    { text: "$\\text{rank}(A) - \\text{nullity}(A) = n$", value: "C" },
+                    { text: "$\\text{rank}(A) \\times \\text{nullity}(A) = n$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The rank-nullity theorem states that for an $m \\times n$ matrix $A$, the rank of $A$ plus the nullity of $A$ equals the number of columns $n$.",
+                source: "`anthony.pdf`, Page 198, Theorem 6.58."
+            },
+            {
+                question: "What is an orthogonal matrix $P$ ?",
+                options: [
+                    { text: "A matrix where $P^T = P$.", value: "A" },
+                    { text: "A matrix where $P^{-1} = P$.", value: "B" },
+                    { text: "A matrix where $P^T P = I$.", value: "C" },
+                    { text: "A matrix with all orthogonal columns.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "An $n \\times n$ matrix $P$ is orthogonal if $P^T P = P P^T = I$, meaning its inverse is its transpose.",
+                source: "`1_MT2175.pdf`, Page 42, Definition 3.4; `anthony.pdf`, Page 319, Definition 10.15."
+            },
+            {
+                question: "What is a Hermitian matrix?",
+                options: [
+                    { text: "A complex matrix $A$ such that $A^T = A$.", value: "A" },
+                    { text: "A complex matrix $A$ such that $A^* = A$.", value: "B" },
+                    { text: "A complex matrix $A$ such that $A^* = -A$.", value: "C" },
+                    { text: "A complex matrix with all real entries.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A Hermitian matrix is a complex matrix that is equal to its own Hermitian conjugate ($A^* = \\overline{A}^T$).",
+                source: "`1_MT2175.pdf`, Page 117, Definition 7.10; `anthony.pdf`, Page 408, Definition 13.49."
+            },
+            {
+                question: "What is a unitary matrix?",
+                options: [
+                    { text: "A complex matrix $P$ such that $P^T P = I$.", value: "A" },
+                    { text: "A complex matrix $P$ such that $P^* P = I$.", value: "B" },
+                    { text: "A complex matrix $P$ such that $P^* = P$.", value: "C" },
+                    { text: "A complex matrix with all real eigenvalues.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "An $n \\times n$ complex matrix $P$ is unitary if $P^* P = P P^* = I$, meaning its inverse is its Hermitian conjugate.",
+                source: "`1_MT2175.pdf`, Page 117, Definition 7.11; `anthony.pdf`, Page 410, Definition 13.56."
+            },
+            {
+                question: "What is the Gram-Schmidt orthonormalisation process used for?",
+                options: [
+                    { text: "To find the eigenvalues of a matrix.", value: "A" },
+                    { text: "To convert a set of linearly independent vectors into an orthonormal set.", value: "B" },
+                    { text: "To solve systems of differential equations.", value: "C" },
+                    { text: "To determine if a matrix is diagonalisable.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The Gram-Schmidt process is an algorithm for orthogonalising a set of vectors in an inner product space, typically followed by normalisation to make them orthonormal.",
+                source: "`1_MT2175.pdf`, Page 43, Section 3.4; `anthony.pdf`, Page 321, Section 10.4."
+            },
+            {
+                question: "If $A$ is a symmetric matrix, what can be said about its eigenvalues?",
+                options: [
+                    { text: "They are always complex.", value: "A" },
+                    { text: "They are always real.", value: "B" },
+                    { text: "They can be real or complex.", value: "C" },
+                    { text: "They are always zero.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A fundamental property of symmetric matrices is that all their eigenvalues are real.",
+                source: "`1_MT2175.pdf`, Page 332, Theorem 11.7; `anthony.pdf`, Page 332, Theorem 11.7."
+            },
+            {
+                question: "What is the definition of an inner product $\\langle u, v \\rangle$ on a real vector space $V$ ?",
+                options: [
+                    { text: "A function that returns a vector.", value: "A" },
+                    { text: "A function that returns a scalar and satisfies four axioms (symmetry, additivity, homogeneity, positivity).", value: "B" },
+                    { text: "A function that returns a complex number.", value: "C" },
+                    { text: "A function that only applies to Euclidean space.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "An inner product is a function that takes two vectors and returns a scalar, satisfying specific axioms: symmetry ($\\langle u,v \\rangle = \\langle v,u \\rangle$), additivity ($\\langle u+v,z \\rangle = \\langle u,z \\rangle + \\langle v,z \\rangle$), homogeneity ($\\langle ku,v \\rangle = k\\langle u,v \\rangle$), and positivity ($\\langle v,v \\rangle \\ge 0$, and $\\langle v,v \\rangle = 0$ iff $v=0$).",
+                source: "`anthony.pdf`, Page 183, Definition 6.1; `1_MT2175.pdf`, Page 329, Definition 10.1."
+            },
+            {
+                question: "What is the Cauchy-Schwarz inequality for vectors $u$ and $v$ in a real inner product space?",
+                options: [
+                    { text: "$\\langle u,v \\rangle \\le ||u|| + ||v||$", value: "A" },
+                    { text: "$|\\langle u,v \\rangle| \\le ||u|| ||v||$", value: "B" },
+                    { text: "$||u+v|| \\le ||u|| ||v||$", value: "C" },
+                    { text: "$\\langle u,v \\rangle = 0$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The Cauchy-Schwarz inequality states that the absolute value of the inner product of two vectors is less than or equal to the product of their norms: $|\\langle u,v \\rangle| \\le ||u|| ||v||$.",
+                source: "`anthony.pdf`, Page 199, Theorem 6.2.1; `1_MT2175.pdf`, Page 331, Theorem 10.7."
+            },
+            {
+                question: "Two vectors $u$ and $v$ in an inner product space are called orthogonal if:",
+                options: [
+                    { text: "$\\langle u,v \\rangle = 1$", value: "A" },
+                    { text: "$\\langle u,v \\rangle = ||u|| ||v||$", value: "B" },
+                    { text: "$\\langle u,v \\rangle = 0$", value: "C" },
+                    { text: "$u = v$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "By definition, two vectors are orthogonal if their inner product is zero.",
+                source: "`anthony.pdf`, Page 203, Definition; `1_MT2175.pdf`, Page 333, Definition 10.9."
+            },
+            {
+                question: "What is the Pythagorean Theorem in an inner product space for orthogonal vectors $u$ and $v$?",
+                options: [
+                    { text: "$||u+v|| = ||u|| + ||v||$", value: "A" },
+                    { text: "$||u+v||^2 = ||u||^2 + ||v||^2$", value: "B" },
+                    { text: "$||u-v||^2 = ||u||^2 - ||v||^2$", value: "C" },
+                    { text: "$||u+v||^2 = ||u||^2 - ||v||^2$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The Pythagorean Theorem generalizes to inner product spaces: if $u$ and $v$ are orthogonal, then $||u+v||^2 = ||u||^2 + ||v||^2$.",
+                source: "`anthony.pdf`, Page 7, Theorem 4.1.7; `1_MT2175.pdf`, Page 333, Theorem 10.12."
+            },
+            {
+                question: "What is an orthonormal set of vectors?",
+                options: [
+                    { text: "A set of vectors where all pairs are orthogonal.", value: "A" },
+                    { text: "A set of vectors where each vector has norm 1.", value: "B" },
+                    { text: "A set of vectors where all pairs are orthogonal and each vector has norm 1.", value: "C" },
+                    { text: "A set of vectors that are linearly dependent.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "An orthonormal set is a set of vectors where every distinct pair is orthogonal, and each vector has a norm (length) of 1.",
+                source: "`anthony.pdf`, Page 217, Definition; `1_MT2175.pdf`, Page 320, Definition 10.19."
+            },
+            {
+                question: "If $S = \\{v_1, v_2, \\dots, v_r\\}$ is a set of vectors in $R^n$ and $r > n$, what can be said about $S$?",
+                options: [
+                    { text: "$S$ is linearly independent.", value: "A" },
+                    { text: "$S$ is linearly dependent.", value: "B" },
+                    { text: "$S$ forms a basis for $R^n$.", value: "C" },
+                    { text: "$S$ spans $R^n$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A set of vectors in $R^n$ with more than $n$ vectors is always linearly dependent. This is a consequence of the fact that the maximum size of a linearly independent set in $R^n$ is $n$.",
+                source: "`anthony.pdf`, Page 114, Theorem 5.3.3."
+            },
+            {
+                question: "What is the definition of a basis for a vector space $V$ ?",
+                options: [
+                    { text: "A set of vectors that spans $V$.", value: "A" },
+                    { text: "A set of vectors that is linearly independent.", value: "B" },
+                    { text: "A set of vectors that is linearly independent and spans $V$.", value: "C" },
+                    { text: "Any set of $n$ vectors in an $n$-dimensional space.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A basis for a vector space $V$ is a set of vectors that is both linearly independent and spans $V$.",
+                source: "`anthony.pdf`, Page 124, Definition 5.4.1."
+            },
+            {
+                question: "If $A$ is an $m \\times n$ matrix, what is the relationship between its row space and column space dimensions?",
+                options: [
+                    { text: "$\\text{dim(row space)} > \\text{dim(column space)}$", value: "A" },
+                    { text: "$\\text{dim(row space)} < \\text{dim(column space)}$", value: "B" },
+                    { text: "$\\text{dim(row space)} = \\text{dim(column space)}$", value: "C" },
+                    { text: "They are unrelated.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A fundamental theorem states that the row space and column space of any matrix have the same dimension, which is equal to the rank of the matrix.",
+                source: "`anthony.pdf`, Page 160, Theorem 5.6.1."
+            },
+            {
+                question: "What is the nullspace of a matrix $A$?",
+                options: [
+                    { text: "The set of all vectors $x$ such that $Ax = b$ for some $b \\ne 0$.", value: "A" },
+                    { text: "The set of all vectors $x$ such that $Ax = 0$.", value: "B" },
+                    { text: "The set of all column vectors of $A$.", value: "C" },
+                    { text: "The set of all row vectors of $A$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The nullspace (or kernel) of a matrix $A$ is the set of all vectors $x$ that satisfy the homogeneous equation $Ax = 0$.",
+                source: "`anthony.pdf`, Page 144, Definition; `1_MT2175.pdf`, Page 78, Definition 2.28."
+            },
+            {
+                question: "What is the relationship between the nullspace of $A$ and the row space of $A$ with respect to the Euclidean inner product?",
+                options: [
+                    { text: "They are identical.", value: "A" },
+                    { text: "They are orthogonal complements.", value: "B" },
+                    { text: "They are linearly dependent.", value: "C" },
+                    { text: "They always span $R^n$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The nullspace of $A$ and the row space of $A$ are orthogonal complements in $R^n$ with respect to the Euclidean inner product.",
+                source: "`anthony.pdf`, Page 206, Theorem 6.2.6."
+            },
+            {
+                question: "If $A$ is an $n \\times n$ matrix, and $T_A: R^n \\to R^n$ is multiplication by $A$, which of the following statements is equivalent to $A$ being invertible?",
+                options: [
+                    { text: "$Ax = 0$ has only the trivial solution.", value: "A" },
+                    { text: "The reduced row-echelon form of $A$ is $I_n$.", value: "B" },
+                    { text: "$\\det(A) \\ne 0$.", value: "C" },
+                    { text: "All of the above.", value: "D" }
+                ],
+                correctAnswer: "D",
+                explanation: "These are all equivalent statements from the comprehensive theorem on invertible matrices.",
+                source: "`anthony.pdf`, Page 44, Theorem 4.3.1; `1_MT2175.pdf`, Page 95, Theorem 3.8; `anthony.pdf`, Page 208, Theorem 6.2.7."
+            },
+            {
+                question: "What is the definition of a linear transformation $T: V \\to W$ ?",
+                options: [
+                    { text: "A function that maps vectors to scalars.", value: "A" },
+                    { text: "A function that preserves vector addition and scalar multiplication.", value: "B" },
+                    { text: "A function that maps all vectors to the zero vector.", value: "C" },
+                    { text: "A function that is always invertible.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A linear transformation is a function between vector spaces that preserves the operations of vector addition ($T(u+v) = T(u) + T(v)$) and scalar multiplication ($T(cu) = cT(u)$).",
+                source: "`anthony.pdf`, Page 18, Definition; `1_MT2175.pdf`, Page 226, Definition 7.1."
+            },
+            {
+                question: "If $T: R^n \\to R^m$ is a linear transformation, and $e_1, \\dots, e_n$ are the standard basis vectors for $R^n$, what is the standard matrix for $T$ ?",
+                options: [
+                    { text: "A matrix whose rows are $T(e_i)$.", value: "A" },
+                    { text: "A matrix whose columns are $T(e_i)$.", value: "B" },
+                    { text: "The identity matrix.", value: "C" },
+                    { text: "The zero matrix.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The standard matrix for a linear transformation $T$ is formed by using the images of the standard basis vectors, $T(e_1), T(e_2), \\dots, T(e_n)$, as its columns.",
+                source: "`anthony.pdf`, Page 48, Theorem 4.3.3; `1_MT2175.pdf`, Page 229, Theorem 7.8."
+            },
+            {
+                question: "What is an affine transformation?",
+                options: [
+                    { text: "A linear transformation.", value: "A" },
+                    { text: "A transformation of the form $S(u) = T(u) + f$, where $T$ is linear and $f$ is a constant vector.", value: "B" },
+                    { text: "A transformation that maps all vectors to the origin.", value: "C" },
+                    { text: "A transformation that is always one-to-one.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "An affine transformation is a generalization of a linear transformation, including a constant translation vector.",
+                source: "`anthony.pdf`, Page 65, Definition."
+            },
+            {
+                question: "What is the Gram-Schmidt process primarily used for in inner product spaces?",
+                options: [
+                    { text: "To find eigenvalues.", value: "A" },
+                    { text: "To construct an orthogonal or orthonormal basis from an arbitrary basis.", value: "B" },
+                    { text: "To calculate determinants.", value: "C" },
+                    { text: "To solve linear systems.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The Gram-Schmidt process is a method for converting a set of linearly independent vectors into an orthogonal set, which can then be normalized to form an orthonormal set.",
+                source: "`anthony.pdf`, Page 225, Example 7; `1_MT2175.pdf`, Page 321, Section 10.4."
+            },
+            {
+                question: "What is the definition of the norm (or length) $||u||$ of a vector $u$ in an inner product space $V$?",
+                options: [
+                    { text: "$||u|| = \\langle u,u \\rangle$", value: "A" },
+                    { text: "$||u|| = \\sqrt{\\langle u,u \\rangle}$", value: "B" },
+                    { text: "$||u|| = |\\langle u,u \\rangle|$", value: "C" },
+                    { text: "$||u|| = \\langle u,v \\rangle$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The norm of a vector is defined as the square root of its inner product with itself.",
+                source: "`anthony.pdf`, Page 185, Definition; `1_MT2175.pdf`, Page 331, Definition 10.6."
+            },
+            {
+                question: "What is the definition of the distance $d(u,v)$ between two vectors $u$ and $v$ in an inner product space?",
+                options: [
+                    { text: "$d(u,v) = ||u|| + ||v||$", value: "A" },
+                    { text: "$d(u,v) = ||u-v||$", value: "B" },
+                    { text: "$d(u,v) = \\langle u,v \\rangle$", value: "C" },
+                    { text: "$d(u,v) = ||u|| - ||v||$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The distance between two vectors is defined as the norm of their difference.",
+                source: "`anthony.pdf`, Page 185, Definition; `1_MT2175.pdf`, Page 331, Definition 10.6."
+            },
+            {
+                question: "What is the best approximation theorem in the context of orthogonal projections?",
+                options: [
+                    { text: "It states that any vector in a subspace is the best approximation.", value: "A" },
+                    { text: "It states that the orthogonal projection of a vector $u$ onto a subspace $W$ is the best approximation to $u$ from $W$.", value: "B" },
+                    { text: "It states that the zero vector is always the best approximation.", value: "C" },
+                    { text: "It states that the closest vector is always outside the subspace.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The best approximation theorem states that for a finite-dimensional subspace $W$ of an inner product space $V$, the orthogonal projection of a vector $u$ onto $W$ (proj$_W u$) is the vector in $W$ that is closest to $u$.",
+                source: "`anthony.pdf`, Page 237, Theorem 6.4.1; `1_MT2175.pdf`, Page 395, Theorem 12.30."
+            },
+            {
+                question: "What is a least squares solution to $Ax=b$?",
+                options: [
+                    { text: "An exact solution to $Ax=b$.", value: "A" },
+                    { text: "A vector $x$ that minimizes $||Ax-b||$.", value: "B" },
+                    { text: "A vector $x$ that makes $Ax=0$.", value: "C" },
+                    { text: "A vector $x$ that is orthogonal to $b$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A least squares solution is a vector $x$ that minimizes the Euclidean norm of the residual vector $Ax-b$, which is a measure of the error when $Ax=b$ is inconsistent.",
+                source: "`anthony.pdf`, Page 238, Least Squares Problem; `1_MT2175.pdf`, Page 396, Section 12.7.1."
+            },
+            {
+                question: "What is the normal system associated with $Ax=b$?",
+                options: [
+                    { text: "$Ax=0$", value: "A" },
+                    { text: "$A^T Ax = A^T b$", value: "B" },
+                    { text: "$A^{-1} Ax = A^{-1} b$", value: "C" },
+                    { text: "$Ax = b^T$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The normal system for $Ax=b$ is $A^T Ax = A^T b$. Solutions to this system are the least squares solutions of $Ax=b$.",
+                source: "`anthony.pdf`, Page 239, Normal System; `1_MT2175.pdf`, Page 397, Section 12.7.2."
+            },
+            {
+                question: "If $A$ has linearly independent column vectors, what can be said about $A^T A$?",
+                options: [
+                    { text: "$A^T A$ is singular.", value: "A" },
+                    { text: "$A^T A$ is invertible.", value: "B" },
+                    { text: "$A^T A$ is a zero matrix.", value: "C" },
+                    { text: "$A^T A$ is diagonal.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If a matrix $A$ has linearly independent column vectors, then the matrix $A^T A$ is invertible.",
+                source: "`anthony.pdf`, Page 240, Theorem 6.4.3; `1_MT2175.pdf`, Page 393, Example 12.29."
+            },
+            {
+                question: "What is the standard basis for $R^n$?",
+                options: [
+                    { text: "Any set of $n$ linearly independent vectors.", value: "A" },
+                    { text: "The set of vectors $e_1, e_2, \\dots, e_n$ where $e_i$ has a 1 in the $i$-th position and 0s elsewhere.", value: "B" },
+                    { text: "The set of all zero vectors.", value: "C" },
+                    { text: "The set of all vectors with integer entries.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The standard basis for $R^n$ consists of the vectors $e_1, e_2, \\dots, e_n$, where $e_i$ has a 1 in the $i$-th position and 0s in all other positions.",
+                source: "`anthony.pdf`, Page 126, Example 2; `1_MT2175.pdf`, Page 193, Section 6.1.2."
+            },
+            {
+                question: "What is the definition of a finite-dimensional vector space?",
+                options: [
+                    { text: "A vector space with an infinite number of vectors.", value: "A" },
+                    { text: "A vector space that has a finite basis.", value: "B" },
+                    { text: "A vector space where all vectors are real.", value: "C" },
+                    { text: "A vector space where all operations are standard.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A nonzero vector space is called finite-dimensional if it contains a finite set of vectors that forms a basis.",
+                source: "`anthony.pdf`, Page 129, Definition; `1_MT2175.pdf`, Page 204, Definition 6.38."
+            },
+            {
+                question: "What is the definition of an infinite-dimensional vector space?",
+                options: [
+                    { text: "A vector space with an infinite number of vectors.", value: "A" },
+                    { text: "A vector space that has no finite basis.", value: "B" },
+                    { text: "A vector space where all vectors are complex.", value: "C" },
+                    { text: "A vector space where all operations are non-standard.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A vector space is infinite-dimensional if it does not have a finite basis.",
+                source: "`anthony.pdf`, Page 129, Definition; `1_MT2175.pdf`, Page 204, Definition 6.38."
+            },
+            {
+                question: "What is the definition of a complex vector space?",
+                options: [
+                    { text: "A vector space where the scalars are real numbers.", value: "A" },
+                    { text: "A vector space where the scalars are complex numbers.", value: "B" },
+                    { text: "A vector space where all vectors are complex numbers.", value: "C" },
+                    { text: "A vector space with complex operations.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A complex vector space is a vector space where the scalars used for scalar multiplication are complex numbers.",
+                source: "`anthony.pdf`, Page 80, Remark; `1_MT2175.pdf`, Page 398, Definition 13.24."
+            },
+            {
+                question: "What is the Hermitian conjugate $A^*$ of a complex matrix $A$?",
+                options: [
+                    { text: "The transpose of $A$.", value: "A" },
+                    { text: "The complex conjugate of $A$.", value: "B" },
+                    { text: "The transpose of the complex conjugate of $A$ ($A^* = \\overline{A}^T$).", value: "C" },
+                    { text: "The inverse of $A$.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The Hermitian conjugate of a complex matrix $A$ is denoted $A^*$ and is defined as the transpose of its complex conjugate, $A^* = \\overline{A}^T$.",
+                source: "`1_MT2175.pdf`, Page 121, Definition 7.9; `anthony.pdf`, Page 407, Definition 13.46."
+            },
+            {
+                question: "What is a normal matrix $A$?",
+                options: [
+                    { text: "A matrix where $A^T A = A A^T$.", value: "A" },
+                    { text: "A complex matrix where $A^* A = A A^*$.", value: "B" },
+                    { text: "A matrix that is always diagonalisable.", value: "C" },
+                    { text: "A matrix with all real eigenvalues.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "An $n \\times n$ complex matrix $A$ is called normal if $A^* A = A A^*$.",
+                source: "`1_MT2175.pdf`, Page 125, Definition 7.13; `anthony.pdf`, Page 412, Definition 13.64."
+            },
+            {
+                question: "What is the spectral decomposition of a normal matrix $A$ with orthonormal eigenvectors $x_1, \\dots, x_n$ and corresponding eigenvalues $\\lambda_1, \\dots, \\lambda_n$?",
+                options: [
+                    { text: "$A = \\sum_{i=1}^n \\lambda_i x_i$", value: "A" },
+                    { text: "$A = \\sum_{i=1}^n x_i x_i^*$", value: "B" },
+                    { text: "$A = \\sum_{i=1}^n \\lambda_i x_i x_i^*$", value: "C" },
+                    { text: "$A = \\sum_{i=1}^n \\lambda_i^2 x_i$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The spectral decomposition of a normal matrix $A$ is given by $A = \\sum_{i=1}^n \\lambda_i x_i x_i^*$, where $x_i x_i^*$ are projection matrices onto the eigenspaces.",
+                source: "`1_MT2175.pdf`, Page 127, Theorem 7.15; `anthony.pdf`, Page 416, Theorem 13.70."
+            },
+            {
+                question: "What is the definition of a diagonalisable matrix?",
+                options: [
+                    { text: "A matrix that is similar to a diagonal matrix.", value: "A" },
+                    { text: "A matrix that is similar to a Jordan matrix.", value: "B" },
+                    { text: "A matrix whose eigenvalues are all distinct.", value: "C" },
+                    { text: "A matrix whose determinant is non-zero.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "A matrix $A$ is diagonalisable if there exists an invertible matrix $P$ such that $P^{-1}AP$ is a diagonal matrix.",
+                source: "`anthony.pdf`, Page 272, Definition 8.17."
+            },
+            {
+                question: "What is the definition of an orthogonal projection of $R^m$ on a subspace $W$?",
+                options: [
+                    { text: "A transformation that maps every vector to the zero vector.", value: "A" },
+                    { text: "A transformation that maps every vector $x$ in $R^m$ into its orthogonal projection proj$_W x$ in $W$.", value: "B" },
+                    { text: "A transformation that maps every vector to itself.", value: "C" },
+                    { text: "A transformation that scales vectors.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The orthogonal projection of $R^m$ on a subspace $W$ is the transformation that maps each vector $x$ in $R^m$ to its orthogonal projection onto $W$.",
+                source: "`anthony.pdf`, Page 243, Definition."
+            },
+            {
+                question: "What is the standard matrix for the orthogonal projection $P$ of $R^2$ on the line $l$ that passes through the origin and makes an angle $\\theta$ with the positive $x$-axis?",
+                options: [
+                    { text: "$P = \\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\ \\sin\\theta & \\cos\\theta \\end{pmatrix}$", value: "A" },
+                    { text: "$P = \\begin{pmatrix} \\cos^2\\theta & \\sin\\theta\\cos\\theta \\ \\sin\\theta\\cos\\theta & \\sin^2\\theta \\end{pmatrix}$", value: "B" },
+                    { text: "$P = \\begin{pmatrix} 1 & 0 \\ 0 & 1 \\end{pmatrix}$", value: "C" },
+                    { text: "$P = \\begin{pmatrix} 0 & 0 \\ 0 & 0 \\end{pmatrix}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The standard matrix for the orthogonal projection onto a line through the origin at angle $\\theta$ is given by $P = \\begin{pmatrix} \\cos^2\\theta & \\sin\\theta\\cos\\theta \\ \\sin\\theta\\cos\\theta & \\sin^2\\theta \\end{pmatrix}$.",
+                source: "`anthony.pdf`, Page 243, Example 4."
+            },
+            {
+                question: "What is the definition of a transition matrix $P$ from basis $B'$ to basis $B$?",
+                options: [
+                    { text: "A matrix that transforms vectors from standard coordinates to $B$ coordinates.", value: "A" },
+                    { text: "A matrix whose columns are the coordinate vectors of the new basis vectors relative to the old basis.", value: "B" },
+                    { text: "A matrix whose rows are the coordinate vectors of the new basis vectors relative to the old basis.", value: "C" },
+                    { text: "The inverse of the identity matrix.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The transition matrix $P$ from basis $B'$ to basis $B$ has columns that are the coordinate vectors of the new basis vectors (from $B'$) expressed in terms of the old basis ($B$).",
+                source: "`anthony.pdf`, Page 252, Definition; `1_MT2175.pdf`, Page 241, Definition 7.27."
+            },
+            {
+                question: "If $P$ is the transition matrix from basis $B'$ to basis $B$, and $[v]_{B'}$ is the coordinate vector of $v$ relative to $B'$, how do you find $[v]_B$?",
+                options: [
+                    { text: "$[v]_B = P^{-1}[v]_{B'}$", value: "A" },
+                    { text: "$[v]_B = P[v]_{B'}$", value: "B" },
+                    { text: "$[v]_B = [v]_{B'}$", value: "C" },
+                    { text: "$[v]_B = P^T[v]_{B'}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The relationship is $[v]_B = P[v]_{B'}$, where $P$ is the transition matrix from $B'$ to $B$.",
+                source: "`anthony.pdf`, Page 254, Formula 8; `1_MT2175.pdf`, Page 240, Section 7.3.1."
+            },
+            {
+                question: "What is the definition of a linear combination of vectors $v_1, \\dots, v_r$?",
+                options: [
+                    { text: "The sum of the vectors.", value: "A" },
+                    { text: "A vector $w = k_1 v_1 + \\dots + k_r v_r$ where $k_i$ are scalars.", value: "B" },
+                    { text: "The product of the vectors.", value: "C" },
+                    { text: "A vector that is orthogonal to all $v_i$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A linear combination of vectors is a sum of scalar multiples of those vectors.",
+                source: "`anthony.pdf`, Page 97, Definition; `1_MT2175.pdf`, Page 153, Section 5.1.3."
+            },
+            {
+                question: "What does it mean for a set of vectors to be linearly independent?",
+                options: [
+                    { text: "At least one vector is a scalar multiple of another.", value: "A" },
+                    { text: "The only linear combination that equals the zero vector is the trivial one (all scalars are zero).", value: "B" },
+                    { text: "The vectors span the entire vector space.", value: "C" },
+                    { text: "The vectors are all orthogonal to each other.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A set of vectors is linearly independent if the only way to form the zero vector as a linear combination of them is by setting all scalar coefficients to zero.",
+                source: "`anthony.pdf`, Page 109, Definition; `1_MT2175.pdf`, Page 173, Definition 6.1."
+            },
+            {
+                question: "What does it mean for a set of vectors to span a vector space $V$?",
+                options: [
+                    { text: "The set is linearly independent.", value: "A" },
+                    { text: "Every vector in $V$ can be expressed as a linear combination of the vectors in the set.", value: "B" },
+                    { text: "The set contains the zero vector.", value: "C" },
+                    { text: "The set is orthogonal.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A set of vectors spans a vector space $V$ if every vector in $V$ can be written as a linear combination of the vectors in the set.",
+                source: "`anthony.pdf`, Page 99, Definition; `1_MT2175.pdf`, Page 176, Definition 5.32."
+            },
+            {
+                question: "If a set of vectors contains the zero vector, what can be said about its linear independence?",
+                options: [
+                    { text: "It is always linearly independent.", value: "A" },
+                    { text: "It is always linearly dependent.", value: "B" },
+                    { text: "It depends on the other vectors.", value: "C" },
+                    { text: "It forms a basis.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Any finite set of vectors that contains the zero vector is linearly dependent, because you can form a non-trivial linear combination equal to the zero vector by assigning a non-zero scalar to the zero vector and zero to all others.",
+                source: "`anthony.pdf`, Page 112, Theorem 5.3.2a; `1_MT2175.pdf`, Page 175, Theorem 6.9."
+            },
+            {
+                question: "What is the definition of a subspace $W$ of a vector space $V$?",
+                options: [
+                    { text: "Any subset of $V$.", value: "A" },
+                    { text: "A subset of $V$ that is non-empty and closed under vector addition and scalar multiplication.", value: "B" },
+                    { text: "A subset of $V$ that contains only the zero vector.", value: "C" },
+                    { text: "A subset of $V$ that is linearly independent.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A subspace $W$ of a vector space $V$ is a non-empty subset of $V$ that is itself a vector space under the same operations as $V$. This is equivalent to being non-empty and closed under vector addition and scalar multiplication.",
+                source: "`anthony.pdf`, Page 90, Theorem 5.2.1; `1_MT2175.pdf`, Page 170, Definition 5.15."
+            },
+            {
+                question: "What is the definition of the row space of a matrix $A$?",
+                options: [
+                    { text: "The linear span of its column vectors.", value: "A" },
+                    { text: "The linear span of its row vectors (written as vectors).", value: "B" },
+                    { text: "The set of all solutions to $Ax=0$.", value: "C" },
+                    { text: "The set of all vectors $b$ for which $Ax=b$ is consistent.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The row space of a matrix $A$ is the linear span of its row vectors.",
+                source: "`anthony.pdf`, Page 144, Definition; `1_MT2175.pdf`, Page 177, Definition 5.35."
+            },
+            {
+                question: "What is the definition of the column space of a matrix $A$?",
+                options: [
+                    { text: "The linear span of its column vectors.", value: "A" },
+                    { text: "The linear span of its row vectors.", value: "B" },
+                    { text: "The set of all solutions to $Ax=0$.", value: "C" },
+                    { text: "The set of all vectors $b$ for which $Ax=b$ is consistent.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "The column space of a matrix $A$ is the linear span of its column vectors. It is also equivalent to the range of $A$.",
+                source: "`anthony.pdf`, Page 144, Definition; `1_MT2175.pdf`, Page 177, Definition 5.34."
+            },
+            {
+                question: "What is the relationship between the range of a matrix $A$ and its column space?",
+                options: [
+                    { text: "They are always different.", value: "A" },
+                    { text: "The range is a subset of the column space.", value: "B" },
+                    { text: "The column space is a subset of the range.", value: "C" },
+                    { text: "They are the same set of vectors.", value: "D" }
+                ],
+                correctAnswer: "D",
+                explanation: "The range of a matrix $A$ (the set of all possible vectors $Ax$) is precisely the same as its column space (the linear span of its column vectors).",
+                source: "`1_MT2175.pdf`, Page 177, Section 5.3.1."
+            },
+            {
+                question: "What is the definition of the dimension of a finite-dimensional vector space $V$?",
+                options: [
+                    { text: "The number of vectors in $V$.", value: "A" },
+                    { text: "The number of vectors in any basis for $V$.", value: "B" },
+                    { text: "The maximum number of linearly dependent vectors in $V$.", value: "C" },
+                    { text: "The number of rows in its matrix representation.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The dimension of a finite-dimensional vector space is the number of vectors in any of its bases. All bases for a given finite-dimensional vector space have the same number of vectors.",
+                source: "`anthony.pdf`, Page 131, Definition; `1_MT2175.pdf`, Page 204, Definition 6.38."
+            },
+            {
+                question: "What is the definition of a direct sum $U \\oplus W$ of two subspaces $U$ and $W$?",
+                options: [
+                    { text: "The union of $U$ and $W$.", value: "A" },
+                    { text: "The sum $U+W$ where $U \\cap W = \\{0\\}$.", value: "B" },
+                    { text: "The intersection of $U$ and $W$.", value: "C" },
+                    { text: "The sum $U+W$ where $U = W$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A sum of two subspaces $U+W$ is a direct sum, denoted $U \\oplus W$, if their intersection contains only the zero vector ($U \\cap W = \\{0\\}$). This implies that every vector in the sum can be written uniquely as $u+w$.",
+                source: "`1_MT2175.pdf`, Page 365, Definition 12.4."
+            },
+            {
+                question: "What is the definition of an orthogonal projection $P_U$ of $V$ onto $U$ parallel to $W$?",
+                options: [
+                    { text: "A function that maps every vector in $V$ to the zero vector.", value: "A" },
+                    { text: "A function that maps $v = u+w$ to $u$, where $u \\in U$ and $w \\in W$ and $V = U \\oplus W$.", value: "B" },
+                    { text: "A function that maps $v = u+w$ to $w$, where $u \\in U$ and $w \\in W$.", value: "C" },
+                    { text: "A function that maps every vector to itself.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Given $V = U \\oplus W$, the projection $P_U$ maps any vector $v \\in V$ (uniquely written as $v = u+w$) to its component in $U$, i.e., $P_U(v) = u$.",
+                source: "`1_MT2175.pdf`, Page 372, Definition 12.17."
+            },
+            {
+                question: "What property must a linear transformation $P$ satisfy to be a projection?",
+                options: [
+                    { text: "$P^T = P$", value: "A" },
+                    { text: "$P^2 = I$", value: "B" },
+                    { text: "$P^2 = P$", value: "C" },
+                    { text: "$\\det(P) = 0$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A linear transformation is a projection if and only if it is idempotent, meaning $P^2 = P$.",
+                source: "`1_MT2175.pdf`, Page 375, Theorem 12.26."
+            },
+            {
+                question: "What additional property must a projection matrix $P$ have to be an *orthogonal* projection?",
+                options: [
+                    { text: "$P$ must be invertible.", value: "A" },
+                    { text: "$P$ must be symmetric ($P^T = P$).", value: "B" },
+                    { text: "$P$ must be a zero matrix.", value: "C" },
+                    { text: "$P$ must be diagonal.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A projection $P$ is an orthogonal projection if and only if it is also symmetric ($P^T = P$).",
+                source: "`1_MT2175.pdf`, Page 376, Theorem 12.27."
+            },
+            {
+                question: "What is the formula for the orthogonal projection matrix $P$ onto the range $R(A)$ of a matrix $A$ with rank $n$?",
+                options: [
+                    { text: "$P = A(A^T A)^{-1} A^T$", value: "A" },
+                    { text: "$P = A^T (A A^T)^{-1} A$", value: "B" },
+                    { text: "$P = A A^T$", value: "C" },
+                    { text: "$P = (A^T A)^{-1}$", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "For an $m \\times n$ matrix $A$ of rank $n$, the matrix $P = A(A^T A)^{-1} A^T$ represents the orthogonal projection onto the range of $A$.",
+                source: "`1_MT2175.pdf`, Page 377, Theorem 12.28."
+            },
+            {
+                question: "What is the definition of a quadratic form $q(x)$?",
+                options: [
+                    { text: "An expression of the form $x^T A x$ where $A$ is any matrix.", value: "A" },
+                    { text: "An expression of the form $x^T A x$ where $A$ is a symmetric matrix.", value: "B" },
+                    { text: "An expression of the form $Ax = b$.", value: "C" },
+                    { text: "An expression of the form $x^T x$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A quadratic form is an expression of the form $x^T A x$, where $A$ is a symmetric matrix.",
+                source: "`1_MT2175.pdf`, Page 356, Definition 11.22."
+            },
+            {
+                question: "If all eigenvalues of the symmetric matrix $A$ of a quadratic form $q(x) = x^T A x$ are positive, then $q(x)$ is:",
+                options: [
+                    { text: "Negative definite.", value: "A" },
+                    { text: "Positive semi-definite.", value: "B" },
+                    { text: "Positive definite.", value: "C" },
+                    { text: "Indefinite.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "For a symmetric matrix $A$, the quadratic form $q(x) = x^T A x$ is positive definite if and only if all eigenvalues of $A$ are positive.",
+                source: "`1_MT2175.pdf`, Page 358, Theorem 11.27."
+            },
+            {
+                question: "If a symmetric matrix $A$ has some positive and some negative eigenvalues, then the quadratic form $q(x) = x^T A x$ is:",
+                options: [
+                    { text: "Positive definite.", value: "A" },
+                    { text: "Negative definite.", value: "B" },
+                    { text: "Positive semi-definite.", value: "C" },
+                    { text: "Indefinite.", value: "D" }
+                ],
+                correctAnswer: "D",
+                explanation: "If a symmetric matrix $A$ has both positive and negative eigenvalues, the corresponding quadratic form is indefinite.",
+                source: "`1_MT2175.pdf`, Page 358, Theorem 11.27."
+            },
+            {
+                question: "What is the definition of an orthogonal diagonalisation?",
+                options: [
+                    { text: "Finding an invertible matrix $P$ such that $P^{-1}AP$ is diagonal.", value: "A" },
+                    { text: "Finding an orthogonal matrix $P$ such that $P^T AP$ is diagonal.", value: "B" },
+                    { text: "Finding a diagonal matrix $D$ such that $D = A$.", value: "C" },
+                    { text: "Finding a matrix $P$ such that $P^T P = A$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A matrix $A$ is orthogonally diagonalisable if there is an orthogonal matrix $P$ such that $P^T AP = D$, where $D$ is a diagonal matrix.",
+                source: "`1_MT2175.pdf`, Page 345, Definition 11.1."
+            },
+            {
+                question: "What kind of matrices can be orthogonally diagonalised?",
+                options: [
+                    { text: "Any square matrix.", value: "A" },
+                    { text: "Only invertible matrices.", value: "B" },
+                    { text: "Only symmetric matrices.", value: "C" },
+                    { text: "Only diagonal matrices.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The spectral theorem for symmetric matrices states that a matrix is orthogonally diagonalisable if and only if it is symmetric.",
+                source: "`1_MT2175.pdf`, Page 347, Theorem 11.5."
+            },
+            {
+                question: "If $A$ is an $n \\times n$ symmetric matrix, what can be said about its eigenvectors corresponding to distinct eigenvalues?",
+                options: [
+                    { text: "They are linearly dependent.", value: "A" },
+                    { text: "They are orthogonal.", value: "B" },
+                    { text: "They are identical.", value: "C" },
+                    { text: "They are complex conjugates.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "For a symmetric matrix, eigenvectors corresponding to distinct eigenvalues are orthogonal.",
+                source: "`1_MT2175.pdf`, Page 348, Theorem 11.8."
+            },
+            {
+                question: "What is the definition of a Markov chain transition matrix?",
+                options: [
+                    { text: "A matrix with all positive entries.", value: "A" },
+                    { text: "A matrix where all entries are non-negative and the sum of entries in each column is 1.", value: "B" },
+                    { text: "A matrix where the sum of entries in each row is 1.", value: "C" },
+                    { text: "A matrix with only 0s and 1s.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A transition matrix for a Markov chain has non-negative entries, and the sum of the entries in each column is 1.",
+                source: "`1_MT2175.pdf`, Page 292, Definition 9.15."
+            },
+            {
+                question: "For a stochastic matrix $C$, what is always an eigenvalue?",
+                options: [
+                    { text: "$0$", value: "A" },
+                    { text: "$1$", value: "B" },
+                    { text: "$-1$", value: "C" },
+                    { text: "Any real number.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If $C$ is a stochastic matrix, then $\\lambda = 1$ is always an eigenvalue, and the vector $(1, 1, \\dots, 1)^T$ is a corresponding eigenvector.",
+                source: "`1_MT2175.pdf`, Page 295, Theorem 9.21."
+            },
+            {
+                question: "If $A$ is the transition matrix of a regular Markov chain, what can be said about its eigenvalues?",
+                options: [
+                    { text: "All eigenvalues are 1.", value: "A" },
+                    { text: "$\\lambda = 1$ is an eigenvalue of multiplicity 1, and all other eigenvalues $\\lambda_i$ satisfy $|\\lambda_i| < 1$.", value: "B" },
+                    { text: "All eigenvalues are complex.", value: "C" },
+                    { text: "All eigenvalues are negative.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "For a regular Markov chain, $\\lambda = 1$ is an eigenvalue of multiplicity 1, and all other eigenvalues have a modulus less than 1. This ensures a unique long-term distribution.",
+                source: "`1_MT2175.pdf`, Page 294, Theorem 9.19."
+            },
+            {
+                question: "What is the exponential form of a complex number $z = a+ib$?",
+                options: [
+                    { text: "$z = r(\\cos\\theta + i\\sin\\theta)$", value: "A" },
+                    { text: "$z = re^{i\\theta}$", value: "B" },
+                    { text: "$z = a - ib$", value: "C" },
+                    { text: "$z = \\sqrt{a^2+b^2}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The exponential form of a complex number $z$ is $re^{i\\theta}$, where $r$ is the modulus and $\\theta$ is the argument, derived from Euler's formula $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$.",
+                source: "`1_MT2175.pdf`, Page 112, Definition 7.4; `anthony.pdf`, Page 396, Definition 13.17."
+            },
+            {
+                question: "What is De Moivre's Formula?",
+                options: [
+                    { text: "$e^{i\\theta} = \\cos\\theta + i\\sin\\theta$", value: "A" },
+                    { text: "$(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$", value: "B" },
+                    { text: "$z = a+ib$", value: "C" },
+                    { text: "$|z| = \\sqrt{a^2+b^2}$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "De Moivre's Formula states that $(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$, which is useful for finding powers of complex numbers.",
+                source: "`1_MT2175.pdf`, Page 112, Theorem 7.3; `anthony.pdf`, Page 395, Theorem 13.16."
+            },
+            {
+                question: "What is the general solution for $w_j$ in a Jordan block system $w' = Bw$ with eigenvalue $\\lambda$?",
+                options: [
+                    { text: "$w_j = c_j e^{\\lambda t}$", value: "A" },
+                    { text: "$w_j = c_j e^{\\lambda t} + c_{j+1} t e^{\\lambda t}$", value: "B" },
+                    { text: "$w_j = \\sum_{p=0}^{k-j} c_{j+p} \\frac{t^p}{p!} e^{\\lambda t}$", value: "C" },
+                    { text: "$w_j = c_k \\frac{t^{k-j}}{(k-j)!} e^{\\lambda t}$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The general solution for $w_j$ in a Jordan block system is a sum involving powers of $t$ up to $t^{k-j}$, multiplied by $e^{\\lambda t}$. Specifically, $w_j = c_j e^{\\lambda t} + c_{j+1} t e^{\\lambda t} + c_{j+2} \\frac{t^2}{2} e^{\\lambda t} + \\dots + c_k \\frac{t^{k-j}}{(k-j)!} e^{\\lambda t}$.",
+                source: "`1_MT2175.pdf`, Page 28, Theorem 2.2."
+            },
+            {
+                question: "If $A$ is a diagonalisable matrix, how can $A^n$ be calculated efficiently?",
+                options: [
+                    { text: "By multiplying $A$ by itself $n$ times.", value: "A" },
+                    { text: "Using $A^n = P D^n P^{-1}$, where $D$ is diagonal.", value: "B" },
+                    { text: "Using $A^n = D^n$.", value: "C" },
+                    { text: "Using $A^n = P^{-1} D^n P$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "If $A$ is diagonalisable, $A = P D P^{-1}$, then $A^n = (P D P^{-1})(P D P^{-1}) \\dots (P D P^{-1}) = P D^n P^{-1}$, which is efficient because $D^n$ is easy to compute (just raise diagonal entries to the power $n$).",
+                source: "`1_MT2175.pdf`, Page 280, Section 9.1."
+            },
+            {
+                question: "What is the purpose of the change of variable method in solving systems of difference equations $x_{t+1} = Ax_t$?",
+                options: [
+                    { text: "To make the matrix $A$ symmetric.", value: "A" },
+                    { text: "To transform the system into an uncoupled system $u_{t+1} = Du_t$ where $D$ is diagonal.", value: "B" },
+                    { text: "To find the inverse of $A$.", value: "C" },
+                    { text: "To calculate the determinant of $A$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Similar to differential equations, for difference equations, the change of variable $x_t = P u_t$ transforms $x_{t+1} = Ax_t$ into $u_{t+1} = D u_t$, which is an uncoupled system easy to solve.",
+                source: "`1_MT2175.pdf`, Page 302, Section 9.2.4."
+            },
+            {
+                question: "If $A$ is a positive definite symmetric matrix, what can be said about its principal minors?",
+                options: [
+                    { text: "All principal minors are negative.", value: "A" },
+                    { text: "All principal minors are zero.", value: "B" },
+                    { text: "All principal minors are positive.", value: "C" },
+                    { text: "Principal minors alternate in sign.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A symmetric matrix $A$ is positive definite if and only if all its principal minors are positive.",
+                source: "`1_MT2175.pdf`, Page 345, Theorem 11.32."
+            },
+            {
+                question: "If $A$ is a negative definite symmetric matrix, what can be said about its principal minors?",
+                options: [
+                    { text: "All principal minors are positive.", value: "A" },
+                    { text: "All principal minors are negative.", value: "B" },
+                    { text: "Principal minors alternate in sign, with the first one negative.", value: "C" },
+                    { text: "Principal minors are all zero.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A symmetric matrix $A$ is negative definite if and only if its principal minors of even order are positive and its principal minors of odd order are negative (i.e., they alternate in sign, starting with negative).",
+                source: "`1_MT2175.pdf`, Page 345, Theorem 11.34."
+            },
+            {
+                question: "What is the definition of a weak generalised inverse $A^g$ of a matrix $A$?",
+                options: [
+                    { text: "$A^g A = I$", value: "A" },
+                    { text: "$A A^g = I$", value: "B" },
+                    { text: "$A A^g A = A$", value: "C" },
+                    { text: "$A^g A A^g = A^g$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A weak generalised inverse $A^g$ of a matrix $A$ is any matrix such that $A A^g A = A$.",
+                source: "`1_MT2175.pdf`, Page 77, Definition 6.3."
+            },
+            {
+                question: "What is the definition of a strong generalised inverse $A^G$ (Moore-Penrose pseudoinverse) of a matrix $A$?",
+                options: [
+                    { text: "$A A^G A = A$ and $A^G A A^G = A^G$.", value: "A" },
+                    { text: "$A A^G = I$ and $A^G A = I$.", value: "B" },
+                    { text: "$A^G = A^{-1}$.", value: "C" },
+                    { text: "$A^G = A^T$.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "A strong generalised inverse $A^G$ satisfies four conditions, two of which are $A A^G A = A$ and $A^G A A^G = A^G$. It is unique for any given matrix.",
+                source: "`1_MT2175.pdf`, Page 79, Definition 6.4."
+            },
+            {
+                question: "What is the main advantage of the strong generalised inverse over a weak generalised inverse?",
+                options: [
+                    { text: "It always exists.", value: "A" },
+                    { text: "It is unique.", value: "B" },
+                    { text: "It makes the associated projections orthogonal.", value: "C" },
+                    { text: "All of the above.", value: "D" }
+                ],
+                correctAnswer: "D",
+                explanation: "The strong generalised inverse is unique, always exists, and has the property that it makes the associated projections (e.g., $A A^G$ and $A^G A$) orthogonal.",
+                source: "`1_MT2175.pdf`, Page 79, Section 6.3."
+            },
+            {
+                question: "What is the polar form of a complex number $z = a+ib$?",
+                options: [
+                    { text: "$z = a+ib$", value: "A" },
+                    { text: "$z = r e^{i\\theta}$", value: "B" },
+                    { text: "$z = r(\\cos\\theta + i\\sin\\theta)$", value: "C" },
+                    { text: "$z = \\sqrt{a^2+b^2}$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The polar form of a complex number $z$ is $r(\\cos\\theta + i\\sin\\theta)$, where $r$ is the modulus and $\\theta$ is the argument.",
+                source: "`1_MT2175.pdf`, Page 111, Definition 7.3; `anthony.pdf`, Page 394, Definition 13.12."
+            },
+            {
+                question: "What is the modulus of a complex number $z = a+ib$?",
+                options: [
+                    { text: "$a$", value: "A" },
+                    { text: "$b$", value: "B" },
+                    { text: "$\\sqrt{a^2+b^2}$", value: "C" },
+                    { text: "$a^2+b^2$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "The modulus of a complex number $z = a+ib$ is $r = \\sqrt{a^2+b^2}$, representing its distance from the origin in the complex plane.",
+                source: "`1_MT2175.pdf`, Page 111, Definition 7.3; `anthony.pdf`, Page 394, Definition 13.12."
+            },
+            {
+                question: "What is the argument of a complex number $z = a+ib$?",
+                options: [
+                    { text: "The angle $\\theta$ such that $a = r\\cos\\theta$ and $b = r\\sin\\theta$.", value: "A" },
+                    { text: "The modulus $r$.", value: "B" },
+                    { text: "The real part $a$.", value: "C" },
+                    { text: "The imaginary part $b$.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "The argument of a complex number is the angle $\\theta$ it makes with the positive real axis in the complex plane, where $a = r\\cos\\theta$ and $b = r\\sin\\theta$.",
+                source: "`1_MT2175.pdf`, Page 111, Definition 7.3; `anthony.pdf`, Page 394, Definition 13.12."
+            },
+            {
+                question: "What is the relationship between the eigenvalues of a Hermitian matrix?",
+                options: [
+                    { text: "They are always complex.", value: "A" },
+                    { text: "They are always real.", value: "B" },
+                    { text: "They are always zero.", value: "C" },
+                    { text: "They are always distinct.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A key property of Hermitian matrices is that all their eigenvalues are real.",
+                source: "`1_MT2175.pdf`, Page 117, Theorem 7.7; `anthony.pdf`, Page 409, Theorem 13.52."
+            },
+            {
+                question: "What is the relationship between eigenvectors of a Hermitian matrix corresponding to distinct eigenvalues?",
+                options: [
+                    { text: "They are linearly dependent.", value: "A" },
+                    { text: "They are orthogonal.", value: "B" },
+                    { text: "They are identical.", value: "C" },
+                    { text: "They are complex conjugates.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "For a Hermitian matrix, eigenvectors corresponding to distinct eigenvalues are orthogonal.",
+                source: "`1_MT2175.pdf`, Page 117, Theorem 7.9; `anthony.pdf`, Page 410, Theorem 13.54."
+            },
+            {
+                question: "What is the definition of a unitarily diagonalisable matrix?",
+                options: [
+                    { text: "A matrix that is similar to a diagonal matrix.", value: "A" },
+                    { text: "A matrix for which there is a unitary matrix $P$ such that $P^*AP$ is diagonal.", value: "B" },
+                    { text: "A matrix that is similar to a Jordan matrix.", value: "C" },
+                    { text: "A matrix with all real eigenvalues.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A matrix $A$ is unitarily diagonalisable if there exists a unitary matrix $P$ such that $P^*AP = D$, where $D$ is a diagonal matrix.",
+                source: "`1_MT2175.pdf`, Page 124, Definition 7.12; `anthony.pdf`, Page 412, Definition 13.62."
+            },
+            {
+                question: "What kind of complex matrices can be unitarily diagonalised?",
+                options: [
+                    { text: "Only Hermitian matrices.", value: "A" },
+                    { text: "Only unitary matrices.", value: "B" },
+                    { text: "Only normal matrices.", value: "C" },
+                    { text: "Any complex matrix.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A complex matrix is unitarily diagonalisable if and only if it is a normal matrix.",
+                source: "`1_MT2175.pdf`, Page 125, Theorem 7.13; `anthony.pdf`, Page 413, Theorem 13.66."
+            },
+            {
+                question: "What is the definition of the spectral decomposition of a normal matrix $A$?",
+                options: [
+                    { text: "The sum of its eigenvalues.", value: "A" },
+                    { text: "The representation $A = \\sum \\lambda_i E_i$, where $\\lambda_i$ are eigenvalues and $E_i$ are projection matrices onto eigenspaces.", value: "B" },
+                    { text: "The product of its eigenvalues.", value: "C" },
+                    { text: "The Jordan normal form.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The spectral decomposition of a normal matrix $A$ is given by $A = \\sum \\lambda_i E_i$, where $\\lambda_i$ are the eigenvalues and $E_i = x_i x_i^*$ are projection matrices formed from the orthonormal eigenvectors $x_i$.",
+                source: "`1_MT2175.pdf`, Page 127, Theorem 7.15; `anthony.pdf`, Page 416, Theorem 13.70."
+            },
+            {
+                question: "What properties do the matrices $E_i$ in a spectral decomposition $A = \\sum \\lambda_i E_i$ have?",
+                options: [
+                    { text: "They are Hermitian, idempotent, and $E_i E_j = 0$ for $i \\ne j$.", value: "A" },
+                    { text: "They are all diagonal.", value: "B" },
+                    { text: "They are all invertible.", value: "C" },
+                    { text: "They are all zero matrices.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "The matrices $E_i$ in a spectral decomposition are Hermitian ($E_i^* = E_i$), idempotent ($E_i^2 = E_i$), and mutually orthogonal ($E_i E_j = 0$ for $i \\ne j$).",
+                source: "`1_MT2175.pdf`, Page 128, Theorem 7.16; `anthony.pdf`, Page 417, Theorem 13.74."
+            },
+            {
+                question: "What is the definition of a matrix $A$ being idempotent?",
+                options: [
+                    { text: "$A^T = A$", value: "A" },
+                    { text: "$A^2 = I$", value: "B" },
+                    { text: "$A^2 = A$", value: "C" },
+                    { text: "$\\det(A) = 1$", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A matrix $A$ is idempotent if $A^2 = A$. This property is characteristic of projection matrices.",
+                source: "`1_MT2175.pdf`, Page 65, Definition 5.7; `anthony.pdf`, Page 390, Definition 12.23."
+            },
+            {
+                question: "What are the only possible eigenvalues of an idempotent matrix?",
+                options: [
+                    { text: "$0$ and $1$", value: "A" },
+                    { text: "$1$ and $-1$", value: "B" },
+                    { text: "$0$ and $-1$", value: "C" },
+                    { text: "Any real numbers.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "The only possible eigenvalues of an idempotent matrix are $0$ and $1$.",
+                source: "`1_MT2175.pdf`, Page 72, Activity 5.6; `anthony.pdf`, Page 390, Activity 12.24."
+            },
+            {
+                question: "What is the definition of a symmetric matrix?",
+                options: [
+                    { text: "A matrix where $A^T = -A$.", value: "A" },
+                    { text: "A matrix where $A^T = A$.", value: "B" },
+                    { text: "A matrix with all zero entries.", value: "C" },
+                    { text: "A matrix with all positive entries.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A square matrix $A$ is symmetric if it is equal to its transpose, $A^T = A$.",
+                source: "`1_MT2175.pdf`, Page 38, Definition 1.31; `anthony.pdf`, Page 329, Section 11.1."
+            },
+            {
+                question: "What is the definition of a skew-symmetric matrix?",
+                options: [
+                    { text: "A matrix where $A^T = A$.", value: "A" },
+                    { text: "A matrix where $A^T = -A$.", value: "B" },
+                    { text: "A matrix with all zero entries.", value: "C" },
+                    { text: "A matrix with all positive entries.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A square matrix $M$ is skew-symmetric if $M = -M^T$.",
+                source: "`1_MT2175.pdf`, Page 56, Problem 1.5."
+            },
+            {
+                question: "What is the definition of the complex conjugate $\\overline{z}$ of a complex number $z = a+ib$?",
+                options: [
+                    { text: "$\\overline{z} = a+ib$", value: "A" },
+                    { text: "$\\overline{z} = a-ib$", value: "B" },
+                    { text: "$\\overline{z} = -a-ib$", value: "C" },
+                    { text: "$\\overline{z} = b+ia$", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The complex conjugate of $z = a+ib$ is $\\overline{z} = a-ib$.",
+                source: "`1_MT2175.pdf`, Page 108, Definition 7.2; `anthony.pdf`, Page 390, Definition 13.2."
+            },
+            {
+                question: "What is Euler's formula?",
+                options: [
+                    { text: "$e^{i\\theta} = \\cos\\theta + i\\sin\\theta$", value: "A" },
+                    { text: "$(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$", value: "B" },
+                    { text: "$z = a+ib$", value: "C" },
+                    { text: "$|z| = \\sqrt{a^2+b^2}$", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "Euler's formula establishes the relationship between exponential and trigonometric functions for complex numbers: $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$.",
+                source: "`1_MT2175.pdf`, Page 112, Section 7.1.6; `anthony.pdf`, Page 396, Section 13.1.6."
+            },
+            {
+                question: "What is the fundamental theorem of algebra?",
+                options: [
+                    { text: "Every polynomial has at least one real root.", value: "A" },
+                    { text: "Every polynomial of degree $n$ with complex coefficients has exactly $n$ complex roots (counting multiplicity).", value: "B" },
+                    { text: "Every polynomial can be factored into linear factors over real numbers.", value: "C" },
+                    { text: "Every polynomial has only real roots.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "The Fundamental Theorem of Algebra states that every polynomial of degree $n \\ge 1$ with complex coefficients has exactly $n$ complex roots (counting multiplicity).",
+                source: "`1_MT2175.pdf`, Page 109, Section 7.1.3; `anthony.pdf`, Page 391, Section 13.1.3."
+            },
+            {
+                question: "What is the relationship between complex roots of polynomials with real coefficients?",
+                options: [
+                    { text: "They are always real.", value: "A" },
+                    { text: "They always appear in conjugate pairs.", value: "B" },
+                    { text: "They are always distinct.", value: "C" },
+                    { text: "They are always zero.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Complex roots of polynomials with real coefficients always appear in conjugate pairs.",
+                source: "`1_MT2175.pdf`, Page 109, Theorem 7.1; `anthony.pdf`, Page 392, Theorem 13.7."
+            },
+            {
+                question: "What is the definition of a matrix $A$ being similar to a matrix $C$?",
+                options: [
+                    { text: "$A = C$", value: "A" },
+                    { text: "There exists an invertible matrix $P$ such that $C = P^{-1}AP$.", value: "B" },
+                    { text: "There exists an orthogonal matrix $P$ such that $C = P^T AP$.", value: "C" },
+                    { text: "$A$ and $C$ have the same determinant.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Two square matrices $A$ and $C$ are similar if there exists an invertible matrix $P$ such that $C = P^{-1}AP$.",
+                source: "`1_MT2175.pdf`, Page 232, Definition 7.38; `anthony.pdf`, Page 247, Theorem 7.37."
+            },
+            {
+                question: "What property do similar matrices share?",
+                options: [
+                    { text: "They have the same eigenvectors.", value: "A" },
+                    { text: "They have the same characteristic polynomial and thus the same eigenvalues.", value: "B" },
+                    { text: "They are always identical.", value: "C" },
+                    { text: "They have the same inverse.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "Similar matrices have the same characteristic polynomial, which implies they have the same eigenvalues.",
+                source: "`1_MT2175.pdf`, Page 262, Theorem 8.29; `anthony.pdf`, Page 278, Theorem 8.29."
+            },
+            {
+                question: "What is the definition of a positive definite quadratic form $q(x)$?",
+                options: [
+                    { text: "$q(x) < 0$ for all $x \\ne 0$.", value: "A" },
+                    { text: "$q(x) \\ge 0$ for all $x$, and $q(x) = 0$ only when $x = 0$.", value: "B" },
+                    { text: "$q(x) \\le 0$ for all $x$.", value: "C" },
+                    { text: "$q(x)$ can be positive or negative.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A quadratic form $q(x)$ is positive definite if $q(x) \\ge 0$ for all vectors $x$, and $q(x) = 0$ if and only if $x$ is the zero vector.",
+                source: "`1_MT2175.pdf`, Page 357, Definition 11.26."
+            },
+            {
+                question: "What is the definition of a negative definite quadratic form $q(x)$?",
+                options: [
+                    { text: "$q(x) > 0$ for all $x \\ne 0$.", value: "A" },
+                    { text: "$q(x) \\ge 0$ for all $x$.", value: "B" },
+                    { text: "$q(x) \\le 0$ for all $x$, and $q(x) = 0$ only when $x = 0$.", value: "C" },
+                    { text: "$q(x)$ can be positive or negative.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A quadratic form $q(x)$ is negative definite if $q(x) \\le 0$ for all vectors $x$, and $q(x) = 0$ if and only if $x$ is the zero vector.",
+                source: "`1_MT2175.pdf`, Page 358, Section 11.2.2."
+            },
+            {
+                question: "What is the definition of an indefinite quadratic form $q(x)$?",
+                options: [
+                    { text: "It is neither positive definite nor negative definite, and can take both positive and negative values.", value: "A" },
+                    { text: "It is always zero.", value: "B" },
+                    { text: "It is always positive.", value: "C" },
+                    { text: "It is always negative.", value: "D" }
+                ],
+                correctAnswer: "A",
+                explanation: "A quadratic form is indefinite if it is neither positive definite, positive semi-definite, negative definite, nor negative semi-definite. This means it can take both positive and negative values.",
+                source: "`1_MT2175.pdf`, Page 358, Section 11.2.2."
+            },
+            {
+                question: "What is the definition of a positive semi-definite quadratic form $q(x)$?",
+                options: [
+                    { text: "$q(x) < 0$ for all $x \\ne 0$.", value: "A" },
+                    { text: "$q(x) \\ge 0$ for all $x$.", value: "B" },
+                    { text: "$q(x) \\le 0$ for all $x$.", value: "C" },
+                    { text: "$q(x) = 0$ only when $x = 0$.", value: "D" }
+                ],
+                correctAnswer: "B",
+                explanation: "A quadratic form $q(x)$ is positive semi-definite if $q(x) \\ge 0$ for all vectors $x$. It can be zero for non-zero vectors.",
+                source: "`1_MT2175.pdf`, Page 357, Definition 11.26."
+            },
+            {
+                question: "What is the definition of a negative semi-definite quadratic form $q(x)$?",
+                options: [
+                    { text: "$q(x) > 0$ for all $x \\ne 0$.", value: "A" },
+                    { text: "$q(x) \\ge 0$ for all $x$.", value: "B" },
+                    { text: "$q(x) \\le 0$ for all $x$.", value: "C" },
+                    { text: "$q(x) = 0$ only when $x = 0$.", value: "D" }
+                ],
+                correctAnswer: "C",
+                explanation: "A quadratic form $q(x)$ is negative semi-definite if $q(x) \\le 0$ for all vectors $x$. It can be zero for non-zero vectors.",
+                source: "`1_MT2175.pdf`, Page 358, Section 11.2.2."
+            }
+        ];
+
+        function loadQuestions() {
+            const quizForm = document.getElementById('linearAlgebraQuiz');
+            quizForm.innerHTML = ''; // Clear existing questions
+
+            questions.forEach((q, index) => {
+                const qElement = document.createElement('div');
+                qElement.classList.add('question');
+                qElement.id = `question-${index}`;
+
+                let optionsHtml = q.options.map((option, optIndex) => `
+                    <label>
+                        <input type="radio" name="q${index}" value="${option.value}" onchange="saveAnswer(${index})">
+                        ${option.value}. ${option.text}
+                    </label>
+                `).join('');
+
+                qElement.innerHTML = `
+                    <h2>Question ${index + 1}:</h2>
+                    <p>${q.question}</p>
+                    <div class="options">${optionsHtml}</div>
+                    <button type="button" class="show-explanation-btn" onclick="checkAnswer(${index})">Check Answer</button>
+                    <div id="feedback-${index}" class="feedback" style="display: none;"></div>
+                    <div id="explanation-${index}" class="explanation">
+                        <strong>Explanation:</strong> ${q.explanation}
+                        <p><strong>Source:</strong> ${q.source}</p>
+                    </div>
+                `;
+                quizForm.appendChild(qElement);
+            });
+            loadSavedAnswers();
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, quizForm]); // Render MathJax after loading questions
+        }
+
+        function saveAnswer(qIndex) {
+            const selectedOption = document.querySelector(`input[name="q${qIndex}"]:checked`);
+            if (selectedOption) {
+                localStorage.setItem(`quiz_q${qIndex}`, selectedOption.value);
+            }
+        }
+
+        function loadSavedAnswers() {
+            questions.forEach((q, index) => {
+                const savedAnswer = localStorage.getItem(`quiz_q${index}`);
+                if (savedAnswer) {
+                    const radio = document.querySelector(`input[name="q${index}"][value="${savedAnswer}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                        checkAnswer(index); // Automatically check and show feedback for saved answers
+                    }
+                }
+            });
+        }
+
+        function checkAnswer(qIndex) {
+            const selectedOption = document.querySelector(`input[name="q${qIndex}"]:checked`);
+            const feedbackDiv = document.getElementById(`feedback-${qIndex}`);
+            const explanationDiv = document.getElementById(`explanation-${qIndex}`);
+            const showExplanationBtn = document.querySelector(`#question-${qIndex} .show-explanation-btn`);
+
+            if (!selectedOption) {
+                feedbackDiv.style.display = 'block';
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = 'Please select an answer.';
+                explanationDiv.style.display = 'none';
+                return;
+            }
+
+            const isCorrect = selectedOption.value === questions[qIndex].correctAnswer;
+            feedbackDiv.style.display = 'block';
+            explanationDiv.style.display = 'block'; // Always show explanation after checking
+
+            if (isCorrect) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = 'Correct!';
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = `Incorrect. The correct answer is: <strong>${questions[qIndex].correctAnswer}</strong>`;
+            }
+            showExplanationBtn.textContent = 'Explanation Shown';
+            showExplanationBtn.disabled = true; // Disable button after showing explanation
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, explanationDiv]); // Render MathJax in explanation
+        }
+
+        function clearAllAnswers() {
+            if (confirm("Are you sure you want to clear all saved answers and reset the quiz?")) {
+                questions.forEach((q, index) => {
+                    localStorage.removeItem(`quiz_q${index}`);
+                });
+                location.reload(); // Reload the page to reset the quiz
+            }
+        }
+
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>

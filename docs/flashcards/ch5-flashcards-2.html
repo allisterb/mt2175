@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MT2175 Further Linear Algebra - Flashcards</title>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    color: #333;
+  }
+  .slideshow-container {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    perspective: 1000px;
+  }
+  .flashcard {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .card {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+  .card.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .back {
+    transform: rotateY(180deg);
+    justify-content: space-between;
+    text-align: left;
+  }
+  .question-number {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.2em;
+    color: #888;
+  }
+  .question-content, .answer-content {
+    font-size: 1.5em;
+    overflow-y: auto;
+    width: 100%;
+  }
+   .answer-content {
+    font-size: 1.2em;
+    max-height: 85%;
+  }
+  .source {
+    font-size: 0.8em;
+    color: #555;
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+  .navigation {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+  }
+  .nav-button, .flip-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+  }
+  .progress-container {
+    width: 800px;
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<h1>MT2175: Complex Matrices and Vector Spaces</h1>
+
+<div class="slideshow-container">
+  
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">1</div><div class="question-content">What are the three main forms of a complex number \(z\)?</div></div><div class="back"><div class="answer-content">A complex number \(z\) can be expressed in three forms:
+          <ol>
+            <li><b>Cartesian Form:</b> \(z = a + ib\), where \(a = \text{Re}(z)\) is the real part and \(b = \text{Im}(z)\) is the imaginary part.</li>
+            <li><b>Polar Form:</b> \(z = r(\cos\theta + i\sin\theta)\), where \(r = |z|\) is the modulus (or absolute value) and \(\theta = \arg(z)\) is the argument (or angle).</li>
+            <li><b>Exponential Form:</b> \(z = re^{i\theta}\), which is derived from the polar form using Euler's formula, \(e^{i\theta} = \cos\theta + i\sin\theta\).</li>
+          </ol></div><div class="source">Source: Subject Guide, 7.1; Anthony & Harvey, 13.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">2</div><div class="question-content">Define the complex conjugate, modulus, and argument of a complex number \(z = a + ib\).</div></div><div class="back"><div class="answer-content"><ul>
+            <li><b>Complex Conjugate (\(\bar{z}\)):</b> The conjugate of \(z = a + ib\) is \(\bar{z} = a - ib\). Geometrically, it is the reflection of \(z\) across the real axis.</li>
+            <li><b>Modulus (\(|z|\)):</b> The modulus of \(z\) is a non-negative real number given by \(|z| = \sqrt{a^2 + b^2}\). It represents the distance from the origin to the point \((a, b)\) in the complex plane. Note that \(|z|^2 = z\bar{z}\).</li>
+            <li><b>Argument (\(\arg(z)\)):</b> The argument \(\theta\) is the angle that the vector from the origin to \((a, b)\) makes with the positive real axis. It is found using \(\tan\theta = b/a\), adjusting the quadrant based on the signs of \(a\) and \(b\). The principal argument, \(\text{Arg}(z)\), is the unique angle in the interval \((-\pi, \pi]\).</li>
+          </ul></div><div class="source">Source: Subject Guide, 7.1.5; Anthony & Harvey, 13.1.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">3</div><div class="question-content">State De Moivre's Formula.</div></div><div class="back"><div class="answer-content">For any real number \(\theta\) and any integer \(n\), De Moivre's Formula states:
+          \[ (\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta) \]
+          In exponential form, this is equivalent to \((e^{i\theta})^n = e^{in\theta}\). This formula is extremely useful for finding powers and roots of complex numbers.</div><div class="source">Source: Subject Guide, 7.1.6; Anthony & Harvey, 13.1.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">4</div><div class="question-content">How do you find the \(n\)-th roots of a complex number \(z = re^{i\theta}\)?</div></div><div class="back"><div class="answer-content">A complex number \(z\) has \(n\) distinct \(n\)-th roots. If \(z = r(\cos\theta + i\sin\theta)\), its \(n\)-th roots are given by:
+          \[ w_k = \sqrt[n]{r} \left( \cos\left(\frac{\theta + 2k\pi}{n}\right) + i\sin\left(\frac{\theta + 2k\pi}{n}\right) \right) \]
+          for \(k = 0, 1, 2, \dots, n-1\).
+          Geometrically, the roots lie on a circle of radius \(\sqrt[n]{r}\) and are equally spaced by an angle of \(2\pi/n\).</div><div class="source">Source: Subject Guide, 7.1.3; Anthony & Harvey, 13.1.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">5</div><div class="question-content">What is a complex vector space?</div></div><div class="back"><div class="answer-content">A complex vector space is a vector space where the scalars are complex numbers (from \(\mathbb{C}\)) instead of real numbers. It must satisfy the same ten vector space axioms as a real vector space, including closure under addition and scalar multiplication, associativity, commutativity, existence of a zero vector, additive inverses, and distributive properties. The space \(\mathbb{C}^n\) is a key example of an \(n\)-dimensional complex vector space.</div><div class="source">Source: Subject Guide, 7.2; Anthony & Harvey, 13.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">6</div><div class="question-content">What is a complex matrix?</div></div><div class="back"><div class="answer-content">A complex matrix is simply a matrix whose entries are complex numbers. All the standard matrix operations like addition, scalar multiplication (with complex scalars), and matrix multiplication apply to complex matrices in the same way they do to real matrices.</div><div class="source">Source: Subject Guide, 7.3; Anthony & Harvey, 13.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">7</div><div class="question-content">How is the standard complex inner product on \(\mathbb{C}^n\) defined?</div></div><div class="back"><div class="answer-content">For two vectors \(\mathbf{x} = (x_1, \dots, x_n)\) and \(\mathbf{y} = (y_1, \dots, y_n)\) in \(\mathbb{C}^n\), the standard complex inner product is defined as:
+          \[ \langle \mathbf{x}, \mathbf{y} \rangle = \sum_{i=1}^n x_i \bar{y}_i = x_1\bar{y}_1 + x_2\bar{y}_2 + \dots + x_n\bar{y}_n \]
+          This can also be written in matrix form as \(\mathbf{y}^*\mathbf{x}\), where \(\mathbf{y}^*\) is the conjugate transpose (Hermitian conjugate) of \(\mathbf{y}\).</div><div class="source">Source: Subject Guide, 7.4.1; Anthony & Harvey, 13.4.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">8</div><div class="question-content">What are the defining properties of a complex inner product?</div></div><div class="back"><div class="answer-content">A complex inner product \(\langle \cdot, \cdot \rangle\) on a vector space \(V\) must satisfy the following properties for all \(\mathbf{x}, \mathbf{y}, \mathbf{z} \in V\) and \(\alpha \in \mathbb{C}\):
+          <ol>
+            <li><b>Conjugate Symmetry:</b> \(\langle \mathbf{x}, \mathbf{y} \rangle = \overline{\langle \mathbf{y}, \mathbf{x} \rangle}\)</li>
+            <li><b>Linearity in the first argument:</b> \(\langle \alpha\mathbf{x} + \mathbf{y}, \mathbf{z} \rangle = \alpha\langle \mathbf{x}, \mathbf{z} \rangle + \langle \mathbf{y}, \mathbf{z} \rangle\)</li>
+            <li><b>Positive-definiteness:</b> \(\langle \mathbf{x}, \mathbf{x} \rangle \ge 0\) and \(\langle \mathbf{x}, \mathbf{x} \rangle = 0 \iff \mathbf{x} = \mathbf{0}\).
+          </li>
+          </ol>
+          Note that linearity is only in the first argument. For the second argument, it is conjugate-linear: \(\langle \mathbf{x}, \alpha\mathbf{y} \rangle = \bar{\alpha}\langle \mathbf{x}, \mathbf{y} \rangle\).</div><div class="source">Source: Subject Guide, 7.4.2; Anthony & Harvey, 13.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">9</div><div class="question-content">What is the Hermitian conjugate of a complex matrix \(A\)?</div></div><div class="back"><div class="answer-content">The Hermitian conjugate (or conjugate transpose) of a complex matrix \(A\), denoted \(A^*\), is obtained by taking the transpose of the matrix and then taking the complex conjugate of each entry.
+          \[ A^* = \bar{A}^T \]
+          For example, if \(A = \begin{pmatrix} 1+i & 2 \\ 3i & 4-i \end{pmatrix}\), then \(A^* = \begin{pmatrix} 1-i & -3i \\ 2 & 4+i \end{pmatrix}\).</div><div class="source">Source: Subject Guide, 7.5.1; Anthony & Harvey, 13.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">10</div><div class="question-content">Define a Hermitian matrix and a Unitary matrix.</div></div><div class="back"><div class="answer-content"><ul>
+            <li>A square complex matrix \(A\) is <b>Hermitian</b> if it is equal to its own Hermitian conjugate, i.e., \(A = A^*\). The diagonal entries of a Hermitian matrix must be real.</li>
+            <li>A square complex matrix \(U\) is <b>Unitary</b> if its inverse is its Hermitian conjugate, i.e., \(U^*U = UU^* = I\). Unitary matrices are the complex analogue of real orthogonal matrices.</li>
+          </ul></div><div class="source">Source: Subject Guide, 7.5.2, 7.5.3; Anthony & Harvey, 13.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">11</div><div class="question-content">Prove that the eigenvalues of a Hermitian matrix are real.</div></div><div class="back"><div class="answer-content">Let \(A\) be a Hermitian matrix (\(A = A^*\)) with eigenvalue \(\lambda\) and corresponding eigenvector \(\mathbf{v} \neq \mathbf{0}\). So, \(A\mathbf{v} = \lambda\mathbf{v}\).
+          <br>
+          Consider the inner product \(\langle A\mathbf{v}, \mathbf{v} \rangle\).
+          \[ \langle A\mathbf{v}, \mathbf{v} \rangle = \langle \lambda\mathbf{v}, \mathbf{v} \rangle = \lambda \langle \mathbf{v}, \mathbf{v} \rangle = \lambda ||\mathbf{v}||^2 \]
+          Also, using the property \(\langle A\mathbf{x}, \mathbf{y} \rangle = \langle \mathbf{x}, A^*\mathbf{y} \rangle\), we have:
+          \[ \langle A\mathbf{v}, \mathbf{v} \rangle = \langle \mathbf{v}, A^*\mathbf{v} \rangle = \langle \mathbf{v}, A\mathbf{v} \rangle = \langle \mathbf{v}, \lambda\mathbf{v} \rangle = \bar{\lambda} \langle \mathbf{v}, \mathbf{v} \rangle = \bar{\lambda} ||\mathbf{v}||^2 \]
+          Equating the two expressions gives \(\lambda ||\mathbf{v}||^2 = \bar{\lambda} ||\mathbf{v}||^2\). Since \(\mathbf{v} \neq \mathbf{0}\), \(||\mathbf{v}||^2 \neq 0\), so we can divide by it to get \(\lambda = \bar{\lambda}\). This implies that \(\lambda\) must be a real number.</div><div class="source">Source: Subject Guide, 7.5.2; Anthony & Harvey, 13.5.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">12</div><div class="question-content">Prove that eigenvectors of a Hermitian matrix corresponding to distinct eigenvalues are orthogonal.</div></div><div class="back"><div class="answer-content">Let \(A\) be a Hermitian matrix. Let \(\lambda_1\) and \(\lambda_2\) be two distinct eigenvalues (\(\lambda_1 \neq \lambda_2\)) with corresponding eigenvectors \(\mathbf{v}_1\) and \(\mathbf{v}_2\).
+          We know \(A\mathbf{v}_1 = \lambda_1\mathbf{v}_1\) and \(A\mathbf{v}_2 = \lambda_2\mathbf{v}_2\).
+          Consider \(\langle A\mathbf{v}_1, \mathbf{v}_2 \rangle\):
+          \[ \langle A\mathbf{v}_1, \mathbf{v}_2 \rangle = \langle \lambda_1\mathbf{v}_1, \mathbf{v}_2 \rangle = \lambda_1 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle \]
+          Also, \(\langle A\mathbf{v}_1, \mathbf{v}_2 \rangle = \langle \mathbf{v}_1, A^*\mathbf{v}_2 \rangle = \langle \mathbf{v}_1, A\mathbf{v}_2 \rangle = \langle \mathbf{v}_1, \lambda_2\mathbf{v}_2 \rangle = \bar{\lambda}_2 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle\).
+          Since eigenvalues of a Hermitian matrix are real, \(\bar{\lambda}_2 = \lambda_2\).
+          So, \(\lambda_1 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle = \lambda_2 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle\).
+          \[ (\lambda_1 - \lambda_2) \langle \mathbf{v}_1, \mathbf{v}_2 \rangle = 0 \]
+          Since \(\lambda_1 \neq \lambda_2\), we must have \(\langle \mathbf{v}_1, \mathbf{v}_2 \rangle = 0\). Thus, the eigenvectors are orthogonal.</div><div class="source">Source: Subject Guide, 7.5.2; Anthony & Harvey, 13.5.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">13</div><div class="question-content">Prove that a complex matrix \(U\) is unitary if and only if its columns form an orthonormal basis of \(\mathbb{C}^n\).</div></div><div class="back"><div class="answer-content">Let \(U\) be an \(n \times n\) matrix with columns \(\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_n\). The matrix \(U^*\) has rows \(\mathbf{u}_1^*, \mathbf{u}_2^*, \dots, \mathbf{u}_n^*\).
+          The product \(U^*U\) is an \(n \times n\) matrix where the entry in the \(i\)-th row and \(j\)-th column is \((\mathbf{u}_i^* \mathbf{u}_j) = \langle \mathbf{u}_j, \mathbf{u}_i \rangle\).
+          \[ (U^*U)_{ij} = \langle \mathbf{u}_j, \mathbf{u}_i \rangle \]
+          The matrix \(U\) is unitary if and only if \(U^*U = I\). This is equivalent to the condition that the entries of the product matrix are \((U^*U)_{ij} = \delta_{ij}\) (the Kronecker delta).
+          So, \(\langle \mathbf{u}_j, \mathbf{u}_i \rangle = 1\) if \(i=j\) and \(\langle \mathbf{u}_j, \mathbf{u}_i \rangle = 0\) if \(i \neq j\).
+          This is precisely the definition of the set of vectors \(\{\mathbf{u}_1, \dots, \mathbf{u}_n\}\) being an orthonormal set. Since there are \(n\) such vectors in \(\mathbb{C}^n\), they form an orthonormal basis.</div><div class="source">Source: Subject Guide, 7.5.3; Anthony & Harvey, 13.5.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">14</div><div class="question-content">What does it mean to unitarily diagonalise a matrix?</div></div><div class="back"><div class="answer-content">A square complex matrix \(A\) is said to be <b>unitarily diagonalisable</b> if there exists a unitary matrix \(U\) such that \(U^*AU = D\), where \(D\) is a diagonal matrix.
+          <br>
+          The columns of the unitary matrix \(U\) are an orthonormal basis of eigenvectors for \(A\), and the diagonal entries of \(D\) are the corresponding eigenvalues.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">15</div><div class="question-content">Define a normal matrix.</div></div><div class="back"><div class="answer-content">An \(n \times n\) complex matrix \(A\) is called <b>normal</b> if it commutes with its Hermitian conjugate. That is,
+          \[ AA^* = A^*A \]
+          This class of matrices is important because a matrix is unitarily diagonalisable if and only if it is normal.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">16</div><div class="question-content">Prove that any Hermitian matrix is normal.</div></div><div class="back"><div class="answer-content">Let \(A\) be a Hermitian matrix. By definition, \(A = A^*\).
+          We need to show that \(AA^* = A^*A\).
+          <br>
+          Starting with the left side:
+          \[ AA^* = A(A) = A^2 \]
+          Starting with the right side:
+          \[ A^*A = (A)A = A^2 \]
+          Since both sides are equal to \(A^2\), we have \(AA^* = A^*A\). Therefore, any Hermitian matrix is normal.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">17</div><div class="question-content">Prove that any unitary matrix is normal.</div></div><div class="back"><div class="answer-content">Let \(U\) be a unitary matrix. By definition, \(UU^* = U^*U = I\).
+          We need to show that \(UU^* = U^*U\).
+          <br>
+          This is true by the very definition of a unitary matrix. Both \(UU^*\) and \(U^*U\) are equal to the identity matrix \(I\), so they are equal to each other. Therefore, any unitary matrix is normal.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">18</div><div class="question-content">State the Spectral Theorem for normal matrices.</div></div><div class="back"><div class="answer-content">A square complex matrix \(A\) is unitarily diagonalisable if and only if it is a normal matrix.
+          <br>
+          This is a fundamental result in linear algebra. It means that the set of matrices that can be diagonalised using a unitary transformation (which preserves lengths and angles) is precisely the set of normal matrices.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">19</div><div class="question-content">What is the spectral decomposition of a normal matrix?</div></div><div class="back"><div class="answer-content">If \(A\) is a normal matrix, it is unitarily diagonalisable. Let \(\lambda_1, \dots, \lambda_n\) be its eigenvalues and \(\mathbf{u}_1, \dots, \mathbf{u}_n\) be a corresponding orthonormal basis of eigenvectors. The spectral decomposition of \(A\) is the expression:
+          \[ A = \lambda_1 \mathbf{u}_1\mathbf{u}_1^* + \lambda_2 \mathbf{u}_2\mathbf{u}_2^* + \dots + \lambda_n \mathbf{u}_n\mathbf{u}_n^* \]
+          This can be written as \(A = \sum_{i=1}^n \lambda_i E_i\), where \(E_i = \mathbf{u}_i\mathbf{u}_i^*\) is the matrix that represents the orthogonal projection onto the subspace spanned by the eigenvector \(\mathbf{u}_i\).</div><div class="source">Source: Subject Guide, 7.7; Anthony & Harvey, 13.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">20</div><div class="question-content">What are the properties of the projection matrices \(E_i\) in a spectral decomposition?</div></div><div class="back"><div class="answer-content">The matrices \(E_i = \mathbf{u}_i\mathbf{u}_i^*\) in the spectral decomposition of a normal matrix have the following properties:
+          <ol>
+            <li>They are Hermitian: \(E_i^* = (\mathbf{u}_i\mathbf{u}_i^*)^* = (\mathbf{u}_i^*)^*\mathbf{u}_i^* = \mathbf{u}_i\mathbf{u}_i^* = E_i\).</li>
+            <li>They are idempotent (they are projections): \(E_i^2 = E_i\).</li>
+            <li>They are mutually orthogonal: \(E_i E_j = 0\) for \(i \neq j\).</li>
+            <li>They sum to the identity: \(\sum_{i=1}^n E_i = I\).</li>
+          </ol></div><div class="source">Source: Subject Guide, 7.7; Anthony & Harvey, 13.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">21</div><div class="question-content">How can you use the spectral decomposition of a normal matrix \(A\) to find a matrix \(B\) such that \(B^2 = A\)?</div></div><div class="back"><div class="answer-content">If \(A = \sum \lambda_i E_i\) is the spectral decomposition of \(A\), then a square root \(B\) can be found by taking the square root of the eigenvalues: \[ B = \sum \sqrt{\lambda_i} E_i \]
+          where \(\sqrt{\lambda_i}\) can be any of the two complex square roots of \(\lambda_i\). This gives \(2^n\) possible square roots in general. Then, \(B^2 = (\sum \sqrt{\lambda_i} E_i)^2 = \sum (\sqrt{\lambda_i})^2 E_i^2 = \sum \lambda_i E_i = A\), using the properties \(E_i E_j = 0\) for \(i \neq j\) and \(E_i^2 = E_i\).</div><div class="source">Source: Subject Guide, 7.7; Anthony & Harvey, 13.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">22</div><div class="question-content">Outline the Gram-Schmidt process for a set of vectors \(\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}\) in a complex inner product space.</div></div><div class="back"><div class="answer-content">The Gram-Schmidt process transforms a linearly independent set \(\{\mathbf{v}_i\}\) into an orthonormal set \(\{\mathbf{u}_i\}\) that spans the same subspace.
+  <ol>
+    <li>Set \(\mathbf{w}_1 = \mathbf{v}_1\). Normalize to get \(\mathbf{u}_1 = \frac{\mathbf{w}_1}{||\mathbf{w}_1||}\).</li>
+    <li>Project \(\mathbf{v}_2\) onto \(\mathbf{u}_1\) and subtract it: \(\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1\). Normalize to get \(\mathbf{u}_2 = \frac{\mathbf{w}_2}{||\mathbf{w}_2||}\).</li>
+    <li>For \(\mathbf{v}_k\), subtract its projections onto all previous orthonormal vectors: \(\mathbf{w}_k = \mathbf{v}_k - \sum_{j=1}^{k-1} \langle \mathbf{v}_k, \mathbf{u}_j \rangle \mathbf{u}_j\). Normalize to get \(\mathbf{u}_k = \frac{\mathbf{w}_k}{||\mathbf{w}_k||}\).</li>
+  </ol>
+  </div><div class="source">Source: Subject Guide, 7.4; Anthony & Harvey, 13.4.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">23</div><div class="question-content">What is the relationship between the determinant of a matrix and its eigenvalues?</div></div><div class="back"><div class="answer-content">The determinant of a square matrix \(A\) is the product of its eigenvalues (counting multiplicities).
+  \[ \det(A) = \lambda_1 \lambda_2 \cdots \lambda_n \]
+  This is true for both real and complex matrices. It can be seen by considering the characteristic polynomial \(p(\lambda) = \det(A - \lambda I)\). Setting \(\lambda=0\) gives \(p(0) = \det(A)\). Also, from the factored form \(p(\lambda) = (-1)^n(\lambda - \lambda_1)\cdots(\lambda - \lambda_n)\), setting \(\lambda=0\) gives \(p(0) = (-1)^n(-\lambda_1)\cdots(-\lambda_n) = \lambda_1\cdots\lambda_n\).</div><div class="source">Source: Anthony & Harvey, 8.1.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">24</div><div class="question-content">What is the relationship between the trace of a matrix and its eigenvalues?</div></div><div class="back"><div class="answer-content">The trace of a square matrix \(A\), denoted \(\text{tr}(A)\), is the sum of its diagonal entries. It is also equal to the sum of its eigenvalues (counting multiplicities).
+  \[ \text{tr}(A) = \sum_{i=1}^n a_{ii} = \sum_{i=1}^n \lambda_i \]
+  This can be shown by examining the coefficient of the \(\lambda^{n-1}\) term in the characteristic polynomial.</div><div class="source">Source: Anthony & Harvey, 8.1.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">25</div><div class="question-content">Prove that a matrix \(U\) is unitary if and only if it preserves the standard complex inner product.</div></div><div class="back"><div class="answer-content">We want to prove that \(U\) is unitary \(\iff \langle U\mathbf{x}, U\mathbf{y} \rangle = \langle \mathbf{x}, \mathbf{y} \rangle\) for all \(\mathbf{x}, \mathbf{y} \in \mathbb{C}^n\).
+  <br>
+  (\(\Rightarrow\)) Assume \(U\) is unitary, so \(U^*U = I\). Then
+  \[ \langle U\mathbf{x}, U\mathbf{y} \rangle = (U\mathbf{y})^*(U\mathbf{x}) = (\mathbf{y}^*U^*) (U\mathbf{x}) = \mathbf{y}^*(U^*U)\mathbf{x} = \mathbf{y}^*I\mathbf{x} = \mathbf{y}^*\mathbf{x} = \langle \mathbf{x}, \mathbf{y} \rangle \]
+  (\(\Leftarrow\)) Assume \(\langle U\mathbf{x}, U\mathbf{y} \rangle = \langle \mathbf{x}, \mathbf{y} \rangle\) for all \(\mathbf{x}, \mathbf{y}\). This means \(\mathbf{y}^*U^*U\mathbf{x} = \mathbf{y}^*\mathbf{x}\).
+  Let \(\mathbf{y} = \mathbf{e}_i\) and \(\mathbf{x} = \mathbf{e}_j\) (standard basis vectors). Then \(\mathbf{e}_i^* (U^*U) \mathbf{e}_j = (U^*U)_{ij}\) and \(\mathbf{e}_i^*\mathbf{e}_j = \delta_{ij}\).
+  Therefore, \((U^*U)_{ij} = \delta_{ij}\), which means \(U^*U = I\). So \(U\) is unitary.</div><div class="source">Source: Subject Guide, 7.5.3; Anthony & Harvey, 13.5.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">26</div><div class="question-content">If a matrix is unitarily diagonalisable, is it normal? Prove it.</div></div><div class="back"><div class="answer-content">Yes. If \(A\) is unitarily diagonalisable, there exists a unitary matrix \(U\) and a diagonal matrix \(D\) such that \(A = UDU^*\).
+  We need to show \(AA^* = A^*A\).
+  \[ A^* = (UDU^*)^* = (U^*)^*D^*U^* = UD^*U^* \]
+  (Note: \(D\) is diagonal, so \(D^* = \bar{D}^T = \bar{D}\).
+  \[ AA^* = (UDU^*)(UD^*U^*) = UDD^*U^* \]
+  \[ A^*A = (UDU^*)^*(UDU^*) = (UD^*U^*)(UDU^*) = UD^*DU^* \]
+  Since diagonal matrices commute (\\(DD^* = D^*D\\)), we have \(AA^* = A^*A\). Thus, \(A\) is normal.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">27</div><div class="question-content">Find the roots of the polynomial \(z^3 = -8i\).</div></div><div class="back"><div class="answer-content">First, write \(-8i\) in exponential form. The modulus is \(r=8\). The angle is \(\theta = -\pi/2\). So, \(-8i = 8e^{i(-\pi/2 + 2k\pi)}\).
+  We want to solve \(z^3 = 8e^{i(-\pi/2 + 2k\pi)}\). The roots are:
+  \[ z_k = \sqrt[3]{8} e^{i\frac{-\pi/2 + 2k\pi}{3}} = 2e^{i(\frac{-\pi}{6} + \frac{2k\pi}{3})} \]
+  For \(k=0, 1, 2\):
+  <ul>
+    <li>\(k=0: z_0 = 2e^{-i\pi/6} = 2(\cos(-\pi/6) + i\sin(-\pi/6)) = 2(\frac{\sqrt{3}}{2} - \frac{1}{2}i) = \sqrt{3} - i\)</li>
+    <li>\(k=1: z_1 = 2e^{i(-\pi/6 + 2\pi/3)} = 2e^{i\pi/2} = 2(0+i) = 2i\)</li>
+    <li>\(k=2: z_2 = 2e^{i(-\pi/6 + 4\pi/3)} = 2e^{i7\pi/6} = 2(\cos(7\pi/6) + i\sin(7\pi/6)) = 2(-\frac{\sqrt{3}}{2} - \frac{1}{2}i) = -\sqrt{3} - i\)</li>
+  </ul></div><div class="source">Source: Subject Guide, 7.1.3; Anthony & Harvey, 13.1.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">28</div><div class="question-content">Is the matrix \(A = \begin{pmatrix} 1 & 1+i \\ 1-i & 2 \end{pmatrix}\) Hermitian, unitary, or normal?</div></div><div class="back"><div class="answer-content">1. <b>Hermitian?</b> We check if \(A=A^*\).
+  \[ A^* = \begin{pmatrix} 1 & \overline{1-i} \\ \overline{1+i} & 2 \end{pmatrix} = \begin{pmatrix} 1 & 1+i \\ 1-i & 2 \end{pmatrix} = A \]
+  Yes, \(A\) is Hermitian.
+  <br>
+  2. <b>Normal?</b> Since all Hermitian matrices are normal, \(A\) is normal.
+  <br>
+  3. <b>Unitary?</b> We check if \(AA^* = I\). Since \(A=A^*\), we check \(A^2=I\).
+  \[ A^2 = \begin{pmatrix} 1 & 1+i \\ 1-i & 2 \end{pmatrix} \begin{pmatrix} 1 & 1+i \\ 1-i & 2 \end{pmatrix} = \begin{pmatrix} 1+(1+i)(1-i) & 1+i+2(1+i) \\ 1-i+2(1-i) & (1-i)(1+i)+4 \end{pmatrix} = \begin{pmatrix} 3 & \dots \\ \dots & \dots \end{pmatrix} \neq I \]
+  No, \(A\) is not unitary.</div><div class="source">Source: Subject Guide, 7.5, 7.6; Anthony & Harvey, 13.5, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">29</div><div class="question-content">What is the norm of the vector \(\mathbf{v} = (1, i, 1-i)\) in \(\mathbb{C}^3\)?</div></div><div class="back"><div class="answer-content">The norm \(||\mathbf{v}||\) is calculated as \(\sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}\).
+  \[ \langle \mathbf{v}, \mathbf{v} \rangle = v_1\bar{v}_1 + v_2\bar{v}_2 + v_3\bar{v}_3 \]
+  \[ = (1)(\overline{1}) + (i)(\overline{i}) + (1-i)(\overline{1-i}) \]
+  \[ = (1)(1) + (i)(-i) + (1-i)(1+i) \]
+  \[ = 1 - i^2 + (1 - i^2) = 1 + 1 + (1+1) = 4 \]
+  Therefore, the norm is \(||\mathbf{v}|| = \sqrt{4} = 2\).</div><div class="source">Source: Subject Guide, 7.4.1; Anthony & Harvey, 13.4.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">30</div><div class="question-content">Find an orthonormal basis for the subspace of \(\mathbb{C}^2\) spanned by \(\mathbf{v}_1 = (1, i)\).</div></div><div class="back"><div class="answer-content">The subspace is a line. We just need to find a unit vector in the same direction as \(\mathbf{v}_1\). This is a 1-dimensional basis.
+  First, find the norm of \(\mathbf{v}_1\):
+  \[ ||\mathbf{v}_1|| = \sqrt{\langle \mathbf{v}_1, \mathbf{v}_1 \rangle} = \sqrt{1\cdot\bar{1} + i\cdot\bar{i}} = \sqrt{1(1) + i(-i)} = \sqrt{1+1} = \sqrt{2} \]
+  The orthonormal basis is given by the single vector \(\mathbf{u}_1\):
+  \[ \mathbf{u}_1 = \frac{\mathbf{v}_1}{||\mathbf{v}_1||} = \frac{1}{\sqrt{2}}(1, i) = \left(\frac{1}{\sqrt{2}}, \frac{i}{\sqrt{2}}\right) \]
+  The basis is \(\left\{ \left(\frac{1}{\sqrt{2}}, \frac{i}{\sqrt{2}}\right) \right\}\).</div><div class="source">Source: Subject Guide, 7.4; Anthony & Harvey, 13.4.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">31</div><div class="question-content">What are the eigenvalues of a unitary matrix \(U\)?</div></div><div class="back"><div class="answer-content">The eigenvalues \(\lambda\) of a unitary matrix \(U\) all have a modulus of 1, i.e., \(|\lambda| = 1\). They lie on the unit circle in the complex plane.
+  <b>Proof:</b> Let \(\mathbf{v}\) be an eigenvector for \(\lambda\). Then \(U\mathbf{v} = \lambda\mathbf{v}\). Since unitary transformations preserve the norm, we have \(||U\mathbf{v}|| = ||\mathbf{v}||\).
+  So, \(||\lambda\mathbf{v}|| = |\lambda| \cdot ||\mathbf{v}|| = ||\mathbf{v}||\). Since \(\mathbf{v} \neq \mathbf{0}\), we can divide by \(||\mathbf{v}||\) to get \(|\lambda| = 1\).</div><div class="source">Source: Anthony & Harvey, 13.5.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">32</div><div class="question-content">Unitarily diagonalise the matrix \(A = \begin{pmatrix} 2 & i \\ -i & 2 \end{pmatrix}\).</div></div><div class="back"><div class="answer-content">1. <b>Check if normal:</b> \(A^* = \begin{pmatrix} 2 & i \\ -i & 2 \end{pmatrix} = A\). Since A is Hermitian, it is normal.
+  <br>2. <b>Find eigenvalues:</b> \(\det(A - \lambda I) = (2-\lambda)^2 - (-i)(i) = (2-\lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = (\lambda-3)(\lambda-1) = 0\). So \(\lambda_1=3, \lambda_2=1\).
+  <br>3. <b>Find eigenvectors:</b>
+  For \(\lambda_1=3\): \(A-3I = \begin{pmatrix} -1 & i \\ -i & -1 \end{pmatrix} \to \begin{pmatrix} 1 & -i \\ 0 & 0 \end{pmatrix}\). Eigenvector \(\mathbf{v}_1 = (i, 1)\).
+  For \(\lambda_2=1\): \(A-I = \begin{pmatrix} 1 & i \\ -i & 1 \end{pmatrix} \to \begin{pmatrix} 1 & i \\ 0 & 0 \end{pmatrix}\). Eigenvector \(\mathbf{v}_2 = (-i, 1)\).
+  <br>4. <b>Orthonormalize:</b> \(||\mathbf{v}_1|| = \sqrt{i(-i)+1(1)} = \sqrt{2}\). \(||\mathbf{v}_2|| = \sqrt{(-i)i+1(1)} = \sqrt{2}\).
+  \(\mathbf{u}_1 = \frac{1}{\sqrt{2}}(i, 1)\), \(\mathbf{u}_2 = \frac{1}{\sqrt{2}}(-i, 1)\).
+  <br>5. <b>Form U and D:</b>
+  \(U = \frac{1}{\sqrt{2}}\begin{pmatrix} i & -i \\ 1 & 1 \end{pmatrix}\), \(D = \begin{pmatrix} 3 & 0 \\ 0 & 1 \end{pmatrix}\).</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">33</div><div class="question-content">What is the main difference between diagonalising a real symmetric matrix and a complex Hermitian matrix?</div></div><div class="back"><div class="answer-content">The process is almost identical, but the type of transformation matrix used is different.
+  <ul>
+    <li>A real symmetric matrix \(A\) is diagonalised by a real <b>orthogonal</b> matrix \(P\) (where \(P^T = P^{-1}\)), such that \(P^TAP = D\).</li>
+    <li>A complex Hermitian matrix \(A\) is diagonalised by a <b>unitary</b> matrix \(U\) (where \(U^* = U^{-1}\)), such that \(U^*AU = D\).
+    </li>
+  </ul>
+  The concept of an orthogonal matrix is the real-valued special case of a unitary matrix. The process in both cases involves finding an orthonormal basis of eigenvectors.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 11.1, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">34</div><div class="question-content">If a normal matrix has real eigenvalues, what can you conclude?</div></div><div class="back"><div class="answer-content">If a normal matrix has real eigenvalues, then it must be a Hermitian matrix.
+  <br>
+  <b>Proof Sketch:</b> Since the matrix \(A\) is normal, it is unitarily diagonalisable, so \(A = UDU^*\) for some unitary \(U\) and diagonal \(D\). The diagonal entries of \(D\) are the eigenvalues of \(A\). If the eigenvalues are real, then \(D\) is a real matrix, which means \(D^* = D^T = D\).
+  Now we check if \(A\) is Hermitian:
+  \[ A^* = (UDU^*)^* = (U^*)^*D^*U^* = UDU^* = A \]
+  Thus, \(A\) is Hermitian.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">35</div><div class="question-content">Find the spectral decomposition of \(A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\).</div></div><div class="back"><div class="answer-content">1. <b>Check Normal:</b> \(A^* = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\). \(AA^* = I\), \(A^*A = I\). So A is normal (it is unitary).
+  <br>2. <b>Eigen-problem:</b> Eigenvalues are \(\lambda_1=i, \lambda_2=-i\). Corresponding eigenvectors are \(\mathbf{v}_1=(1, i), \mathbf{v}_2=(1, -i)\).
+  <br>3. <b>Orthonormalize:</b> \(||\mathbf{v}_1|| = \sqrt{2}, ||\mathbf{v}_2|| = \sqrt{2}\). So \(\mathbf{u}_1 = \frac{1}{\sqrt{2}}(1, i), \mathbf{u}_2 = \frac{1}{\sqrt{2}}(1, -i)\).
+  <br>4. <b>Find Projection Matrices \(E_i = \mathbf{u}_i\mathbf{u}_i^*\):</b>
+  \[ E_1 = \frac{1}{2}\begin{pmatrix} 1 \\ i \end{pmatrix}\begin{pmatrix} 1 & -i \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 1 & -i \\ i & 1 \end{pmatrix} \]
+  \[ E_2 = \frac{1}{2}\begin{pmatrix} 1 \\ -i \end{pmatrix}\begin{pmatrix} 1 & i \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 1 & i \\ -i & 1 \end{pmatrix} \]
+  5. <b>Decomposition:</b> \(A = \lambda_1 E_1 + \lambda_2 E_2 = i E_1 - i E_2\).
+  \[ A = \frac{i}{2}\begin{pmatrix} 1 & -i \\ i & 1 \end{pmatrix} - \frac{i}{2}\begin{pmatrix} 1 & i \\ -i & 1 \end{pmatrix} = \frac{1}{2}\begin{pmatrix} i & 1 \\ -1 & i \end{pmatrix} - \frac{1}{2}\begin{pmatrix} i & -1 \\ 1 & i \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 0 & 2 \\ -2 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \]</div><div class="source">Source: Subject Guide, 7.7; Anthony & Harvey, 13.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">36</div><div class="question-content">Can a non-symmetric real matrix be diagonalised?</div></div><div class="back"><div class="answer-content">Yes. A real matrix is diagonalisable if it has \(n\) linearly independent eigenvectors. It does not need to be symmetric.
+  <br>
+  However, a real matrix is <b>orthogonally diagonalisable</b> (i.e., with an orthogonal matrix \(P\) such that \(P^TAP=D\)) if and only if it is symmetric. This is a much stronger condition.</div><div class="source">Source: Anthony & Harvey, 8.2, 11.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">37</div><div class="question-content">What is the fundamental difference between a real inner product and a complex inner product?</div></div><div class="back"><div class="answer-content">The key difference lies in the symmetry property.
+  <ul>
+    <li>A real inner product is <b>symmetric</b>: \(\langle \mathbf{x}, \mathbf{y} \rangle = \langle \mathbf{y}, \mathbf{x} \rangle\).</li>
+    <li>A complex inner product is <b>conjugate symmetric</b> (or Hermitian): \(\langle \mathbf{x}, \mathbf{y} \rangle = \overline{\langle \mathbf{y}, \mathbf{x} \rangle}\).
+    </li>
+  </ul>
+  This change is necessary to ensure that the norm-squared, \(\langle \mathbf{x}, \mathbf{x} \rangle\), is a non-negative real number for complex vectors. If it were symmetric, \(\langle i\mathbf{v}, i\mathbf{v} \rangle = i^2\langle \mathbf{v}, \mathbf{v} \rangle = -||\mathbf{v}||^2\), which would violate the positive-definiteness property.</div><div class="source">Source: Subject Guide, 7.4.2; Anthony & Harvey, 13.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">38</div><div class="question-content">If \(A\) is a real matrix with a complex eigenvalue \(\lambda\) and eigenvector \(\mathbf{v}\), what can be said about \(\bar{\lambda}\) and \(\bar{\mathbf{v}}\)?</div></div><div class="back"><div class="answer-content">If \(A\) is a real matrix (\\(A = \bar{A}\\)) and \(A\mathbf{v} = \lambda\mathbf{v}\\), then by taking the complex conjugate of the entire equation, we get:
+  \\[ \overline{A\mathbf{v}} = \overline{\lambda\mathbf{v}} \]
+  \\[ \bar{A}\bar{\mathbf{v}} = \bar{\lambda}\bar{\mathbf{v}} \]
+  Since \(A\) is real, \(\bar{A} = A\\), so:
+  \\[ A\bar{\mathbf{v}} = \bar{\lambda}\bar{\mathbf{v}} \]
+  This shows that \(\bar{\lambda}\) is also an eigenvalue of \(A\), with corresponding eigenvector \(\bar{\mathbf{v}}\). Complex eigenvalues of real matrices always come in conjugate pairs.</div><div class="source">Source: Anthony & Harvey, 13.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">39</div><div class="question-content">What is the geometric interpretation of multiplying a complex number by \(i\)?</div></div><div class="back"><div class="answer-content">Multiplying a complex number \(z\) by \(i\) corresponds to rotating the vector representing \(z\) in the complex plane by \(90^\circ\) (or \(\pi/2\) radians) counter-clockwise.
+  <br>
+  This can be seen using the exponential form. Let \(z = re^{i\theta}\). Since \(i = e^{i\pi/2}\), the product is:
+  \\[ iz = (e^{i\pi/2})(re^{i\theta}) = re^{i(\theta + \pi/2)} \]
+  The new vector has the same modulus \(r\) but its argument is increased by \(\pi/2\).
+  </div><div class="source">Source: Subject Guide, 7.1.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">40</div><div class="question-content">Is the set of all \(2 \times 2\) Hermitian matrices a complex vector space?</div></div><div class="back"><div class="answer-content">No. The set of Hermitian matrices is not closed under multiplication by a general complex scalar.
+  <br>
+  Let \(A\) be a non-zero Hermitian matrix (\\(A=A^*\\)). Let \(\alpha = i\\). We check if \(iA\) is Hermitian:
+  \\[ (iA)^* = \bar{i}A^* = (-i)A = -A \]
+  For \(iA\) to be Hermitian, we would need \(iA = (iA)^* = -A\\), which implies \((i+1)A = 0\\). Since \(A\) is non-zero, this is not true.
+  <br>
+  However, the set of Hermitian matrices does form a <em>real</em> vector space, since it is closed under multiplication by real scalars.</div><div class="source">Source: Anthony & Harvey, 13.5.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">41</div><div class="question-content">What is the relationship between a unitary matrix and an orthogonal matrix?</div></div><div class="back"><div class="answer-content">A unitary matrix is the complex analogue of a real orthogonal matrix. A real matrix \(Q\) is orthogonal if \(Q^T Q = I\). A complex matrix \(U\) is unitary if \(U^* U = I\).
+  <br>
+  If a unitary matrix \(U\) happens to have only real entries, then its Hermitian conjugate \(U^*\) is the same as its transpose \(U^T\). In this case, the condition \(U^*U=I\) becomes \(U^TU=I\), which is the definition of an orthogonal matrix. Therefore, a real unitary matrix is an orthogonal matrix.</div><div class="source">Source: Subject Guide, 7.5.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">42</div><div class="question-content">If \(E\) is a projection matrix from a spectral decomposition, what is \(E\mathbf{v}\) if \(\mathbf{v}\\) is in the eigenspace corresponding to \(E\)?</div></div><div class="back"><div class="answer-content">If \(E_i = \mathbf{u}_i\mathbf{u}_i^*\) is the projection matrix onto the eigenspace for \(\lambda_i\) (spanned by \(\mathbf{u}_i\)), and \(\mathbf{v}\\) is in that eigenspace, then \(\mathbf{v} = c\mathbf{u}_i\) for some scalar \(c\).
+  Then:
+  \\[ E_i\mathbf{v} = E_i(c\mathbf{u}_i) = c(E_i\mathbf{u}_i) = c(\mathbf{u}_i\mathbf{u}_i^*) \mathbf{u}_i \]
+  Since \(\mathbf{u}_i^*\mathbf{u}_i = ||\mathbf{u}_i||^2 = 1\), this becomes:
+  \\[ c(\mathbf{u}_i)(1) = c\mathbf{u}_i = \mathbf{v} \]
+  So, \(E_i\mathbf{v} = \mathbf{v}\). The projection of a vector already in the subspace is the vector itself.</div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">43</div><div class="question-content">If \(E_i\) and \(E_j\) are projection matrices from a spectral decomposition with \(i \neq j\), what is \(E_i\mathbf{v}\) if \(\mathbf{v}\\) is in the eigenspace for \(E_j\)?</div></div><div class="back"><div class="answer-content">If \(\mathbf{v}\\) is in the eigenspace for \(E_j\), then \(\mathbf{v} = c\mathbf{u}_j\) for some scalar \(c\).
+  Then:
+  \\[ E_i\mathbf{v} = E_i(c\mathbf{u}_j) = c(E_i\mathbf{u}_j) = c(\mathbf{u}_i\mathbf{u}_i^*) \mathbf{u}_j \]
+  Since the eigenvectors \(\{\mathbf{u}_k\}\) form an orthonormal set, \(\mathbf{u}_i^*\mathbf{u}_j = \langle \mathbf{u}_j, \mathbf{u}_i \rangle = 0\) for \(i \neq j\).
+  Therefore:
+  \\[ c(\mathbf{u}_i)(0) = \mathbf{0} \]
+  So, \(E_i\mathbf{v} = \mathbf{0}\). The projection of a vector onto an orthogonal subspace is the zero vector.</div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">44</div><div class="question-content">Can a non-symmetric real matrix be diagonalised?</div></div><div class="back"><div class="answer-content">Yes. A real matrix is diagonalisable if it has \(n\) linearly independent eigenvectors. It does not need to be symmetric.
+  <br>
+  However, a real matrix is <b>orthogonally diagonalisable</b> (i.e., with an orthogonal matrix \(P\) such that \(P^TAP=D\)) if and only if it is symmetric. This is a much stronger condition.</div><div class="source">Source: Anthony & Harvey, 8.2, 11.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">45</div><div class="question-content">What is the algebraic and geometric multiplicity of the eigenvalues of \(A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\)?</div></div><div class="back"><div class="answer-content">The characteristic equation is \(\det(A - \lambda I) = (2-\lambda)^2 = 0\). The only eigenvalue is \(\lambda=2\).
+  <ul>
+    <li><b>Algebraic Multiplicity:</b> The eigenvalue \(\lambda=2\) is a root of multiplicity 2 in the characteristic polynomial. So, the algebraic multiplicity is 2.</li>
+    <li><b>Geometric Multiplicity:</b> We find the dimension of the eigenspace \(N(A-2I)\).
+    \\(A-2I = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\). The null space is spanned by the vector \((1, 0)\). The dimension of the eigenspace is 1. So, the geometric multiplicity is 1.</li>
+  </ul>
+  Since the geometric multiplicity (1) is less than the algebraic multiplicity (2), the matrix is not diagonalisable.</div><div class="source">Source: Anthony & Harvey, 8.3.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">46</div><div class="question-content">If \(A\) is a normal matrix, are its eigenvectors corresponding to distinct eigenvalues orthogonal?</div></div><div class="back"><div class="answer-content">Yes. The proof is very similar to the Hermitian case.
+  Let \(A\mathbf{v}_1 = \lambda_1\mathbf{v}_1\) and \(A\mathbf{v}_2 = \lambda_2\mathbf{v}_2\) with \(\lambda_1 \neq \lambda_2\).
+  Consider \(\langle A\mathbf{v}_1, \mathbf{v}_2 \rangle = \lambda_1 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle\).
+  Also, \(\langle A\mathbf{v}_1, \mathbf{v}_2 \rangle = \langle \mathbf{v}_1, A^*\mathbf{v}_2 \rangle\). We know \(A^*\mathbf{v}_2 = \bar{\lambda}_2\mathbf{v}_2\) (an eigenvector of \(A^*\)).
+  So \(\langle \mathbf{v}_1, A^*\mathbf{v}_2 \rangle = \langle \mathbf{v}_1, \bar{\lambda}_2\mathbf{v}_2 \rangle = \lambda_2 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle\).
+  Thus, \(\lambda_1 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle = \lambda_2 \langle \mathbf{v}_1, \mathbf{v}_2 \rangle\), which means \((\lambda_1 - \lambda_2) \langle \mathbf{v}_1, \mathbf{v}_2 \rangle = 0\). Since \(\lambda_1 \neq \lambda_2\), we must have \(\langle \mathbf{v}_1, \mathbf{v}_2 \rangle = 0\).
+  </div><div class="source">Source: Generalization of Hermitian proof</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">47</div><div class="question-content">Express \(z = 1+i\) in polar and exponential forms.</div></div><div class="back"><div class="answer-content"><b>Cartesian:</b> \(z = 1+i\).
+  <br>
+  1. <b>Modulus:</b> \(r = |z| = \sqrt{1^2 + 1^2} = \sqrt{2}\).
+  <br>
+  2. <b>Argument:</b> The point \((1,1)\) is in the first quadrant. \(\tan\theta = 1/1 = 1\), so \(\theta = \pi/4\).
+  <br>
+  <b>Polar Form:</b>
+  \[ z = \sqrt{2}(\cos(\pi/4) + i\sin(\pi/4)) \]
+  <b>Exponential Form:</b>
+  \[ z = \sqrt{2}e^{i\pi/4} \]</div><div class="source">Source: Subject Guide, 7.1.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">48</div><div class="question-content">Use De Moivre's formula to compute \((1+i)^8\).</div></div><div class="back"><div class="answer-content">First, convert \(1+i\) to exponential or polar form. From the previous card, \(1+i = \sqrt{2}e^{i\pi/4}\).
+  <br>
+  Now, apply De Moivre's formula:
+  \\[ (1+i)^8 = (\sqrt{2}e^{i\pi/4})^8 = (\sqrt{2})^8 (e^{i\pi/4})^8 \]
+  \\[ = 2^4 e^{i(8\pi/4)} = 16 e^{i2\pi} \]
+  Since \(e^{i2\pi} = \cos(2\pi) + i\sin(2\pi) = 1 + 0i = 1\), the result is:
+  \\[ (1+i)^8 = 16(1) = 16 \]</div><div class="source">Source: Subject Guide, 7.1.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">49</div><div class="question-content">What is the main diagonalisability difference between a real symmetric matrix and a complex Hermitian matrix?</div></div><div class="back"><div class="answer-content">The process is almost identical, but the type of transformation matrix used is different.
+  <ul>
+    <li>A real symmetric matrix \(A\) is diagonalised by a real <b>orthogonal</b> matrix \(P\) (where \(P^T = P^{-1}\)), such that \(P^TAP = D\).</li>
+    <li>A complex Hermitian matrix \(A\) is diagonalised by a <b>unitary</b> matrix \(U\) (where \(U^* = U^{-1}\)), such that \(U^*AU = D\).
+    </li>
+  </ul>
+  The concept of an orthogonal matrix is the real-valued special case of a unitary matrix. The process in both cases involves finding an orthonormal basis of eigenvectors.</div><div class="source">Source: Subject Guide, 7.6; Anthony & Harvey, 11.1, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">50</div><div class="question-content">If \(A\) is a real and symmetric matrix, is it also Hermitian?</div></div><div class="back"><div class="answer-content">Yes.
+  <br>
+  A matrix is Hermitian if \(A = A^*\). The Hermitian conjugate \(A^*\) is defined as \(\bar{A}^T\).
+  <br>
+  If \(A\) is a real matrix, then all its entries are real, so taking the complex conjugate has no effect: \(\bar{A} = A\). Therefore, for a real matrix, \(A^* = A^T\).
+  <br>
+  If \(A\) is also symmetric, then \(A = A^T\).
+  <br>
+  Combining these, if \(A\) is real and symmetric, then \(A = A^T = A^*\). Thus, \(A\) is Hermitian.</div><div class="source">Source: Subject Guide, 7.5.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">51</div><div class="question-content">Is the product of two Hermitian matrices always Hermitian?</div></div><div class="back"><div class="answer-content">No, not always. Let \(A\) and \(B\) be Hermitian, so \(A=A^*\) and \(B=B^*\). We check the product \(AB\):
+  \\[ (AB)^* = B^*A^* = BA \]
+  For \(AB\) to be Hermitian, we would need \((AB)^* = AB\). This means we need \(BA = AB\). The product of two Hermitian matrices is Hermitian if and only if the matrices commute.</div><div class="source">Source: Anthony & Harvey, 13.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">52</div><div class="question-content">If \(A\) is a normal matrix, is \(A^2\) also normal?</div></div><div class="back"><div class="answer-content">Yes. If \(A\) is normal, then \(AA^* = A^*A\).
+  We need to check if \((A^2)(A^2)^* = (A^2)^*(A^2)\\).
+  <br>
+  LHS: \((A^2)(A^2)^* = A^2(A^*)^2 = A A A^* A^*\).
+  Since \(A\) is normal, we can swap \(A\) and \(A^*\): \(A(AA^*)A^* = A(A^*A)A^* = A^*A A A^* = A^* (AA^*) A = A^*(A^*A)A = (A^*)^2 A^2 = (A^2)^*A^2\).
+  So, \((A^2)(A^2)^* = (A^2)^*(A^2)\). The statement is true.</div><div class="source">Source: Generalization of properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">53</div><div class="question-content">What is the geometric meaning of the projection matrix \(E_i = \mathbf{u}_i\mathbf{u}_i^*\) from a spectral decomposition?</div></div><div class="back"><div class="answer-content">The matrix \(E_i\) is the orthogonal projection from \(\mathbb{C}^n\) onto the one-dimensional subspace spanned by the eigenvector \(\mathbf{u}_i\).
+  <br>
+  For any vector \(\mathbf{v} \in \mathbb{C}^n\), the vector \(E_i\mathbf{v}\) is the projection of \(\mathbf{v}\) onto the line defined by \(\mathbf{u}_i\).
+  \\[ E_i\mathbf{v} = (\mathbf{u}_i\mathbf{u}_i^*)\mathbf{v} = \mathbf{u}_i(\mathbf{u}_i^*\mathbf{v}) = \mathbf{u}_i \langle \mathbf{v}, \mathbf{u}_i \rangle = \langle \mathbf{v}, \mathbf{u}_i \rangle \mathbf{u}_i \]
+  This is the standard formula for orthogonal projection of \(\mathbf{v}\) onto the unit vector \(\mathbf{u}_i\).
+  </div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">54</div><div class="question-content">Can a real matrix have complex eigenvectors?</div></div><div class="back"><div class="answer-content">Yes. A real matrix can have complex eigenvalues, and the eigenvectors corresponding to these complex eigenvalues will themselves be complex.
+  <br>
+  For example, the rotation matrix \(A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\) is real, but its eigenvalues are \(\pm i\) and its eigenvectors are \((1, -i)\) and \((1, i)\), which are complex.</div><div class="source">Source: Subject Guide, 7.3; Anthony & Harvey, 13.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">55</div><div class="question-content">If \(A\) is a real \(n \times n\) matrix, can \(\mathbb{C}^n\) have a basis of eigenvectors of \(A\) even if \(\mathbb{R}^n\) does not?</div></div><div class="back"><div class="answer-content">Yes. This happens when the matrix is not diagonalisable over \(\mathbb{R}\\) but is diagonalisable over \(\mathbb{C}\).
+  <br>
+  For a matrix to be diagonalisable over a field, it must have a full set of \(n\) linearly independent eigenvectors in the vector space over that field.
+  <br>
+  A real matrix like \(A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\) has no real eigenvalues, so it has no eigenvectors in \(\mathbb{R}^2\) and cannot form a basis. However, it has two distinct complex eigenvalues \(\pm i\) and thus two linearly independent eigenvectors in \(\mathbb{C}^2\), which form a basis for \(\mathbb{C}^2\).
+  </div><div class="source">Source: Subject Guide, 7.3; Anthony & Harvey, 13.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">56</div><div class="question-content">What is the result of \(\sum_{i=1}^n E_i\), where \(E_i\) are the projection matrices from a spectral decomposition?</div></div><div class="back"><div class="answer-content">The sum of the projection matrices from a spectral decomposition is the identity matrix:
+  \\[ \sum_{i=1}^n E_i = E_1 + E_2 + \dots + E_n = I \]
+  This is because \(I = UU^*\). If \(U = [\mathbf{u}_1 | \dots | \mathbf{u}_n]\), then \(UU^* = \sum_{i=1}^n \mathbf{u}_i\mathbf{u}_i^* = \sum_{i=1}^n E_i\). This reflects the fact that projecting a vector onto every basis vector of an orthonormal basis and summing the results reconstructs the original vector.</div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">57</div><div class="question-content">If \(A\) is a normal matrix with spectral decomposition \(A = \sum \lambda_i E_i\), what is the spectral decomposition of \(A^k\)?</div></div><div class="back"><div class="answer-content">Using the properties of the projection matrices \(E_i\), we have:
+  \\[ A^k = (\sum \lambda_i E_i)^k = \sum \lambda_i^k E_i \]
+  This works because when expanding the power, all cross terms \(E_i E_j\) for \(i \neq j\) are zero, and \(E_i^k = E_i\) for \(k \ge 1\).
+  <br>
+  This provides a very efficient way to compute powers of a unitarily diagonalisable matrix.</div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">58</div><div class="question-content">Is the matrix \(A = \begin{pmatrix} 1 & i \\ i & 1 \end{pmatrix}\) normal?</div></div><div class="back"><div class="answer-content">We check if \(AA^*=A^*A\).
+  \\[ A^* = \begin{pmatrix} 1 & -i \\ -i & 1 \end{pmatrix} \]
+  \\[ AA^* = \begin{pmatrix} 1 & i \\ i & 1 \end{pmatrix} \begin{pmatrix} 1 & -i \\ -i & 1 \end{pmatrix} = \begin{pmatrix} 1-i^2 & -i+i \\ i-i & -i^2+1 \end{pmatrix} = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} \]
+  \\[ A^*A = \begin{pmatrix} 1 & -i \\ -i & 1 \end{pmatrix} \begin{pmatrix} 1 & i \\ i & 1 \end{pmatrix} = \begin{pmatrix} 1-i^2 & i-i \\ -i+i & -i^2+1 \end{pmatrix} = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} \]
+  Since \(AA^* = A^*A\), the matrix is normal.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">59</div><div class="question-content">How can \(\mathbb{C}^n\) be viewed as a real vector space? What is its dimension in this case?</div></div><div class="back"><div class="answer-content">We can view \(\mathbb{C}^n\) as a real vector space by restricting the scalars to be real numbers (\\(\mathbb{R}\)).
+  <br>
+  A vector \(\mathbf{v} \in \mathbb{C}^n\) can be written as \(\mathbf{v} = \mathbf{a} + i\mathbf{b}\) where \(\mathbf{a}, \mathbf{b} \in \mathbb{R}^n\).
+  A basis for \(\mathbb{C}^n\) as a real vector space can be formed by taking the standard basis vectors of \(\mathbb{R}^n\) and their multiples by \(i\).
+  For example, a basis for \(\mathbb{C}^2\) as a real vector space is \(\{(1,0), (i,0), (0,1), (0,i)\}\).
+  <br>
+  The dimension of \(\mathbb{C}^n\) as a real vector space is \(2n\).</div><div class="source">Source: Subject Guide, 7.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">60</div><div class="question-content">If \(A\) is an invertible complex matrix, what is \((A^*)^{-1}\) in terms of \((A^{-1})^*\)?</div></div><div class="back"><div class="answer-content">They are equal: \((A^*)^{-1} = (A^{-1})^*\).
+  <br>
+  <b>Proof:</b> We know \(AA^{-1} = I\). Taking the Hermitian conjugate of both sides:
+  \\[ (AA^{-1})^* = I^* \]
+  \\[ (A^{-1})^* A^* = I \]
+  This equation shows, by definition of an inverse, that \((A^{-1})^*\) is the inverse of \(A^*\). Therefore, \((A^*)^{-1} = (A^{-1})^*\).
+  </div><div class="source">Source: Generalization of matrix properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">61</div><div class="question-content">Find the cube roots of unity.</div></div><div class="back"><div class="answer-content">We want to solve \(z^3 = 1\). In exponential form, \(1 = 1 \cdot e^{i(0 + 2k\pi)}\).
+  The roots are given by:
+  \\[ z_k = \sqrt[3]{1} e^{i\frac{2k\pi}{3}} \quad \text{for } k=0, 1, 2 \]
+  <ul>
+    <li>\(k=0: z_0 = e^{i0} = 1\)</li>
+    <li>\(k=1: z_1 = e^{i2\pi/3} = \cos(2\pi/3) + i\sin(2\pi/3) = -\frac{1}{2} + i\frac{\sqrt{3}}{2}\)</li>
+    <li>\(k=2: z_2 = e^{i4\pi/3} = \cos(4\pi/3) + i\sin(4\pi/3) = -\frac{1}{2} - i\frac{\sqrt{3}}{2}\)</li>
+  </ul>
+  These are often denoted \(1, \omega, \omega^2\).
+  </div><div class="source">Source: Subject Guide, 7.1.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">62</div><div class="question-content">Is the set of \(n \times n\) unitary matrices a subspace of \(\mathbb{C}^{n \times n}\)?</div></div><div class="back"><div class="answer-content">No. It fails on multiple conditions.
+  <ol>
+    <li><b>Zero Vector:</b> The zero matrix is not unitary, since \(0^*0 = 0 \neq I\). A subspace must contain the zero vector.</li>
+    <li><b>Closure under Addition:</b> If \(U_1\) and \(U_2\) are unitary, \(U_1+U_2\) is generally not unitary. For example, \(I\) is unitary, but \(I+I=2I\) is not, since \((2I)^*(2I) = 4I \neq I\).
+    </li>
+  </ol>
+  Therefore, the set of unitary matrices is not a subspace.</div><div class="source">Source: Subject Guide, 7.5.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">63</div><div class="question-content">If \(A\) is a normal matrix, show that \(||A\mathbf{x}|| = ||A^*\mathbf{x}||\) for any vector \(\mathbf{x}\).</div></div><div class="back"><div class="answer-content">We want to show \(||A\mathbf{x}||^2 = ||A^*\mathbf{x}||^2\).
+  \\[ ||A\mathbf{x}||^2 = \langle A\mathbf{x}, A\mathbf{x} \rangle = \langle \mathbf{x}, A^*A\mathbf{x} \rangle \]
+  \\[ ||A^*\mathbf{x}||^2 = \langle A^*\mathbf{x}, A^*\mathbf{x} \rangle = \langle \mathbf{x}, (A^*)^*A^*\mathbf{x} \rangle = \langle \mathbf{x}, AA^*\mathbf{x} \rangle \]
+  Since \(A\) is normal, \(A^*A = AA^*\). Therefore,
+  \\[ \langle \mathbf{x}, A^*A\mathbf{x} \rangle = \langle \mathbf{x}, AA^*\mathbf{x} \rangle \]
+  This implies \(||A\mathbf{x}||^2 = ||A^*\mathbf{x}||^2\), and since norms are non-negative, \(||A\mathbf{x}|| = ||A^*\mathbf{x}||\).
+  </div><div class="source">Source: Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">64</div><div class="question-content">If \(A\) is a normal matrix and \(\mathbf{v}\\) is an eigenvector of \(A\) with eigenvalue \(\lambda\), show that \(\mathbf{v}\\) is also an eigenvector of \(A^*\).</div></div><div class="back"><div class="answer-content">We know \(A\mathbf{v} = \lambda\mathbf{v}\). We want to show \(A^*\mathbf{v} = \bar{\lambda}\mathbf{v}\).
+  Consider the matrix \(B = A - \lambda I\). Since \(A\) is normal, \(B\) is also normal:
+  \\[ B^*B = (A^* - \bar{\lambda}I)(A - \lambda I) = A^*A - \lambda A^* - \bar{\lambda}A + |\lambda|^2 I \]
+  \\[ BB^* = (A - \lambda I)(A^* - \bar{\lambda}I) = AA^* - \bar{\lambda}A - \lambda A^* + |\lambda|^2 I \]
+  Since \(AA^*=A^*A\), we have \(BB^*=B^*B\).
+  From the previous card, we know \(||B\mathbf{v}|| = ||B^*\mathbf{v}||\). Since \(\mathbf{v}\\) is an eigenvector of \(A\) for \(\lambda\), \(B\mathbf{v} = (A-\lambda I)\mathbf{v} = \mathbf{0}\). So \(||B\mathbf{v}||=0\).
+  This means \(||B^*\mathbf{v}||=0\), which implies \(B^*\mathbf{v}=\mathbf{0}\).
+  \\[ (A^* - \bar{\lambda}I)\mathbf{v} = \mathbf{0} \implies A^*\mathbf{v} = \bar{\lambda}\mathbf{v} \]
+  Thus, \(\mathbf{v}\\) is an eigenvector of \(A^*\) with eigenvalue \(\bar{\lambda}\).
+  </div><div class="source">Source: Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">65</div><div class="question-content">What is a skew-Hermitian matrix? What can you say about its eigenvalues?</div></div><div class="back"><div class="answer-content">A matrix \(A\) is <b>skew-Hermitian</b> if \(A^* = -A\).
+  <br>
+  The eigenvalues of a skew-Hermitian matrix are purely imaginary (or zero).
+  <br>
+  <b>Proof:</b> Let \(A\mathbf{v} = \lambda\mathbf{v}\). Then \(\langle A\mathbf{v}, \mathbf{v} \rangle = \lambda ||\mathbf{v}||^2\).
+  Also, \(\langle A\mathbf{v}, \mathbf{v} \rangle = \langle \mathbf{v}, A^*\mathbf{v} \rangle = \langle \mathbf{v}, -A\mathbf{v} \rangle = \langle \mathbf{v}, -\lambda\mathbf{v} \rangle = -\bar{\lambda} \langle \mathbf{v}, \mathbf{v} \rangle = -\bar{\lambda} ||\mathbf{v}||^2\).
+  So, \(\lambda ||\mathbf{v}||^2 = -\bar{\lambda} ||\mathbf{v}||^2\), which means \(\lambda = -\bar{\lambda}\). If \(\lambda = a+ib\), then \(a+ib = -(a-ib) = -a+ib\), which implies \(a = -a\), so \(a=0\). Thus \(\lambda = ib\) is purely imaginary.</div><div class="source">Source: Anthony & Harvey, Problem 13.15</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">66</div><div class="question-content">If \(A\) is a normal matrix, is \(A+I\) also normal?</div></div><div class="back"><div class="answer-content">Yes. We need to check if \((A+I)(A+I)^* = (A+I)^*(A+I)\).
+  \\[ (A+I)^* = A^* + I^* = A^* + I \]
+  LHS: \((A+I)(A^*+I) = AA^* + A + A^* + I\).
+  <br>
+  RHS: \((A^*+I)(A+I) = A^*A + A^* + A + I\).
+  <br>
+  Since \(A\) is normal, \(AA^* = A^*A\). Therefore, the LHS and RHS are equal, and \(A+I\) is normal.</div><div class="source">Source: Generalization of properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">67</div><div class="question-content">Use the Gram-Schmidt process to find an orthonormal basis for the subspace of \(\mathbb{C}^3\) spanned by \(\mathbf{v}_1=(1,i,0)\\) and \(\mathbf{v}_2=(1,2,1+i)\).</div></div><div class="back"><div class="answer-content">1. <b>Normalize \(\mathbf{v}_1\):</b>
+  \\(||\mathbf{v}_1||^2 = 1^2 + |i|^2 + 0^2 = 1+1=2 \implies ||\mathbf{v}_1|| = \sqrt{2}\).
+  \\(\mathbf{u}_1 = \frac{1}{\sqrt{2}}(1, i, 0)\).
+  <br>
+  2. <b>Find \(\mathbf{w}_2\):</b>
+  \\(\langle \mathbf{v}_2, \mathbf{u}_1 \rangle = \frac{1}{\sqrt{2}}(1\cdot\bar{1} + 2\cdot\bar{i} + (1+i)\cdot\bar{0}) = \frac{1-2i}{\sqrt{2}}\).
+  \\(\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1 = (1,2,1+i) - \frac{1-2i}{\sqrt{2}} \frac{1}{\sqrt{2}}(1,i,0) = (1,2,1+i) - \frac{1-2i}{2}(1,i,0)\)
+  \\(= (1,2,1+i) - (\frac{1-2i}{2}, \frac{i+2}{2}, 0) = (\frac{1+2i}{2}, \frac{2-i}{2}, 1+i)\).
+  <br>
+  3. <b>Normalize \(\mathbf{w}_2\):</b>
+  \\(||\mathbf{w}_2||^2 = \frac{5}{4} + \frac{5}{4} + 2 = \frac{18}{4} = \frac{9}{2} \implies ||\mathbf{w}_2|| = \frac{3}{\sqrt{2}}\).
+  \\(\mathbf{u}_2 = \frac{\sqrt{2}}{3} (\frac{1+2i}{2}, \frac{2-i}{2}, 1+i) = \frac{1}{3\sqrt{2}}(1+2i, 2-i, 2+2i)\).
+  The basis is \(\{\mathbf{u}_1, \mathbf{u}_2\}\).
+  </div><div class="source">Source: Subject Guide, 7.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">68</div><div class="question-content">If \(A\) is a real \(2 \times 2\) matrix with eigenvalues \(a \pm ib\), what is \(\det(A)\) and \(\text{tr}(A)\)?</div></div><div class="back"><div class="answer-content">The determinant is the product of the eigenvalues and the trace is the sum of the eigenvalues.
+  <ul>
+    <li>\\(\det(A) = (a+ib)(a-ib) = a^2 - (ib)^2 = a^2 + b^2\). The determinant is a real number.</li>
+    <li>\\(\text{tr}(A) = (a+ib) + (a-ib) = 2a\). The trace is a real number.</li>
+  </ul>
+  This is consistent with the fact that for a real matrix, both the determinant and trace must be real numbers.</div><div class="source">Source: Anthony & Harvey, 8.1.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">69</div><div class="question-content">Show that the product of two unitary matrices is unitary.</div></div><div class="back"><div class="answer-content">Let \(U\) and \(V\) be two \(n \times n\) unitary matrices. By definition, \(U^*U = I\) and \(V^*V = I\).
+  We want to show that their product, \(UV\), is also unitary. We check if \((UV)^*(UV) = I\).
+  \\[ (UV)^*(UV) = (V^*U^*)(UV) \]
+  Using associativity of matrix multiplication:
+  \\[ = V^*(U^*U)V = V^*(I)V = V^*V = I \]
+  Thus, the product \(UV\) is unitary.</div><div class="source">Source: Subject Guide, 7.5.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">70</div><div class="question-content">If a matrix is diagonal, is it normal?</div></div><div class="back"><div class="answer-content">Yes. Let \(D\) be a diagonal matrix. Its entries are \(d_{ij} = 0\) for \(i \neq j\).
+  The Hermitian conjugate \(D^*\) is the conjugate transpose. The transpose of a diagonal matrix is itself. So \(D^* = \bar{D}\), which is also a diagonal matrix with entries \(\bar{d}_{ii}\) on the diagonal.
+  Since diagonal matrices commute, we have:
+  \\[ DD^* = D\bar{D} = \bar{D}D = D^*D \]
+  The entry \((DD^*)_{ii} = d_{ii}\bar{d}_{ii} = |d_{ii}|^2\).
+  The entry \((D^*D)_{ii} = \bar{d}_{ii}d_{ii} = |d_{ii}|^2\).
+  All off-diagonal entries are zero.
+  Therefore, any diagonal matrix is normal.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">71</div><div class="question-content">Find a \(2 \times 2\) matrix that is normal but not Hermitian, unitary, or diagonal.</div></div><div class="back"><div class="answer-content">Consider \(A = \begin{pmatrix} 1 & i \\ i & 1 \end{pmatrix}\). We checked in a previous card that it is normal.
+  <ul>
+    <li>It is not diagonal.</li>
+    <li>It is not Hermitian, since \(A^* = \begin{pmatrix} 1 & -i \\ -i & 1 \end{pmatrix} \neq A\).</li>
+    <li>It is not unitary, since \(AA^* = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} \neq I\).</li>
+  </ul>
+  This matrix is normal but does not fall into the other categories.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">72</div><div class="question-content">If \(A\) is a normal matrix, show that \(A\) and \(A^*\) have the same eigenvectors.</div></div><div class="back"><div class="answer-content">We have already proven this. Let \(\mathbf{v}\\) be an eigenvector of a normal matrix \(A\) with eigenvalue \(\lambda\).
+  We showed that \(||(A-\lambda I)\mathbf{v}|| = ||(A-\lambda I)^*\mathbf{v}||\).
+  Since \((A-\lambda I)\mathbf{v} = \mathbf{0}\), it follows that \(||(A^*-\bar{\lambda}I)\mathbf{v}|| = 0\), which means \((A^*-\bar{\lambda}I)\mathbf{v} = \mathbf{0}\).
+  This shows that \(A^*\mathbf{v} = \bar{\lambda}\mathbf{v}\).
+  Therefore, \(\mathbf{v}\\) is an eigenvector of \(A^*\) (with eigenvalue \(\bar{\lambda}\)). The set of eigenvectors is the same.</div><div class="source">Source: Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">73</div><div class="question-content">What is the main diagonalisability difference between a general real matrix and a general complex matrix?</div></div><div class="back"><div class="answer-content">The key difference is related to eigenvalues. By the Fundamental Theorem of Algebra, any \(n \times n\) complex matrix has \(n\) complex eigenvalues (counting multiplicities). A real matrix may not have any real eigenvalues.
+  <br>
+  This means a complex matrix is more 'likely' to be diagonalisable. A complex matrix is diagonalisable if and only if for every eigenvalue, the geometric multiplicity equals the algebraic multiplicity.
+  <br>
+  A real matrix can fail to be diagonalisable over \(\mathbb{R}\) simply by not having enough real eigenvalues, even if it would be diagonalisable over \(\mathbb{C}\).
+  </div><div class="source">Source: Subject Guide, 7.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">74</div><div class="question-content">If \(A\) is a normal matrix and \(U\) is a unitary matrix, is \(U^*AU\) also normal?</div></div><div class="back"><div class="answer-content">Yes. Let \(B = U^*AU\). We check if \(BB^*=B^*B\).
+  \\[ B^* = (U^*AU)^* = U^*A^*(U^*)^* = U^*A^*U \]
+  LHS: \(BB^* = (U^*AU)(U^*A^*U) = U^*A(UU^*)A^*U = U^*AIA^*U = U^*AA^*U\).
+  <br>
+  RHS: \(B^*B = (U^*A^*U)(U^*AU) = U^*A^*(UU^*)AU = U^*A^*IAU = U^*A^*AU\).
+  <br>
+  Since \(A\) is normal, \(AA^*=A^*A\), so the LHS and RHS are equal. Thus, \(B\) is normal. This property is called "unitarily invariant".</div><div class="source">Source: Generalization of properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">75</div><div class="question-content">Find a \(2 \times 2\) matrix \(B\) such that \(B^3 = A = \begin{pmatrix} 8 & 0 \\ 0 & -i \end{pmatrix}\).</div></div><div class="back"><div class="answer-content">Since \(A\) is diagonal, it is normal. Its spectral decomposition is simple. The eigenvalues are \(\lambda_1=8, \lambda_2=-i\). The projection matrices are \(E_1 = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}\) and \(E_2 = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}\).
+  So \(A = 8E_1 - iE_2\).
+  We want \(B = \lambda_1^{1/3}E_1 + \lambda_2^{1/3}E_2\).
+  The cube roots of 8 are \(2, 2e^{i2\pi/3}, 2e^{i4\pi/3}\). Let's pick \(\sqrt[3]{8}=2\).
+  The cube roots of \(-i = e^{-i\pi/2}\) are \(e^{-i\pi/6}, e^{i\pi/2}, e^{i7\pi/6}\). Let's pick \(\sqrt[3]{-i} = e^{i\pi/2} = i\).
+  One possible matrix \(B\) is:
+  \\[ B = 2\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix} + i\begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 2 & 0 \\ 0 & i \end{pmatrix} \]
+  Checking: \(B^3 = \begin{pmatrix} 2^3 & 0 \\ 0 & i^3 \end{pmatrix} = \begin{pmatrix} 8 & 0 \\ 0 & -i \end{pmatrix} = A\).
+  </div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">76</div><div class="question-content">What is the key takeaway from the Spectral Theorem?</div></div><div class="back"><div class="answer-content">The Spectral Theorem provides a complete classification of which matrices can be unitarily diagonalised. It states that this is possible if and only if the matrix is normal (\\(AA^*=A^*A\\)).
+  <br>
+  This is a powerful theoretical tool because it tells us exactly which class of matrices has the 'nice' property of possessing an orthonormal basis of eigenvectors. This includes Hermitian, skew-Hermitian, and unitary matrices as special cases.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">77</div><div class="question-content">If \(z = 3e^{i\pi/3}\), what is \(z\) in Cartesian form?</div></div><div class="back"><div class="answer-content">We use Euler's formula: \(e^{i\theta} = \cos\theta + i\sin\theta\).
+  \\[ z = 3(\cos(\pi/3) + i\sin(\pi/3)) \]
+  We know that \(\cos(\pi/3) = 1/2\) and \(\sin(\pi/3) = \sqrt{3}/2\).
+  \\[ z = 3\left(\frac{1}{2} + i\frac{\sqrt{3}}{2}\right) = \frac{3}{2} + i\frac{3\sqrt{3}}{2} \]
+  So, the Cartesian form is \(\frac{3}{2} + i\frac{3\sqrt{3}}{2}\).
+  </div><div class="source">Source: Subject Guide, 7.1.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">78</div><div class="question-content">If \(A\) is a real matrix, can it be normal without being symmetric?</div></div><div class="back"><div class="answer-content">Yes. For a real matrix \(A\), the normal condition \(AA^*=A^*A\) becomes \(AA^T=A^TA\).
+  <br>
+  A symmetric matrix (\\(A=A^T\\)) is always normal.
+  <br>
+  However, a real orthogonal matrix (\\(A^T=A^{-1}\\)) is also normal: \(AA^T = A A^{-1} = I\) and \(A^TA = A^{-1}A = I\).
+  <br>
+  The rotation matrix \(A = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\) for \(\theta \neq k\pi\) is orthogonal but not symmetric, and it is normal.</div><div class="source">Source: Anthony & Harvey, 13.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">79</div><div class="question-content">Is the diagonalisation of a complex matrix unique?</div></div><div class="back"><div class="answer-content">No, it is not unique.
+  <ol>
+    <li>The order of eigenvalues in the diagonal matrix \(D\) can be changed.</li>
+    <li>Changing the order of eigenvalues in \(D\) corresponds to changing the order of the corresponding eigenvector columns in the transformation matrix \(P\) (or \(U\)).</li>
+    <li>Eigenvectors are not unique; any non-zero scalar multiple of an eigenvector is also an eigenvector. While this scalar is often chosen to normalize the vector in unitary diagonalisation, one could still multiply by a scalar of modulus 1 (like \(i\) or \(-1\)) to get a different orthonormal eigenvector.</li>
+  </ol></div><div class="source">Source: Anthony & Harvey, 8.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">80</div><div class="question-content">What is the main challenge when diagonalising a matrix with repeated eigenvalues?</div></div><div class="back"><div class="answer-content">The main challenge is determining if there are enough linearly independent eigenvectors.
+  <br>
+  For a matrix to be diagonalisable, the geometric multiplicity (the dimension of the eigenspace) of each eigenvalue must be equal to its algebraic multiplicity (the multiplicity of the root in the characteristic polynomial).
+  <br>
+  If an eigenvalue \(\lambda\) is repeated \(k\) times, you must be able to find \(k\) linearly independent eigenvectors for that \(\lambda\). If you cannot, the matrix is not diagonalisable. For symmetric/Hermitian/normal matrices, this is guaranteed to be possible.</div><div class="source">Source: Anthony & Harvey, 8.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">81</div><div class="question-content">If \(A\) is a \(3 \times 3\) matrix with eigenvalues 1, 1, 5, what can you say about \(\det(A)\) and \(\text{tr}(A)\)?</div></div><div class="back"><div class="answer-content">The determinant is the product of the eigenvalues and the trace is the sum of the eigenvalues.
+  <ul>
+    <li>\\(\det(A) = 1 \cdot 1 \cdot 5 = 5\)</li>
+    <li>\\(\text{tr}(A) = 1 + 1 + 5 = 7\)</li>
+  </ul>
+  This holds regardless of whether the matrix is diagonalisable.</div><div class="source">Source: Anthony & Harvey, 8.1.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">82</div><div class="question-content">Let \(\mathbf{u}, \mathbf{v} \in \mathbb{C}^n\). Show that \(||\mathbf{u}+\mathbf{v}||^2 = ||\mathbf{u}||^2 + ||\mathbf{v}||^2\) if \(\mathbf{u}\) and \(\mathbf{v}\) are orthogonal. (Pythagoras' Theorem)</div></div><div class="back"><div class="answer-content">We expand \(||\mathbf{u}+\mathbf{v}||^2\) using the definition of the norm:
+  \\[ ||\mathbf{u}+\mathbf{v}||^2 = \langle \mathbf{u}+\mathbf{v}, \mathbf{u}+\mathbf{v} \rangle \]
+  Using the properties of the inner product:
+  \\[ = \langle \mathbf{u}, \mathbf{u} \rangle + \langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{v}, \mathbf{u} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle \]
+  \\[ = ||\mathbf{u}||^2 + \langle \mathbf{u}, \mathbf{v} \rangle + \overline{\langle \mathbf{u}, \mathbf{v} \rangle} + ||\mathbf{v}||^2 \]
+  Since \(\mathbf{u}\) and \(\mathbf{v}\) are orthogonal, \(\langle \mathbf{u}, \mathbf{v} \rangle = 0\). Therefore, the middle two terms are zero.
+  \\[ ||\mathbf{u}+\mathbf{v}||^2 = ||\mathbf{u}||^2 + ||\mathbf{v}||^2 \]
+  </div><div class="source">Source: Anthony & Harvey, 13.4.2</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">83</div><div class="question-content">If \(A\) is an \(n \times n\) matrix, how do you find its complex eigenvalues and eigenvectors?</div></div><div class="back"><div class="answer-content">The procedure is the same as for real eigenvalues and eigenvectors, but the arithmetic is done in \(\mathbb{C}\).
+  <ol>
+    <li><b>Find Eigenvalues:</b> Solve the characteristic equation \(\det(A - \lambda I) = 0\) for \(\lambda\). By the Fundamental Theorem of Algebra, there will be \(n\) roots in \(\mathbb{C}\) (counting multiplicities).</li>
+    <li><b>Find Eigenvectors:</b> For each eigenvalue \(\lambda_i\), find the null space of the matrix \((A - \lambda_i I)\). Any non-zero vector in \(N(A - \lambda_i I)\) is an eigenvector corresponding to \(\lambda_i\). This involves solving a system of linear equations with complex coefficients.</li>
+  </ol></div><div class="source">Source: Subject Guide, 7.3</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">84</div><div class="question-content">What is the key difference between the Gram-Schmidt process in \(\mathbb{R}^n\) and \(\mathbb{C}^n\)?</div></div><div class="back"><div class="answer-content">The process is structurally identical, but the inner product used is different.
+  <br>
+  In \(\mathbb{R}^n\), the projection formula uses the real dot product: \(\text{proj}_{\mathbf{u}}(\mathbf{v}) = \frac{\mathbf{v} \cdot \mathbf{u}}{||\mathbf{u}||^2}\mathbf{u}\).
+  <br>
+  In \(\mathbb{C}^n\), the projection formula must use the complex inner product: \(\text{proj}_{\mathbf{u}}(\mathbf{v}) = \frac{\langle \mathbf{v}, \mathbf{u} \rangle}{||\mathbf{u}||^2}\mathbf{u}\).
+  <br>
+  Because the complex inner product is conjugate symmetric, the order matters: \(\langle \mathbf{v}, \mathbf{u} \rangle\) is not the same as \(\langle \mathbf{u}, \mathbf{v} \rangle\). The formula \(\mathbf{w}_k = \mathbf{v}_k - \sum_{j=1}^{k-1} \langle \mathbf{v}_k, \mathbf{u}_j \rangle \mathbf{u}_j\) must be used with care regarding the order of the vectors in the inner product.</div><div class="source">Source: Subject Guide, 7.4</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">85</div><div class="question-content">If \(A\) is a matrix that is both unitary and Hermitian, what can you say about its eigenvalues?</div></div><div class="back"><div class="answer-content">If \(A\) is Hermitian, its eigenvalues are real.
+  <br>
+  If \(A\) is unitary, its eigenvalues have a modulus of 1.
+  <br>
+  The only real numbers with a modulus of 1 are \(1\) and \(-1\).
+  <br>
+  Therefore, if a matrix is both unitary and Hermitian, its eigenvalues must be either 1 or -1.</div><div class="source">Source: Subject Guide, 7.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">86</div><div class="question-content">Is the sum of two normal matrices always normal?</div></div><div class="back"><div class="answer-content">No. Let \(A\) and \(B\) be normal matrices. We check if \(A+B\) is normal.
+  \\((A+B)(A+B)^* = (A+B)(A^*+B^*) = AA^* + AB^* + BA^* + BB^*\)
+  \\((A+B)^*(A+B) = (A^*+B^*)(A+B) = A^*A + A^*B + B^*A + B^*B\)
+  Since \(AA^*=A^*A\) and \(BB^*=B^*B\), for the sum to be normal we need \(AB^* + BA^* = A^*B + B^*A\). This is not true in general.</div><div class="source">Source: Generalization of properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">87</div><div class="question-content">How do you find the orthogonal projection from \(\mathbb{C}^n\) onto a subspace spanned by an eigenvector \(\mathbf{u}_i\)?</div></div><div class="back"><div class="answer-content">The matrix that performs this projection is the \(i\)-th projection matrix \(E_i\) from the spectral decomposition.
+  It is given by the outer product:
+  \\[ E_i = \mathbf{u}_i \mathbf{u}_i^* \]
+  where \(\mathbf{u}_i\) is the <b>normalized</b> eigenvector (i.e., \(||\mathbf{u}_i||=1\)).
+  <br>
+  If you have an orthogonal eigenvector \(\mathbf{v}_i\) that is not normalized, the projection matrix is \(\frac{1}{||\mathbf{v}_i||^2} \mathbf{v}_i \mathbf{v}_i^*\).
+  </div><div class="source">Source: Subject Guide, 7.7</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">88</div><div class="question-content">If a matrix has a complete set of orthonormal eigenvectors, what kind of matrix must it be?</div></div><div class="back"><div class="answer-content">It must be a normal matrix.
+  <br>
+  The Spectral Theorem states that a matrix is unitarily diagonalisable if and only if it is normal. A matrix is unitarily diagonalisable if and only if it has an orthonormal basis of eigenvectors. Therefore, having a complete set of orthonormal eigenvectors is equivalent to being a normal matrix.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">89</div><div class="question-content">Find \(i^{2025}\).</div></div><div class="back"><div class="answer-content">The powers of \(i\) cycle with a period of 4: \(i^1=i, i^2=-1, i^3=-i, i^4=1\).
+  To find \(i^{2025}\), we can find the remainder of 2025 when divided by 4.
+  \\[ 2025 = 4 \times 506 + 1 \]
+  So, \(2025 \equiv 1 \pmod{4}\).
+  Therefore,
+  \\[ i^{2025} = i^1 = i \]
+  </div><div class="source">Source: Subject Guide, 7.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">90</div><div class="question-content">If \(A\) is a normal matrix, is its inverse \(A^{-1}\) also normal (assuming it exists)?</div></div><div class="back"><div class="answer-content">Yes. If \(A\) is normal, \(AA^*=A^*A\). We want to check if \(A^{-1}(A^{-1})^* = (A^{-1})^*(A^{-1})\).
+  We know \((A^{-1})^* = (A^*)^{-1}\).
+  Start with \(AA^*=A^*A\). Multiply on the left by \(A^{-1}\) and on the right by \((A^*)^{-1}\):
+  \\[ A^{-1}(AA^*) (A^*)^{-1} = A^{-1}(A^*A)(A^*)^{-1} \]
+  \\[ (A^{-1}A)A^*(A^*)^{-1} = A^{-1}A^*A(A^*)^{-1} \]
+  \\[ I = A^{-1}A^*A(A^*)^{-1} \]
+  Now multiply on the left by \((A^*)^{-1}\) and on the right by \(A^{-1}\):
+  \\[ (A^*)^{-1}A^{-1} = (A^{-1})^*A^{-1} = A^{-1}(A^*)^{-1} \]
+  This shows \((A^{-1})^*A^{-1} = A^{-1}(A^{-1})^*\), so \(A^{-1}\) is normal.</div><div class="source">Source: Generalization of properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">91</div><div class="question-content">What is the main procedural difference between diagonalising a general complex matrix and unitarily diagonalising a normal matrix?</div></div><div class="back"><div class="answer-content">The main difference is the treatment of eigenvectors within each eigenspace.
+  <ul>
+    <li>For a <b>general diagonalisation</b>, you just need to find a basis of eigenvectors for each eigenspace. The collection of all these basis vectors must form a set of \(n\) linearly independent vectors.</li>
+    <li>For a <b>unitary diagonalisation</b>, you must find an <em>orthonormal</em> basis for each eigenspace. This often requires applying the Gram-Schmidt process to the basis vectors found for any eigenspace with dimension greater than 1.</li>
+  </ul>
+  Eigenvectors from different eigenspaces of a normal matrix are automatically orthogonal, so you only need to apply Gram-Schmidt within each eigenspace.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">92</div><div class="question-content">If \(A\) is a real skew-symmetric matrix (\\(A^T = -A\\)), what can you say about its eigenvalues?</div></div><div class="back"><div class="answer-content">A real skew-symmetric matrix is also a skew-Hermitian matrix, because if \(A\) is real, \(A^* = \bar{A}^T = A^T\). So \(A^* = -A\).
+  <br>
+  The eigenvalues of any skew-Hermitian matrix are purely imaginary or zero. Therefore, the eigenvalues of a real skew-symmetric matrix are purely imaginary or zero.</div><div class="source">Source: Anthony & Harvey, Problem 13.15</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">93</div><div class="question-content">Let \(z = 2-2i\). Find \(|z|\) and \(\text{Arg}(z)\).</div></div><div class="back"><div class="answer-content">The complex number is \(z = 2-2i\). This corresponds to the point \((2, -2)\) in the complex plane.
+  <ul>
+    <li><b>Modulus:</b> \(|z| = \sqrt{2^2 + (-2)^2} = \sqrt{4+4} = \sqrt{8} = 2\sqrt{2}\).</li>
+    <li><b>Argument:</b> The point is in the fourth quadrant. The angle with the positive real axis is \(\tan\theta = -2/2 = -1\). The principal argument in \((-\pi, \pi]\) is \(\theta = -\pi/4\).</li>
+  </ul></div><div class="source">Source: Subject Guide, 7.1.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">94</div><div class="question-content">If \(A\) is a normal matrix, is \(A - cI\) also normal for any \(c \in \mathbb{C}\)?</div></div><div class="back"><div class="answer-content">Yes. Let \(B = A - cI\). We check if \(BB^* = B^*B\).
+  \\[ B^* = (A - cI)^* = A^* - \bar{c}I^* = A^* - \bar{c}I \]
+  LHS: \(BB^* = (A-cI)(A^*-\bar{c}I) = AA^* - cA^* - \bar{c}A + c\bar{c}I\).
+  <br>
+  RHS: \(B^*B = (A^*-\bar{c}I)(A-cI) = A^*A - cA^* - \bar{c}A + \bar{c}cI\).
+  <br>
+  Since \(A\) is normal (\\(AA^*=A^*A\)) and \(c\bar{c}=\bar{c}c=|c|^2\), the LHS and RHS are equal. Thus, \(A-cI\) is normal.</div><div class="source">Source: Generalization of properties</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">95</div><div class="question-content">If \(A\) is unitarily diagonalisable, is \(A\) invertible?</div></div><div class="back"><div class="answer-content">Not necessarily. A matrix is invertible if and only if 0 is not one of its eigenvalues.
+  <br>
+  If \(A\) is unitarily diagonalisable, it means \(A = UDU^*\) where \(D\) contains the eigenvalues of \(A\). The determinant of \(A\) is the product of its eigenvalues.
+  \\[ \det(A) = \det(UDU^*) = \det(U)\det(D)\det(U^*) = \det(D) = \lambda_1\lambda_2\cdots\lambda_n \]
+  If one of the eigenvalues is 0, then \(\det(A)=0\) and \(A\) is not invertible. For example, the zero matrix is normal and diagonal, but not invertible.</div><div class="source">Source: Subject Guide, 7.6</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">96</div><div class="question-content">What is the relationship between the column space of a complex matrix \(A\) and the null space of \(A^*\)?</div></div><div class="back"><div class="answer-content">They are orthogonal complements of each other in \(\mathbb{C}^m\) (where \(A\) is \(m \times n\)).
+  \\[ R(A)^{\perp} = N(A^*) \]
+  This is a fundamental theorem of linear algebra. It means that every vector in the column space of \(A\) is orthogonal to every vector in the null space of its Hermitian conjugate.</div><div class="source">Source: Anthony & Harvey, 12.2.2 (generalized to complex case)</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">97</div><div class="question-content">If \(A\) is a \(3 \times 3\) normal matrix with eigenvalues \(1, i, -i\), find the eigenvalues of \(A^2\).</div></div><div class="back"><div class="answer-content">If \(\lambda\) is an eigenvalue of \(A\) with eigenvector \(\mathbf{v}\), then \(A\mathbf{v} = \lambda\mathbf{v}\).
+  Then \(A^2\mathbf{v} = A(A\mathbf{v}) = A(\lambda\mathbf{v}) = \lambda(A\mathbf{v}) = \lambda(\lambda\mathbf{v}) = \lambda^2\mathbf{v}\).
+  So, if \(\lambda\) is an eigenvalue of \(A\), then \(\lambda^2\) is an eigenvalue of \(A^2\).
+  <br>
+  The eigenvalues of \(A^2\) are:
+  <ul>
+    <li>\(1^2 = 1\)</li>
+    <li>\(i^2 = -1\)</li>
+    <li>\((-i)^2 = -1\)</li>
+  </ul>
+  The eigenvalues of \(A^2\) are 1, -1, -1.</div><div class="source">Source: Anthony & Harvey, 9.1</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">98</div><div class="question-content">If \(A\) is Hermitian, is \(iA\) also Hermitian?</div></div><div class="back"><div class="answer-content">No. If \(A\) is Hermitian, \(A^*=A\).
+  Let's check the conjugate transpose of \(iA\):
+  \\[ (iA)^* = \bar{i}A^* = (-i)A = -A \]
+  For \(iA\) to be Hermitian, we would need \(iA = -A\), which implies \((i+1)A=0\). This is not true for any non-zero matrix \(A\).
+  <br>
+  In fact, if \(A\) is Hermitian, then \(iA\) is skew-Hermitian.</div><div class="source">Source: Anthony & Harvey, Problem 13.15</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">99</div><div class="question-content">What is the key advantage of expressing a complex number in exponential form \(re^{i\theta}\) for multiplication and division?</div></div><div class="back"><div class="answer-content">Multiplication and division become much simpler.
+  <ul>
+    <li><b>Multiplication:</b> To multiply two complex numbers, you multiply their moduli and add their arguments.
+    \\[ (r_1e^{i\theta_1})(r_2e^{i\theta_2}) = r_1r_2e^{i(\theta_1+\theta_2)} \]
+    </li>
+    <li><b>Division:</b> To divide two complex numbers, you divide their moduli and subtract their arguments.
+    \\[ \frac{r_1e^{i\theta_1}}{r_2e^{i\theta_2}} = \frac{r_1}{r_2}e^{i(\theta_1-\theta_2)} \]
+    </li>
+  </ul>
+  This is much faster than multiplying or dividing in Cartesian form, which requires FOIL and multiplying by the conjugate.</div><div class="source">Source: Subject Guide, 7.1.5</div></div></div></div>
+  <div class="flashcard"><div class="card"><div class="front"><div class="question-number">100</div><div class="question-content">How does the concept of an orthogonal matrix in \(\mathbb{R}^n\) translate to the complex case?</div></div><div class="back"><div class="answer-content">The concept of an orthogonal matrix in \(\mathbb{R}^n\) (where \(Q^TQ=I\)) is generalized to a <b>unitary matrix</b> in \(\mathbb{C}^n\).
+  <br>
+  The transpose operation is replaced by the <b>Hermitian conjugate</b> (conjugate transpose), denoted by \(*\).
+  <br>
+  A real matrix \(Q\) is orthogonal if \(Q^T = Q^{-1}\).
+  <br>
+  A complex matrix \(U\) is unitary if \(U^* = U^{-1}\).
+  <br>
+  Just as the columns of an orthogonal matrix form an orthonormal basis for \(\mathbb{R}^n\) with the real dot product, the columns of a unitary matrix form an orthonormal basis for \(\mathbb{C}^n\) with the complex inner product.</div><div class="source">Source: Subject Guide, 7.5.3; Anthony & Harvey, 13.5.2</div></div></div></div>
+
+</div>
+
+<div class="navigation">
+  <button class="nav-button" onclick="prevCard()">Previous</button>
+  <button class="flip-button" onclick="flipCurrentCard()">Flip Card</button>
+  <button class="nav-button" onclick="nextCard()">Next</button>
+</div>
+
+<div class="progress-container">
+  <p id="progress-text"></p>
+</div>
+
+<script>
+  let currentCard = 0;
+  const cards = document.querySelectorAll('.flashcard');
+  const totalCards = cards.length;
+  const progressText = document.getElementById('progress-text');
+
+  function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  function showCard(n) {
+    // Unflip the current card before switching
+    if (cards[currentCard]) {
+      cards[currentCard].querySelector('.card').classList.remove('is-flipped');
+    }
+
+    cards[currentCard].style.display = "none";
+    currentCard = (n + totalCards) % totalCards;
+    cards[currentCard].style.display = "block";
+    
+    updateProgress();
+    setCookie('mt2175_progress', currentCard, 7);
+  }
+
+  function nextCard() {
+    showCard(currentCard + 1);
+  }
+
+  function prevCard() {
+    showCard(currentCard - 1);
+  }
+
+  function flipCurrentCard() {
+    cards[currentCard].querySelector('.card').classList.toggle('is-flipped');
+  }
+  
+  function updateProgress() {
+    progressText.textContent = `Card ${currentCard + 1} of ${totalCards}`;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedCard = getCookie('mt2175_progress');
+    if (savedCard != null && parseInt(savedCard, 10) < totalCards) {
+      currentCard = parseInt(savedCard, 10);
+    }
+    
+    cards.forEach((card, index) => {
+        card.style.display = index === currentCard ? "block" : "none";
+        card.addEventListener('click', flipCurrentCard);
+    });
+    
+    updateProgress();
+  });
+
+</script>
+
+</body>
+</html>

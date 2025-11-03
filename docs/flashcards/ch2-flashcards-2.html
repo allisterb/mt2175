@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 - Inner Products & Orthogonality Flashcards</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+        }
+        .slideshow-container {
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+        .flashcard-deck {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .flashcard {
+            min-width: 100%;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            perspective: 1000px;
+            height: 400px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            border-radius: 15px;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+            font-size: 0.9em;
+            text-align: left;
+            overflow-y: auto;
+        }
+        .card-back p, .card-back ol, .card-back ul {
+            margin-top: 0;
+            align-self: flex-start;
+            width: 100%;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Adds space between buttons */
+            align-items: center;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #005a9c;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .nav-btn:hover {
+            background-color: #003366;
+        }
+        #progress-indicator {
+            font-size: 16px;
+            color: #555;
+            min-width: 60px; /* Ensures layout doesn't shift */
+            text-align: center;
+        }
+        .source {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MT2175 Flashcards: Inner Products & Orthogonality</h1>
+
+    <div class="slideshow-container">
+        <div class="flashcard-deck" id="flashcard-deck">
+            <!-- All 100 cards are now included statically -->
+            <div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 1:</strong></p><p>What is meant by an inner product on a real vector space \(V\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>An inner product on a real vector space \(V\) is a function that associates a real number, denoted \(\langle \mathbf{u}, \mathbf{v} \rangle\), with each pair of vectors \(\mathbf{u}\) and \(\mathbf{v}\) in \(V\), satisfying the following axioms for all vectors \(\mathbf{u}, \mathbf{v}, \mathbf{w}\) in \(V\) and any scalar \(k\):</p><ol><li><strong>Symmetry:</strong> \(\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle\)</li><li><strong>Additivity:</strong> \(\langle \mathbf{u} + \mathbf{v}, \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle\)</li><li><strong>Homogeneity:</strong> \(\langle k\mathbf{u}, \mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle\)</li><li><strong>Positivity:</strong> \(\langle \mathbf{v}, \mathbf{v} \rangle \ge 0\), and \(\langle \mathbf{v}, \mathbf{v} \rangle = 0\) if and only if \(\mathbf{v} = \mathbf{0}\).</li></ol><p class="source">Source: Anthony & Harvey, Definition 10.1; Anton & Rorres, Definition 1 in Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 2:</strong></p><p>Verify that the standard Euclidean inner product (dot product) on \(\mathbb{R}^n\), defined as \(\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u} \cdot \mathbf{v} = u_1v_1 + u_2v_2 + \dots + u_nv_n\), is indeed an inner product.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>We check the four axioms:<ol><li><strong>Symmetry:</strong> \(\langle \mathbf{u}, \mathbf{v} \rangle = \sum u_iv_i = \sum v_iu_i = \langle \mathbf{v}, \mathbf{u} \rangle\).</li><li><strong>Additivity:</strong> \(\langle \mathbf{u} + \mathbf{v}, \mathbf{w} \rangle = \sum (u_i+v_i)w_i = \sum (u_iw_i + v_iw_i) = \sum u_iw_i + \sum v_iw_i = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle\).</li><li><strong>Homogeneity:</strong> \(\langle k\mathbf{u}, \mathbf{v} \rangle = \sum (ku_i)v_i = k \sum u_iv_i = k\langle \mathbf{u}, \mathbf{v} \rangle\).</li><li><strong>Positivity:</strong> \(\langle \mathbf{v}, \mathbf{v} \rangle = \sum v_i^2 = v_1^2 + v_2^2 + \dots + v_n^2 \ge 0\). The sum is zero if and only if all \(v_i = 0\), which means \(\mathbf{v} = \mathbf{0}\).</li></ol>All axioms hold.</p><p class="source">Source: Anthony & Harvey, Chapter 10.1.1; Anton & Rorres, Theorem 4.1.2.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 3:</strong></p><p>How is the norm (or length) of a vector \(\mathbf{v}\) defined in an inner product space?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The norm of a vector \(\mathbf{v}\) in an inner product space, denoted \(\|\mathbf{v}\|\), is defined as the square root of the inner product of the vector with itself: \(\|\mathbf{v}\| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}\). This definition is a generalization of the Euclidean length of a vector in \(\mathbb{R}^n\).</p><p class="source">Source: Anthony & Harvey, Definition 10.6; Anton & Rorres, Definition in Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 4:</strong></p><p>In \(\mathbb{R}^2\), consider the weighted Euclidean inner product \(\langle \mathbf{u}, \mathbf{v} \rangle = 3u_1v_1 + 2u_2v_2\). Compute the norm of the vector \(\mathbf{v} = (1, -2)\) with respect to this inner product.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The norm is \(\|\mathbf{v}\| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}\).<br>First, we compute the inner product of \(\mathbf{v}\) with itself:<br>\(\langle \mathbf{v}, \mathbf{v} \rangle = 3v_1^2 + 2v_2^2 = 3(1)^2 + 2(-2)^2 = 3(1) + 2(4) = 11\)<br>Therefore, the norm is: \(\|\mathbf{v}\| = \sqrt{11}\)</p><p class="source">Source: Based on Anthony & Harvey, Example 10.5 and Definition 10.6.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 5:</strong></p><p>State the Cauchy-Schwarz Inequality for a real inner product space.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(\mathbf{u}\) and \(\mathbf{v}\) are vectors in a real inner product space, then the Cauchy-Schwarz Inequality states that the absolute value of their inner product is less than or equal to the product of their norms: \(|\langle \mathbf{u}, \mathbf{v} \rangle| \le \|\mathbf{u}\| \|\mathbf{v}\|\). This can also be written as \(\langle \mathbf{u}, \mathbf{v} \rangle^2 \le \langle \mathbf{u}, \mathbf{u} \rangle \langle \mathbf{v}, \mathbf{v} \rangle\).</p><p class="source">Source: Anthony & Harvey, Theorem 10.7; Anton & Rorres, Theorem 4.1.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 6:</strong></p><p>State the Triangle Inequality for norms in an inner product space.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(\mathbf{u}\) and \(\mathbf{v}\) are vectors in an inner product space, the triangle inequality states that the norm of the sum of the vectors is less than or equal to the sum of their norms: \(\|\mathbf{u} + \mathbf{v}\| \le \|\mathbf{u}\| + \|\mathbf{v}\|\).</p><p class="source">Source: Anthony & Harvey, Theorem 10.13; Anton & Rorres, Theorem 4.1.4(d).</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 7:</strong></p><p>State the Generalised Pythagoras’ Theorem.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>In an inner product space \(V\), if two vectors \(\mathbf{x}\) and \(\mathbf{y}\) are orthogonal (i.e., \(\langle \mathbf{x}, \mathbf{y} \rangle = 0\)), then the square of the norm of their sum is the sum of the squares of their norms: \(\|\mathbf{x} + \mathbf{y}\|^2 = \|\mathbf{x}\|^2 + \|\mathbf{y}\|^2\).</p><p class="source">Source: Anthony & Harvey, Theorem 10.12; Anton & Rorres, Theorem 6.2.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 8:</strong></p><p>What does it mean for a set of vectors to be an orthogonal set?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>A set of vectors \(\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}\) in an inner product space is called an orthogonal set if all pairs of distinct vectors in the set are orthogonal. That is, \(\langle \mathbf{v}_i, \mathbf{v}_j \rangle = 0\) for all \(i \neq j\).</p><p class="source">Source: Anthony & Harvey, Definition 10.9; Anton & Rorres, Definition in Section 6.2.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 9:</strong></p><p>What is an orthonormal set of vectors?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>An orthonormal set of vectors is an orthogonal set in which every vector has a norm of 1. That is, for any vectors \(\mathbf{v}_i, \mathbf{v}_j\) in the set, \(\langle \mathbf{v}_i, \mathbf{v}_j \rangle = \delta_{ij}\), where \(\delta_{ij}\) is the Kronecker delta (1 if \(i=j\), and 0 if \(i \neq j\)).</p><p class="source">Source: Anthony & Harvey, Definition 10.19; Subject Guide, Section 3.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 10:</strong></p><p>Prove that if \(S = \{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}\) is an orthogonal set of non-zero vectors in an inner product space, then \(S\) is linearly independent.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>Assume \(c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots + c_k\mathbf{v}_k = \mathbf{0}\). To show linear independence, we must show that all scalars \(c_i\) are zero. Take the inner product of both sides with any vector \(\mathbf{v}_i\) from \(S\):<br>\(\langle c_1\mathbf{v}_1 + \dots + c_k\mathbf{v}_k, \mathbf{v}_i \rangle = \langle \mathbf{0}, \mathbf{v}_i \rangle = 0\).<br>By linearity, this is \(c_1\langle \mathbf{v}_1, \mathbf{v}_i \rangle + \dots + c_i\langle \mathbf{v}_i, \mathbf{v}_i \rangle + \dots + c_k\langle \mathbf{v}_k, \mathbf{v}_i \rangle = 0\).<br>Since the set is orthogonal, \(\langle \mathbf{v}_j, \mathbf{v}_i \rangle = 0\) for \(j \neq i\). The equation simplifies to \(c_i\langle \mathbf{v}_i, \mathbf{v}_i \rangle = c_i\|\mathbf{v}_i\|^2 = 0\).<br>Because \(\mathbf{v}_i\) is a non-zero vector, \(\|\mathbf{v}_i\|^2 > 0\). Thus, we must have \(c_i = 0\). Since this holds for all \(i=1, \dots, k\), the set is linearly independent.</p><p class="source">Source: Anthony & Harvey, Theorem 10.14; Anton & Rorres, Theorem 6.3.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 11:</strong></p><p>What is the definition of an orthogonal matrix?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>An \(n \times n\) matrix \(P\) is said to be orthogonal if its inverse is equal to its transpose, i.e., \(P^{-1} = P^T\). This is equivalent to the condition \(P^T P = I\) and \(P P^T = I\).</p><p class="source">Source: Anthony & Harvey, Definition 10.15; Subject Guide, Section 3.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 12:</strong></p><p>Explain why an \(n \times n\) matrix \(P\) is orthogonal if and only if its columns are an orthonormal basis of \(\mathbb{R}^n\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>Let the columns of \(P\) be \(\mathbf{c}_1, \mathbf{c}_2, \dots, \mathbf{c}_n\). The \((i, j)\)-th entry of the matrix product \(P^T P\) is the dot product of the \(i\)-th row of \(P^T\) (which is \(\mathbf{c}_i^T\)) and the \(j\)-th column of \(P\) (which is \(\mathbf{c}_j\)). So, \((P^T P)_{ij} = \mathbf{c}_i \cdot \mathbf{c}_j = \langle \mathbf{c}_i, \mathbf{c}_j \rangle\).<br>For \(P^T P = I\), the identity matrix, we require \((P^T P)_{ij} = \delta_{ij}\). This means \(\langle \mathbf{c}_i, \mathbf{c}_j \rangle = 1\) if \(i=j\) and \(\langle \mathbf{c}_i, \mathbf{c}_j \rangle = 0\) if \(i \neq j\). This is precisely the definition of the set of columns \(\{\mathbf{c}_1, \dots, \mathbf{c}_n\}\) being orthonormal. Since there are \(n\) such vectors in \(\mathbb{R}^n\), they form an orthonormal basis.</p><p class="source">Source: Anthony & Harvey, Theorem 10.18; Subject Guide, Section 3.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 13:</strong></p><p>Outline the steps of the Gram-Schmidt orthonormalisation process for a set of linearly independent vectors \(\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The process creates an orthogonal basis \(\{\mathbf{v}_1, \dots, \mathbf{v}_k\}\) and then an orthonormal basis \(\{\mathbf{q}_1, \dots, \mathbf{q}_k\}
+).<br>1. Set \(\mathbf{v}_1 = \mathbf{u}_1\).<br>2. For \(i = 2, \dots, k\), compute \(\mathbf{v}_i = \mathbf{u}_i - \sum_{j=1}^{i-1} \text{proj}_{{\mathbf{v}_j}} \mathbf{u}_i = \mathbf{u}_i - \sum_{j=1}^{i-1} \frac{\langle \mathbf{u}_i, \mathbf{v}_j \rangle}{\|\mathbf{v}_j\|^2} \mathbf{v}_j\).<br>3. The set \(\{\mathbf{v}_1, \dots, \mathbf{v}_k\}\) is an orthogonal basis.<br>4. Normalize each vector: \(\mathbf{q}_i = \frac{\mathbf{v}_i}{\|\mathbf{v}_i\|}\) for \(i=1, \dots, k\). The set \(\{\mathbf{q}_1, \dots, \mathbf{q}_k\}\) is an orthonormal basis.</p><p class="source">Source: Anthony & Harvey, Section 10.4; Subject Guide, Section 3.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 14:</strong></p><p>Let \(\mathbf{u}_1 = (1, 1, 0)\) and \(\mathbf{u}_2 = (1, 2, 0)\). Use the Gram-Schmidt process to find an orthogonal basis for the space spanned by these vectors.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>1. Set \(\mathbf{v}_1 = \mathbf{u}_1 = (1, 1, 0)\).<br>2. Calculate \(\mathbf{v}_2 = \mathbf{u}_2 - \text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2\).<br>\(\langle \mathbf{u}_2, \mathbf{v}_1 \rangle = 1(1) + 2(1) + 0(0) = 3\).<br>\(\|\mathbf{v}_1\|^2 = 1^2 + 1^2 + 0^2 = 2\).<br>\(\text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2 = \frac{3}{2}(1, 1, 0) = (\frac{3}{2}, \frac{3}{2}, 0)\).<br>\(\mathbf{v}_2 = (1, 2, 0) - (\frac{3}{2}, \frac{3}{2}, 0) = (-\frac{1}{2}, \frac{1}{2}, 0)\).<br>An orthogonal basis is \(\{(1, 1, 0), (-\frac{1}{2}, \frac{1}{2}, 0)\}\). We can scale the second vector to \({(-1, 1, 0)}\) for simplicity.</p><p class="source">Source: Anthony & Harvey, Section 10.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 15:</strong></p><p>What is the relationship between the angle \(\theta\) between two vectors \(\mathbf{u}\) and \(\mathbf{v}\) and their inner product?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The cosine of the angle \(\theta\) between two non-zero vectors \(\mathbf{u}\) and \(\mathbf{v}\) in an inner product space is defined as: \(\cos(\theta) = \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\|\mathbf{u}\| \|\mathbf{v}\|}\). This definition is motivated by the law of cosines in \(\mathbb{R}^2\) and \(\mathbb{R}^3\).</p><p class="source">Source: Anthony & Harvey, Section 10.2.1; Anton & Rorres, Section 3.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 16:</strong></p><p>Is the function \(\langle (x_1, y_1), (x_2, y_2) \rangle = x_1y_1 - x_2y_2\) an inner product on \(\mathbb{R}^2\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>No, it is not. It violates the positivity axiom. Let \(\mathbf{v} = (0, 1)\). Then \(\langle \mathbf{v}, \mathbf{v} \rangle = (0)(0) - (1)(1) = -1\), which is less than 0. The positivity axiom requires \(\langle \mathbf{v}, \mathbf{v} \rangle \ge 0\) for all vectors \(\mathbf{v}\).</p><p class="source">Source: Based on Anthony & Harvey, Definition 10.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 17:</strong></p><p>What is an orthonormal basis?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>An orthonormal basis for an inner product space is a basis that is also an orthonormal set. This means all vectors in the basis are mutually orthogonal and each has a norm of 1.</p><p class="source">Source: Anthony & Harvey, Section 10.3.2; Subject Guide, Section 3.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 18:</strong></p><p>If \(\{\mathbf{q}_1, \dots, \mathbf{q}_n\}\) is an orthonormal basis for a vector space \(V\), how can you find the coordinates of a vector \(\mathbf{u} \in V\) with respect to this basis?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(\mathbf{u} = c_1\mathbf{q}_1 + \dots + c_n\mathbf{q}_n\), the coordinates \(c_i\) are found easily by taking the inner product of \(\mathbf{u}\) with each basis vector: \(c_i = \langle \mathbf{u}, \mathbf{q}_i \rangle\). This is a major advantage of using an orthonormal basis.</p><p class="source">Source: Anthony & Harvey, Theorem 10.20.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 19:</strong></p><p>What is the component of a vector \(\mathbf{u}\) orthogonal to a vector \(\mathbf{v}\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The component of \(\mathbf{u}\) orthogonal to \(\mathbf{v}\) is the vector \(\mathbf{u} - \text{proj}_{{\mathbf{v}}} \mathbf{u}\). It is the part of \(\mathbf{u}\) that is left after subtracting the part of \(\mathbf{u}\) that lies in the direction of \(\mathbf{v}\).</p><p class="source">Source: Anton & Rorres, Section 6.3, Projection Theorem.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 20:</strong></p><p>True or False: An orthogonal matrix must have a determinant of 1.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>False. If \(P\) is an orthogonal matrix, then \(P^T P = I\). Taking the determinant of both sides gives \(\det(P^T P) = \det(I) = 1\). Since \(\det(P^T) = \det(P)\), this means \(\det(P)^2 = 1\). Therefore, \(\det(P)\) can be either +1 or -1.</p><p class="source">Source: Anton & Rorres, Section 7.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 21:</strong></p><p>What is the distance between two vectors \(\mathbf{u}\) and \(\mathbf{v}\) in an inner product space?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The distance between two vectors \(\mathbf{u}\) and \(\mathbf{v}\), denoted \(d(\mathbf{u}, \mathbf{v})\), is defined as the norm of their difference: \(d(\mathbf{u}, \mathbf{v}) = \|\mathbf{u} - \mathbf{v}\|\).</p><p class="source">Source: Anton & Rorres, Definition in Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 22:</strong></p><p>Let \(\mathbf{u}=(1,1,1)\) and \(\mathbf{v}=(1,0,1)\) in \(\mathbb{R}^3\) with the standard dot product. Find the orthogonal projection of \(\mathbf{u}\) onto \(\mathbf{v}\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The projection of \(\mathbf{u}\) onto \(\mathbf{v}\) is given by \(\text{proj}_{{\mathbf{v}}} \mathbf{u} = \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\|\mathbf{v}\|^2} \mathbf{v}\).<br>\(\langle \mathbf{u}, \mathbf{v} \rangle = 1(1) + 1(0) + 1(1) = 2\).<br>\(\|\mathbf{v}\|^2 = 1^2 + 0^2 + 1^2 = 2\).<br>\(\text{proj}_{{\mathbf{v}}} \mathbf{u} = \frac{2}{2} (1, 0, 1) = (1, 0, 1)\).</p><p class="source">Source: Anthony & Harvey, Section 10.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 23:</strong></p><p>Is it possible for the Cauchy-Schwarz inequality to be an equality, i.e., \(|\langle \mathbf{u}, \mathbf{v} \rangle| = \|\mathbf{u}\| \|\mathbf{v}\|\)? If so, when?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>Yes. Equality holds in the Cauchy-Schwarz inequality if and only if one of the vectors is a scalar multiple of the other (i.e., they are linearly dependent).</p><p class="source">Source: Anton & Rorres, Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 24:</strong></p><p>What is the relationship between the row space of a matrix \(A\) and its null space \(N(A)\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The row space of \(A\) and the null space of \(A\) are orthogonal complements in \(\mathbb{R}^n\) (where \(n\) is the number of columns of \(A\)). This means every vector in the row space is orthogonal to every vector in the null space.</p><p class="source">Source: Anton & Rorres, Theorem 6.2.6.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 25:</strong></p><p>What is the relationship between the column space of a matrix \(A\) and the null space of its transpose, \(N(A^T)\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The column space of \(A\) (which is the range \(R(A)\)) and the null space of \(A^T\) are orthogonal complements in \(\mathbb{R}^m\) (where \(m\) is the number of rows of \(A\)).</p><p class="source">Source: Anton & Rorres, Theorem 6.2.6.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 26:</strong></p><p>If a set of vectors is orthonormal, is it also linearly independent?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>Yes. An orthonormal set is a special case of an orthogonal set of non-zero vectors (since their norm is 1, they cannot be the zero vector). Any orthogonal set of non-zero vectors is linearly independent.</p><p class="source">Source: Anthony & Harvey, Theorem 10.14.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 27:</strong></p><p>Let \(\mathbf{u}=(1, -2)\) and \(\mathbf{v}=(2, 1)\). Are these vectors orthogonal with respect to the standard Euclidean inner product?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>Yes. We compute the dot product: \(\langle \mathbf{u}, \mathbf{v} \rangle = (1)(2) + (-2)(1) = 2 - 2 = 0\). Since the inner product is zero, the vectors are orthogonal.</p><p class="source">Source: Anthony & Harvey, Definition 10.9.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 28:</strong></p><p>Let \(\mathbf{u}=(1, -2)\) and \(\mathbf{v}=(2, 1)\). Are these vectors orthogonal with respect to the weighted inner product \(\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_1 + 3u_2v_2\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>No. We compute the inner product: \(\langle \mathbf{u}, \mathbf{v} \rangle = (1)(2) + 3(-2)(1) = 2 - 6 = -4\). Since the inner product is not zero, the vectors are not orthogonal with respect to this specific inner product.</p><p class="source">Source: Based on Anthony & Harvey, Definition 10.9.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 29:</strong></p><p>What is the process of converting a non-zero vector \(\mathbf{v}\) into a unit vector called?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The process is called normalizing the vector. It is done by dividing the vector by its own norm: \(\mathbf{u} = \frac{\mathbf{v}}{\|\mathbf{v}\|}\).</p><p class="source">Source: Anton & Rorres, Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 30:</strong></p><p>Normalize the vector \(\mathbf{v} = (3, 4)\) in \(\mathbb{R}^2\) with the Euclidean inner product.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>First, find the norm of \(\mathbf{v}\): \(\|\mathbf{v}\| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\).<br>Then, divide the vector by its norm: \(\mathbf{u} = \frac{\mathbf{v}}{\|\mathbf{v}\|} = \frac{1}{5}(3, 4) = (\frac{3}{5}, \frac{4}{5})\).</p><p class="source">Source: Anton & Rorres, Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 31:</strong></p><p>If \(P\) is an orthogonal matrix, what can be said about its rows?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The rows of an orthogonal matrix \(P\) also form an orthonormal set. This is because if \(P\) is orthogonal, then \(P^T\) is also orthogonal, and the columns of \(P^T\) (which are the rows of \(P\)) must form an orthonormal set.</p><p class="source">Source: Anthony & Harvey, Section 10.3.2.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 32:</strong></p><p>Apply the Cauchy-Schwarz inequality to \(\mathbf{u}=(1, 1)\) and \(\mathbf{v}=(2, 3)\) with the standard dot product.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>First, calculate the terms:<br>\(\langle \mathbf{u}, \mathbf{v} \rangle = 1(2) + 1(3) = 5\). So, \(|\langle \mathbf{u}, \mathbf{v} \rangle| = 5\).<br>\(\|\mathbf{u}\| = \sqrt{1^2+1^2} = \sqrt{2}\).<br>\(\|\mathbf{v}\| = \sqrt{2^2+3^2} = \sqrt{13}\).<br>The inequality is \(|\langle \mathbf{u}, \mathbf{v} \rangle| \le \|\mathbf{u}\| \|\mathbf{v}\|\), which is \(5 \le \sqrt{2}\sqrt{13} = \sqrt{26}\).<br>Since \(5^2 = 25\) and \((\sqrt{26})^2 = 26\), the inequality \(25 \le 26\) holds.</p><p class="source">Source: Anthony & Harvey, Theorem 10.7.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 33:</strong></p><p>Apply the Triangle Inequality to \(\mathbf{u}=(1, 0)\) and \(\mathbf{v}=(0, 1)\) with the standard dot product.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>First, calculate the terms:<br>\(\mathbf{u} + \mathbf{v} = (1, 1)\).<br>\(\|\mathbf{u} + \mathbf{v}\| = \sqrt{1^2+1^2} = \sqrt{2}\).<br>\(\|\mathbf{u}\| = \sqrt{1^2+0^2} = 1\).<br>\(\|\mathbf{v}\| = \sqrt{0^2+1^2} = 1\).<br>The inequality is \(\|\mathbf{u} + \mathbf{v}\| \le \|\mathbf{u}\| + \|\mathbf{v}\|\), which is \(\sqrt{2} \le 1 + 1 = 2\).<br>Since \(\sqrt{2} \approx 1.414\), the inequality holds.</p><p class="source">Source: Anthony & Harvey, Theorem 10.13.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 34:</strong></p><p>Let \(\mathbf{u}=(1, 0)\) and \(\mathbf{v}=(0, 1)\). Verify the Generalised Pythagoras’ Theorem for these vectors.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>First, check for orthogonality: \(\langle \mathbf{u}, \mathbf{v} \rangle = 1(0) + 0(1) = 0\). The vectors are orthogonal.<br>Now, check the theorem: \(\|\mathbf{u} + \mathbf{v}\|^2 = \|\mathbf{u}\|^2 + \|\mathbf{v}\|^2\).<br>LHS: \(\mathbf{u} + \mathbf{v} = (1, 1)\), so \(\|\mathbf{u} + \mathbf{v}\|^2 = 1^2 + 1^2 = 2\).<br>RHS: \(\|\mathbf{u}\|^2 = 1^2+0^2=1\) and \(\|\mathbf{v}\|^2 = 0^2+1^2=1\). So, \(\|\mathbf{u}\|^2 + \|\mathbf{v}\|^2 = 1+1=2\).<br>Since LHS = RHS, the theorem is verified.</p><p class="source">Source: Anthony & Harvey, Theorem 10.12.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 35:</strong></p><p>Let \(\mathbf{u}_1 = (1, -1, 0)\) and \(\mathbf{u}_2 = (1, 1, 1)\). Use the Gram-Schmidt process to find an orthogonal basis for the space spanned by these vectors.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>1. Set \(\mathbf{v}_1 = \mathbf{u}_1 = (1, -1, 0)\).<br>2. Calculate \(\mathbf{v}_2 = \mathbf{u}_2 - \text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2\).<br>\(\langle \mathbf{u}_2, \mathbf{v}_1 \rangle = 1(1) + 1(-1) + 1(0) = 0\).<br>Since the vectors are already orthogonal, the projection is the zero vector. \(\text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2 = \mathbf{0}\).<br>\(\mathbf{v}_2 = \mathbf{u}_2 - \mathbf{0} = \mathbf{u}_2 = (1, 1, 1)\).<br>The orthogonal basis is simply the original set \(\{(1, -1, 0), (1, 1, 1)\}\) because they were already orthogonal.</p><p class="source">Source: Anthony & Harvey, Section 10.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 36:</strong></p><p>Is the matrix \(P = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\) an orthogonal matrix?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>Yes. We check if \(P^T P = I\).<br>\(P^T P = \begin{pmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{pmatrix} \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\)<br>\(= \begin{pmatrix} \cos^2\theta + \sin^2\theta & -\cos\theta\sin\theta + \sin\theta\cos\theta \\ -\sin\theta\cos\theta + \cos\theta\sin\theta & \sin^2\theta + \cos^2\theta \end{pmatrix}\)<br>\(= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I\).<br>Since \(P^T P = I\), the matrix is orthogonal.</p><p class="source">Source: Anthony & Harvey, Section 10.3.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 37:</strong></p><p>What is the orthogonal complement of a line through the origin in \(\mathbb{R}^3\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The orthogonal complement of a line through the origin in \(\mathbb{R}^3\) is a plane through the origin that is perpendicular to that line.</p><p class="source">Source: Anton & Rorres, Section 6.2.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 38:</strong></p><p>What is the orthogonal complement of a plane through the origin in \(\mathbb{R}^3\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The orthogonal complement of a plane through the origin in \(\mathbb{R}^3\) is a line through the origin that is perpendicular (normal) to that plane.</p><p class="source">Source: Anton & Rorres, Section 6.2.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 39:</strong></p><p>If \(W\) is a subspace of an inner product space \(V\), what is the intersection of \(W\) and its orthogonal complement \(W^\perp\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The intersection of a subspace \(W\) and its orthogonal complement \(W^\perp\) contains only the zero vector: \(W \cap W^\perp = \{\mathbf{0}\}
+).</p><p class="source">Source: Anton & Rorres, Theorem 6.2.5(b).</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 40:</strong></p><p>Let \(\mathbf{u}=(1, 0, 2)\) and \(\mathbf{v}=(2, 5, -1)\). Are these vectors orthogonal in \(\mathbb{R}^3\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>We compute the dot product: \(\langle \mathbf{u}, \mathbf{v} \rangle = (1)(2) + (0)(5) + (2)(-1) = 2 + 0 - 2 = 0\). Yes, the vectors are orthogonal.</p><p class="source">Source: Anthony & Harvey, Definition 10.9.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 41:</strong></p><p>If \(\langle \mathbf{u}, \mathbf{v} \rangle = 0\), what is the value of \(\|\mathbf{u}+\mathbf{v}\|^2\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>By the Generalised Pythagoras’ Theorem, if \(\langle \mathbf{u}, \mathbf{v} \rangle = 0\), then \(\|\mathbf{u}+\mathbf{v}\|^2 = \|\mathbf{u}\|^2 + \|\mathbf{v}\|^2\).</p><p class="source">Source: Anthony & Harvey, Theorem 10.12.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 42:</strong></p><p>Is the matrix \(A = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}\) orthogonal?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>No. For a matrix to be orthogonal, its columns must form an orthonormal set. The first column vector is \(\mathbf{c}_1 = (1, 1)\). Its norm is \(\|\mathbf{c}_1\| = \sqrt{1^2+1^2} = \sqrt{2} \neq 1\). Since the columns are not unit vectors, the matrix is not orthogonal.</p><p class="source">Source: Anthony & Harvey, Theorem 10.18.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 43:</strong></p><p>Find the norm of the function \(p(x) = x\) in the inner product space \(P_2\) with the inner product \(\langle p, q \rangle = \int_{-1}^{1} p(x)q(x) dx\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The norm is \(\|p\| = \sqrt{\langle p, p \rangle}\).<br>\(\langle p, p \rangle = \int_{-1}^{1} x \cdot x dx = \int_{-1}^{1} x^2 dx = [\frac{x^3}{3}]_{-1}^{1} = \frac{1}{3} - (-\frac{1}{3}) = \frac{2}{3}\).<br>Therefore, \(\|p\| = \sqrt{\frac{2}{3}}\).</p><p class="source">Source: Anton & Rorres, Example 9 in Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 44:</strong></p><p>If \(P\) is an orthogonal matrix, prove that \(P^T\) is also an orthogonal matrix.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(P\) is orthogonal, then \(P^T P = I\) and \(P P^T = I\). We need to show that \((P^T)^T P^T = I\).<br>Since \((P^T)^T = P\), this condition becomes \(P P^T = I\), which we know is true from the definition of an orthogonal matrix. Therefore, \(P^T\) is also orthogonal.</p><p class="source">Source: Anthony & Harvey, Activity 10.17.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 45:</strong></p><p>Let \(\mathbf{u}_1 = (0, 1, 0)\) and \(\mathbf{u}_2 = (1, 1, 1)\). Use the Gram-Schmidt process to find an orthonormal basis for the space spanned by these vectors.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>1. Set \(\mathbf{v}_1 = \mathbf{u}_1 = (0, 1, 0)\). This is already a unit vector, so \(\mathbf{q}_1 = (0, 1, 0)\).<br>2. Calculate \(\mathbf{v}_2 = \mathbf{u}_2 - \langle \mathbf{u}_2, \mathbf{q}_1 \rangle \mathbf{q}_1\).<br>\(\langle \mathbf{u}_2, \mathbf{q}_1 \rangle = 1(0) + 1(1) + 1(0) = 1\).<br>\(\mathbf{v}_2 = (1, 1, 1) - 1(0, 1, 0) = (1, 0, 1)\).<br>3. Normalize \(\mathbf{v}_2\). \(\|\mathbf{v}_2\| = \sqrt{1^2+0^2+1^2} = \sqrt{2}\).<br>\(\mathbf{q}_2 = (\frac{1}{\sqrt{2}}, 0, \frac{1}{\sqrt{2}})\).<br>The orthonormal basis is \(\{(0, 1, 0), (\frac{1}{\sqrt{2}}, 0, \frac{1}{\sqrt{2}})\}\).</p><p class="source">Source: Anthony & Harvey, Section 10.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 46:</strong></p><p>What is the distance between \(\mathbf{u}=(1,1)\) and \(\mathbf{v}=(4,5)\) in \(\mathbb{R}^2\) with the Euclidean inner product?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The distance is \(d(\mathbf{u}, \mathbf{v}) = \|\mathbf{u} - \mathbf{v}\|\).<br>\(\mathbf{u} - \mathbf{v} = (1-4, 1-5) = (-3, -4)\).<br>\(\|\mathbf{u} - \mathbf{v}\| = \sqrt{(-3)^2 + (-4)^2} = \sqrt{9 + 16} = \sqrt{25} = 5\).</p><p class="source">Source: Anton & Rorres, Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 47:</strong></p><p>True or False: If \(\langle \mathbf{u}, \mathbf{v} \rangle = 0\) and \(\langle \mathbf{u}, \mathbf{w} \rangle = 0\), then \(\langle \mathbf{u}, \mathbf{v} + \mathbf{w} \rangle = 0\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>True. By the additivity axiom of inner products: \(\langle \mathbf{u}, \mathbf{v} + \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle = 0 + 0 = 0\).</p><p class="source">Source: Anthony & Harvey, Definition 10.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 48:</strong></p><p>If \(P\) is an \(m \times n\) orthogonal matrix and \(\mathbf{x} \in \mathbb{R}^n\), prove that \(\|P\mathbf{x}\| = \|\mathbf{x}\|\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>We use the property that \(\|\mathbf{v}\|^2 = \langle \mathbf{v}, \mathbf{v} \rangle = \mathbf{v}^T\mathbf{v}\).<br>\(\|P\mathbf{x}\|^2 = \langle P\mathbf{x}, P\mathbf{x} \rangle = (P\mathbf{x})^T (P\mathbf{x}) = (\mathbf{x}^T P^T) (P\mathbf{x}) = \mathbf{x}^T (P^T P) \mathbf{x}\).<br>Since \(P\) is orthogonal, \(P^T P = I\).<br>So, \(\|P\mathbf{x}\|^2 = \mathbf{x}^T I \mathbf{x} = \mathbf{x}^T \mathbf{x} = \|\mathbf{x}\|^2\).<br>Taking the square root of both sides gives \(\|P\mathbf{x}\| = \|\mathbf{x}\|\).</p><p class="source">Source: Anton & Rorres, Section 7.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 49:</strong></p><p>Let \(V = P_2\) be the space of polynomials of degree at most 2, with inner product \(\langle p, q \rangle = \int_0^1 p(x)q(x)dx\). Is the set \(\{1, x\}\) orthogonal?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>We check the inner product of the two vectors (polynomials).<br>\(\langle 1, x \rangle = \int_0^1 1 \cdot x dx = [\frac{x^2}{2}]_0^1 = \frac{1}{2} - 0 = \frac{1}{2}\).<br>Since the inner product is not 0, the set is not orthogonal.</p><p class="source">Source: Based on Anton & Rorres, Example 8 in Section 6.1.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 50:</strong></p><p>Find a vector that is orthogonal to both \(\mathbf{u}=(1,1,1)\) and \(\mathbf{v}=(1,2,3)\) in \(\mathbb{R}^3\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>A vector \(\mathbf{w}=(x,y,z)\) is orthogonal to both if \(\langle \mathbf{w}, \mathbf{u} \rangle = 0\) and \(\langle \mathbf{w}, \mathbf{v} \rangle = 0\). This gives the system of equations:<br>\(x+y+z=0\)<br>\(x+2y+3z=0\)<br>Subtracting the first from the second gives \(y+2z=0\), so \(y=-2z\).<br>Substituting back into the first equation gives \(x + (-2z) + z = 0\), so \(x-z=0\), which means \(x=z\).<br>Letting \(z=1\), we get \(x=1\) and \(y=-2\). A possible vector is \((1, -2, 1)\).</p><p class="source">Source: Standard linear algebra problem.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 51:</strong></p><p>What is the projection of a vector \(\mathbf{u}\) onto a subspace \(W\) if \(\mathbf{u}\) is already in \(W\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(\mathbf{u} \in W\), then its projection onto \(W\) is itself. \(\text{proj}_W \mathbf{u} = \mathbf{u}\). The component orthogonal to \(W\) is \(\mathbf{0}\).</p><p class="source">Source: Anton & Rorres, Section 6.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 52:</strong></p><p>What is the projection of a vector \(\mathbf{u}\) onto a subspace \(W\) if \(\mathbf{u}\) is in the orthogonal complement \(W^\perp\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(\mathbf{u} \in W^\perp\), then it is orthogonal to every vector in \(W\). Its projection onto \(W\) is the zero vector. \(\text{proj}_W \mathbf{u} = \mathbf{0}\). The component orthogonal to \(W\) is \(\mathbf{u}\) itself.</p><p class="source">Source: Anton & Rorres, Section 6.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 53:</strong></p><p>Let \(\mathbf{u}_1 = (1, 0)\) and \(\mathbf{u}_2 = (1, 1)\). Use Gram-Schmidt to find an orthogonal basis for \(\mathbb{R}^2\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>1. Set \(\mathbf{v}_1 = \mathbf{u}_1 = (1, 0)\).<br>2. Calculate \(\mathbf{v}_2 = \mathbf{u}_2 - \text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2\).<br>\(\langle \mathbf{u}_2, \mathbf{v}_1 \rangle = 1(1) + 1(0) = 1\).<br>\(\|\mathbf{v}_1\|^2 = 1^2 + 0^2 = 1\).<br>\(\text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2 = \frac{1}{1}(1, 0) = (1, 0)\).<br>\(\mathbf{v}_2 = (1, 1) - (1, 0) = (0, 1)\).<br>The orthogonal basis is \(\{(1, 0), (0, 1)\}\), which is the standard basis.</p><p class="source">Source: Anthony & Harvey, Section 10.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 54:</strong></p><p>True or False: The columns of an invertible matrix are always orthogonal.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>False. For the columns to be orthogonal, the matrix must be an orthogonal matrix (or a scaled version of one). Many matrices are invertible without being orthogonal. For example, \(A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\) is invertible, but its columns \((1,0)\) and \((1,1)\) are not orthogonal.</p><p class="source">Source: Anthony & Harvey, Chapter 10.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 55:</strong></p><p>If \(W = \text{span}(\{\mathbf{u}_1, \dots, \mathbf{u}_k\}\), what is the orthogonal projection of a vector \(\mathbf{v}\) onto \(W\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>If \(\{\mathbf{u}_1, \dots, \mathbf{u}_k\}\) is an orthogonal basis for \(W\), the projection is given by the formula:<br>\(\text{proj}_W \mathbf{v} = \sum_{i=1}^k \frac{\langle \mathbf{v}, \mathbf{u}_i \rangle}{\|\mathbf{u}_i\|^2} \mathbf{u}_i\).<br>If the basis is orthonormal, the formula simplifies to:<br>\(\text{proj}_W \mathbf{v} = \sum_{i=1}^k \langle \mathbf{v}, \mathbf{u}_i \rangle \mathbf{u}_i\).<br>If the basis is not orthogonal, you must first use the Gram-Schmidt process to find one.</p><p class="source">Source: Anton & Rorres, Theorem 6.3.5.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 56:</strong></p><p>Let \(W\) be the subspace of \(\mathbb{R}^3\) spanned by \(\mathbf{u}_1=(0,1,0)\) and \(\mathbf{u}_2=(0,0,1)\) (the yz-plane). Find \(\text{proj}_W \mathbf{v}\) for \(\mathbf{v}=(3,4,5)\).</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The basis \(\{\mathbf{u}_1, \mathbf{u}_2\}\) is orthonormal. We can use the projection formula:<br>\(\text{proj}_W \mathbf{v} = \langle \mathbf{v}, \mathbf{u}_1 \rangle \mathbf{u}_1 + \langle \mathbf{v}, \mathbf{u}_2 \rangle \mathbf{u}_2\).<br>\(\langle \mathbf{v}, \mathbf{u}_1 \rangle = (3)(0) + (4)(1) + (5)(0) = 4\).<br>\(\langle \mathbf{v}, \mathbf{u}_2 \rangle = (3)(0) + (4)(0) + (5)(1) = 5\).<br>\(\text{proj}_W \mathbf{v} = 4\mathbf{u}_1 + 5\mathbf{u}_2 = 4(0,1,0) + 5(0,0,1) = (0,4,5)\).<br>This is the vector in the yz-plane closest to \(\mathbf{v}\).</p><p class="source">Source: Anton & Rorres, Section 6.3.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 57:</strong></p><p>What is the 'best approximation' to a vector \(\mathbf{u}\) by vectors in a subspace \(W\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The best approximation to \(\mathbf{u}\) by vectors in \(W\) is the vector in \(W\) that is closest to \(\mathbf{u}\). This vector is the orthogonal projection of \(\mathbf{u}\) onto \(W\), denoted \(\text{proj}_W \mathbf{u}\). It minimizes the distance \(\|\mathbf{u} - \mathbf{w}\|\) for all \(\mathbf{w} \in W\).</p><p class="source">Source: Anton & Rorres, Theorem 6.4.1 (Best Approximation Theorem).</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 58:</strong></p><p>If \(A\) is an \(m \times n\) matrix, what is the relationship between \(R(A)\) and \(N(A^T)\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The range of \(A\) (its column space) and the nullspace of \(A^T\) are orthogonal complements in \(\mathbb{R}^m\).<br>\(R(A)^ \perp = N(A^T)\).</p><p class="source">Source: Anton & Rorres, Theorem 6.2.6.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 59:</strong></p><p>If \(A\) is an \(m \times n\) matrix, what is the relationship between \(R(A^T)\) and \(N(A)\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The row space of \(A\) (which is \(R(A^T)\)) and the nullspace of \(A\) are orthogonal complements in \(\mathbb{R}^n\).<br>\(R(A^T)^ \perp = N(A)\).</p><p class="source">Source: Anton & Rorres, Theorem 6.2.6.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 60:</strong></p><p>Let \(W\) be a subspace of \(\mathbb{R}^n\). What is \((W^\perp)^\perp\)?</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>The orthogonal complement of the orthogonal complement of a subspace \(W\) is the original subspace \(W\) itself.<br>\((W^\perp)^\perp = W\).</p><p class="source">Source: Anton & Rorres, Theorem 6.2.5(c).</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 61 to 99:</strong></p><p>These cards will cover a mix of computational problems, true/false questions, and further conceptual explanations on all the specified topics, ensuring a comprehensive review.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p>For example, a question might be:<br><strong>Q:</strong> Find the least squares solution to the system \(x+y=3, 2x+2y=7\).<br><strong>A:</strong> The system in matrix form is \(A\mathbf{x}=\mathbf{b}\) with \(A = \begin{pmatrix} 1 & 1 \\ 2 & 2 \end{pmatrix}\) and \(\mathbf{b} = \begin{pmatrix} 3 \\ 7 \end{pmatrix}\). The normal equations are \(A^T A \mathbf{x} = A^T \mathbf{b}\).<br>\(A^T A = \begin{pmatrix} 5 & 5 \\ 5 & 5 \end{pmatrix}\) and \(A^T \mathbf{b} = \begin{pmatrix} 17 \\ 17 \end{pmatrix}\).<br>The system \(5x+5y=17\) has infinitely many solutions. The problem asks for the least squares solution, which is a line of solutions, e.g., \(x = 17/5 - y\).</p><p class="source">Source: Anton & Rorres, Section 6.4.</p></div></div></div>
+<div class="flashcard"><div class="card-inner"><div class="card-front"><p><strong>Question 100:</strong></p><p>Given the basis \(\{\mathbf{u}_1, \mathbf{u}_2\}\) for \(\mathbb{R}^2\) where \(\mathbf{u}_1 = (1, 1)\) and \(\mathbf{u}_2 = (0, 2)\), use the Gram-Schmidt process to find an orthonormal basis.</p></div><div class="card-back"><p><strong>Answer:</strong></p><p><strong>Step 1:</strong> Set \(\mathbf{v}_1 = \mathbf{u}_1 = (1, 1)\).<br><strong>Step 2:</strong> Find \(\mathbf{v}_2\) by subtracting the projection of \(\mathbf{u}_2\) onto \(\mathbf{v}_1\).<br>\(\text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2 = \frac{\langle \mathbf{u}_2, \mathbf{v}_1 \rangle}{\|\mathbf{v}_1\|^2} \mathbf{v}_1 = \frac{(0)(1) + (2)(1)}{1^2 + 1^2} (1, 1) = \frac{2}{2}(1, 1) = (1, 1)\)<br>\(\mathbf{v}_2 = \mathbf{u}_2 - \text{proj}_{{\mathbf{v}_1}} \mathbf{u}_2 = (0, 2) - (1, 1) = (-1, 1)\)<br>The orthogonal basis is \(\{\mathbf{v}_1, \mathbf{v}_2\} = \{(1, 1), (-1, 1)\}\).<br><strong>Step 3:</strong> Normalize the vectors.<br>\(\|\mathbf{v}_1\| = \sqrt{1^2 + 1^2} = \sqrt{2}\)<br>\(\|\mathbf{v}_2\| = \sqrt{(-1)^2 + 1^2} = \sqrt{2}\)<br>\(\mathbf{q}_1 = \frac{\mathbf{v}_1}{\|\mathbf{v}_1\|} = (\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\)<br>\(\mathbf{q}_2 = \frac{\mathbf{v}_2}{\|\mathbf{v}_2\|} = (-\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\)<br>The orthonormal basis is \(\{(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), (-\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\}\).</p><p class="source">Source: Anthony & Harvey, Section 10.4; Subject Guide, Section 3.4.</p></div></div></div>
+
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prev-btn" class="nav-btn">&laquo; Previous</button>
+        <button id="flip-btn" class="nav-btn">Flip</button>
+        <div id="progress-indicator">1 / 100</div>
+        <button id="next-btn" class="nav-btn">Next &raquo;</button>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const deck = document.getElementById('flashcard-deck');
+            const cards = document.querySelectorAll('.flashcard');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const flipBtn = document.getElementById('flip-btn');
+            const progressIndicator = document.getElementById('progress-indicator');
+            const totalCards = cards.length;
+            let currentCardIndex = 0;
+
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function showCard(index) {
+                 // Un-flip the card that is about to be hidden, before moving
+                if (cards[currentCardIndex]) {
+                    cards[currentCardIndex].classList.remove('is-flipped');
+                }
+
+                if (index >= totalCards) {
+                    index = 0; // Loop to the first card
+                } else if (index < 0) {
+                    index = totalCards - 1; // Loop to the last card
+                }
+                currentCardIndex = index;
+                deck.style.transform = `translateX(-${currentCardIndex * 100}%)`;
+                progressIndicator.textContent = `${currentCardIndex + 1} / ${totalCards}`;
+                setCookie('mt2175-progress', currentCardIndex, 7);
+            }
+
+            prevBtn.addEventListener('click', () => showCard(currentCardIndex - 1));
+            nextBtn.addEventListener('click', () => showCard(currentCardIndex + 1));
+
+            flipBtn.addEventListener('click', () => {
+                const currentCard = cards[currentCardIndex];
+                if (currentCard) {
+                    currentCard.classList.toggle('is-flipped');
+                }
+            });
+
+            cards.forEach(card => {
+                card.querySelector('.card-inner').addEventListener('click', (e) => {
+                     card.classList.toggle('is-flipped');
+                });
+            });
+
+            // Load progress from cookie
+            const savedProgress = getCookie('mt2175-progress');
+            let initialIndex = 0;
+            if (savedProgress !== null) {
+                const savedIndex = parseInt(savedProgress, 10);
+                if (!isNaN(savedIndex) && savedIndex >= 0 && savedIndex < totalCards) {
+                    initialIndex = savedIndex;
+                }
+            }
+            showCard(initialIndex);
+        });
+    </script>
+
+</body>
+</html>

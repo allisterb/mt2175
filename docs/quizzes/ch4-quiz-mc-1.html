@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MT2175 - Direct Sums and Projections Quiz</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 2em;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #005a9c;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .question-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid;
+        }
+        .feedback.correct {
+            background-color: #e9f7ef;
+            border-color: #28a745;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        .correct-answer-label span {
+            font-weight: bold;
+            color: #28a745;
+        }
+        #clear-answers {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #clear-answers:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>MT2175 Further Linear Algebra: Quiz on Direct Sums and Projections</h1>
+    <p>As your lecturer, I've prepared these 50 multiple-choice questions to help you master the concepts of direct sums, orthogonal complements, and projections. Please attempt each question carefully. Your progress will be saved.</p>
+    
+    <div id="quiz-container">
+        <!-- Question 1 -->
+        <div class="question-container" id="q1" data-correct="b">
+            <p><b>1.</b> Let \(U\) and \(W\) be subspaces of a vector space \(V\). What is the definition of the sum of \(U\) and \(W\), denoted \(U+W\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q1" value="a"> <span>\(U+W = \{ \mathbf{v} \in V \mid \mathbf{v} = \mathbf{u} \text{ or } \mathbf{v} = \mathbf{w} \text{ for some } \mathbf{u} \in U, \mathbf{w} \in W \}\)</span></label></li>
+                <li><label><input type="radio" name="q1" value="b"> <span>\(U+W = \{ \mathbf{u} + \mathbf{w} \mid \mathbf{u} \in U, \mathbf{w} \in W \}\)</span></label></li>
+                <li><label><input type="radio" name="q1" value="c"> <span>\(U+W = \{ \alpha\mathbf{u} + \beta\mathbf{w} \mid \mathbf{u} \in U, \mathbf{w} \in W, \alpha, \beta \in \mathbb{R} \}\)</span></label></li>
+                <li><label><input type="radio" name="q1" value="d"> <span>\(U+W = U \cup W\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The sum of two subspaces \(U\) and \(W\) is the set of all possible vectors that can be formed by adding a vector from \(U\) to a vector from \(W\). This is a fundamental definition.</p>
+                <p><em>Source: Anthony & Harvey, Definition 12.1.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-container" id="q2" data-correct="a">
+            <p><b>2.</b> A sum of two subspaces \(U+W\) is a direct sum, denoted \(U \oplus W\), if and only if which of the following conditions holds?</p><ul>
+                <li><label><input type="radio" name="q2" value="a"> <span>\(U \cap W = \{ \mathbf{0} \}\)</span></label></li>
+                <li><label><input type="radio" name="q2" value="b"> <span>\(U \cup W = V\)</span></label></li>
+                <li><label><input type="radio" name="q2" value="c"> <span>\(\dim(U) + \dim(W) = 0\)</span></label></li>
+                <li><label><input type="radio" name="q2" value="d"> <span>For every \(\mathbf{v} \in U+W\), there are multiple ways to write \(\mathbf{v} = \mathbf{u} + \mathbf{w}\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The sum is direct if the intersection of the subspaces is only the zero vector. This is the primary definition of a direct sum.</p>
+                <p><em>Source: Subject Guide, Definition 5.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-container" id="q3" data-correct="c">
+            <p><b>3.</b> Let \(V = \mathbb{R}^3\), \(U = \text{span}\{(1,0,0), (0,1,0)\}\) and \(W = \text{span}\{(0,0,1)\}
+). Which statement is true?</p>
+            <ul>
+                <li><label><input type="radio" name="q3" value="a"> <span>The sum \(U+W\) is not a direct sum because \(U \cap W \neq \{\mathbf{0}\}\).</span></label></li>
+                <li><label><input type="radio" name="q3" value="b"> <span>\(U+W \neq \mathbb{R}^3\).</span></label></li>
+                <li><label><input type="radio" name="q3" value="c"> <span>The sum is direct, so \(V = U \oplus W\).</span></label></li>
+                <li><label><input type="radio" name="q3" value="d"> <span>The vectors spanning \(U\) are linearly dependent.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> \(U\) is the xy-plane and \(W\) is the z-axis. Their intersection is only the zero vector, so the sum is direct. Together, they span all of \(\mathbb{R}^3\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.1.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-container" id="q4" data-correct="d">
+            <p><b>4.</b> An equivalent condition for the sum \(U+W\) to be a direct sum is:</p>
+            <ul>
+                <li><label><input type="radio" name="q4" value="a"> <span>\(\dim(U+W) > \dim(U) + \dim(W)\)</span></label></li>
+                <li><label><input type="radio" name="q4" value="b"> <span>Every vector in \(V\) can be written as \(\mathbf{u}+\mathbf{w}\).</span></label></li>
+                <li><label><input type="radio" name="q4" value="c"> <span>The basis vectors of \(U\) and \(W\) are the same.</span></label></li>
+                <li><label><input type="radio" name="q4" value="d"> <span>Every vector \(\mathbf{v} \in U+W\) can be written uniquely as \(\mathbf{v} = \mathbf{u} + \mathbf{w}\) where \(\mathbf{u} \in U\) and \(\mathbf{w} \in W\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A key theorem states that a sum is direct if and only if every vector in the sum has a unique representation as a sum of vectors from the constituent subspaces.</p>
+                <p><em>Source: Subject Guide, Theorem 5.1.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-container" id="q5" data-correct="a">
+            <p><b>5.</b> Let \(S\) be a subspace of an inner product space \(V\). What is the definition of the orthogonal complement, \(S^\perp\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q5" value="a"> <span>\(S^\perp = \{ \mathbf{v} \in V \mid \langle \mathbf{v}, \mathbf{s} \rangle = 0 \text{ for all } \mathbf{s} \in S \}\)</span></label></li>
+                <li><label><input type="radio" name="q5" value="b"> <span>\(S^\perp = \{ \mathbf{v} \in V \mid \langle \mathbf{v}, \mathbf{s} \rangle \neq 0 \text{ for all } \mathbf{s} \in S \}\)</span></label></li>
+                <li><label><input type="radio" name="q5" value="c"> <span>\(S^\perp = \{ \mathbf{v} \in V \mid \mathbf{v} \text{ is not in } S \}\)</span></label></li>
+                <li><label><input type="radio" name="q5" value="d"> <span>\(S^\perp = \{ \mathbf{s} \in S \mid \langle \mathbf{s}, \mathbf{s} \rangle = 1 \}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The orthogonal complement of \(S\) is the set of all vectors in \(V\) that are orthogonal to every vector in \(S\).</p>
+                <p><em>Source: Subject Guide, Definition 5.3.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-container" id="q6" data-correct="b">
+            <p><b>6.</b> If \(S\) is a subspace of a finite-dimensional inner product space \(V\), which of the following is always true?</p>
+            <ul>
+                <li><label><input type="radio" name="q6" value="a"> <span>\(S \cup S^\perp = V\)</span></label></li>
+                <li><label><input type="radio" name="q6" value="b"> <span>\(V = S \oplus S^\perp\)</span></label></li>
+                <li><label><input type="radio" name="q6" value="c"> <span>\(S^\perp\) contains only the zero vector.</span></label></li>
+                <li><label><input type="radio" name="q6" value="d"> <span>\(\dim(S^\perp) > \dim(S)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A fundamental result in linear algebra is that any finite-dimensional inner product space \(V\) can be expressed as the direct sum of a subspace \(S\) and its orthogonal complement \(S^\perp\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.3.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-container" id="q7" data-correct="c">
+            <p><b>7.</b> Let \(S = \text{span}\{(1, 1, 1)\}
+) in \(\mathbb{R}^3\) with the standard inner product. What is the orthogonal complement \(S^\perp\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q7" value="a"> <span>The line spanned by \((-1, -1, -1)\).</span></label></li>
+                <li><label><input type="radio" name="q7" value="b"> <span>The set of all vectors \((x,y,z)\) such that \(x+y+z=1\).</span></label></li>
+                <li><label><input type="radio" name="q7" value="c"> <span>The plane with equation \(x+y+z=0\).</span></label></li>
+                <li><label><input type="radio" name="q7" value="d"> <span>The entire space \(\mathbb{R}^3\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> \(S^\perp\) consists of all vectors \(\mathbf{v}=(x,y,z)\) such that \(\langle \mathbf{v}, (1,1,1) \rangle = 0\). This gives the equation \(x+y+z=0\), which is the equation of a plane through the origin.</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-container" id="q8" data-correct="a">
+            <p><b>8.</b> For any matrix \(A\), which of the following relationships is correct?</p>
+            <ul>
+                <li><label><input type="radio" name="q8" value="a"> <span>\(R(A)^\perp = N(A^T)\)</span></label></li>
+                <li><label><input type="radio" name="q8" value="b"> <span>\(R(A)^\perp = R(A^T)\)</span></label></li>
+                <li><label><input type="radio" name="q8" value="c"> <span>\(N(A)^\perp = N(A^T)\)</span></label></li>
+                <li><label><input type="radio" name="q8" value="d"> <span>\(R(A) = N(A)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> This is one of the four fundamental subspaces relationships. The orthogonal complement of the range (or column space) of a matrix \(A\) is the null space of its transpose \(A^T\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-container" id="q9" data-correct="d">
+            <p><b>9.</b> Let \(A\) be an \(m \times n\) matrix. The subspace \(N(A)^\perp\) is equal to which other fundamental subspace?</p>
+            <ul>
+                <li><label><input type="radio" name="q9" value="a"> <span>\(N(A)\)</span></label></li>
+                <li><label><input type="radio" name="q9" value="b"> <span>\(R(A)\)</span></label></li>
+                <li><label><input type="radio" name="q9" value="c"> <span>\(N(A^T)\)</span></label></li>
+                <li><label><input type="radio" name="q9" value="d"> <span>\(R(A^T)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> This is another of the four fundamental subspaces relationships. The orthogonal complement of the null space of \(A\) is the range (or column space) of \(A^T\). The range of \(A^T\) is also known as the row space of \(A\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-container" id="q10" data-correct="b">
+            <p><b>10.</b> A linear transformation \(P: V \to V\) is a projection if and only if:</p>
+            <ul>
+                <li><label><input type="radio" name="q10" value="a"> <span>\(P^2 = I\)</span></label></li>
+                <li><label><input type="radio" name="q10" value="b"> <span>\(P^2 = P\)</span></label></li>
+                <li><label><input type="radio" name="q10" value="c"> <span>\(P = P^T\)</span></label></li>
+                <li><label><input type="radio" name="q10" value="d"> <span>\(P = P^{-1}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A linear transformation is a projection if and only if it is idempotent, meaning applying the transformation twice is the same as applying it once. This is written as \(P^2 = P\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.7.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-container" id="q11" data-correct="c">
+            <p><b>11.</b> A matrix \(P\) represents an orthogonal projection if and only if:</p>
+            <ul>
+                <li><label><input type="radio" name="q11" value="a"> <span>\(P\) is idempotent.</span></label></li>
+                <li><label><input type="radio" name="q11" value="b"> <span>\(P\) is symmetric.</span></label></li>
+                <li><label><input type="radio" name="q11" value="c"> <span>\(P\) is idempotent and symmetric.</span></label></li>
+                <li><label><input type="radio" name="q11" value="d"> <span>\(P\) is invertible.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> An orthogonal projection has the properties of being both a projection (idempotent, \(P^2=P\)) and projecting onto a subspace orthogonally. The second condition is captured by the matrix being symmetric (\(P=P^T\)).</p>
+                <p><em>Source: Subject Guide, Theorem 5.8.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-container" id="q12" data-correct="a">
+            <p><b>12.</b> Let \(P\) be a projection matrix. Which of the following is a property of any projection?</p>
+            <ul>
+                <li><label><input type="radio" name="q12" value="a"> <span>It is a linear transformation.</span></label></li>
+                <li><label><input type="radio" name="q12" value="b"> <span>It is always invertible.</span></label></li>
+                <li><label><input type="radio" name="q12" value="c"> <span>It is always a symmetric matrix.</span></label></li>
+                <li><label><input type="radio" name="q12" value="d"> <span>It maps the vector space to the zero vector.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> By definition, a projection is a linear transformation from a vector space to itself. Not all projections are symmetric (only orthogonal ones), and they are generally not invertible (unless they are the identity projection on the whole space).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.3.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-container" id="q13" data-correct="d">
+            <p><b>13.</b> If \(P\) is an idempotent matrix (\(P^2=P\)), what are its possible eigenvalues?</p>
+            <ul>
+                <li><label><input type="radio" name="q13" value="a"> <span>Only 1</span></label></li>
+                <li><label><input type="radio" name="q13" value="b"> <span>Only 0</span></label></li>
+                <li><label><input type="radio" name="q13" value="c"> <span>-1 and 1</span></label></li>
+                <li><label><input type="radio" name="q13" value="d"> <span>0 and 1</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> Let \(\lambda\) be an eigenvalue of \(P\) with eigenvector \(\mathbf{v}\). Then \(P\mathbf{v} = \lambda\mathbf{v}\). Applying \(P\) again, \(P^2\mathbf{v} = P(\lambda\mathbf{v}) = \lambda(P\mathbf{v}) = \lambda(\lambda\mathbf{v}) = \lambda^2\mathbf{v}\). Since \(P^2=P\), we have \(P\mathbf{v} = \lambda^2\mathbf{v}\). Thus, \(\lambda\mathbf{v} = \lambda^2\mathbf{v}\), which implies \((\lambda^2 - \lambda)\mathbf{v} = \mathbf{0}\). Since \(\mathbf{v} \neq \mathbf{0}\), we must have \(\lambda(\lambda-1)=0\), so \(\lambda=0\) or \(\lambda=1\).</p>
+                <p><em>Source: Subject Guide, Activity 5.6.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-container" id="q14" data-correct="b">
+            <p><b>14.</b> Let \(V = \mathbb{R}^2\), \(U = \text{span}\{(1,1)\}
+) and \(W = \text{span}\{(-1,1)\}
+). Is the sum \(U+W\) a direct sum?</p>
+            <ul>
+                <li><label><input type="radio" name="q14" value="a"> <span>No, because \(U\) and \(W\) are not orthogonal.</span></label></li>
+                <li><label><input type="radio" name="q14" value="b"> <span>Yes, because their intersection is only the zero vector.</span></label></li>
+                <li><label><input type="radio" name="q14" value="c"> <span>No, because they do not span \(\mathbb{R}^2\).</span></label></li>
+                <li><label><input type="radio" name="q14" value="d"> <span>It cannot be determined.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The vectors \((1,1)\) and \((-1,1)\) are linearly independent. Therefore, the only vector in their intersection is the zero vector. This satisfies the condition for a direct sum. Note that orthogonality is a sufficient condition for a sum to be direct, but not a necessary one, unless we are talking about a subspace and its orthogonal complement.</p>
+                <p><em>Source: Subject Guide, Example 5.1.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-container" id="q15" data-correct="a">
+            <p><b>15.</b> Which of the following properties of the orthogonal complement is correct for any subspace \(S\) of a finite-dimensional inner product space?</p>
+            <ul>
+                <li><label><input type="radio" name="q15" value="a"> <span>\((S^\perp)^\perp = S\)</span></label></li>
+                <li><label><input type="radio" name="q15" value="b"> <span>\(S^\perp = S\)</span></label></li>
+                <li><label><input type="radio" name="q15" value="c"> <span>\(S^\perp\) is always the empty set.</span></label></li>
+                <li><label><input type="radio" name="q15" value="d"> <span>\(\dim(S^\perp) = \dim(S)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The orthogonal complement of the orthogonal complement of a subspace is the original subspace itself. This is a fundamental property.</p>
+                <p><em>Source: Subject Guide, Theorem 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-container" id="q16" data-correct="c">
+            <p><b>16.</b> Let \(P\) be the matrix for a projection onto a subspace \(U\) parallel to \(W\). The null space of \(P\), \(N(P)\), is:</p>
+            <ul>
+                <li><label><input type="radio" name="q16" value="a"> <span>\(U\)</span></label></li>
+                <li><label><input type="radio" name="q16" value="b"> <span>\(V\)</span></label></li>
+                <li><label><input type="radio" name="q16" value="c"> <span>\(W\)</span></label></li>
+                <li><label><input type="radio" name="q16" value="d"> <span>\(\{\mathbf{0}\}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The projection \(P\) maps any vector \(\mathbf{v} = \mathbf{u} + \mathbf{w}\) to \(\mathbf{u}\). The null space consists of all vectors that are mapped to the zero vector. This happens when \(\mathbf{u}=\mathbf{0}\), so the vectors in the null space are precisely the vectors in \(W\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-container" id="q17" data-correct="b">
+            <p><b>17.</b> Let \(P\) be the matrix for a projection onto a subspace \(U\) parallel to \(W\). The range of \(P\), \(R(P)\), is:</p>
+            <ul>
+                <li><label><input type="radio" name="q17" value="a"> <span>\(W\)</span></label></li>
+                <li><label><input type="radio" name="q17" value="b"> <span>\(U\)</span></label></li>
+                <li><label><input type="radio" name="q17" value="c"> <span>\(V\)</span></label></li>
+                <li><label><input type="radio" name="q17" value="d"> <span>\(\{\mathbf{0}\}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The projection \(P\) maps any vector \(\mathbf{v} = \mathbf{u} + \mathbf{w}\) to \(\mathbf{u}\). The range is the set of all possible outputs. Since \(\mathbf{u}\) can be any vector in \(U\), the range of \(P\) is exactly the subspace \(U\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-container" id="q18" data-correct="d">
+            <p><b>18.</b> Consider the matrix \(A = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}\). This matrix represents:</p>
+            <ul>
+                <li><label><input type="radio" name="q18" value="a"> <span>A rotation.</span></label></li>
+                <li><label><input type="radio" name="q18" value="b"> <span>A reflection about the y-axis.</span></label></li>
+                <li><label><input type="radio" name="q18" value="c"> <span>A projection onto the y-axis.</span></label></li>
+                <li><label><input type="radio" name="q18" value="d"> <span>An orthogonal projection onto the x-axis.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The matrix is idempotent (\(A^2=A\)) and symmetric (\(A^T=A\)), so it represents an orthogonal projection. Applying it to a vector \((x,y)\) gives \((x,0)\), which is the orthogonal projection onto the x-axis.</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.3.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-container" id="q19" data-correct="a">
+            <p><b>19.</b> To prove that a sum of two subspaces \(U+W\) is direct, one can show that \(U \cap W = \{\mathbf{0}\}\). How would you start a proof for this?</p>
+            <ul>
+                <li><label><input type="radio" name="q19" value="a"> <span>Assume \(\mathbf{v} \in U \cap W\) and show that \(\mathbf{v}\) must be \(\mathbf{0}\).</span></label></li>
+                <li><label><input type="radio" name="q19" value="b"> <span>Assume \(\mathbf{v} = \mathbf{u} + \mathbf{w}\) and show \(\mathbf{v}=\mathbf{0}\).</span></label></li>
+                <li><label><input type="radio" name="q19" value="c"> <span>Pick a non-zero vector in \(U\) and show it is not in \(W\).</span></label></li>
+                <li><label><input type="radio" name="q19" value="d"> <span>Show that \(\dim(U) + \dim(W) = \dim(V)\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> To prove that a set (in this case, the intersection) contains only the zero vector, the standard method is to take an arbitrary element from that set and prove that it must be the zero vector.</p>
+                <p><em>Source: Subject Guide, Chapter 5.1.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-container" id="q20" data-correct="c">
+            <p><b>20.</b> Let \(S\) be a subspace of \(V\). Which statement about \(S^\perp\) is incorrect?</p>
+            <ul>
+                <li><label><input type="radio" name="q20" value="a"> <span>\(S^\perp\) is a subspace of \(V\).</span></label></li>
+                <li><label><input type="radio" name="q20" value="b"> <span>If \(\mathbf{v} \in S\) and \(\mathbf{w} \in S^\perp\), then \(\langle \mathbf{v}, \mathbf{w} \rangle = 0\).</span></label></li>
+                <li><label><input type="radio" name="q20" value="c"> <span>\(S^\perp\) is the set of all vectors not in \(S\).</span></label></li>
+                <li><label><input type="radio" name="q20" value="d"> <span>\(S \cap S^\perp = \{\mathbf{0}\}\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The orthogonal complement \(S^\perp\) is not simply the complement of \(S\). For example, in \(\mathbb{R}^2\), if \(S\) is the x-axis, \(S^\perp\) is the y-axis. A vector like \((1,1)\) is in neither \(S\) nor \(S^\perp\).</p>
+                <p><em>Source: Subject Guide, Chapter 5.2.1.</em></p>
+            </div>
+        </div>
+
+        <!-- ... continue for 50 questions ... -->
+
+        <!-- Question 21 -->
+        <div class="question-container" id="q21" data-correct="b">
+            <p><b>21.</b> If \(P\) is a projection matrix, then \(I-P\) is also a projection matrix. If \(P\) projects onto \(U\) parallel to \(W\), what does \(I-P\) project onto?</p>
+            <ul>
+                <li><label><input type="radio" name="q21" value="a"> <span>\(U\) parallel to \(W\)</span></label></li>
+                <li><label><input type="radio" name="q21" value="b"> <span>\(W\) parallel to \(U\)</span></label></li>
+                <li><label><input type="radio" name="q21" value="c"> <span>\(U^\perp\) parallel to \(W\)</span></label></li>
+                <li><label><input type="radio" name="q21" value="d"> <span>\(W^\perp\) parallel to \(U\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> First, check if \(I-P\) is idempotent: \((I-P)^2 = I - 2P + P^2 = I - 2P + P = I - P\). So it is a projection. For any \(\mathbf{v} = \mathbf{u} + \mathbf{w}\), \((I-P)\mathbf{v} = \mathbf{v} - P\mathbf{v} = (\mathbf{u}+\mathbf{w}) - \mathbf{u} = \mathbf{w}\). So \(I-P\) projects onto \(W\) parallel to \(U\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-container" id="q22" data-correct="a">
+            <p><b>22.</b> Let \(A = \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix}\). This matrix is:</p>
+            <ul>
+                <li><label><input type="radio" name="q22" value="a"> <span>An orthogonal projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q22" value="b"> <span>A projection matrix, but not orthogonal.</span></label></li>
+                <li><label><input type="radio" name="q22" value="c"> <span>Not a projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q22" value="d"> <span>An invertible matrix.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> We check for idempotency: \(A^2 = \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix} \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix} = \begin{pmatrix} 0.25+0.25 & 0.25+0.25 \\ 0.25+0.25 & 0.25+0.25 \end{pmatrix} = A\). It is idempotent. We check for symmetry: \(A^T = A\). Since it is both idempotent and symmetric, it is an orthogonal projection matrix.</p>
+                <p><em>Source: Subject Guide, Theorem 5.8.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-container" id="q23" data-correct="c">
+            <p><b>23.</b> The matrix \(P = \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix}\) projects vectors in \(\mathbb{R}^2\) onto which subspace?</p>
+            <ul>
+                <li><label><input type="radio" name="q23" value="a"> <span>The x-axis.</span></label></li>
+                <li><label><input type="radio" name="q23" value="b"> <span>The y-axis.</span></label></li>
+                <li><label><input type="radio" name="q23" value="c"> <span>The line \(y=x\).</span></label></li>
+                <li><label><input type="radio" name="q23" value="d"> <span>The line \(y=-x\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The columns of a projection matrix span its range (the subspace it projects onto). The columns are \((0.5, 0.5)\). This vector lies on the line \(y=x\). Any vector \((x,y)\) is mapped to \((0.5x+0.5y, 0.5x+0.5y)\), which is a point on the line \(y=x\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-container" id="q24" data-correct="d">
+            <p><b>24.</b> Let \(A\) be an \(m \times n\) matrix. The row space of \(A\), \(R(A^T)\), and the null space of \(A\), \(N(A)\), are orthogonal complements. This means their direct sum is:</p>
+            <ul>
+                <li><label><input type="radio" name="q24" value="a"> <span>\(\mathbb{R}^m\)</span></label></li>
+                <li><label><input type="radio" name="q24" value="b"> <span>A subspace of \(\mathbb{R}^m\)</span></label></li>
+                <li><label><input type="radio" name="q24" value="c"> <span>A subspace of \(\mathbb{R}^n\)</span></label></li>
+                <li><label><input type="radio" name="q24" value="d"> <span>\(\mathbb{R}^n\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The row space \(R(A^T)\) and the null space \(N(A)\) are both subspaces of \(\mathbb{R}^n\). Since they are orthogonal complements, their direct sum spans the entire space they reside in, which is \(\mathbb{R}^n\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-container" id="q25" data-correct="a">
+            <p><b>25.</b> Let \(P\) be a projection. The transformation \(T = 2P - I\) represents:</p>
+            <ul>
+                <li><label><input type="radio" name="q25" value="a"> <span>A reflection.</span></label></li>
+                <li><label><input type="radio" name="q25" value="b"> <span>A rotation.</span></label></li>
+                <li><label><input type="radio" name="q25" value="c"> <span>Another projection.</span></label></li>
+                <li><label><input type="radio" name="q25" value="d"> <span>The zero transformation.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A reflection \(R\) has the property \(R^2=I\). Let's check \(T^2\): \(T^2 = (2P-I)^2 = 4P^2 - 4P + I^2 = 4P - 4P + I = I\). Since \(T^2=I\), \(T\) is a reflection about the subspace \(U\) (the range of P) along \(W\) (the nullspace of P).</p>
+                <p><em>Source: This is a common extension of the properties of projections. It can be derived from the definitions in Anthony & Harvey, Chapter 12.3.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-container" id="q26" data-correct="b">
+            <p><b>26.</b> Let \(U\) and \(W\) be subspaces of \(V\). If \(\dim(U)=3\), \(\dim(W)=4\), and \(\dim(U \cap W)=1\), what is \(\dim(U+W)\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q26" value="a"> <span>7</span></label></li>
+                <li><label><input type="radio" name="q26" value="b"> <span>6</span></label></li>
+                <li><label><input type="radio" name="q26" value="c"> <span>5</span></label></li>
+                <li><label><input type="radio" name="q26" value="d"> <span>8</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The dimension formula for the sum of two subspaces is \(\dim(U+W) = \dim(U) + \dim(W) - \dim(U \cap W)\). Plugging in the values, we get \(3 + 4 - 1 = 6\).</p>
+                <p><em>Source: This is a standard theorem related to sums of subspaces, covered in Anthony & Harvey, Chapter 6.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-container" id="q27" data-correct="c">
+            <p><b>27.</b> If \(P\) is the orthogonal projection onto the line spanned by the vector \(\mathbf{a} = (1, 2, 2)\) in \(\mathbb{R}^3\), what is the matrix \(P\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q27" value="a"> <span>\(\frac{1}{9} \begin{pmatrix} 1 & 2 & 2 \\ 2 & 1 & 2 \\ 2 & 2 & 1 \end{pmatrix}\)</span></label></li>
+                <li><label><input type="radio" name="q27" value="b"> <span>\(\frac{1}{3} \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix}\)</span></label></li>
+                <li><label><input type="radio" name="q27" value="c"> <span>\(\frac{1}{9} \begin{pmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \\ 2 & 4 & 4 \end{pmatrix}\)</span></label></li>
+                <li><label><input type="radio" name="q27" value="d"> <span>\(\begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The formula for orthogonal projection onto the line spanned by a vector \(\mathbf{a}\) is \(P = \frac{1}{\mathbf{a}^T\mathbf{a}} \mathbf{a}\mathbf{a}^T\). Here, \(\mathbf{a}^T\mathbf{a} = 1^2+2^2+2^2 = 9\). The outer product \(\mathbf{a}\mathbf{a}^T\) is \(\begin{pmatrix} 1 \\ 2 \\ 2 \end{pmatrix} \begin{pmatrix} 1 & 2 & 2 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \\ 2 & 4 & 4 \end{pmatrix}\). So, \(P = \frac{1}{9} \begin{pmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \\ 2 & 4 & 4 \end{pmatrix}\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-container" id="q28" data-correct="a">
+            <p><b>28.</b> True or False: If \(U\) and \(W\) are orthogonal subspaces, their sum \(U+W\) is a direct sum.</p>
+            <ul>
+                <li><label><input type="radio" name="q28" value="a"> <span>True</span></label></li>
+                <li><label><input type="radio" name="q28" value="b"> <span>False</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> If \(U\) and \(W\) are orthogonal, it means every vector in \(U\) is orthogonal to every vector in \(W\). If a vector \(\mathbf{v}\) is in their intersection, \(\mathbf{v} \in U \cap W\), then \(\mathbf{v}\) must be orthogonal to itself, i.e., \(\langle \mathbf{v}, \mathbf{v} \rangle = 0\). This implies \(\mathbf{v} = \mathbf{0}\). Therefore, \(U \cap W = \{\mathbf{0}\}\), which is the condition for a direct sum.</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-container" id="q29" data-correct="b">
+            <p><b>29.</b> Let \(P = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}\). Is this a projection matrix?</p>
+            <ul>
+                <li><label><input type="radio" name="q29" value="a"> <span>Yes, it is an orthogonal projection.</span></label></li>
+                <li><label><input type="radio" name="q29" value="b"> <span>Yes, it is a projection, but not an orthogonal one.</span></label></li>
+                <li><label><input type="radio" name="q29" value="c"> <span>No, it is not a projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q29" value="d"> <span>It is a rotation matrix.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> We check for idempotency: \(P^2 = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix} = P\). So it is a projection. However, it is not symmetric (\(P^T \neq P\)), so it is not an orthogonal projection.</p>
+                <p><em>Source: Subject Guide, Theorems 5.7 and 5.8.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-container" id="q30" data-correct="d">
+            <p><b>30.</b> Let \(A\) be a matrix. The statement \(N(A)^\perp = R(A^T)\) is a key part of the Fundamental Theorem of Linear Algebra. What does \(R(A^T)\) represent?</p>
+            <ul>
+                <li><label><input type="radio" name="q30" value="a"> <span>The null space of A.</span></label></li>
+                <li><label><input type="radio" name="q30" value="b"> <span>The column space of A.</span></label></li>
+                <li><label><input type="radio" name="q30" value="c"> <span>The left null space of A.</span></label></li>
+                <li><label><input type="radio" name="q30" value="d"> <span>The row space of A.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The range of \(A^T\), \(R(A^T)\), is the space spanned by the columns of \(A^T\). The columns of \(A^T\) are the rows of \(A\). Therefore, \(R(A^T)\) is the row space of \(A\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.2.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 31 -->
+        <div class="question-container" id="q31" data-correct="a">
+            <p><b>31.</b> If \(P\) is an orthogonal projection matrix, what can be said about \(I-P\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q31" value="a"> <span>It is also an orthogonal projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q31" value="b"> <span>It is a projection, but not orthogonal.</span></label></li>
+                <li><label><input type="radio" name="q31" value="c"> <span>It is not a projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q31" value="d"> <span>It is the zero matrix.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> We know \(I-P\) is a projection. To check if it's orthogonal, we check for symmetry. \((I-P)^T = I^T - P^T = I - P\), since \(P\) is symmetric. As \(I-P\) is both idempotent and symmetric, it is an orthogonal projection.</p>
+                <p><em>Source: Derived from properties in Subject Guide, Chapter 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 32 -->
+        <div class="question-container" id="q32" data-correct="b">
+            <p><b>32.</b> Let \(U = \text{span}\{(1,0,1), (0,1,1)\}
+) in \(\mathbb{R}^3\). Which vector is in \(U^\perp\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q32" value="a"> <span>\((1,1,0)\)</span></label></li>
+                <li><label><input type="radio" name="q32" value="b"> <span>\((1,1,-1)\)</span></label></li>
+                <li><label><input type="radio" name="q32" value="c"> <span>\((1,0,1)\)</span></label></li>
+                <li><label><input type="radio" name="q32" value="d"> <span>\((0,0,1)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A vector \(\mathbf{v}=(x,y,z)\) is in \(U^\perp\) if it is orthogonal to both basis vectors of \(U\). This gives two equations: \(x+z=0\) and \(y+z=0\). From these, \(x=-z\) and \(y=-z\). A vector satisfying this is \((1,1,-1)\) (by setting \(z=-1\)).</p>
+                <p><em>Source: Subject Guide, Example 5.3.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 33 -->
+        <div class="question-container" id="q33" data-correct="c">
+            <p><b>33.</b> If \(P\) is a projection onto \(U\) parallel to \(W\), and \(\mathbf{v} = \mathbf{u} + \mathbf{w}\) with \(\mathbf{u} \in U, \mathbf{w} \in W\), then \(P\mathbf{v}\) is:</p>
+            <ul>
+                <li><label><input type="radio" name="q33" value="a"> <span>\(\mathbf{w}\)</span></label></li>
+                <li><label><input type="radio" name="q33" value="b"> <span>\(\mathbf{u}\)</span></label></li>
+                <li><label><input type="radio" name="q33" value="c"> <span>\(\mathbf{v}\)</span></label></li>
+                <li><label><input type="radio" name="q33" value="d"> <span>\(\mathbf{0}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> This is the definition of a projection. The projection \(P\) onto \(U\) parallel to \(W\) maps a vector \(\mathbf{v}\) to its component \(\mathbf{u}\) in \(U\).</p>
+                <p><em>Source: Subject Guide, Definition 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 34 -->
+        <div class="question-container" id="q34" data-correct="a">
+            <p><b>34.</b> Let \(V = P_2\), the space of polynomials of degree at most 2. Let \(U\) be the subspace of even polynomials (\(p(-x)=p(x)\)) and \(W\) be the subspace of odd polynomials (\(p(-x)=-p(x)\)). Is \(V = U \oplus W\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q34" value="a"> <span>Yes</span></label></li>
+                <li><label><input type="radio" name="q34" value="b"> <span>No</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> Any polynomial \(p(x)\) can be uniquely written as the sum of an even part \(\frac{p(x)+p(-x)}{2}\) and an odd part \(\frac{p(x)-p(-x)}{2}\). The only polynomial that is both even and odd is the zero polynomial. Thus, \(U \cap W = \{0\}\) and \(U+W=V\), so the sum is direct.</p>
+                <p><em>Source: This is a classic example of a direct sum decomposition, applying the principles from Anthony & Harvey, Chapter 12.1.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 35 -->
+        <div class="question-container" id="q35" data-correct="b">
+            <p><b>35.</b> Which of the following matrices is idempotent?</p>
+            <ul>
+                <li><label><input type="radio" name="q35" value="a"> <span>\(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}\)</span></label></li>
+                <li><label><input type="radio" name="q35" value="b"> <span>\(\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}\)</span></label></li>
+                <li><label><input type="radio" name="q35" value="c"> <span>\(\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\)</span></label></li>
+                <li><label><input type="radio" name="q35" value="d"> <span>\(\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A matrix \(P\) is idempotent if \(P^2=P\). Let's check option (b): \(\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}\). This is idempotent. The other matrices are not.</p>
+                <p><em>Source: Subject Guide, Definition 5.7.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 36 -->
+        <div class="question-container" id="q36" data-correct="d">
+            <p><b>36.</b> Let \(A\) be an \(m \times n\) matrix. The orthogonal complement of the column space, \(R(A)^\perp\), is also known as:</p>
+            <ul>
+                <li><label><input type="radio" name="q36" value="a"> <span>The row space of \(A\).</span></label></li>
+                <li><label><input type="radio" name="q36" value="b"> <span>The null space of \(A\).</span></label></li>
+                <li><label><input type="radio" name="q36" value="c"> <span>The column space of \(A^T\).</span></label></li>
+                <li><label><input type="radio" name="q36" value="d"> <span>The left null space of \(A\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The orthogonal complement of the column space of \(A\) is the null space of \(A^T\), which is \(N(A^T)\). This is also called the left null space of \(A\) because it consists of all vectors \(\mathbf{y}\) such that \(\mathbf{y}^T A = \mathbf{0}^T\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 37 -->
+        <div class="question-container" id="q37" data-correct="a">
+            <p><b>37.</b> If \(V = U \oplus W\), what is the value of \(\dim(V)\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q37" value="a"> <span>\(\dim(U) + \dim(W)\)</span></label></li>
+                <li><label><input type="radio" name="q37" value="b"> <span>\(\max(\dim(U), \dim(W))\)</span></label></li>
+                <li><label><input type="radio" name="q37" value="c"> <span>\(\dim(U) + \dim(W) - \dim(U \cap W)\)</span></label></li>
+                <li><label><input type="radio" name="q37" value="d"> <span>\(\dim(U) \times \dim(W)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The general formula is \(\dim(U+W) = \dim(U) + \dim(W) - \dim(U \cap W)\). For a direct sum, \(U \cap W = \{\mathbf{0}\}\), which has dimension 0. Therefore, the formula simplifies to \(\dim(U \oplus W) = \dim(U) + \dim(W)\).</p>
+                <p><em>Source: Anthony & Harvey, Chapter 12.1.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 38 -->
+        <div class="question-container" id="q38" data-correct="c">
+            <p><b>38.</b> Let \(P\) be a projection matrix. What is \(P(I-P)\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q38" value="a"> <span>\(P\)</span></label></li>
+                <li><label><input type="radio" name="q38" value="b"> <span>\(I\)</span></label></li>
+                <li><label><input type="radio" name="q38" value="c"> <span>The zero matrix.</span></label></li>
+                <li><label><input type="radio" name="q38" value="d"> <span>\(I-P\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> Using the distributive property of matrix multiplication, \(P(I-P) = PI - P^2\). Since \(P\) is a projection, \(P^2=P\). So, \(P(I-P) = P - P = 0\).</p>
+                <p><em>Source: Derived from properties in Subject Guide, Chapter 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 39 -->
+        <div class="question-container" id="q39" data-correct="b">
+            <p><b>39.</b> Let \(A = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}\). What is the orthogonal complement of the column space \(R(A)\)?</p>
+            <ul>
+                <li><label><input type="radio" name="q39" value="a"> <span>\(\text{span}\{(1,2)\}
+)</span></label></li>
+                <li><label><input type="radio" name="q39" value="b"> <span>\(\text{span}\{(-2,1)\}
+)</span></label></li>
+                <li><label><input type="radio" name="q39" value="c"> <span>\(\text{span}\{(2,1)\}
+)</span></label></li>
+                <li><label><input type="radio" name="q39" value="d"> <span>\(\mathbb{R}^2\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> We need to find \(R(A)^\perp = N(A^T)\). The transpose is \(A^T = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}\). We solve \(A^T\mathbf{x} = \mathbf{0}\), which is \(x+2y=0\). A basis for this null space is the vector \((-2,1)\). So \(R(A)^\perp = \text{span}\{(-2,1)\}
+).</p>
+                <p><em>Source: Subject Guide, Theorem 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 40 -->
+        <div class="question-container" id="q40" data-correct="a">
+            <p><b>40.</b> True or False: Any symmetric matrix is a projection matrix.</p>
+            <ul>
+                <li><label><input type="radio" name="q40" value="a"> <span>False</span></label></li>
+                <li><label><input type="radio" name="q40" value="b"> <span>True</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A projection matrix must be idempotent (\(P^2=P\)). A symmetric matrix is not necessarily idempotent. For example, \(A = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}\) is symmetric, but \(A^2 = \begin{pmatrix} 4 & 0 \\ 0 & 4 \end{pmatrix} \neq A\).</p>
+                <p><em>Source: Subject Guide, Chapter 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 41 -->
+        <div class="question-container" id="q41" data-correct="b">
+            <p><b>41.</b> If \(P\) is a projection onto \(U\) parallel to \(W\), and \(\mathbf{v} = \mathbf{u} + \mathbf{w}\) with \(\mathbf{u} \in U, \mathbf{w} \in W\), then \(P\mathbf{v}\) is:</p>
+            <ul>
+                <li><label><input type="radio" name="q41" value="a"> <span>\(\mathbf{w}\)</span></label></li>
+                <li><label><input type="radio" name="q41" value="b"> <span>\(\mathbf{u}\)</span></label></li>
+                <li><label><input type="radio" name="q41" value="c"> <span>\(\mathbf{v}\)</span></label></li>
+                <li><label><input type="radio" name="q41" value="d"> <span>\(\mathbf{0}\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> This is the definition of a projection. The projection \(P\) onto \(U\) parallel to \(W\) maps a vector \(\mathbf{v}\) to its component \(\mathbf{u}\) in \(U\).</p>
+                <p><em>Source: Subject Guide, Definition 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 42 -->
+        <div class="question-container" id="q42" data-correct="c">
+            <p><b>42.</b> Let \(A = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}\). Which statement is false?</p>
+            <ul>
+                <li><label><input type="radio" name="q42" value="a"> <span>The matrix is symmetric.</span></label></li>
+                <li><label><input type="radio" name="q42" value="b"> <span>The matrix is not invertible.</span></label></li>
+                <li><label><input type="radio" name="q42" value="c"> <span>The matrix is idempotent.</span></label></li>
+                <li><label><input type="radio" name="q42" value="d"> <span>The columns are linearly dependent.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> Let's check for idempotency: \(A^2 = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} = \begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix} = 2A \neq A\). Therefore, the matrix is not idempotent.</p>
+                <p><em>Source: Subject Guide, Definition 5.7.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 43 -->
+        <div class="question-container" id="q43" data-correct="a">
+            <p><b>43.</b> If \(S\) is a subspace of \(V\), then \(S^\perp\) is also a subspace of \(V\). To prove this, one must show that \(S^\perp\) is non-empty and closed under...</p>
+            <ul>
+                <li><label><input type="radio" name="q43" value="a"> <span>addition and scalar multiplication.</span></label></li>
+                <li><label><input type="radio" name="q43" value="b"> <span>matrix multiplication.</span></label></li>
+                <li><label><input type="radio" name="q43" value="c"> <span>taking the transpose.</span></label></li>
+                <li><label><input type="radio" name="q43" value="d"> <span>inversion.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The definition of a subspace requires it to be closed under the two vector space operations: vector addition and scalar multiplication.</p>
+                <p><em>Source: Subject Guide, Theorem 5.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 44 -->
+        <div class="question-container" id="q44" data-correct="b">
+            <p><b>44.</b> Let \(A\) be an \(m \times n\) matrix. The column space \(R(A)\) and the left null space \(N(A^T)\) are orthogonal complements. This means their direct sum is:</p>
+            <ul>
+                <li><label><input type="radio" name="q44" value="a"> <span>\(\mathbb{R}^n\)</span></label></li>
+                <li><label><input type="radio" name="q44" value="b"> <span>\(\mathbb{R}^m\)</span></label></li>
+                <li><label><input type="radio" name="q44" value="c"> <span>\(\{\mathbf{0}\}\)</span></label></li>
+                <li><label><input type="radio" name="q44" value="d"> <span>A line.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The column space \(R(A)\) is a subspace of \(\mathbb{R}^m\). The left null space \(N(A^T)\) is also a subspace of \(\mathbb{R}^m\). Since they are orthogonal complements, their direct sum spans the entire space they reside in, which is \(\mathbb{R}^m\).</p>
+                <p><em>Source: Subject Guide, Theorem 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 45 -->
+        <div class="question-container" id="q45" data-correct="d">
+            <p><b>45.</b> If \(P\) is a projection matrix, which of the following is NOT necessarily true?</p>
+            <ul>
+                <li><label><input type="radio" name="q45" value="a"> <span>\(P^2=P\)</span></label></li>
+                <li><label><input type="radio" name="q45" value="b"> <span>The eigenvalues of \(P\) are 0 or 1.</span></label></li>
+                <li><label><input type="radio" name="q45" value="c"> <span>\(I-P\) is also a projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q45" value="d"> <span>\(P\) is a symmetric matrix.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> A projection matrix is only required to be idempotent. It is symmetric if and only if the projection is orthogonal. A non-orthogonal projection is still a projection but will not have a symmetric matrix.</p>
+                <p><em>Source: Subject Guide, Chapter 5.4.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 46 -->
+        <div class="question-container" id="q46" data-correct="a">
+            <p><b>46.</b> Let \(U = \text{span}\{(1,1)\}
+) and \(W = \text{span}\{(2,2)\}
+) in \(\mathbb{R}^2\). Is the sum \(U+W\) a direct sum?</p>
+            <ul>
+                <li><label><input type="radio" name="q46" value="a"> <span>No, because \(U=W\).</span></label></li>
+                <li><label><input type="radio" name="q46" value="b"> <span>Yes, because they are different vectors.</span></label></li>
+                <li><label><input type="radio" name="q46" value="c"> <span>Yes, because they are orthogonal.</span></label></li>
+                <li><label><input type="radio" name="q46" value="d"> <span>No, because they do not span \(\mathbb{R}^2\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The vector \((2,2)\) is a scalar multiple of \((1,1)\), so the two subspaces are identical. Their intersection is the entire subspace, not just the zero vector. Therefore, the sum is not direct.</p>
+                <p><em>Source: Subject Guide, Definition 5.2.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 47 -->
+        <div class="question-container" id="q47" data-correct="b">
+            <p><b>47.</b> To prove that a matrix \(P\) represents a projection, you must prove that:</p>
+            <ul>
+                <li><label><input type="radio" name="q47" value="a"> <span>\(P\) is symmetric.</span></label></li>
+                <li><label><input type="radio" name="q47" value="b"> <span>\(P^2 = P\).</span></label></li>
+                <li><label><input type="radio" name="q47" value="c"> <span>\(\det(P) = 1\).</span></label></li>
+                <li><label><input type="radio" name="q47" value="d"> <span>\(P\) has a non-trivial null space.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The defining characteristic of a projection matrix is that it is idempotent. Applying the projection twice has the same effect as applying it once.</p>
+                <p><em>Source: Subject Guide, Theorem 5.7.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 48 -->
+        <div class="question-container" id="q48" data-correct="c">
+            <p><b>48.</b> If \(P\) is an orthogonal projection onto a subspace \(S\), then for any vector \(\mathbf{v}\), the vector \(\mathbf{v} - P\mathbf{v}\) is...</p>
+            <ul>
+                <li><label><input type="radio" name="q48" value="a"> <span>in \(S\).</span></label></li>
+                <li><label><input type="radio" name="q48" value="b"> <span>the zero vector.</span></label></li>
+                <li><label><input type="radio" name="q48" value="c"> <span>in \(S^\perp\).</span></label></li>
+                <li><label><input type="radio" name="q48" value="d"> <span>parallel to \(\mathbf{v}\).</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> The vector \(P\mathbf{v}\) is the component of \(\mathbf{v}\) in \(S\). The vector \(\mathbf{v} - P\mathbf{v}\) is the remaining component, which is, by definition of orthogonal projection, the component in the orthogonal complement \(S^\perp\).</p>
+                <p><em>Source: Subject Guide, Definition 5.5.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 49 -->
+        <div class="question-container" id="q49" data-correct="a">
+            <p><b>49.</b> Let \(A = \begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix}\). The matrix \(P = \frac{1}{2}A\) is:</p>
+            <ul>
+                <li><label><input type="radio" name="q49" value="a"> <span>Not a projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q49" value="b"> <span>An orthogonal projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q49" value="c"> <span>A non-orthogonal projection matrix.</span></label></li>
+                <li><label><input type="radio" name="q49" value="d"> <span>A rotation matrix.</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> Let \(P = \begin{pmatrix} 1.5 & 0.5 \\ 0.5 & 1.5 \end{pmatrix}\). We check for idempotency: \(P^2 = \begin{pmatrix} 2.5 & 1.5 \\ 1.5 & 2.5 \end{pmatrix} \neq P\). Since it is not idempotent, it is not a projection matrix.</p>
+                <p><em>Source: Subject Guide, Definition 5.7.</em></p>
+            </div>
+        </div>
+
+        <!-- Question 50 -->
+        <div class="question-container" id="q50" data-correct="d">
+            <p><b>50.</b> If \(V = U \oplus W\), and \(\mathbf{v}_1 = \mathbf{u}_1 + \mathbf{w}_1\) and \(\mathbf{v}_2 = \mathbf{u}_2 + \mathbf{w}_2\). To prove that a projection \(P_U\) is a linear transformation, one must show that \(P_U(\alpha \mathbf{v}_1 + \beta \mathbf{v}_2)\) equals:</p>
+            <ul>
+                <li><label><input type="radio" name="q50" value="a"> <span>\(\alpha \mathbf{w}_1 + \beta \mathbf{w}_2\)</span></label></li>
+                <li><label><input type="radio" name="q50" value="b"> <span>\(\alpha \mathbf{v}_1 + \beta \mathbf{v}_2\)</span></label></li>
+                <li><label><input type="radio" name="q50" value="c"> <span>\(\mathbf{u}_1 + \mathbf{u}_2\)</span></label></li>
+                <li><label><input type="radio" name="q50" value="d"> <span>\(\alpha P_U(\mathbf{v}_1) + \beta P_U(\mathbf{v}_2)\)</span></label></li>
+            </ul>
+            <div class="feedback">
+                <p><b>Explanation:</b> This is the definition of a linear transformation. We need to show that the projection of a linear combination of vectors is the same as the linear combination of their projections. \(P_U(\alpha \mathbf{v}_1 + \beta \mathbf{v}_2) = P_U((\alpha\mathbf{u}_1+\beta\mathbf{u}_2) + (\alpha\mathbf{w}_1+\beta\mathbf{w}_2)) = \alpha\mathbf{u}_1+\beta\mathbf{u}_2 = \alpha P_U(\mathbf{v}_1) + \beta P_U(\mathbf{v}_2)\).</p>
+                <p><em>Source: Subject Guide, Chapter 5.3.1.</em></p>
+            </div>
+        </div>
+
+    </div>
+
+    <button id="clear-answers">Clear All Answers</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizContainer = document.getElementById('quiz-container');
+
+            // Load answers from cookies
+            function loadAnswers() {
+                const questions = quizContainer.getElementsByClassName('question-container');
+                for (let i = 0; i < questions.length; i++) {
+                    const qId = questions[i].id;
+                    const savedAnswer = getCookie(qId);
+                    if (savedAnswer) {
+                        const radio = questions[i].querySelector(`input[value="${savedAnswer}"]`);
+                        if (radio) {
+                            radio.checked = true;
+                            handleRadioChange({ target: radio });
+                        }
+                    }
+                }
+            }
+
+            // Handle radio button change
+            function handleRadioChange(event) {
+                const radio = event.target;
+                const container = radio.closest('.question-container');
+                const feedbackDiv = container.querySelector('.feedback');
+                const correctAnswer = container.getAttribute('data-correct');
+                const selectedAnswer = radio.value;
+
+                // Save answer
+                setCookie(container.id, selectedAnswer, 365);
+
+                // Show feedback
+                feedbackDiv.style.display = 'block';
+                if (selectedAnswer === correctAnswer) {
+                    feedbackDiv.className = 'feedback correct';
+                    feedbackDiv.firstElementChild.innerHTML = '<b>Correct!</b> ' + feedbackDiv.firstElementChild.innerHTML;
+                } else {
+                    feedbackDiv.className = 'feedback incorrect';
+                    feedbackDiv.firstElementChild.innerHTML = '<b>Incorrect.</b> The correct answer is ' + correctAnswer.toUpperCase() + '.<br>' + feedbackDiv.firstElementChild.innerHTML;
+                }
+                
+                // Highlight correct answer
+                const labels = container.querySelectorAll('label');
+                labels.forEach(label => {
+                    label.classList.remove('correct-answer-label');
+                    const input = label.querySelector('input');
+                    if (input && input.value === correctAnswer) {
+                        label.classList.add('correct-answer-label');
+                    }
+                });
+            }
+
+            // Clear answers
+            document.getElementById('clear-answers').addEventListener('click', function() {
+                const questions = quizContainer.getElementsByClassName('question-container');
+                for (let i = 0; i < questions.length; i++) {
+                    const qId = questions[i].id;
+                    deleteCookie(qId);
+                    const radios = questions[i].querySelectorAll('input[type="radio"]');
+                    radios.forEach(radio => radio.checked = false);
+                    questions[i].querySelector('.feedback').style.display = 'none';
+                    questions[i].querySelectorAll('label').forEach(label => label.classList.remove('correct-answer-label'));
+                }
+                // Reload to clear feedback text modifications
+                location.reload();
+            });
+
+            // Add event listeners
+            quizContainer.addEventListener('change', function(event) {
+                if (event.target.type === 'radio') {
+                    handleRadioChange(event);
+                }
+            });
+
+            // Cookie helper functions
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function deleteCookie(name) {
+                document.cookie = name + '=; Max-Age=-99999999;';
+            }
+
+            // Initial load
+            loadAnswers();
+        });
+    </script>
+</body>
+</html>

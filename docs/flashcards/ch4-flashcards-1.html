@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 Further Linear Algebra - Flashcards</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background-color: #f0f2f5; padding: 20px; box-sizing: border-box; }
+        h1 { color: #333; }
+        .slideshow-container { width: 95%; max-width: 800px; overflow: hidden; position: relative; margin-bottom: 20px; }
+        .flashcard-slider { display: flex; transition: transform 0.5s ease-in-out; }
+        .card { flex: 0 0 100%; width: 100%; perspective: 1000px; cursor: pointer; }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card.flipped .card-front {
+            visibility: hidden;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            padding: 25px;
+            box-sizing: border-box;
+        }
+        .card-front { z-index: 2; font-size: 1.5em; }
+        .card-back { transform: rotateY(180deg); z-index: 1; align-items: flex-start; text-align: left; overflow-y: auto; font-size: 1.1em; line-height: 1.6; }
+        .card-back .source { font-style: italic; color: #555; margin-top: 20px; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 10px; }
+        .navigation { text-align: center; }
+        button { padding: 12px 25px; font-size: 16px; cursor: pointer; margin: 0 10px; border: none; border-radius: 5px; background-color: #007bff; color: white; transition: background-color 0.3s; }
+        button:hover { background-color: #0056b3; }
+        #progress { margin: 15px 0; font-size: 16px; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>MT2175: Direct Sums and Projections</h1>
+    <div id="progress">Card 1 of 100</div>
+    <div class="slideshow-container">
+        <div class="flashcard-slider">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What is meant by the sum of two subspaces, U and W, of a vector space V?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>The sum of two subspaces U and W, denoted by \(U + W\), is the set of all vectors that can be written as the sum of a vector in U and a vector in W. Formally, \(U + W = \{u + w \mid u \in U, w \in W\}\). The sum \(U + W\) is itself a subspace of V.</p>
+                        <p class="source">Source: Anthony & Harvey, Definition 12.1; Subject Guide, Definition 5.1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What does it mean for a sum of two subspaces, \(U + W\), to be a direct sum?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>A sum of two subspaces \(U + W\) is called a direct sum if the intersection of the two subspaces contains only the zero vector, i.e., \(U \cap W = \{0\}\). When a sum is direct, it is denoted by \(U \oplus W\).</p>
+                        <p class="source">Source: Anthony & Harvey, Definition 12.4; Subject Guide, Definition 5.2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>State the alternative characterization of a direct sum in terms of uniqueness of vector representation.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>A sum of subspaces \(U + W\) is a direct sum if and only if every vector \(z\) in the sum can be written uniquely as \(z = u + w\) where \(u \in U\) and \(w \in W\).</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>Prove that if a sum \(U+W\) is direct, then the representation of any vector \(z \in U+W\) as \(z=u+w\) is unique.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Suppose the sum is direct, so \(U \cap W = \{0\}\). Let \(z \in U+W\) have two representations: \(z = u_1 + w_1\) and \(z = u_2 + w_2\), where \(u_1, u_2 \in U\) and \(w_1, w_2 \in W\). Then \(u_1 + w_1 = u_2 + w_2\), which implies \(u_1 - u_2 = w_2 - w_1\). The left side is in U and the right side is in W. Since they are equal, this vector is in \(U \cap W\). As the sum is direct, this vector must be the zero vector. So, \(u_1 - u_2 = 0 \Rightarrow u_1 = u_2\) and \(w_2 - w_1 = 0 \Rightarrow w_1 = w_2\). The representation is unique.</p>
+                        <p class="source">Source: Anthony & Harvey, Chapter 12</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>Let \(u, w \in \mathbb{R}^n\) be linearly independent. Show that the sum \(Lin\{u\} + Lin\{w\}\) is a direct sum.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Let \(U = Lin\{u\}\) and \(W = Lin\{w\}\). To show the sum is direct, we must show \(U \cap W = \{0\}\). Let \(v \in U \cap W\). Then \(v = \alpha u\) for some scalar \(\alpha\) and \(v = \beta w\) for some scalar \(\beta\). Thus, \(\alpha u = \beta w\), or \(\alpha u - \beta w = 0\). Since u and w are linearly independent, the only solution is \(\alpha = \beta = 0\). This implies \(v = 0u = 0\). Therefore, the intersection is just \(\{0\}\) and the sum is direct.</p>
+                        <p class="source">Source: Subject Guide, Example 5.1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What is the definition of the orthogonal complement, \(S^⊥\), of a subset S in an inner product space V?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>The orthogonal complement of a subset S of an inner product space V, denoted \(S^⊥\), is the set of all vectors in V that are orthogonal to every vector in S. Formally: \(S^⊥ = \{v \in V \mid \langle v, s \rangle = 0 \text{ for all } s \in S\}\). The orthogonal complement \(S^⊥\) is always a subspace of V.</p>
+                        <p class="source">Source: Anthony & Harvey, Definition 12.7; Subject Guide, Definition 5.3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>Prove that for any subset S of a vector space V, its orthogonal complement \(S^⊥\) is a subspace of V.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>1. \(S^⊥\) is non-empty because \(\langle 0, s \rangle = 0\) for all \(s \in S\), so \(0 \in S^⊥\)
+                        2. Closure under addition: Let \(v_1, v_2 \in S^⊥\). Then \(\langle v_1, s \rangle = 0\) and \(\langle v_2, s \rangle = 0\) for all \(s \in S\). Then \(\langle v_1+v_2, s \rangle = \langle v_1, s \rangle + \langle v_2, s \rangle = 0 + 0 = 0\). So \(v_1+v_2 \in S^⊥\)
+                        3. Closure under scalar multiplication: Let \(v \in S^⊥\) and \(\alpha\) be a scalar. Then \(\langle \alpha v, s \rangle = \alpha \langle v, s \rangle = \alpha \cdot 0 = 0\). So \(\alpha v \in S^⊥\)
+                        Thus, \(S^⊥\) is a subspace of V.</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>In \(\mathbb{R}^3\) with the standard inner product, find the orthogonal complement of the subspace S spanned by the vector \(u = (1, 2, -1)^T\).</p>
+                    </div>
+                    <div class="card-back">
+                        <p>We want to find all vectors \(v = (x, y, z)^T\) such that \(\langle v, u \rangle = 0\). This gives the equation \(1x + 2y - 1z = 0\). This is the equation of a plane through the origin. So, \(S^⊥ = \{(x, y, z) \in \mathbb{R}^3 \mid x + 2y - z = 0\}\). Geometrically, the orthogonal complement of a line through the origin is a plane through the origin that is perpendicular to the line.</p>
+                        <p class="source">Source: Subject Guide, Example 5.2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>State the relationship between the range of a matrix A and the null space of its transpose, \(A^T\).</p>
+                    </div>
+                    <div class="card-back">
+                        <p>For any \(m \times n\) real matrix A, the orthogonal complement of the range of A is the null space of its transpose. Formally: \(R(A)^⊥ = N(A^T)\).</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.5</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>State the relationship between the null space of a matrix A and the range of its transpose, \(A^T\).</p>
+                    </div>
+                    <div class="card-back">
+                        <p>For any \(m \times n\) real matrix A, the orthogonal complement of the null space of A is the range of its transpose. Formally: \(N(A)^⊥ = R(A^T)\). Note that \(R(A^T)\) is the row space of A.</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.5</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What is a projection, \(P_U\), of a vector space V onto a subspace U?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>If a vector space V can be written as a direct sum of two subspaces, \(V = U \oplus W\), then every vector \(v \in V\) has a unique representation \(v = u + w\) where \(u \in U\) and \(w \in W\). The projection of V onto U, parallel to W, is the mapping \(P_U: V \to U\) defined by \(P_U(v) = u\).</p>
+                        <p class="source">Source: Subject Guide, Definition 5.4</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What is an orthogonal projection?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>For a subspace S of any finite dimensional inner product space V, the orthogonal projection of V onto S is the projection onto S parallel to its orthogonal complement, \(S^⊥\). Since \(V = S \oplus S^⊥\), any vector \(v \in V\) can be uniquely written as \(v = s + s'\) where \(s \in S\) and \(s' \in S^⊥\). The orthogonal projection of v onto S is the vector s.</p>
+                        <p class="source">Source: Subject Guide, Definition 5.5</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What does it mean for a linear transformation T to be idempotent?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>A linear transformation T is said to be idempotent if applying it twice has the same effect as applying it once. That is, \(T^2 = T\). For a matrix A representing the transformation, this means \(A^2 = A\).</p>
+                        <p class="source">Source: Subject Guide, Definition 5.6</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>Prove that any projection is an idempotent linear transformation.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Let P be a projection onto U parallel to W. For any \(v \in V\), \(v = u + w\) uniquely, and \(P(v) = u\). We need to show \(P^2(v) = P(v)\).<br>\(P^2(v) = P(P(v)) = P(u)\).<br>To find \(P(u)\), we must write u as a sum of a vector in U and a vector in W. This is simply \(u = u + 0\), where \(u \in U\) and \(0 \in W\). By the definition of a projection, \(P(u) = u\).<br>Therefore, \(P^2(v) = u = P(v)\), so P is idempotent.</p>
+                        <p class="source">Source: Anthony & Harvey, Chapter 12</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>State the theorem that characterizes a linear transformation as a projection.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>A linear transformation is a projection if and only if it is idempotent.</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.7</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>State the theorem that characterizes an orthogonal projection in terms of its matrix representation.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>If V is a finite dimensional inner product space and P is a linear transformation \(P: V \to V\), then P is an orthogonal projection if and only if the matrix representing P is both symmetric and idempotent.</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.8</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>State the formula for the dimension of the sum of two subspaces, U and W.</p></div><div class="card-back"><p>The dimension of the sum of two subspaces U and W is given by the formula:<br>\(dim(U + W) = dim(U) + dim(W) - dim(U ∩ W)\)</p><p class="source">Source: Anthony & Harvey, Theorem 12.6</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>How does the dimension formula simplify if the sum \(U+W\) is a direct sum?</p></div><div class="card-back"><p>If the sum is direct, then \(U ∩ W = \{0\}\), which means \(dim(U ∩ W) = 0\). The formula simplifies to:<br>\(dim(U ⊕ W) = dim(U) + dim(W)\)</p><p class="source">Source: Anthony & Harvey, Corollary 12.7</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>In \(\mathbb{R}^3\), let U be the xy-plane and W be the yz-plane. What are \(U+W\) and \(U ∩ W\)? Is the sum direct?</p></div><div class="card-back"><p>U = \(\{(x, y, 0) \mid x, y \in \mathbb{R}\}\) and W = \(\{(0, y, z) \mid y, z \in \mathbb{R}\}\).<br>The sum \(U+W\) is all vectors of the form \((x, y_1, 0) + (0, y_2, z) = (x, y_1+y_2, z)\), which can represent any vector in \(\mathbb{R}^3\). So \(U+W = \mathbb{R}^3\).<br>The intersection \(U ∩ W\) is the set of vectors that are in both planes, which is the y-axis. \(U ∩ W = \{(0, y, 0) \mid y \in \mathbb{R}\}\).<br>Since the intersection is not just \(\{0\}\), the sum is not direct.</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the definition of a direct sum for k subspaces, \(U_1, ..., U_k\)?</p></div><div class="card-back"><p>The sum \(U_1 + ... + U_k\) is direct if the representation of any vector \(v\) in the sum as \(v = u_1 + ... + u_k\) (with \(u_i \in U_i\)) is unique.</p><p class="source">Source: Subject Guide, Chapter 5</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Prove that \((U+W)^⊥ = U^⊥ ∩ W^⊥\) for subspaces U and W.</p></div><div class="card-back"><p>Let \(v \in (U+W)^⊥\). Then \(v\) is orthogonal to every vector in \(U+W\). Since U and W are subsets of \(U+W\), \(v\) is orthogonal to every vector in U and every vector in W. So \(v \in U^⊥\) and \(v \in W^⊥\), which means \(v \in U^⊥ ∩ W^⊥\).<br>Now let \(v \in U^⊥ ∩ W^⊥\). Then \(\langle v, u \rangle = 0\) for all \(u \in U\) and \(\langle v, w \rangle = 0\) for all \(w \in W\). An arbitrary vector in \(U+W\) is \(u+w\). \(\langle v, u+w \rangle = \langle v, u \rangle + \langle v, w \rangle = 0 + 0 = 0\). So \(v \in (U+W)^⊥\).</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Given a subspace S with basis \(\{s_1, ..., s_k\}\), how can you find a basis for \(S^⊥\)?</p></div><div class="card-back"><p>Construct a matrix A whose rows are the basis vectors \(s_1^T, ..., s_k^T\). The subspace S is the row space of A, \(R(A^T)\). The orthogonal complement of the row space is the null space of the matrix, \(N(A)\). Therefore, to find a basis for \(S^⊥\), you find a basis for the null space of A by solving \(Ax=0\).</p><p class="source">Source: Subject Guide, Section 5.2</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Find a basis for the orthogonal complement of the subspace S of \(\mathbb{R}^3\) spanned by \((1, 1, 1)^T\).</p></div><div class="card-back"><p>Let \(A = \begin{pmatrix} 1 & 1 & 1 \end{pmatrix}\). We need to find the null space of A, i.e., all \(x = (x_1, x_2, x_3)^T\) such that \(x_1 + x_2 + x_3 = 0\). We can express \(x_1 = -x_2 - x_3\). So a vector in the null space is of the form \((-x_2-x_3, x_2, x_3)^T = x_2(-1, 1, 0)^T + x_3(-1, 0, 1)^T\). A basis for \(S^⊥\) is \(\{(-1, 1, 0)^T, (-1, 0, 1)^T\}.</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What are the four fundamental subspaces associated with an \(m \times n\) matrix A?</p></div><div class="card-back"><p>1. The <strong>Range</strong> or <strong>Column Space</strong> of A, \(R(A)\), a subspace of \(\mathbb{R}^m\).<br>2. The <strong>Null Space</strong> of A, \(N(A)\), a subspace of \(\mathbb{R}^n\).<br>3. The <strong>Row Space</strong> of A, \(R(A^T)\), a subspace of \(\mathbb{R}^n\).<br>4. The <strong>Left Null Space</strong> of A, \(N(A^T)\), a subspace of \(\mathbb{R}^m\).</p><p class="source">Source: Subject Guide, Section 5.2</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is a projection matrix, what are its range R(P) and null space N(P)?</p></div><div class="card-back"><p>For a projection P, the range and null space are:<br>\(R(P) = \{v \in V \mid P(v) = v\}\) (the set of vectors that are unchanged by the projection).<br>\(N(P) = \{v \in V \mid P(v) = 0\}\) (the set of vectors that are projected to zero).</p><p class="source">Source: Anthony & Harvey, Chapter 12</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Prove that for any projection P, \(V = R(P) \oplus N(P)\).</p></div><div class="card-back"><p>For any \(v \in V\), we can write \(v = P(v) + (I-P)(v)\). Let \(u = P(v)\) and \(w = (I-P)(v)\).<br>\(P(u) = P(P(v)) = P^2(v) = P(v) = u\), so \(u \in R(P)\).<br>\(P(w) = P(I-P)(v) = (P-P^2)(v) = (P-P)(v) = 0\), so \(w \in N(P)\).<br>This shows \(V = R(P) + N(P)\).<br>To show it's a direct sum, let \(v \in R(P) ∩ N(P)\). Then \(P(v)=v\) and \(P(v)=0\), so \(v=0\). The intersection is trivial.</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Find the matrix P that projects vectors in \(\mathbb{R}^2\) onto the line \(y=x\).</p></div><div class="card-back"><p>The line is spanned by the vector \(a = (1, 1)^T\). The projection of a vector \(v\) onto the line spanned by \(a\) is \(proj_a(v) = \frac{v \cdot a}{a \cdot a} a\).<br>Let \(v = (x, y)^T\). \(v \cdot a = x+y\) and \(a \cdot a = 1^2+1^2=2\).<br>\(proj_a(v) = \frac{x+y}{2} \begin{pmatrix} 1 \ 1 \end{pmatrix} = \begin{pmatrix} (x+y)/2 \ (x+y)/2 \end{pmatrix} = \begin{pmatrix} 1/2 & 1/2 \ 1/2 & 1/2 \end{pmatrix} \begin{pmatrix} x \ y \end{pmatrix}\).<br>The projection matrix is \(P = \begin{pmatrix} 1/2 & 1/2 \ 1/2 & 1/2 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What does the formula for an orthogonal projection matrix, \(P = A(A^T A)^{-1} A^T\), simplify to if the columns of A are orthonormal?</p></div><div class="card-back"><p>If the columns of A are orthonormal, then the matrix \(A^T A\) is the identity matrix, \(I\).<br>The formula becomes:<br>\(P = A(I)^{-1} A^T = A I A^T = A A^T\).</p><p class="source">Source: Subject Guide, Section 5.2.2</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Prove that the projection matrix \(P = A(A^T A)^{-1} A^T\) is idempotent.</p></div><div class="card-back"><p>We need to show \(P^2 = P\).<br>\(P^2 = (A(A^T A)^{-1} A^T) (A(A^T A)^{-1} A^T)\
+\(= A(A^T A)^{-1} (A^T A) (A^T A)^{-1} A^T\
+Since \((A^T A)(A^T A)^{-1} = I\), this simplifies to:\(
+\(= A(A^T A)^{-1} I A^T\
+\(= A(A^T A)^{-1} A^T = P\).<br>Thus, P is idempotent.</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Prove that the projection matrix \(P = A(A^T A)^{-1} A^T\) is symmetric.</p></div><div class="card-back"><p>We need to show \(P^T = P\). We use the property \((XYZ)^T = Z^T Y^T X^T\).<br>\(P^T = (A(A^T A)^{-1} A^T)^T = (A^T)^T ((A^T A)^{-1})^T A^T\
+\(= A (((A^T A)^T)^{-1}) A^T\
+Since \((A^T A)^T = A^T (A^T)^T = A^T A\), this becomes:\(
+\(= A ((A^T A)^{-1}) A^T = P\).<br>Thus, P is symmetric.</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the Best Approximation Theorem?</p></div><div class="card-back"><p>Let S be a subspace of an inner product space V, and let \(v \in V\). The best approximation to \(v\) from S is the orthogonal projection of \(v\) onto S, denoted \(proj_S(v)\).<br>This means that for any \(s \in S\) where \(s \neq proj_S(v)\), we have:<br>\(\|v - proj_S(v)\| < \|v - s\|
+</p><p class="source">Source: Subject Guide, Theorem 5.10</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Explain the connection between orthogonal projection and least-squares solutions.</p></div><div class="card-back"><p>The system of linear equations \(Ax=b\) may be inconsistent, meaning \(b\) is not in the range of A, \(R(A)\). The least-squares solution is a vector \(\hat{x}\) that makes the residual \(\|b - A\hat{x}\|\) as small as possible.<br>By the Best Approximation Theorem, the vector in \(R(A)\) closest to \(b\) is the orthogonal projection of \(b\) onto \(R(A)\). Let's call this projection \(p\).<br>So we are looking for \(\hat{x}\) such that \(A\hat{x} = p = proj_{R(A)}(b)\).</p><p class="source">Source: Subject Guide, Section 5.3</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>How is the least-squares solution \(\hat{x}\) to \(Ax=b\) found?</p></div><div class="card-back"><p>The vector \(b - A\hat{x}\) must be orthogonal to the range of A, \(R(A)\). This means \(b - A\hat{x}\) must be in \(R(A)^⊥\), which is equal to \(N(A^T)\).<br>Therefore, \(A^T(b - A\hat{x}) = 0\).<br>This gives the <strong>normal equations</strong>:<br>\(A^T A \hat{x} = A^T b\)<br>The least-squares solution \(\hat{x}\) is found by solving this system.</p><p class="source">Source: Subject Guide, Theorem 5.11</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Find the least-squares solution to the system \(Ax=b\) where \(A = \begin{pmatrix} 1 & 0 \ 0 & 1 \ 1 & 1 \end{pmatrix}\) and \(b = \begin{pmatrix} 1 \ 1 \ 0 \end{pmatrix}\).</p></div><div class="card-back"><p>First, compute \(A^T A\) and \(A^T b\).<br>\(A^T A = \begin{pmatrix} 1 & 0 & 1 \ 0 & 1 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \ 0 & 1 \ 1 & 1 \end{pmatrix} = \begin{pmatrix} 2 & 1 \ 1 & 2 \end{pmatrix}\).<br>\(A^T b = \begin{pmatrix} 1 & 0 & 1 \ 0 & 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \ 1 \ 0 \end{pmatrix} = \begin{pmatrix} 1 \ 1 \end{pmatrix}\).<br>Now solve \(\begin{pmatrix} 2 & 1 \ 1 & 2 \end{pmatrix} \hat{x} = \begin{pmatrix} 1 \ 1 \end{pmatrix}\). The inverse of \(A^T A\) is \(\frac{1}{3}\begin{pmatrix} 2 & -1 \ -1 & 2 \end{pmatrix}\).<br>\(\hat{x} = \frac{1}{3}\begin{pmatrix} 2 & -1 \ -1 & 2 \end{pmatrix} \begin{pmatrix} 1 \ 1 \end{pmatrix} = \frac{1}{3}\begin{pmatrix} 1 \ 1 \end{pmatrix} = \begin{pmatrix} 1/3 \ 1/3 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>For the previous example, find the projection \(p\) of \(b\) onto the column space of A.</p></div><div class="card-back"><p>The projection \(p\) is given by \(A\hat{x}\). We found \(\hat{x} = (1/3, 1/3)^T\).<br>\(p = A\hat{x} = \begin{pmatrix} 1 & 0 \ 0 & 1 \ 1 & 1 \end{pmatrix} \begin{pmatrix} 1/3 \ 1/3 \end{pmatrix} = \begin{pmatrix} 1/3 \ 1/3 \ 2/3 \end{pmatrix}\).<br>This vector is the point in the plane spanned by the columns of A that is closest to the point \(b=(1,1,0)^T\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is an orthogonal projection onto a subspace S, what is \(I-P\)?</p></div><div class="card-back"><p>The transformation \(I-P\) is the orthogonal projection onto the orthogonal complement of S, \(S^⊥\).<br>Proof: \(I-P\) is idempotent if P is. \((I-P)^2 = I - 2P + P^2 = I - 2P + P = I-P
+.
+\(I-P\) is symmetric if P is. \((I-P)^T = I^T - P^T = I - P\).<br>Since \(I-P\) is both idempotent and symmetric, it is an orthogonal projection.</p><p class="source">Source: Subject Guide, Chapter 5</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(P_U\) be the projection on U parallel to W. What is the kernel (null space) of \(P_U\)?</p></div><div class="card-back"><p>The kernel of \(P_U\) is the subspace W. Any vector \(v \in V\) is uniquely \(v=u+w\). By definition, \(P_U(v) = u\). If \(P_U(v)=0\), then \(u=0\), which means \(v=0+w=w\). So the kernel is exactly the subspace W.</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(P_U\) be the projection on U parallel to W. What is the range of \(P_U\)?</p></div><div class="card-back"><p>The range of \(P_U\) is the subspace U. For any \(v=u+w\), the image is \(u \in U\). So the range is a subset of U. For any \(u \in U\), we can write \(u=u+0\), so \(P_U(u)=u\). Thus, every vector in U is in the range. The range is exactly U.</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Is it true that \((U ∩ W)^⊥ = U^⊥ + W^⊥\)?</p></div><div class="card-back"><p>Yes, for finite-dimensional subspaces U and W. This is a consequence of De Morgan's laws for subspaces. We know \((A+B)^⊥ = A^⊥ ∩ B^⊥\). Let \(A=U^⊥\) and \(B=W^⊥\). Then \((U^⊥+W^⊥)^⊥ = (U^⊥)^⊥ ∩ (W^⊥)^⊥ = U ∩ W\). Taking the orthogonal complement of both sides gives \(U^⊥+W^⊥ = (U ∩ W)^⊥\).</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If a matrix P is idempotent, what can be said about its eigenvalues?</p></div><div class="card-back"><p>The eigenvalues of an idempotent matrix can only be 0 or 1. <br>Proof: Let \(\lambda\) be an eigenvalue with eigenvector \(v\). \(Pv = \lambda v\). Then \(P^2v = P(\lambda v) = \lambda(Pv) = \lambda^2 v\). Since \(P^2=P\), we have \(P^2v=Pv\), so \(\lambda^2 v = \lambda v\). As \(v \neq 0\), we must have \(\lambda^2 - \lambda = 0\), which means \(\lambda=0\) or \(\lambda=1\).</p><p class="source">Source: Subject Guide, Activity 5.6</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If a matrix P is a projection, what is the relationship between its trace and its rank?</p></div><div class="card-back"><p>For any projection matrix P (not necessarily orthogonal), the trace of P is equal to the rank of P. The rank is the dimension of the range, and the trace is the sum of the eigenvalues. Since the only eigenvalues are 0 and 1, the number of non-zero eigenvalues (which is the rank) is equal to their sum (the trace).</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(A = \begin{pmatrix} 1 & 2 \ 1 & 2 \end{pmatrix}\). Is this matrix a projection? Is it an orthogonal projection?</p></div><div class="card-back"><p>First, check for idempotency: \(A^2 = \begin{pmatrix} 1 & 2 \ 1 & 2 \end{pmatrix} \begin{pmatrix} 1 & 2 \ 1 & 2 \end{pmatrix} = \begin{pmatrix} 3 & 6 \ 3 & 6 \end{pmatrix} \neq A\).<br>The matrix is not idempotent, therefore it is not a projection.</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(P = \frac{1}{2}\begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix}\). Is this matrix a projection? Is it an orthogonal projection?</p></div><div class="card-back"><p>Check for idempotency: \(P^2 = \frac{1}{4}\begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix} \begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix} = \frac{1}{4}\begin{pmatrix} 2 & 2 \ 2 & 2 \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix} = P\). Yes, it is a projection.<br>Check for symmetry: \(P^T = \frac{1}{2}\begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix}^T = P\). Yes, it is symmetric.<br>Since P is idempotent and symmetric, it is an orthogonal projection.</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What subspace does \(P = \frac{1}{2}\begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix}\) project onto?</p></div><div class="card-back"><p>The range of P is its column space. The columns are multiples of \((1, 1)^T\). So P projects onto the subspace spanned by \((1, 1)^T\), which is the line \(y=x\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the null space of the projection \(P = \frac{1}{2}\begin{pmatrix} 1 & 1 \ 1 & 1 \end{pmatrix}\)?</p></div><div class="card-back"><p>We solve \(Px=0\). \(\frac{1}{2}(x_1+x_2) = 0\) and \(\frac{1}{2}(x_1+x_2) = 0\). This gives \(x_1 = -x_2\). The null space is the set of vectors of the form \((t, -t)^T\), which is the line \(y=-x\). This is the orthogonal complement of the line \(y=x\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is a projection onto U parallel to W, what is \(P(u)\) for \(u \in U\)?</p></div><div class="card-back"><p>For any \(u \in U\), its unique decomposition is \(u = u + 0\), where \(u \in U\) and \(0 \in W\). By the definition of a projection, \(P(u) = u\).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is a projection onto U parallel to W, what is \(P(w)\) for \(w \in W\)?</p></div><div class="card-back"><p>For any \(w \in W\), its unique decomposition is \(w = 0 + w\), where \(0 \in U\) and \(w \in W\). By the definition of a projection, \(P(w) = 0\).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Prove the Pythagorean Theorem in an inner product space: If \(\langle u, v \rangle = 0\), then \(\|u+v\|^2 = \|u\|^2 + \|v\|^2\).</p></div><div class="card-back"><p>We have \(\|u+v\|^2 = \langle u+v, u+v \rangle\).<br>By linearity of the inner product:<br>\(= \langle u, u \rangle + \langle u, v \rangle + \langle v, u \rangle + \langle v, v \rangle\).<br>Since \(\langle u, v \rangle = 0\) and \(\langle v, u \rangle = \overline{\langle u, v \rangle} = 0\), this becomes:<br>\(= \langle u, u \rangle + \langle v, v \rangle = \|u\|^2 + \|v\|^2\).</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Use the Pythagorean theorem to prove the Best Approximation Theorem.</p></div><div class="card-back"><p>Let \(p = proj_S(v)\) and let s be any other vector in S. We want to show \(\|v-p\| < \|v-s\|\).<br>We can write \(v-s = (v-p) + (p-s)\). The vector \(v-p\) is in \(S^⊥\) by definition of orthogonal projection. The vector \(p-s\) is in S, since p and s are both in S.<br>Therefore, \(v-p\) and \(p-s\) are orthogonal. By Pythagoras:<br>\(\|v-s\|^2 = \|v-p\|^2 + \|p-s\|^2\).<br>Since \(s \neq p\), \(\|p-s\|^2 > 0\). Thus, \(\|v-s\|^2 > \|v-p\|^2\), which proves the theorem.</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Find the orthogonal projection of \(v = (1, 2, 3)^T\) onto the subspace S spanned by \(u_1 = (1, 1, 0)^T\) and \(u_2 = (0, 1, 1)^T\).</p></div><div class="card-back"><p>Let A be the matrix with columns \(u_1, u_2\). We can use the formula \(p = A(A^T A)^{-1} A^T v\).<br>\(A = \begin{pmatrix} 1 & 0 \ 1 & 1 \ 0 & 1 \end{pmatrix}\). \(A^T A = \begin{pmatrix} 2 & 1 \ 1 & 2 \end{pmatrix}\). \((A^T A)^{-1} = \frac{1}{3}\begin{pmatrix} 2 & -1 \ -1 & 2 \end{pmatrix}\).<br>\(A^T v = \begin{pmatrix} 1 & 1 & 0 \ 0 & 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \ 2 \ 3 \end{pmatrix} = \begin{pmatrix} 3 \ 5 \end{pmatrix}\).<br>\(\hat{x} = (A^T A)^{-1} A^T v = \frac{1}{3}\begin{pmatrix} 2 & -1 \ -1 & 2 \end{pmatrix} \begin{pmatrix} 3 \ 5 \end{pmatrix} = \frac{1}{3}\begin{pmatrix} 1 \ 7 \end{pmatrix}\).<br>\(p = A\hat{x} = \begin{pmatrix} 1 & 0 \ 1 & 1 \ 0 & 1 \end{pmatrix} \frac{1}{3}\begin{pmatrix} 1 \ 7 \end{pmatrix} = \frac{1}{3}\begin{pmatrix} 1 \ 8 \ 7 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>In the previous example, find the component of \(v\) orthogonal to the subspace S.</p></div><div class="card-back"><p>The component of \(v\) orthogonal to S is \(v - p\), where \(p\) is the projection of \(v\) onto S.<br>\(v - p = \begin{pmatrix} 1 \ 2 \ 3 \end{pmatrix} - \frac{1}{3}\begin{pmatrix} 1 \ 8 \ 7 \end{pmatrix} = \frac{1}{3} \begin{pmatrix} 3-1 \ 6-8 \ 9-7 \end{pmatrix} = \frac{1}{3}\begin{pmatrix} 2 \ -2 \ 2 \end{pmatrix}\).<br>Check: This vector should be orthogonal to the basis vectors of S. \(\langle (2, -2, 2), (1, 1, 0) \rangle = 2-2+0=0\). \(\langle (2, -2, 2), (0, 1, 1) \rangle = 0-2+2=0\). It is correct.</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If an \(n \times n\) matrix P is a projection, prove that \(rank(P) + rank(I-P) = n\).</p></div><div class="card-back"><p>We know that P is a projection onto its range R(P) parallel to its null space N(P). So \(V = R(P) \oplus N(P)\). This gives \(dim(R(P)) + dim(N(P)) = dim(V) = n\).<br>\(rank(P) = dim(R(P))\).<br>The matrix \(Q = I-P\) is the projection onto N(P) parallel to R(P). So \(R(Q) = N(P)\).<br>\(rank(I-P) = rank(Q) = dim(R(Q)) = dim(N(P))\).<br>Substituting these into the dimension equation gives \(rank(P) + rank(I-P) = n\).</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(v_1, ..., v_k\) be an orthogonal set of non-zero vectors. Prove they are linearly independent.</p></div><div class="card-back"><p>Suppose we have a linear combination equal to zero: \(c_1 v_1 + ... + c_k v_k = 0\).<br>Take the inner product of this equation with any vector \(v_j\) from the set.<br>\(\langle c_1 v_1 + ... + c_k v_k, v_j \rangle = \langle 0, v_j \rangle = 0\).<br>By linearity, \(c_1 \langle v_1, v_j \rangle + ... + c_j \langle v_j, v_j \rangle + ... + c_k \langle v_k, v_j \rangle = 0\).<br>Since the set is orthogonal, \(\langle v_i, v_j \rangle = 0\) for \(i \neq j\). The equation simplifies to \(c_j \langle v_j, v_j \rangle = 0\).<br>Since \(v_j\) is non-zero, \(\langle v_j, v_j \rangle = \|v_j\|^2 \neq 0\). Therefore, we must have \(c_j = 0\). Since this is true for all \(j=1,...,k\), all coefficients are zero and the set is linearly independent.</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the relationship between the projection matrix P onto S and the data matrix A whose columns form a basis for S?</p></div><div class="card-back"><p>The projection matrix P is given by \(P = A(A^T A)^{-1} A^T\). This formula requires that the columns of A are linearly independent (i.e., A has full column rank).</p><p class="source">Source: Subject Guide, Theorem 5.9</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is an orthogonal projection matrix, show that \(I-2P\) is an orthogonal matrix.</p></div><div class="card-back"><p>Let \(Q = I-2P\). We need to show \(Q^T Q = I\).<br>Since P is an orthogonal projection, \(P=P^T\) and \(P^2=P\).<br>\(Q^T = (I-2P)^T = I^T - 2P^T = I-2P = Q\). So Q is symmetric.<br>\(Q^T Q = Q^2 = (I-2P)(I-2P) = I - 4P + 4P^2 = I - 4P + 4P = I\).<br>Thus, \(I-2P\) is an orthogonal matrix. Geometrically, it represents a reflection about the subspace \(N(P)\).</p><p class="source">Source: Exercise</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let S be the subspace of \(\mathbb{R}^3\) spanned by \((1,1,0)^T\) and \((0,1,1)^T\). Find the matrix of the orthogonal projection onto S.</p></div><div class="card-back"><p>Let \(A = \begin{pmatrix} 1 & 0 \ 1 & 1 \ 0 & 1 \end{pmatrix}\). We use \(P = A(A^T A)^{-1} A^T\).<br>\(A^T A = \begin{pmatrix} 2 & 1 \ 1 & 2 \end{pmatrix}\), \((A^T A)^{-1} = \frac{1}{3}\begin{pmatrix} 2 & -1 \ -1 & 2 \end{pmatrix}\).<br>\(P = \begin{pmatrix} 1 & 0 \ 1 & 1 \ 0 & 1 \end{pmatrix} \frac{1}{3}\begin{pmatrix} 2 & -1 \ -1 & 2 \end{pmatrix} \begin{pmatrix} 1 & 1 & 0 \ 0 & 1 & 1 \end{pmatrix}\)
+\(= \frac{1}{3} \begin{pmatrix} 1 & 0 \ 1 & 1 \ 0 & 1 \end{pmatrix} \begin{pmatrix} 2 & 1 & -1 \ -1 & 1 & 2 \end{pmatrix} = \frac{1}{3} \begin{pmatrix} 2 & 1 & -1 \ 1 & 2 & 1 \ -1 & 1 & 2 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the projection of \(v=(1,0,0)^T\) onto the subspace S from the previous card?</p></div><div class="card-back"><p>We apply the projection matrix P.<br>\(p = Pv = \frac{1}{3} \begin{pmatrix} 2 & 1 & -1 \ 1 & 2 & 1 \ -1 & 1 & 2 \end{pmatrix} \begin{pmatrix} 1 \ 0 \ 0 \end{pmatrix} = \frac{1}{3} \begin{pmatrix} 2 \ 1 \ -1 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is a projection matrix, what is \(P(I-P)\)?</p></div><div class="card-back"><p>Since P is a projection, it is idempotent (\(P^2=P\)).<br>\(P(I-P) = P - P^2 = P - P = 0\).<br>The product is the zero matrix. This makes sense as \(I-P\) projects onto the null space of P, so any vector in the range of \(I-P\) is in the null space of P.</p><p class="source">Source: Exercise</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>True or False: If \(V = U \oplus W\), then \(V = U \oplus W'\) implies \(W=W'\).</p></div><div class="card-back"><p>False. Consider \(V=\mathbb{R}^2\). Let U be the x-axis. We can have \(V = U \oplus W\) where W is the y-axis. We can also have \(V = U \oplus W'\) where W' is the line \(y=x\). In both cases, the sum is direct and spans \(\mathbb{R}^2\), but \(W \neq W'\). The complementary subspace is not unique in general.</p><p class="source">Source: Concept</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>When is the complementary subspace W in a direct sum \(V=U \oplus W\) unique?</p></div><div class="card-back"><p>The complementary subspace W is unique if we require it to be the orthogonal complement. For any finite-dimensional subspace U of an inner product space V, its orthogonal complement \(U^⊥\) is unique, and \(V = U \oplus U^⊥\).</p><p class="source">Source: Concept</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(A\) be an \(m \times n\) matrix. What is the relationship between \(dim(R(A))\) and \(dim(N(A^T))\)?</p></div><div class="card-back"><p>The subspaces \(R(A)\) and \(N(A^T)\) are orthogonal complements in \(\mathbb{R}^m\). Therefore, their dimensions must sum to the dimension of the whole space, \(m\).<br>\(dim(R(A)) + dim(N(A^T)) = m\).<br>Note that \(dim(R(A)) = rank(A)\).</p><p class="source">Source: Fundamental Theorem of Linear Algebra</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(A\) be an \(m \times n\) matrix. What is the relationship between \(dim(R(A^T))\) and \(dim(N(A))\)?</p></div><div class="card-back"><p>The subspaces \(R(A^T)\) (the row space) and \(N(A)\) are orthogonal complements in \(\mathbb{R}^n\). Therefore, their dimensions must sum to the dimension of the whole space, \(n\).<br>\(dim(R(A^T)) + dim(N(A)) = n\).<br>This is the Rank-Nullity Theorem, since \(dim(R(A^T)) = rank(A)\).</p><p class="source">Source: Fundamental Theorem of Linear Algebra</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Find the line of best fit for the data points (0,1), (1,2), (2,4).</p></div><div class="card-back"><p>We want to find a least-squares solution to \(y = c_0 + c_1 x\). This gives the system:<br>\(c_0 + 0c_1 = 1
+\
+\(c_0 + 1c_1 = 2
+\
+\(c_0 + 2c_1 = 4
+\
+In matrix form \(Ax=b\): \(\begin{pmatrix} 1 & 0 \ 1 & 1 \ 1 & 2 \end{pmatrix} \begin{pmatrix} c_0 \ c_1 \end{pmatrix} = \begin{pmatrix} 1 \ 2 \ 4 \end{pmatrix}\).<br>\(A^T A = \begin{pmatrix} 3 & 3 \ 3 & 5 \end{pmatrix}\), \(A^T b = \begin{pmatrix} 7 \ 10 \end{pmatrix}\).<br>Solving \(A^T A \hat{x} = A^T b\) gives \(\hat{x} = (c_0, c_1)^T = (5/6, 3/2)^T\).<br>The line is \(y = 5/6 + 1.5x\).</p><p class="source">Source: Application</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What does it mean for a set of vectors \(\{u_1, ..., u_k\}\) to be an orthonormal set?</p></div><div class="card-back"><p>A set of vectors is orthonormal if it is an orthogonal set (all vectors are mutually orthogonal) and every vector in the set has a norm (length) of 1.<br>Formally, \(\langle u_i, u_j \rangle = \delta_{ij}\), where \(\delta_{ij}\) is the Kronecker delta (1 if i=j, 0 if i≠j).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If \(\{u_1, ..., u_k\}\) is an orthonormal basis for a subspace S, what is the formula for the orthogonal projection of a vector v onto S?</p></div><div class="card-back"><p>The orthogonal projection of v onto S is given by:<br>\(proj_S(v) = \langle v, u_1 \rangle u_1 + \langle v, u_2 \rangle u_2 + ... + \langle v, u_k \rangle u_k\).<br>This is simpler than the matrix formula because \(A^T A = I\) when the columns of A are orthonormal.</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let S be the xy-plane in \(\mathbb{R}^3\). Find the matrix for the orthogonal projection onto S.</p></div><div class="card-back"><p>An orthonormal basis for the xy-plane is \(u_1 = (1,0,0)^T\) and \(u_2 = (0,1,0)^T\). Let \(A = \begin{pmatrix} 1 & 0 \ 0 & 1 \ 0 & 0 \end{pmatrix}\).<br>Since the columns are orthonormal, the projection matrix is \(P = AA^T\).<br>\(P = \begin{pmatrix} 1 & 0 \ 0 & 1 \ 0 & 0 \end{pmatrix} \begin{pmatrix} 1 & 0 & 0 \ 0 & 1 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 & 0 \ 0 & 1 & 0 \ 0 & 0 & 0 \end{pmatrix}\).<br>This makes sense, as projecting \((x,y,z)^T\) onto the xy-plane results in \((x,y,0)^T\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the Gram-Schmidt process used for?</p></div><div class="card-back"><p>The Gram-Schmidt process is an algorithm used to convert a set of linearly independent vectors spanning a subspace into an orthonormal basis for that same subspace.</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Outline the steps of the Gram-Schmidt process for a set of vectors \(\{v_1, v_2\}\).</p></div><div class="card-back"><p>1. Set the first orthogonal basis vector \(u_1 = v_1\).<br>2. Find the component of \(v_2\) that is parallel to \(u_1\) and subtract it from \(v_2\). This gives the second orthogonal basis vector:<br>\(u_2 = v_2 - proj_{u_1}(v_2) = v_2 - \frac{\langle v_2, u_1 \rangle}{\langle u_1, u_1 \rangle} u_1\).<br>3. Normalize the vectors: \(e_1 = u_1 / \|u_1\|\) and \(e_2 = u_2 / \|u_2\|\). The set \(\{e_1, e_2\}\) is an orthonormal basis.</p><p class="source">Source: Algorithm</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is an orthogonal projection matrix, what are its eigenvalues?</p></div><div class="card-back"><p>Like any projection, the eigenvalues can only be 0 or 1. The number of '1' eigenvalues corresponds to the rank of P (the dimension of the subspace it projects onto), and the number of '0' eigenvalues corresponds to the dimension of the null space.</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>True or False: Every symmetric matrix is an orthogonal projection matrix.</p></div><div class="card-back"><p>False. A matrix must also be idempotent (\(P^2=P\)) to be an orthogonal projection matrix. For example, \(A = \begin{pmatrix} 2 & 0 \ 0 & 2 \end{pmatrix}\) is symmetric, but \(A^2 = \begin{pmatrix} 4 & 0 \ 0 & 4 \end{pmatrix} \neq A\).</p><p class="source">Source: Concept</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If \(V = S \oplus S^⊥\) and \(v = s + s^⊥\) is the decomposition of a vector v, what is \(\|v\|^2\)?</p></div><div class="card-back"><p>Since s and \(s^⊥\) are orthogonal, we can apply the Pythagorean theorem:<br>\(\|v\|^2 = \|s + s^⊥\|^2 = \|s\|^2 + \|s^⊥\|^2\).</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let P be the projection onto U parallel to W. What is the matrix of P with respect to a basis of V formed by concatenating a basis of U and a basis of W?</p></div><div class="card-back"><p>Let the basis of U be \(\{u_1, ..., u_k\}\) and the basis of W be \(\{w_1, ..., w_m\}\). The basis for V is \(\{u_1, ..., u_k, w_1, ..., w_m\}\).<br>Since \(P(u_i)=u_i\) and \(P(w_j)=0\), the matrix of P with respect to this basis is a diagonal block matrix:<br>\( [P] = \begin{pmatrix} I_k & 0 \ 0 & 0_m \end{pmatrix} 
+\) where \(I_k\) is the k x k identity matrix and \(0_m\) is the m x m zero matrix.</p><p class="source">Source: Concept</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If a matrix A has \(rank(A) = n\), what can be said about the null space of A?</p></div><div class="card-back"><p>If A is an \(m \times n\) matrix, the Rank-Nullity theorem states \(rank(A) + dim(N(A)) = n\).<br>If \(rank(A) = n\), then \(n + dim(N(A)) = n\), which implies \(dim(N(A)) = 0\).<br>This means the null space of A contains only the zero vector, \(N(A) = \{0\}.</p><p class="source">Source: Rank-Nullity Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If an \(m \times n\) matrix A has \(rank(A) = n\), what does this imply about its columns?</p></div><div class="card-back"><p>The rank of a matrix is the dimension of its column space (and row space). If the rank is n, the dimension of the column space is n. Since there are n columns, this means the columns of A are linearly independent.</p><p class="source">Source: Definition of Rank</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Why is \(A^T A\) invertible if A has linearly independent columns?</p></div><div class="card-back"><p>If A has linearly independent columns, its null space is \(\{0\}.<br>Consider the equation \(A^T A x = 0\). This implies \(x^T A^T A x = 0\), which is \((Ax)^T(Ax) = 0\), or \(\|Ax\|^2 = 0\).<br>This means \(Ax=0\). Since A has a trivial null space, we must have \(x=0\).<br>Therefore, the null space of the square matrix \(A^T A\) is also trivial, which means \(A^T A\) is invertible.</p><p class="source">Source: Proof</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the geometric interpretation of the residual vector \(r = b - A\hat{x}\) in a least-squares problem?</p></div><div class="card-back"><p>The residual vector \(r = b - A\hat{x}\) is the component of \(b\) that is orthogonal to the column space of A, \(R(A)\). It represents the "error" of the approximation, and the least-squares method minimizes the length (norm) of this error vector.</p><p class="source">Source: Concept</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>True or False: For any subspace S, \(S ∩ S^⊥ = \{0\}.</p></div><div class="card-back"><p>True. Let \(v \in S ∩ S^⊥\). Since \(v \in S^⊥\), it is orthogonal to every vector in S. Since \(v\) is itself in S, it must be orthogonal to itself. So \(\langle v, v \rangle = 0\). By the properties of an inner product, this implies \(v=0\). Thus the intersection contains only the zero vector.</p><p class="source">Source: Theorem 5.3</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is the matrix for an orthogonal projection, what is \(P^T\)?</p></div><div class="card-back"><p>For an orthogonal projection, the matrix P must be symmetric. Therefore, \(P^T = P\).</p><p class="source">Source: Theorem 5.8</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is the matrix for a non-orthogonal projection, is P symmetric?</p></div><div class="card-back"><p>Not necessarily. A projection matrix is idempotent (\(P^2=P\)). It is only also symmetric if the projection is orthogonal (i.e., onto a subspace S parallel to its orthogonal complement \(S^⊥\)).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(v=(2,3)^T\). Find its projection onto the x-axis in \(\mathbb{R}^2\).</p></div><div class="card-back"><p>The x-axis is spanned by \(u=(1,0)^T\). The projection is \(proj_u(v) = \frac{v \cdot u}{u \cdot u} u = \frac{2}{1} (1,0)^T = (2,0)^T\). The projection matrix is \(P = \begin{pmatrix} 1 & 0 \ 0 & 0 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(v=(2,3)^T\). Find its projection onto the line \(y=2x\) in \(\mathbb{R}^2\).</p></div><div class="card-back"><p>The line is spanned by the vector \(a=(1,2)^T\).<br>\(proj_a(v) = \frac{v \cdot a}{a \cdot a} a = \frac{2(1)+3(2)}{1^2+2^2} \begin{pmatrix} 1 \ 2 \end{pmatrix} = \frac{8}{5} \begin{pmatrix} 1 \ 2 \end{pmatrix} = \begin{pmatrix} 8/5 \ 16/5 \end{pmatrix}\).</p><p class="source">Source: Example</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If \(A\) is an invertible \(n \times n\) matrix, what is its null space \(N(A)\)?</p></div><div class="card-back"><p>If A is invertible, the only solution to \(Ax=0\) is the trivial solution \(x=A^{-1}0=0\). Therefore, the null space is the trivial subspace containing only the zero vector: \(N(A) = \{0\}.</p><p class="source">Source: Definition of Invertibility</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If \(A\) is an invertible \(n \times n\) matrix, what is its range \(R(A)\)?</p></div><div class="card-back"><p>If A is invertible, it maps \(\mathbb{R}^n\) to \(\mathbb{R}^n\) in a one-to-one and onto fashion. For any \(b \in \mathbb{R}^n\), there exists a solution \(x=A^{-1}b\) to \(Ax=b\). This means every vector in \(\mathbb{R}^n\) is in the range of A. So, \(R(A) = \mathbb{R}^n\).</p><p class="source">Source: Definition of Invertibility</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is a projection matrix, is it always diagonalizable?</p></div><div class="card-back"><p>Yes. A matrix is diagonalizable if its minimal polynomial has distinct roots. The minimal polynomial of a projection P must divide \(x^2-x = x(x-1)\). The possible minimal polynomials are \(x\), \(x-1\), or \(x(x-1)\), all of which have distinct roots (0, 1). Therefore, any projection matrix is diagonalizable.</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the orthogonal complement of the zero subspace \(\{0\}\) in a vector space V?</p></div><div class="card-back"><p>The orthogonal complement \(\{0\}^⊥\) is the set of all vectors v in V such that \(\langle v, 0 \rangle = 0\). Since this is true for all vectors v in V, the orthogonal complement of the zero subspace is the entire space V. \(\{0\}^⊥ = V\).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the orthogonal complement of the entire space V in an inner product space V?</p></div><div class="card-back"><p>The orthogonal complement \(V^⊥\) is the set of all vectors v in V that are orthogonal to every vector in V. The only vector with this property is the zero vector, since any non-zero vector v is not orthogonal to itself (\(\langle v,v \rangle = \|v\|^2 \neq 0\)). So, \(V^⊥ = \{0\}.</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let \(A\) be a symmetric matrix. Show that eigenvectors corresponding to distinct eigenvalues are orthogonal.</p></div><div class="card-back"><p>Let \(Av_1 = \lambda_1 v_1\) and \(Av_2 = \lambda_2 v_2\) with \(\lambda_1 \neq \lambda_2\).<br>Consider \(\lambda_1 \langle v_1, v_2 \rangle = \langle \lambda_1 v_1, v_2 \rangle = \langle Av_1, v_2 \rangle = (Av_1)^T v_2 = v_1^T A^T v_2\).<br>Since A is symmetric, \(A=A^T\), so this is \(v_1^T A v_2 = v_1^T (\lambda_2 v_2) = \lambda_2 \langle v_1, v_2 \rangle\).<br>So, \(\lambda_1 \langle v_1, v_2 \rangle = \lambda_2 \langle v_1, v_2 \rangle\), which means \((\lambda_1 - \lambda_2) \langle v_1, v_2 \rangle = 0\).<br>Since \(\lambda_1 \neq \lambda_2\), we must have \(\langle v_1, v_2 \rangle = 0\).</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Is the sum of two projection matrices always a projection matrix?</p></div><div class="card-back"><p>No. Let \(P_1\) and \(P_2\) be projections. \((P_1+P_2)^2 = P_1^2 + P_1P_2 + P_2P_1 + P_2^2 = P_1 + P_2 + P_1P_2 + P_2P_1\). This is equal to \(P_1+P_2\) only if \(P_1P_2 + P_2P_1 = 0\). This is not generally true.</p><p class="source">Source: Exercise</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>When is the sum of two orthogonal projection matrices, \(P_1\) and \(P_2\), also a projection matrix?</p></div><div class="card-back"><p>The sum \(P_1+P_2\) is a projection if and only if the ranges of the projections are orthogonal, i.e., \(P_1 P_2 = 0\) and \(P_2 P_1 = 0\). In this case, \(P_1+P_2\) is the orthogonal projection onto \(R(P_1) \oplus R(P_2)\).</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Is the product of two projection matrices always a projection matrix?</p></div><div class="card-back"><p>No. Let \(P_1\) and \(P_2\) be projections. \((P_1P_2)^2 = P_1P_2P_1P_2\). This is not in general equal to \(P_1P_2\).</p><p class="source">Source: Exercise</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>When is the product of two projection matrices, \(P_1\) and \(P_2\), also a projection matrix?</p></div><div class="card-back"><p>If the projection matrices commute, i.e., \(P_1P_2 = P_2P_1\), then the product \(P_1P_2\) is a projection. In this case, it projects onto the intersection of their ranges, \(R(P_1) ∩ R(P_2)\).<br>Proof: \((P_1P_2)^2 = P_1P_2P_1P_2 = P_1(P_2P_1)P_2 = P_1(P_1P_2)P_2 = P_1^2 P_2^2 = P_1P_2\).</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If \(A\) is a matrix, what is \(R(A^T A)\) in relation to \(R(A^T)\)?</p></div><div class="card-back"><p>The range of \(A^T A\) is the same as the range of \(A^T\). That is, \(R(A^T A) = R(A^T)\).<br>Proof: \(R(A^T A) \subseteq R(A^T)\) is clear. For the other direction, we use the fact that \(R(A^T) = N(A)^⊥\). We also know \(rank(A^T A) = rank(A) = rank(A^T)\). Since \(R(A^T A)\) is a subspace of \(R(A^T)\) and they have the same dimension, they must be equal.</p><p class="source">Source: Theorem</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the projection of a vector \(v\) onto a subspace \(S\) if \(v\) is already in \(S\)?</p></div><div class="card-back"><p>The projection is \(v\) itself. The closest point in S to v is v. \(proj_S(v) = v\).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What is the projection of a vector \(v\) onto a subspace \(S\) if \(v\) is in \(S^⊥\)?</p></div><div class="card-back"><p>The projection is the zero vector. The component of \(v\) in the direction of S is zero. \(proj_S(v) = 0\).</p><p class="source">Source: Definition</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Final card of the new set. What is the main idea behind the Fundamental Theorem of Linear Algebra?</p></div><div class="card-back"><p>The theorem, in its full form, describes the structure that any \(m \times n\) matrix A imposes on the vector spaces \(\mathbb{R}^n\) and \(\mathbb{R}^m\). It states that the domain \(\mathbb{R}^n\) is the direct sum of the row space \(R(A^T)\) and the null space \(N(A)\), and the codomain \(\mathbb{R}^m\) is the direct sum of the column space \(R(A)\) and the left null space \(N(A^T)\). The matrix A provides a one-to-one mapping between the row space and the column space.</p><p class="source">Source: Summary</p></div></div></div>
+
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Prove that for a subspace S of a finite-dimensional inner product space V, \(V = S ⊕ S^⊥\).</p></div><div class="card-back"><p>We need to show that \(S ∩ S^⊥ = {0}\) and \(S + S^⊥ = V\).<br>1. Let \(v ∈ S ∩ S^⊥\). Since \(v ∈ S^⊥\), it is orthogonal to every vector in S. Since \(v ∈ S\), it must be orthogonal to itself. So \(⌊ v, v ⌋ = 0\), which implies \(v=0\). Thus \(S ∩ S^⊥ = {0}\).<br>2. Let \(({ s_1, …, s_k })\) be an orthonormal basis for S. For any \(v ∈ V\), define \(u = ∑_{i=1}^k ⌊ v, s_i ⌋ s_i\) and \(w = v - u\). Clearly \(u ∈ S\). For any basis vector \(s_j\), \(⌊ w, s_j ⌋ = ⌊ v - u, s_j ⌋ = ⌊ v, s_j ⌋ - ⌊ u, s_j ⌋ = ⌊ v, s_j ⌋ - ⌊ v, s_j ⌋ = 0\). So w is orthogonal to all basis vectors of S, and thus \(w ∈ S^⊥\). Since \(v = u+w\), we have shown \(V = S + S^⊥\).</p><p class="source">Source: Anthony & Harvey, Chapter 12</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is the matrix of an orthogonal projection, prove that P is symmetric.</p></div><div class="card-back"><p>An orthogonal projection P projects onto a subspace U parallel to its orthogonal complement \(U^⊥\). For any \(v, w ∈ V\), \(Pv ∈ U\) and \((I-P)w ∈ U^⊥\). Therefore, \(⌊ Pv, (I-P)w ⌋ = 0\). This means \(((I-P)w)^T Pv = 0\) for all v, w. This implies \(w^T(I-P)^T P v = 0\). This can only be true for all w, v if the matrix \((I-P)^T P = (I-P^T)P = P - P^T P\) is the zero matrix. So \(P = P^T P\). Taking the transpose of this equation gives \(P^T = (P^T P)^T = P^T (P^T)^T = P^T P\). So \(P = P^T\), which means P is symmetric.</p><p class="source">Source: Subject Guide, Proof of Theorem 5.8</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is an idempotent matrix, show that \(I-P\) is also idempotent.</p></div><div class="card-back"><p>We need to show that \((I-P)^2 = I-P\).<br>\((I-P)^2 = (I-P)(I-P) = I(I-P) - P(I-P) = I - P - P + P^2\).<br>Since P is idempotent, \(P^2 = P\).<br>So, \((I-P)^2 = I - P - P + P = I - P\).<br>Thus, \(I-P\) is idempotent.</p><p class="source">Source: Anthony & Harvey, Chapter 12</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If P is the projection onto U parallel to W, what is the projection \(I-P\)?</p></div><div class="card-back"><p>Let \(v ∈ V\) be written as \(v = u+w\) where \(u ∈ U\) and \(w ∈ W\).<br>By definition, \(P(v) = u\).<br>Then \((I-P)(v) = I(v) - P(v) = v - u = (u+w) - u = w\).<br>Since \(w ∈ W\), the transformation \(I-P\) maps vectors in V to their component in W. Therefore, \(I-P\) is the projection onto W parallel to U.</p><p class="source">Source: Anthony & Harvey, Chapter 12</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>Let S be a subspace of a finite-dimensional inner product space V. Prove that \((S^⊥)^⊥ = S\).</p></div><div class="card-back"><p>First, let \(s ∈ S\). For any \(v ∈ S^⊥\), we have \(⌊ s, v ⌋ = 0\). This is the condition for s to be in the orthogonal complement of \(S^⊥\), so \(s ∈ (S^⊥)^⊥\). Thus \(S ⊆ (S^⊥)^⊥\).<br>From the property \(V = U ⊕ U^⊥\), we have \(dim(U) + dim(U^⊥) = dim(V)\).<br>Applying this to \(S^⊥\), we get \(dim(S^⊥) + dim((S^⊥)^⊥) = dim(V)\).<br>So, \(dim((S^⊥)^⊥) = dim(V) - dim(S^⊥) = dim(S)\).<br>Since \(S\) is a subspace of \((S^⊥)^⊥\) and they have the same dimension, they must be equal: \((S^⊥)^⊥ = S\).</p><p class="source">Source: Subject Guide, Theorem 5.4</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>What are the only possible eigenvalues of an idempotent matrix?</p></div><div class="card-back"><p>Let A be an idempotent matrix, so \(A^2 = A\). Let \(\lambda\) be an eigenvalue with corresponding eigenvector v, so \(Av = \lambda v\) and \(v ≠ 0\).<br>Then \(A^2v = A(Av) = A(\lambda v) = \lambda(Av) = \lambda(\lambda v) = \lambda^2 v\).<br>Since \(A^2 = A\), we have \(A^2v = Av\).<br>Therefore, \(\lambda^2 v = \lambda v\), which means \((\lambda^2 - \lambda)v = 0\).<br>Since \(v ≠ 0\), we must have \(\lambda^2 - \lambda = 0\), which gives \(\lambda(\lambda - 1) = 0\).<br>The only possible eigenvalues are \(\lambda = 0\) and \(\lambda = 1\).</p><p class="source">Source: Subject Guide, Activity 5.6</p></div></div></div>
+            <div class="card"><div class="card-inner"><div class="card-front"><p>If A is an \(m x n\) matrix of rank n, prove that \(A^T A\) is invertible.</p></div><div class="card-back"><p>To prove \(A^T A\) is invertible, we can show that its null space is \({0}\). Let x be a vector such that \((A^T A)x = 0\).<br>This means the vector \(Ax\) is in the null space of \(A^T\). Also, \(Ax\) is in the range (column space) of A, \(R(A)\).<br>We know that \(N(A^T) = R(A)^⊥\). So, \(Ax\) is in both \(R(A)\) and \(R(A)^⊥\). The only vector in the intersection of a subspace and its orthogonal complement is the zero vector. Therefore, \(Ax = 0\).<br>Since A has rank n (full column rank), its columns are linearly independent. The only solution to \(Ax=0\) is the trivial solution \(x=0\).<br>Thus, \(N(A^T A) = {0}\), and the \(n x n\) matrix \(A^T A\) is invertible.</p><p class="source">Source: Subject Guide, Section 5.2.2</p></div></div></div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>What is the formula for the matrix P that represents the orthogonal projection of \(\mathbb{R}^m\) onto the range of an \(m x n\) matrix A of rank n?</p>
+                    </div>
+                    <div class="card-back">
+                        <p>The matrix for the orthogonal projection onto the range of A is given by:<br>\(P = A(A^T A)^{-1} A^T\)</p>
+                        <p class="source">Source: Subject Guide, Theorem 5.9</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p>Final Question: Summarize the key properties of Direct Sums and Projections.</p>
+                    </div>
+                    <div class="card-back">
+                        <p>A sum of subspaces \(U+W\) is a <strong>direct sum</strong> (\(U ⊕ W\)) if \(U ∩ W = {0}\), which is equivalent to every vector in the sum having a unique decomposition.<br>The <strong>orthogonal complement</strong> \(S^⊥\) of a subspace S contains all vectors orthogonal to every vector in S. For any subspace S, \(V = S ⊕ S^⊥\).<br>A <strong>projection</strong> is an idempotent (\(P^2=P\)) linear operator. It projects onto its range R(P) parallel to its null space N(P).<br>An <strong>orthogonal projection</strong> is a projection whose matrix is also symmetric (\(P^T=P\)). It projects onto a subspace parallel to its orthogonal complement.</p>
+                        <p class="source">Source: Course Summary</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <button id="prevBtn">Previous</button>
+        <button class="flip-button">Flip</button>
+        <button id="nextBtn">Next</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.flashcard-slider');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const flipBtn = document.querySelector('.flip-button');
+            const progressText = document.getElementById('progress');
+            const cards = document.querySelectorAll('.card');
+            const totalCards = cards.length;
+            let currentIndex = 0;
+
+            function getCookie(name) {
+                let value = "; " + document.cookie;
+                let parts = value.split("; " + name + "=");
+                if (parts.length == 2) return parts.pop().split(";").shift();
+                return null;
+            }
+
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    let date = new Date();
+                    date.setTime(date.getTime() + (days*24*60*60*1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+            }
+
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                progressText.textContent = `Card ${currentIndex + 1} of ${totalCards}`;
+                setCookie('mt2175_flashcard_progress', currentIndex, 7);
+                cards.forEach(card => card.classList.remove('flipped'));
+            }
+
+            function flipCard() {
+                cards[currentIndex].classList.toggle('flipped');
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalCards - 1;
+                updateSlider();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex < totalCards - 1) ? currentIndex + 1 : 0;
+                updateSlider();
+            });
+
+            flipBtn.addEventListener('click', flipCard);
+            cards.forEach((card, index) => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.tagName.toLowerCase() !== 'a' && e.target.tagName.toLowerCase() !== 'button') {
+                       if(index === currentIndex) flipCard();
+                    }
+                });
+            });
+            
+            document.body.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    flipCard();
+                }
+            });
+
+            const savedIndex = getCookie('mt2175_flashcard_progress');
+            if (savedIndex !== null && !isNaN(parseInt(savedIndex, 10))) {
+                currentIndex = parseInt(savedIndex, 10);
+                if(currentIndex >= totalCards) currentIndex = 0;
+            }
+            updateSlider();
+        });
+    </script>
+</body>
+</html>

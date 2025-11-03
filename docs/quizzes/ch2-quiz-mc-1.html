@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MT2175 - Inner Products and Orthogonality Quiz</title>
+        
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #005a9c;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question-container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .options label:hover {
+            background-color: #f0f8ff;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e9f5fe;
+            border-left: 5px solid #2196F3;
+            border-radius: 5px;
+        }
+        .explanation .source {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+        }
+        .result {
+            display: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: white;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        .correct {
+            background-color: #4CAF50;
+        }
+        .incorrect {
+            background-color: #F44336;
+        }
+        #clear-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #d9534f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #clear-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MT2175: Inner Products and Orthogonality Quiz</h1>
+
+    <div class="quiz-container" id="quiz">
+        
+        <div id="q1" class="question-container">
+            <div class="question-text">1. Which of the following is NOT a required property for an operation $\langle \cdot, \cdot \rangle$ to be an inner product on a real vector space $V$? (u, v, w are vectors in V, k is a scalar)</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle$ (Symmetry)</label>
+                <label><input type="radio" name="q1" value="1" data-correct="true"> $\langle \mathbf{u}, \mathbf{u} \rangle = ||\mathbf{u}||^2$ (Norm definition)</label>
+                <label><input type="radio" name="q1" value="2"> $\langle k\mathbf{u}, \mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ (Homogeneity)</label>
+                <label><input type="radio" name="q1" value="3"> $\langle \mathbf{u}+\mathbf{v}, \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle$ (Additivity)</label>
+            </div>
+            <div class="explanation">
+                <span>The norm $||\mathbf{u}||$ is defined from the inner product as $||\mathbf{u}|| = \sqrt{\langle \mathbf{u}, \mathbf{u} \rangle}$, not the other way around. The three fundamental properties for a real inner product are Symmetry, Linearity (which includes Additivity and Homogeneity), and Positive-definiteness ($\langle \mathbf{u}, \mathbf{u} \rangle \ge 0$ and $\langle \mathbf{u}, \mathbf{u} \rangle = 0 \iff \mathbf{u} = \mathbf{0}$).</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.1, p. 313.</div>
+            </div>
+        </div>
+
+        <div id="q2" class="question-container">
+            <div class="question-text">2. Let $\mathbf{u} = (u_1, u_2)$ and $\mathbf{v} = (v_1, v_2)$ be vectors in $\mathbb{R}^2$. Which of the following is a valid inner product on $\mathbb{R}^2$?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_1 - u_2v_2$</label>
+                <label><input type="radio" name="q2" value="1"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1^2v_1^2 + u_2^2v_2^2$</label>
+                <label><input type="radio" name="q2" value="2" data-correct="true"> $\langle \mathbf{u}, \mathbf{v} \rangle = 2u_1v_1 + 3u_2v_2$</label>
+                <label><input type="radio" name="q2" value="3"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_2 + u_2v_1$</label>
+            </div>
+            <div class="explanation">
+                <span>This is a weighted Euclidean inner product. Option (a) fails positive-definiteness (e.g., for $\mathbf{u}=(1,2)$, $\langle \mathbf{u}, \mathbf{u} \rangle = 1-4 = -3 < 0$). Option (b) is not linear. Option (d) is not positive-definite (e.g., for $\mathbf{u}=(1,-1)$, $\langle \mathbf{u}, \mathbf{u} \rangle = -1-1 = -2 < 0$). Option (c) satisfies all axioms: it's symmetric, linear, and $\langle \mathbf{u}, \mathbf{u} \rangle = 2u_1^2 + 3u_2^2 \ge 0$, with equality only if $u_1=u_2=0$.</span>
+                <div class="source">Source: Anthony & Harvey, Example 10.5, p. 314.</div>
+            </div>
+        </div>
+
+        <div id="q3" class="question-container">
+            <div class="question-text">3. In an inner product space, the norm of a vector $\mathbf{v}$ is defined as:</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="0"> $||\mathbf{v}|| = \langle \mathbf{v}, \mathbf{v} \rangle$</label>
+                <label><input type="radio" name="q3" value="1" data-correct="true"> $||\mathbf{v}|| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}$</label>
+                <label><input type="radio" name="q3" value="2"> $||\mathbf{v}|| = \mathbf{v}^T\mathbf{v}$</label>
+                <label><input type="radio" name="q3" value="3"> $||\mathbf{v}|| = \sum v_i$</label>
+            </div>
+            <div class="explanation">
+                <span>The norm (or length) of a vector is defined as the square root of the inner product of the vector with itself. This ensures the norm is a non-negative real number.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.6, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q4" class="question-container">
+            <div class="question-text">4. The Cauchy-Schwarz inequality states that for any two vectors $\mathbf{u}$ and $\mathbf{v}$ in an inner product space:</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="0"> $|\langle \mathbf{u}, \mathbf{v} \rangle| \ge ||\mathbf{u}|| ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q4" value="1"> $\langle \mathbf{u}, \mathbf{v} \rangle^2 \le \langle \mathbf{u}, \mathbf{u} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle$</label>
+                <label><input type="radio" name="q4" value="2" data-correct="true"> $|\langle \mathbf{u}, \mathbf{v} \rangle| \le ||\mathbf{u}|| ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q4" value="3"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+            </div>
+            <div class="explanation">
+                <span>The Cauchy-Schwarz inequality states that the absolute value of the inner product of two vectors is less than or equal to the product of their norms. This is a fundamental inequality in linear algebra.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.7, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q5" class="question-container">
+            <div class="question-text">5. If $\mathbf{u}$ and $\mathbf{v}$ are orthogonal vectors in an inner product space, the Generalised Pythagoras' Theorem states:</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="0"> $||\mathbf{u}-\mathbf{v}||^2 = ||\mathbf{u}||^2 - ||\mathbf{v}||^2$</label>
+                <label><input type="radio" name="q5" value="1"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q5" value="2"> $\langle \mathbf{u}, \mathbf{v} \rangle = 0$</label>
+                <label><input type="radio" name="q5" value="3" data-correct="true"> $||\mathbf{u}+\mathbf{v}||^2 = ||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label>
+            </div>
+            <div class="explanation">
+                <span>The Generalised Pythagoras' Theorem is a direct consequence of the properties of the inner product. Since $||\mathbf{u}+\mathbf{v}||^2 = \langle \mathbf{u}+\mathbf{v}, \mathbf{u}+\mathbf{v} \rangle = ||\mathbf{u}||^2 + 2\langle \mathbf{u}, \mathbf{v} \rangle + ||\mathbf{v}||^2$ and $\langle \mathbf{u}, \mathbf{v} \rangle = 0$ for orthogonal vectors, the result follows.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.12, p. 317.</div>
+            </div>
+        </div>
+
+        <div id="q6" class="question-container">
+            <div class="question-text">6. A set of non-zero, pairwise orthogonal vectors $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}$ is:</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="0"> Always a basis for the vector space.</label>
+                <label><input type="radio" name="q6" value="1" data-correct="true"> Always linearly independent.</label>
+                <label><input type="radio" name="q6" value="2"> Always linearly dependent.</label>
+                <label><input type="radio" name="q6" value="3"> Not necessarily linearly independent.</label>
+            </div>
+            <div class="explanation">
+                <span>A key theorem states that a set of non-zero orthogonal vectors is always linearly independent. To prove this, assume $c_1\mathbf{v}_1 + \dots + c_k\mathbf{v}_k = \mathbf{0}$. Taking the inner product with any $\mathbf{v}_i$ shows that $c_i||\mathbf{v}_i||^2 = 0$, which implies $c_i=0$ since $\mathbf{v}_i \neq \mathbf{0}$.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.14, p. 318.</div>
+            </div>
+        </div>
+
+        <div id="q7" class="question-container">
+            <div class="question-text">7. An $n \times n$ matrix $P$ is called an orthogonal matrix if:</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="0"> Its columns are orthogonal.</label>
+                <label><input type="radio" name="q7" value="1"> $P = P^T$</label>
+                <label><input type="radio" name="q7" value="2" data-correct="true"> $P^{-1} = P^T$</label>
+                <label><input type="radio" name="q7" value="3"> Its determinant is 1.</label>
+            </div>
+            <div class="explanation">
+                <span>The definition of an orthogonal matrix $P$ is that its inverse is equal to its transpose, i.e., $P^T P = I$. While its columns must be orthonormal (not just orthogonal) and its determinant must be $\pm 1$, the defining property is $P^{-1} = P^T$.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.15, p. 319.</div>
+            </div>
+        </div>
+
+        <div id="q8" class="question-container">
+            <div class="question-text">8. What is an orthonormal set of vectors?</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="0"> A set of vectors that are all parallel to each other.</label>
+                <label><input type="radio" name="q8" value="1"> A set of linearly independent vectors.</label>
+                <label><input type="radio" name="q8" value="2" data-correct="true"> A set of orthogonal vectors, each of which has a norm of 1.</label>
+                <label><input type="radio" name="q8" value="3"> A set of vectors that form a basis.</label>
+            </div>
+            <div class="explanation">
+                <span>An orthonormal set combines two properties: "ortho" for orthogonal (the inner product of any two distinct vectors is zero) and "normal" for normalized (each vector has a norm, or length, of 1).</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.19, p. 320.</div>
+            </div>
+        </div>
+
+        <div id="q9" class="question-container">
+            <div class="question-text">9. An $n \times n$ matrix $P$ is orthogonal if and only if its columns form:</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="0"> A basis for $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="1"> An orthogonal set of vectors in $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="2" data-correct="true"> An orthonormal basis for $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="3"> A set of linearly dependent vectors in $\mathbb{R}^n$.</label>
+            </div>
+            <div class="explanation">
+                <span>This is a fundamental theorem connecting the algebraic definition of an orthogonal matrix ($P^T P = I$) to the geometric properties of its column vectors. The entry $(i, j)$ of $P^T P$ is the dot product of the $i$-th column of $P$ with the $j$-th column. For this to be the identity matrix, the dot products must be 0 for $i \neq j$ (orthogonal) and 1 for $i=j$ (unit norm).</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.21, p. 321.</div>
+            </div>
+        </div>
+
+        <div id="q10" class="question-container">
+            <div class="question-text">10. The Gram-Schmidt process is a method for:</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="0"> Finding the eigenvalues of a matrix.</label>
+                <label><input type="radio" name="q10" value="1"> Solving a system of linear equations.</label>
+                <label><input type="radio" name="q10" value="2"> Calculating the determinant of a matrix.</label>
+                <label><input type="radio" name="q10" value="3" data-correct="true"> Converting a set of linearly independent vectors into an orthonormal set that spans the same subspace.</label>
+            </div>
+            <div class="explanation">
+                <span>The Gram-Schmidt process takes a basis and produces an orthonormal basis for the same space by iteratively constructing orthogonal vectors and then normalizing them.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div>
+            </div>
+        </div>
+
+        <!-- ... More questions will follow this pattern ... -->
+
+        <div id="q11" class="question-container">
+            <div class="question-text">11. Using the standard Euclidean inner product, what is the norm of the vector $\mathbf{v} = (1, -2, 2)$ in $\mathbb{R}^3$?</div>
+            <div class="options">
+                <label><input type="radio" name="q11" value="0"> 1</label>
+                <label><input type="radio" name="q11" value="1" data-correct="true"> 3</label>
+                <label><input type="radio" name="q11" value="2"> 5</label>
+                <label><input type="radio" name="q11" value="3"> 9</label>
+            </div>
+            <div class="explanation">
+                <span>The norm is calculated as $||\mathbf{v}|| = \sqrt{1^2 + (-2)^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3$.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.6, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q12" class="question-container">
+            <div class="question-text">12. Which property of an inner product ensures that $\langle \mathbf{u}, k\mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ for a real inner product?</div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="0"> Additivity</label>
+                <label><input type="radio" name="q12" value="1"> Positive-definiteness</label>
+                <label><input type="radio" name="q12" value="2" data-correct="true"> Symmetry and Homogeneity</label>
+                <label><input type="radio" name="q12" value="3"> It is not a property of inner products.</label>
+            </div>
+            <div class="explanation">
+                <span>This is derived from the basic axioms. $\langle \mathbf{u}, k\mathbf{v} \rangle = \langle k\mathbf{v}, \mathbf{u} \rangle$ by symmetry. Then $\langle k\mathbf{v}, \mathbf{u} \rangle = k\langle \mathbf{v}, \mathbf{u} \rangle$ by homogeneity. Finally, $k\langle \mathbf{v}, \mathbf{u} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ by symmetry again.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 1.36, p. 25.</div>
+            </div>
+        </div>
+
+        <div id="q13" class="question-container">
+            <div class="question-text">13. If $||\mathbf{u}|| = 3$, $||\mathbf{v}|| = 4$, and the angle $\theta$ between them is $\pi/3$, what is $\langle \mathbf{u}, \mathbf{v} \rangle$? (Assume standard Euclidean inner product).</div>
+            <div class="options">
+                <label><input type="radio" name="q13" value="0"> 12</label>
+                <label><input type="radio" name="q13" value="1"> $6\sqrt{3}$</label>
+                <label><input type="radio" name="q13" value="2" data-correct="true"> 6</label>
+                <label><input type="radio" name="q13" value="3"> 7</label>
+            </div>
+            <div class="explanation">
+                <span>Using the formula $\langle \mathbf{u}, \mathbf{v} \rangle = ||\mathbf{u}|| ||\mathbf{v}|| \cos\theta$, we get $3 \times 4 \times \cos(\pi/3) = 12 \times (1/2) = 6$.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 1.43, p. 31.</div>
+            </div>
+        </div>
+
+        <div id="q14" class="question-container">
+            <div class="question-text">14. The triangle inequality for norms states that:</div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="0"> $||\mathbf{u}+\mathbf{v}|| \ge ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="1" data-correct="true"> $||\mathbf{u}+\mathbf{v}|| \le ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="2"> $||\mathbf{u}-\mathbf{v}|| \le ||\mathbf{u}|| - ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="3"> $||\mathbf{u}+\mathbf{v}||^2 \le ||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label>
+            </div>
+            <div class="explanation">
+                <span>The triangle inequality states that the length of one side of a triangle (the vector sum $\mathbf{u}+\mathbf{v}$) is less than or equal to the sum of the lengths of the other two sides ($||\mathbf{u}|| + ||\mathbf{v}||$).</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.13, p. 318.</div>
+            </div>
+        </div>
+
+        <div id="q15" class="question-container">
+            <div class="question-text">15. If you apply the Gram-Schmidt process to the vectors $\mathbf{v}_1 = (1, 0)$ and $\mathbf{v}_2 = (1, 1)$, what is the resulting orthonormal basis $\{\mathbf{u}_1, \mathbf{u}_2\}$?</div>
+            <div class="options">
+                <label><input type="radio" name="q15" value="0"> $\{(1, 0), (1, 1)\}$</label>
+                <label><input type="radio" name="q15" value="1"> $\{(1, 0), (0, -1)\}$</label>
+                <label><input type="radio" name="q15" value="2" data-correct="true"> $\{(1, 0), (0, 1)\}$</label>
+                <label><input type="radio" name="q15" value="3"> $\{(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), (-\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\}$</label>
+            </div>
+            <div class="explanation">
+                <span>Step 1: $\mathbf{u}_1 = \frac{\mathbf{v}_1}{||\mathbf{v}_1||} = \frac{(1,0)}{1} = (1,0)$. Step 2: Find $\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1 = (1,1) - (1)(1,0) = (0,1)$. Step 3: Normalize $\mathbf{w}_2$ to get $\mathbf{u}_2 = \frac{(0,1)}{1} = (0,1)$. The resulting basis is the standard basis.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div>
+            </div>
+        </div>
+
+        <div id="q16" class="question-container">
+            <div class="question-text">16. Which of the following matrices is orthogonal?</div>
+            <div class="options">
+                <label><input type="radio" name="q16" value="0"> $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="1" data-correct="true"> $\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="2"> $\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="3"> $\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}$</label>
+            </div>
+            <div class="explanation">
+                <span>A rotation matrix is always orthogonal. Its columns, $(\cos\theta, \sin\theta)$ and $(-\sin\theta, \cos\theta)$, are orthogonal to each other and both have a norm of 1. The other matrices do not have orthonormal columns.</span>
+                <div class="source">Source: Anton & Rorres, Section 6.6, Example 2.</div>
+            </div>
+        </div>
+
+        <div id="q17" class="question-container">
+            <div class="question-text">17. If $P$ is an orthogonal matrix, what is the value of $\det(P)$?</div>
+            <div class="options">
+                <label><input type="radio" name="q17" value="0"> 0</label>
+                <label><input type="radio" name="q17" value="1"> 1</label>
+                <label><input type="radio" name="q17" value="2"> -1</label>
+                <label><input type="radio" name="q17" value="3" data-correct="true"> $\pm 1$</label>
+            </div>
+            <div class="explanation">
+                <span>Since $P^T P = I$, we have $\det(P^T P) = \det(I) = 1$. Using the property $\det(AB) = \det(A)\det(B)$ and $\det(P^T) = \det(P)$, we get $\det(P)^2 = 1$, which implies $\det(P) = \pm 1$.</span>
+                <div class="source">Source: Anthony & Harvey, Exercise 10.4, p. 325.</div>
+            </div>
+        </div>
+
+        <div id="q18" class="question-container">
+            <div class="question-text">18. The set of all vectors in $\mathbb{R}^3$ orthogonal to $\mathbf{v} = (1, 1, 1)$ forms a:</div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="0"> Line through the origin.</label>
+                <label><input type="radio" name="q18" value="1" data-correct="true"> Plane through the origin.</label>
+                <label><input type="radio" name="q18" value="2"> The entire space $\mathbb{R}^3$.</label>
+                <label><input type="radio" name="q18" value="3"> Only the zero vector.</label>
+            </div>
+            <div class="explanation">
+                <span>The set of all vectors $\mathbf{x}=(x,y,z)$ such that $\langle \mathbf{x}, \mathbf{v} \rangle = 0$ is given by the equation $x+y+z=0$. This is the equation of a plane through the origin with normal vector $\mathbf{v}$. This set is the orthogonal complement of the line spanned by $\mathbf{v}$.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.2.1.</div>
+            </div>
+        </div>
+
+        <div id="q19" class="question-container">
+            <div class="question-text">19. Let $V = P_2$, the space of polynomials of degree at most 2, with inner product $\langle p, q \rangle = \int_{-1}^{1} p(x)q(x)dx$. Are the vectors $p(x)=x$ and $q(x)=x^2$ orthogonal?</div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="0" data-correct="true"> Yes, because their inner product is 0.</label>
+                <label><input type="radio" name="q19" value="1"> No, because their inner product is not 0.</label>
+                <label><input type="radio" name="q19" value="2"> No, because they are not linearly independent.</label>
+                <label><input type="radio" name="q19" value="3"> It cannot be determined.</label>
+            </div>
+            <div class="explanation">
+                <span>We compute the inner product: $\langle p, q \rangle = \int_{-1}^{1} x \cdot x^2 dx = \int_{-1}^{1} x^3 dx = \left[\frac{x^4}{4}\right]_{-1}^{1} = \frac{1}{4} - \frac{1}{4} = 0$. Since the inner product is zero, the vectors are orthogonal.</span>
+                <div class="source">Source: Anton & Rorres, Example 4, p. 203.</div>
+            </div>
+        </div>
+
+        <div id="q20" class="question-container">
+            <div class="question-text">20. Normalizing the vector $\mathbf{v} = (3, 4)$ in $\mathbb{R}^2$ with the standard Euclidean inner product results in:</div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="0"> $(3/5, 4/5)$</label>
+                <label><input type="radio" name="q20" value="1" data-correct="true"> $(\frac{3}{5}, \frac{4}{5})$</label>
+                <label><input type="radio" name="q20" value="2"> $(3/7, 4/7)$</label>
+                <label><input type="radio" name="q20" value="3"> $(1, 1)$</label>
+            </div>
+            <div class="explanation">
+                <span>First, find the norm: $||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9+16} = \sqrt{25} = 5$. Then, divide the vector by its norm: $\frac{\mathbf{v}}{||\mathbf{v}||} = \frac{1}{5}(3, 4) = (\frac{3}{5}, \frac{4}{5})$.</span>
+                <div class="source">Source: Anthony & Harvey, p. 315.</div>
+            </div>
+        </div>
+        
+        <!-- Questions 21-50 would continue in this format -->
+        <div id="q21" class="question-container"><div class="question-text">21. The distance $d(\mathbf{u}, \mathbf{v})$ between two vectors in an inner product space is defined as:</div><div class="options"><label><input type="radio" name="q21" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle$</label><label><input type="radio" name="q21" value="1"> $||\mathbf{u}|| - ||\mathbf{v}||$</label><label><input type="radio" name="q21" value="2" data-correct="true"> $||\mathbf{u}-\mathbf{v}||$</label><label><input type="radio" name="q21" value="3"> $\sqrt{\langle \mathbf{u}, \mathbf{v} \rangle}$</label></div><div class="explanation"><span>The distance between two vectors is defined as the norm of their difference. This generalizes the standard distance formula in Euclidean space.</span><div class="source">Source: Anton & Rorres, p. 185.</div></div></div>
+        <div id="q22" class="question-container"><div class="question-text">22. If $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ is an orthonormal basis for $\mathbb{R}^n$ and $\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n$, how is the coefficient $c_i$ found?</div><div class="options"><label><input type="radio" name="q22" value="0"> $c_i = \langle \mathbf{x}, \mathbf{x} \rangle$</label><label><input type="radio" name="q22" value="1" data-correct="true"> $c_i = \langle \mathbf{x}, \mathbf{v}_i \rangle$</label><label><input type="radio" name="q22" value="2"> $c_i = ||\mathbf{v}_i||$</label><label><input type="radio" name="q22" value="3"> It requires solving a linear system.</label></div><div class="explanation"><span>For an orthonormal basis, the coordinates (coefficients) of a vector are simply its inner products with the basis vectors. This is a major advantage of using orthonormal bases. $\langle \mathbf{x}, \mathbf{v}_i \rangle = \langle c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n, \mathbf{v}_i \rangle = c_i\langle \mathbf{v}_i, \mathbf{v}_i \rangle = c_i$.</span><div class="source">Source: Anthony & Harvey, Theorem 10.20, p. 320.</div></div></div>
+        <div id="q23" class="question-container"><div class="question-text">23. Which statement is false?</div><div class="options"><label><input type="radio" name="q23" value="0"> The columns of an orthogonal matrix are orthogonal.</label><label><input type="radio" name="q23" value="1"> The rows of an orthogonal matrix are orthogonal.</label><label><input type="radio" name="q23" value="2"> The columns of an orthogonal matrix have norm 1.</label><label><input type="radio" name="q23" value="3" data-correct="true"> The diagonal entries of an orthogonal matrix must be positive.</label></div><div class="explanation"><span>The columns (and rows) of an orthogonal matrix must form an orthonormal set. However, there is no restriction on the signs of the diagonal entries. For example, a reflection matrix is orthogonal but can have negative entries on the diagonal.</span><div class="source">Source: Anthony & Harvey, Theorem 10.18, p. 319.</div></div></div>
+        <div id="q24" class="question-container"><div class="question-text">24. In the Gram-Schmidt process, when constructing an orthogonal vector $\mathbf{w}_2$ from $\mathbf{v}_1$ and $\mathbf{v}_2$ (where $\mathbf{u}_1$ is the normalized $\mathbf{v}_1$), the formula is:</div><div class="options"><label><input type="radio" name="q24" value="0"> $\mathbf{w}_2 = \mathbf{v}_2 + \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label><label><input type="radio" name="q24" value="1" data-correct="true"> $\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label><label><input type="radio" name="q24" value="2"> $\mathbf{w}_2 = \mathbf{v}_1 - \langle \mathbf{v}_1, \mathbf{u}_1 \rangle \mathbf{u}_2$</label><label><input type="radio" name="q24" value="3"> $\mathbf{w}_2 = \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label></div><div class="explanation"><span>The process works by taking the next vector ($\mathbf{v}_2$) and subtracting its projection onto the subspace spanned by the previously found orthogonal vectors (in this case, just $\mathbf{u}_1$). The result is a vector orthogonal to the previous ones.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q25" class="question-container"><div class="question-text">25. If $\langle \mathbf{u}, \mathbf{v} \rangle = 3u_1v_1 + u_2v_2$ is an inner product on $\mathbb{R}^2$, what is the norm of $\mathbf{u}=(1, -1)$?</div><div class="options"><label><input type="radio" name="q25" value="0"> $\sqrt{2}$</label><label><input type="radio" name="q25" value="1"> 2</label><label><input type="radio" name="q25" value="2" data-correct="true"> 2</label><label><input type="radio" name="q25" value="3"> 4</label></div><div class="explanation"><span>The norm is $||\mathbf{u}|| = \sqrt{\langle \mathbf{u}, \mathbf{u} \rangle} = \sqrt{3(1)(1) + (1)(-1)(-1)} = \sqrt{3+1} = \sqrt{4} = 2$. Note that the standard norm would be $\sqrt{2}$.</span><div class="source">Source: Anton & Rorres, Example 2, p. 184.</div></div></div>
+        <div id="q26" class="question-container"><div class="question-text">26. The property $\langle \mathbf{u}, \mathbf{v}+\mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle$ is a direct consequence of which two fundamental inner product axioms?</div><div class="options"><label><input type="radio" name="q26" value="0"> Homogeneity and Positive-definiteness</label><label><input type="radio" name="q26" value="1"> Additivity and Homogeneity</label><label><input type="radio" name="q26" value="2" data-correct="true"> Symmetry and Additivity</label><label><input type="radio" name="q26" value="3"> Symmetry and Positive-definiteness</label></div><div class="explanation"><span>We have $\langle \mathbf{u}, \mathbf{v}+\mathbf{w} \rangle = \langle \mathbf{v}+\mathbf{w}, \mathbf{u} \rangle$ by symmetry. Then, by additivity, this is $\langle \mathbf{v}, \mathbf{u} \rangle + \langle \mathbf{w}, \mathbf{u} \rangle$. Applying symmetry again to each term gives $\langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle$.</span><div class="source">Source: Anthony & Harvey, Theorem 1.36, p. 25.</div></div></div>
+        <div id="q27" class="question-container"><div class="question-text">27. If a set of vectors is orthonormal, it is:</div><div class="options"><label><input type="radio" name="q27" value="0"> Linearly dependent.</label><label><input type="radio" name="q27" value="1" data-correct="true"> Linearly independent.</label><label><input type="radio" name="q27" value="2"> Not necessarily linearly independent.</label><label><input type="radio" name="q27" value="3"> A spanning set for the entire vector space.</label></div><div class="explanation"><span>An orthonormal set consists of non-zero (norm 1) orthogonal vectors. A set of non-zero orthogonal vectors is always linearly independent. It only becomes a basis (a spanning set) if it contains the "right number" of vectors (equal to the dimension of the space).</span><div class="source">Source: Anthony & Harvey, Theorem 10.14, p. 318.</div></div></div>
+        <div id="q28" class="question-container"><div class="question-text">28. The orthogonal complement of a line through the origin in $\mathbb{R}^3$ is:</div><div class="options"><label><input type="radio" name="q28" value="0"> A line through the origin.</label><label><input type="radio" name="q28" value="1" data-correct="true"> A plane through the origin.</label><label><input type="radio" name="q28" value="2"> The origin itself.</label><label><input type="radio" name="q28" value="3"> The entire space $\mathbb{R}^3$.</label></div><div class="explanation"><span>The orthogonal complement of a subspace W, denoted $W^\perp$, contains all vectors orthogonal to every vector in W. In $\mathbb{R}^3$, all vectors orthogonal to a given line (a 1D subspace) form a plane (a 2D subspace) perpendicular to that line.</span><div class="source">Source: Anton & Rorres, Section 6.2.</div></div></div>
+        <div id="q29" class="question-container"><div class="question-text">29. If $P$ is an orthogonal matrix, then $P^T$ is:</div><div class="options"><label><input type="radio" name="q29" value="0"> The zero matrix.</label><label><input type="radio" name="q29" value="1"> Not necessarily orthogonal.</label><label><input type="radio" name="q29" value="2"> The identity matrix.</label><label><input type="radio" name="q29" value="3" data-correct="true"> Also an orthogonal matrix.</label></div><div class="explanation"><span>If $P$ is orthogonal, $P^T P = P P^T = I$. We need to check if $(P^T)^T (P^T) = I$. This simplifies to $P P^T = I$, which is true by the definition of an orthogonal matrix. Therefore, $P^T$ is also orthogonal.</span><div class="source">Source: Anthony & Harvey, Activity 10.22, p. 321.</div></div></div>
+        <div id="q30" class="question-container"><div class="question-text">30. The Cauchy-Schwarz inequality is an equality if and only if:</div><div class="options"><label><input type="radio" name="q30" value="0"> The vectors are orthogonal.</label><label><input type="radio" name="q30" value="1" data-correct="true"> The vectors are linearly dependent.</label><label><input type="radio" name="q30" value="2"> The vectors are orthonormal.</label><label><input type="radio" name="q30" value="3"> The vectors are in $\mathbb{R}^2$.</label></div><div class="explanation"><span>Equality holds in the Cauchy-Schwarz inequality, $|\langle \mathbf{u}, \mathbf{v} \rangle| = ||\mathbf{u}|| ||\mathbf{v}||$, if and only if one vector is a scalar multiple of the other, meaning they are linearly dependent.</span><div class="source">Source: Anton & Rorres, Section 6.1.</div></div></div>
+        <div id="q31" class="question-container"><div class="question-text">31. What is the result of normalizing the vector $\mathbf{v}=(0, 5, 0)$ in $\mathbb{R}^3$?</div><div class="options"><label><input type="radio" name="q31" value="0"> (0, 5, 0)</label><label><input type="radio" name="q31" value="1"> (0, 0, 0)</label><label><input type="radio" name="q31" value="2" data-correct="true"> (0, 1, 0)</label><label><input type="radio" name="q31" value="3"> (0, 1/5, 0)</label></div><div class="explanation"><span>The norm is $||\mathbf{v}|| = \sqrt{0^2+5^2+0^2} = 5$. Normalizing gives $\frac{1}{5}(0, 5, 0) = (0, 1, 0)$.</span><div class="source">Source: Anthony & Harvey, p. 315.</div></div></div>
+        <div id="q32" class="question-container"><div class="question-text">32. Two vectors $\mathbf{u}$ and $\mathbf{v}$ are orthogonal if $\langle \mathbf{u}, \mathbf{v} \rangle = 0$. This is a:</div><div class="options"><label><input type="radio" name="q32" value="0" data-correct="true"> Definition</label><label><input type="radio" name="q32" value="1"> Theorem</label><label><input type="radio" name="q32" value="2"> Corollary</label><label><input type="radio" name="q32" value="3"> Axiom</label></div><div class="explanation"><span>This is the formal definition of orthogonality in a general inner product space. It is motivated by the geometric property in $\mathbb{R}^2$ and $\mathbb{R}^3$ but is itself a definition.</span><div class="source">Source: Anthony & Harvey, Definition 10.9, p. 317.</div></div></div>
+        <div id="q33" class="question-container"><div class="question-text">33. If $P$ is an $n \times n$ orthogonal matrix, then its rows form:</div><div class="options"><label><input type="radio" name="q33" value="0"> An orthogonal set, but not necessarily a basis.</label><label><input type="radio" name="q33" value="1"> A basis, but not necessarily an orthonormal one.</label><label><input type="radio" name="q33" value="2" data-correct="true"> An orthonormal basis for $\mathbb{R}^n$.</label><label><input type="radio" name="q33" value="3"> A set of linearly dependent vectors.</label></div><div class="explanation"><span>A key property of orthogonal matrices is that both their columns and their rows form an orthonormal basis for $\mathbb{R}^n$. This is because if $P$ is orthogonal, so is $P^T$, and the columns of $P^T$ are the rows of $P$.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q34" class="question-container"><div class="question-text">34. In the Gram-Schmidt process, if $\mathbf{v}_2$ is a scalar multiple of $\mathbf{v}_1$, what happens?</div><div class="options"><label><input type="radio" name="q34" value="0"> The process continues normally.</label><label><input type="radio" name="q34" value="1"> The resulting vectors are not orthogonal.</label><label><input type="radio" name="q34" value="2" data-correct="true"> The vector $\mathbf{w}_2$ becomes the zero vector.</label><label><input type="radio" name="q34" value="3"> The vector $\mathbf{u}_1$ becomes the zero vector.</label></div><div class="explanation"><span>The Gram-Schmidt process requires a linearly independent set of vectors. If $\mathbf{v}_2 = k\mathbf{v}_1$, then $\mathbf{v}_2$ is already in the span of $\mathbf{v}_1$. Its projection onto the span of $\mathbf{v}_1$ is $\mathbf{v}_2$ itself, so $\mathbf{w}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{v}_1}(\mathbf{v}_2) = \mathbf{v}_2 - \mathbf{v}_2 = \mathbf{0}$.</span><div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div></div></div>
+        <div id="q35" class="question-container"><div class="question-text">35. The standard inner product on $\mathbb{C}^n$ is defined as $\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u} \cdot \overline{\mathbf{v}} = u_1\overline{v_1} + \dots + u_n\overline{v_n}$. Why is the conjugate used?</div><div class="options"><label><input type="radio" name="q35" value="0"> To make the inner product symmetric.</label><label><input type="radio" name="q35" value="1" data-correct="true"> To ensure the norm is a non-negative real number.</label><label><input type="radio" name="q35" value="2"> To satisfy additivity.</label><label><input type="radio" name="q35" value="3"> It is just a convention with no specific purpose.</label></div><div class="explanation"><span>The conjugate ensures that $\langle \mathbf{v}, \mathbf{v} \rangle = \sum v_i \overline{v_i} = \sum |v_i|^2$, which is a non-negative real number. Without the conjugate, $\langle \mathbf{v}, \mathbf{v} \rangle$ could be a complex number or even zero for a non-zero vector (e.g., $\langle (1, i), (1, i) \rangle = 1^2 + i^2 = 0$).</span><div class="source">Source: Anthony & Harvey, Section 13.4.1, p. 401.</div></div></div>
+        <div id="q36" class="question-container"><div class="question-text">36. For vectors $\mathbf{u}, \mathbf{v}$ in an inner product space, which of the following is always true?</div><div class="options"><label><input type="radio" name="q36" value="0"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{v}+\mathbf{u}||$</label><label><input type="radio" name="q36" value="1"> $||\mathbf{u}-\mathbf{v}|| = ||\mathbf{v}-\mathbf{u}||$</label><label><input type="radio" name="q36" value="2"> $||\mathbf{u}|| \ge 0$</label><label><input type="radio" name="q36" value="3" data-correct="true"> All of the above.</label></div><div class="explanation"><span>$||\mathbf{u}+\mathbf{v}|| = ||\mathbf{v}+\mathbf{u}||$ by commutativity of vector addition. $||\mathbf{u}-\mathbf{v}|| = ||-(\mathbf{v}-\mathbf{u})|| = |-1| \cdot ||\mathbf{v}-\mathbf{u}|| = ||\mathbf{v}-\mathbf{u}||$. The norm is defined as a square root, so it is always non-negative.</span><div class="source">Source: Anton & Rorres, Theorem 4.1.4, p. 4.</div></div></div>
+        <div id="q37" class="question-container"><div class="question-text">37. If $\langle \mathbf{u}, \mathbf{v} \rangle = 0$ and $\langle \mathbf{v}, \mathbf{w} \rangle = 0$, does it imply $\langle \mathbf{u}, \mathbf{w} \rangle = 0$?</div><div class="options"><label><input type="radio" name="q37" value="0"> Always</label><label><input type="radio" name="q37" value="1" data-correct="true"> Not necessarily</label><label><input type="radio" name="q37" value="2"> Only if $\mathbf{v} = \mathbf{0}$</label><label><input type="radio" name="q37" value="3"> Only in $\mathbb{R}^2$</label></div><div class="explanation"><span>Orthogonality is not transitive. Consider $\mathbf{u}=(1,0,0), \mathbf{v}=(0,1,0), \mathbf{w}=(1,0,1)$ in $\mathbb{R}^3$. $\mathbf{u}$ is orthogonal to $\mathbf{v}$, and $\mathbf{v}$ is orthogonal to $\mathbf{w}$, but $\mathbf{u}$ is not orthogonal to $\mathbf{w}$.</span><div class="source">Source: Conceptual understanding of orthogonality.</div></div></div>
+        <div id="q38" class="question-container"><div class="question-text">38. The set of all vectors orthogonal to a subspace $W$ is called the...</div><div class="options"><label><input type="radio" name="q38" value="0"> Null space of W</label><label><input type="radio" name="q38" value="1"> Row space of W</label><label><input type="radio" name="q38" value="2" data-correct="true"> Orthogonal complement of W</label><label><input type="radio" name="q38" value="3"> Eigenspace of W</label></div><div class="explanation"><span>This is the definition of the orthogonal complement, denoted $W^\perp$. It is itself a subspace.</span><div class="source">Source: Anthony & Harvey, Definition 12.7, p. 367.</div></div></div>
+        <div id="q39" class="question-container"><div class="question-text">39. If $S = \{\mathbf{v}_1, \mathbf{v}_2\}$ is an orthogonal basis for a subspace $W$, the orthogonal projection of $\mathbf{u}$ onto $W$ is given by:</div><div class="options"><label><input type="radio" name="q39" value="0"> $\langle \mathbf{u}, \mathbf{v}_1 \rangle \mathbf{v}_1 + \langle \mathbf{u}, \mathbf{v}_2 \rangle \mathbf{v}_2$</label><label><input type="radio" name="q39" value="1" data-correct="true"> $\frac{\langle \mathbf{u}, \mathbf{v}_1 \rangle}{||\mathbf{v}_1||^2}\mathbf{v}_1 + \frac{\langle \mathbf{u}, \mathbf{v}_2 \rangle}{||\mathbf{v}_2||^2}\mathbf{v}_2$</label><label><input type="radio" name="q39" value="2"> $\frac{\mathbf{v}_1}{||\mathbf{v}_1||} + \frac{\mathbf{v}_2}{||\mathbf{v}_2||}$</label><label><input type="radio" name="q39" value="3"> $\langle \mathbf{u}, \mathbf{v}_1 \rangle + \langle \mathbf{u}, \mathbf{v}_2 \rangle$</label></div><div class="explanation"><span>When the basis is orthogonal but not necessarily orthonormal, you must divide by the square of the norm of each basis vector when calculating the projection coefficients. If the basis were orthonormal, the denominators would be 1.</span><div class="source">Source: Anton & Rorres, Theorem 6.3.5, p. 223.</div></div></div>
+        <div id="q40" class="question-container"><div class="question-text">40. The distance from a point $\mathbf{u}$ to a subspace $W$ is given by:</div><div class="options"><label><input type="radio" name="q40" value="0"> $||\text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="1"> $||\mathbf{u}|| - ||\text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="2" data-correct="true"> $||\mathbf{u} - \text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="3"> $||\mathbf{u}||$</label></div><div class="explanation"><span>The distance from a point to a subspace is the length of the component of the vector that is orthogonal to the subspace. This vector is $\mathbf{u} - \text{proj}_W \mathbf{u}$.</span><div class="source">Source: Anthony & Harvey, Theorem 12.30, p. 379.</div></div></div>
+        <div id="q41" class="question-container"><div class="question-text">41. If $A$ is an orthogonal matrix, then $A^T$ is...</div><div class="options"><label><input type="radio" name="q41" value="0"> $A$</label><label><input type="radio" name="q41" value="1" data-correct="true"> $A^{-1}$</label><label><input type="radio" name="q41" value="2"> $-A$</label><label><input type="radio" name="q41" value="3"> $I$</label></div><div class="explanation"><span>This is the definition of an orthogonal matrix.</span><div class="source">Source: Anthony & Harvey, Definition 10.15, p. 319.</div></div></div>
+        <div id="q42" class="question-container"><div class="question-text">42. If $\mathbf{u}$ and $\mathbf{v}$ are orthogonal, then $||\mathbf{u}-\mathbf{v}||^2$ equals:</div><div class="options"><label><input type="radio" name="q42" value="0"> $||\mathbf{u}||^2 - ||\mathbf{v}||^2$</label><label><input type="radio" name="q42" value="1" data-correct="true"> $||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label><label><input type="radio" name="q42" value="2"> $(||\mathbf{u}|| - ||\mathbf{v}||)^2$</label><label><input type="radio" name="q42" value="3"> 0</label></div><div class="explanation"><span>$||\mathbf{u}-\mathbf{v}||^2 = \langle \mathbf{u}-\mathbf{v}, \mathbf{u}-\mathbf{v} \rangle = \langle \mathbf{u}, \mathbf{u} \rangle - 2\langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle$. Since $\langle \mathbf{u}, \mathbf{v} \rangle = 0$, this simplifies to $||\mathbf{u}||^2 + ||\mathbf{v}||^2$. This is another form of Pythagoras's Theorem.</span><div class="source">Source: Anthony & Harvey, Theorem 10.12, p. 317.</div></div></div>
+        <div id="q43" class="question-container"><div class="question-text">43. The process of creating a unit vector from a non-zero vector $\mathbf{v}$ is called:</div><div class="options"><label><input type="radio" name="q43" value="0"> Orthogonalization</label><label><input type="radio" name="q43" value="1"> Projection</label><label><input type="radio" name="q43" value="2" data-correct="true"> Normalizing</label><label><input type="radio" name="q43" value="3"> Spanning</label></div><div class="explanation"><span>Normalizing a vector means scaling it so that its length (norm) becomes 1, without changing its direction. This is done by dividing the vector by its own norm.</span><div class="source">Source: Anthony & Harvey, p. 315.</div></div></div>
+        <div id="q44" class="question-container"><div class="question-text">44. If $A$ is an $m \times n$ matrix, its row space and nullspace are orthogonal complements in...</div><div class="options"><label><input type="radio" name="q44" value="0"> $\mathbb{R}^m$</label><label><input type="radio" name="q44" value="1" data-correct="true"> $\mathbb{R}^n$</label><label><input type="radio" name="q44" value="2"> $\mathbb{R}^{m+n}$</label><label><input type="radio" name="q44" value="3"> $\mathbb{R}^{mn}$</label></div><div class="explanation"><span>The row vectors and the vectors in the nullspace (solutions to $A\mathbf{x}=\mathbf{0}$) are both vectors with $n$ components, so they are subspaces of $\mathbb{R}^n$. The Fundamental Theorem of Linear Algebra states they are orthogonal complements.</span><div class="source">Source: Anton & Rorres, Theorem 6.2.6, p. 206.</div></div></div>
+        <div id="q45" class="question-container"><div class="question-text">45. Let $\mathbf{u}=(1,1), \mathbf{v}=(1,-1)$ in $\mathbb{R}^2$. Are they orthogonal with respect to the standard inner product?</div><div class="options"><label><input type="radio" name="q45" value="0" data-correct="true"> Yes</label><label><input type="radio" name="q45" value="1"> No</label></div><div class="explanation"><span>The inner product is $\langle \mathbf{u}, \mathbf{v} \rangle = (1)(1) + (1)(-1) = 1 - 1 = 0$. Since the inner product is zero, they are orthogonal.</span><div class="source">Source: Anthony & Harvey, p. 317.</div></div></div>
+        <div id="q46" class="question-container"><div class="question-text">46. The zero vector is orthogonal to every vector in a vector space.</div><div class="options"><label><input type="radio" name="q46" value="0" data-correct="true"> True</label><label><input type="radio" name="q46" value="1"> False</label></div><div class="explanation"><span>This is true because $\langle \mathbf{0}, \mathbf{v} \rangle = \langle 0\mathbf{v}, \mathbf{v} \rangle = 0\langle \mathbf{v}, \mathbf{v} \rangle = 0$ for any vector $\mathbf{v}$.</span><div class="source">Source: Anthony & Harvey, Theorem 6.1.1, p. 191.</div></div></div>
+        <div id="q47" class="question-container"><div class="question-text">47. If $Q$ is an orthogonal matrix, then multiplying a vector $\mathbf{x}$ by $Q$ (i.e., $Q\mathbf{x}$) preserves its...</div><div class="options"><label><input type="radio" name="q47" value="0"> Direction</label><label><input type="radio" name="q47" value="1" data-correct="true"> Length (norm)</label><label><input type="radio" name="q47" value="2"> Eigenvalues</label><label><input type="radio" name="q47" value="3"> Eigenspace</label></div><div class="explanation"><span>Multiplication by an orthogonal matrix is an isometry, which means it preserves lengths and angles. $||Q\mathbf{x}||^2 = \langle Q\mathbf{x}, Q\mathbf{x} \rangle = (Q\mathbf{x})^T(Q\mathbf{x}) = \mathbf{x}^T Q^T Q \mathbf{x} = \mathbf{x}^T I \mathbf{x} = \mathbf{x}^T\mathbf{x} = ||\mathbf{x}||^2$.</span><div class="source">Source: Anton & Rorres, Section 6.6.</div></div></div>
+        <div id="q48" class="question-container"><div class="question-text">48. The first step of the Gram-Schmidt process on a set $\{\mathbf{v}_1, \mathbf{v}_2, \dots\}$ is to set $\mathbf{u}_1 = \dots$</div><div class="options"><label><input type="radio" name="q48" value="0"> $\mathbf{v}_1$</label><label><input type="radio" name="q48" value="1"> $\mathbf{v}_2 - \mathbf{v}_1$</label><label><input type="radio" name="q48" value="2" data-correct="true"> $\mathbf{v}_1 / ||\mathbf{v}_1||$</label><label><input type="radio" name="q48" value="3"> $\mathbf{v}_1 - \text{proj}_{\mathbf{v}_2}\mathbf{v}_1$</label></div><div class="explanation"><span>The process begins by creating the first vector of the new orthonormal basis. This is done by taking the first vector from the original set and normalizing it.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q49" class="question-container"><div class="question-text">49. The set of all vectors orthogonal to every vector in a subspace $W$ is denoted by:</div><div class="options"><label><input type="radio" name="q49" value="0"> $W^T$</label><label><input type="radio" name="q49" value="1"> $N(W)$</label><label><input type="radio" name="q49" value="2" data-correct="true"> $W^\perp$</label><label><input type="radio" name="q49" value="3"> $\text{adj}(W)$</label></div><div class="explanation"><span>This is the standard notation for the orthogonal complement of a subspace $W$. It is read as "W perp".</span><div class="source">Source: Anthony & Harvey, Definition 12.7, p. 367.</div></div></div>
+        <div id="q50" class="question-container"><div class="question-text">50. If $A$ is an $m \times n$ matrix, the orthogonal complement of the row space of $A$ is the...</div><div class="options"><label><input type="radio" name="q50" value="0"> Column space of $A$</label><label><input type="radio" name="q50" value="1"> Row space of $A^T$</label><label><input type="radio" name="q50" value="2" data-correct="true"> Nullspace of $A$</label><label><input type="radio" name="q50" value="3"> Nullspace of $A^T$</label></div><div class="explanation"><span>This is a statement of the Fundamental Theorem of Linear Algebra. The row space and nullspace are orthogonal complements in $\mathbb{R}^n$.</span><div class="source">Source: Anton & Rorres, Theorem 6.2.6, p. 206.</div></div></div>
+
+        <button id="clear-button">Clear All Answers and Restart</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizContainer = document.getElementById('quiz');
+            const questions = quizContainer.querySelectorAll('.question-container');
+
+            function checkAnswer(questionDiv) {
+                const selectedRadio = questionDiv.querySelector('input[type="radio"]:checked');
+                if (!selectedRadio) return;
+
+                const isCorrect = selectedRadio.hasAttribute('data-correct');
+                const explanationDiv = questionDiv.querySelector('.explanation');
+                const radios = questionDiv.querySelectorAll('input[type="radio"]');
+                
+                radios.forEach(radio => {
+                    const label = radio.parentElement;
+                    let resultSpan = label.querySelector('.result');
+                    if (!resultSpan) {
+                        resultSpan = document.createElement('span');
+                        resultSpan.classList.add('result');
+                        label.appendChild(resultSpan);
+                    }
+                    
+                    if (radio.checked) {
+                        resultSpan.textContent = isCorrect ? 'Correct' : 'Incorrect';
+                        resultSpan.className = 'result ' + (isCorrect ? 'correct' : 'incorrect');
+                    } else {
+                        resultSpan.style.display = 'none';
+                    }
+                    resultSpan.style.display = 'inline-block';
+                    radio.disabled = true;
+                });
+
+                explanationDiv.style.display = 'block';
+                saveProgress();
+            }
+
+            function saveProgress() {
+                const answers = {};
+                questions.forEach((q, index) => {
+                    const selected = q.querySelector('input[type="radio"]:checked');
+                    if (selected) {
+                        const options = Array.from(q.querySelectorAll('input[type="radio"]'));
+                        answers[index] = options.indexOf(selected);
+                    }
+                });
+                // Cookie expires in 7 days
+                document.cookie = `quizProgress=${JSON.stringify(answers)};max-age=604800;path=/`;
+            }
+
+            function loadProgress() {
+                const cookies = document.cookie.split(';').map(c => c.trim());
+                const progressCookie = cookies.find(c => c.startsWith('quizProgress='));
+                if (progressCookie) {
+                    const answers = JSON.parse(progressCookie.split('=')[1]);
+                    for (const qIndex in answers) {
+                        const questionDiv = questions[qIndex];
+                        if (questionDiv) {
+                            const radioToCheck = questionDiv.querySelectorAll('input[type="radio"]')[answers[qIndex]];
+                            if (radioToCheck) {
+                                radioToCheck.checked = true;
+                                checkAnswer(questionDiv);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function clearProgress() {
+                document.cookie = 'quizProgress=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+                window.location.reload();
+            }
+
+            quizContainer.addEventListener('change', function(event) {
+                if (event.target.type === 'radio') {
+                    const questionDiv = event.target.closest('.question-container');
+                    checkAnswer(questionDiv);
+                }
+            });
+
+            document.getElementById('clear-button').addEventListener('click', clearProgress);
+
+            loadProgress();
+        });
+    </script>
+
+</body>
+</html>
+, '
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #005a9c;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question-container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .options label:hover {
+            background-color: #f0f8ff;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e9f5fe;
+            border-left: 5px solid #2196F3;
+            border-radius: 5px;
+        }
+        .explanation .source {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+        }
+        .result {
+            display: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: white;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        .correct {
+            background-color: #4CAF50;
+        }
+        .incorrect {
+            background-color: #F44336;
+        }
+        #clear-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #d9534f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #clear-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MT2175: Inner Products and Orthogonality Quiz</h1>
+
+    <div class="quiz-container" id="quiz">
+        
+        <div id="q1" class="question-container">
+            <div class="question-text">1. Which of the following is NOT a required property for an operation $\langle \cdot, \cdot \rangle$ to be an inner product on a real vector space $V$? (u, v, w are vectors in V, k is a scalar)</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle$ (Symmetry)</label>
+                <label><input type="radio" name="q1" value="1" data-correct="true"> $\langle \mathbf{u}, \mathbf{u} \rangle = ||\mathbf{u}||^2$ (Norm definition)</label>
+                <label><input type="radio" name="q1" value="2"> $\langle k\mathbf{u}, \mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ (Homogeneity)</label>
+                <label><input type="radio" name="q1" value="3"> $\langle \mathbf{u}+\mathbf{v}, \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle$ (Additivity)</label>
+            </div>
+            <div class="explanation">
+                <span>The norm $||\mathbf{u}||$ is defined from the inner product as $||\mathbf{u}|| = \sqrt{\langle \mathbf{u}, \mathbf{u} \rangle}$, not the other way around. The three fundamental properties for a real inner product are Symmetry, Linearity (which includes Additivity and Homogeneity), and Positive-definiteness ($\langle \mathbf{u}, \mathbf{u} \rangle \ge 0$ and $\langle \mathbf{u}, \mathbf{u} \rangle = 0 \iff \mathbf{u} = \mathbf{0}$).</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.1, p. 313.</div>
+            </div>
+        </div>
+
+        <div id="q2" class="question-container">
+            <div class="question-text">2. Let $\mathbf{u} = (u_1, u_2)$ and $\mathbf{v} = (v_1, v_2)$ be vectors in $\mathbb{R}^2$. Which of the following is a valid inner product on $\mathbb{R}^2$?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_1 - u_2v_2$</label>
+                <label><input type="radio" name="q2" value="1"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1^2v_1^2 + u_2^2v_2^2$</label>
+                <label><input type="radio" name="q2" value="2" data-correct="true"> $\langle \mathbf{u}, \mathbf{v} \rangle = 2u_1v_1 + 3u_2v_2$</label>
+                <label><input type="radio" name="q2" value="3"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_2 + u_2v_1$</label>
+            </div>
+            <div class="explanation">
+                <span>This is a weighted Euclidean inner product. Option (a) fails positive-definiteness (e.g., for $\mathbf{u}=(1,2)$, $\langle \mathbf{u}, \mathbf{u} \rangle = 1-4 = -3 < 0$). Option (b) is not linear. Option (d) is not positive-definite (e.g., for $\mathbf{u}=(1,-1)$, $\langle \mathbf{u}, \mathbf{u} \rangle = -1-1 = -2 < 0$). Option (c) satisfies all axioms: it's symmetric, linear, and $\langle \mathbf{u}, \mathbf{u} \rangle = 2u_1^2 + 3u_2^2 \ge 0$, with equality only if $u_1=u_2=0$.</span>
+                <div class="source">Source: Anthony & Harvey, Example 10.5, p. 314.</div>
+            </div>
+        </div>
+
+        <div id="q3" class="question-container">
+            <div class="question-text">3. In an inner product space, the norm of a vector $\mathbf{v}$ is defined as:</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="0"> $||\mathbf{v}|| = \langle \mathbf{v}, \mathbf{v} \rangle$</label>
+                <label><input type="radio" name="q3" value="1" data-correct="true"> $||\mathbf{v}|| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}$</label>
+                <label><input type="radio" name="q3" value="2"> $||\mathbf{v}|| = \mathbf{v}^T\mathbf{v}$</label>
+                <label><input type="radio" name="q3" value="3"> $||\mathbf{v}|| = \sum v_i$</label>
+            </div>
+            <div class="explanation">
+                <span>The norm (or length) of a vector is defined as the square root of the inner product of the vector with itself. This ensures the norm is a non-negative real number.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.6, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q4" class="question-container">
+            <div class="question-text">4. The Cauchy-Schwarz inequality states that for any two vectors $\mathbf{u}$ and $\mathbf{v}$ in an inner product space:</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="0"> $|\langle \mathbf{u}, \mathbf{v} \rangle| \ge ||\mathbf{u}|| ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q4" value="1"> $\langle \mathbf{u}, \mathbf{v} \rangle^2 \le \langle \mathbf{u}, \mathbf{u} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle$</label>
+                <label><input type="radio" name="q4" value="2" data-correct="true"> $|\langle \mathbf{u}, \mathbf{v} \rangle| \le ||\mathbf{u}|| ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q4" value="3"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+            </div>
+            <div class="explanation">
+                <span>The Cauchy-Schwarz inequality states that the absolute value of the inner product of two vectors is less than or equal to the product of their norms. This is a fundamental inequality in linear algebra.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.7, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q5" class="question-container">
+            <div class="question-text">5. If $\mathbf{u}$ and $\mathbf{v}$ are orthogonal vectors in an inner product space, the Generalised Pythagoras' Theorem states:</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="0"> $||\mathbf{u}-\mathbf{v}||^2 = ||\mathbf{u}||^2 - ||\mathbf{v}||^2$</label>
+                <label><input type="radio" name="q5" value="1"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q5" value="2"> $\langle \mathbf{u}, \mathbf{v} \rangle = 0$</label>
+                <label><input type="radio" name="q5" value="3" data-correct="true"> $||\mathbf{u}+\mathbf{v}||^2 = ||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label>
+            </div>
+            <div class="explanation">
+                <span>The Generalised Pythagoras' Theorem is a direct consequence of the properties of the inner product. Since $||\mathbf{u}+\mathbf{v}||^2 = \langle \mathbf{u}+\mathbf{v}, \mathbf{u}+\mathbf{v} \rangle = ||\mathbf{u}||^2 + 2\langle \mathbf{u}, \mathbf{v} \rangle + ||\mathbf{v}||^2$ and $\langle \mathbf{u}, \mathbf{v} \rangle = 0$ for orthogonal vectors, the result follows.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.12, p. 317.</div>
+            </div>
+        </div>
+
+        <div id="q6" class="question-container">
+            <div class="question-text">6. A set of non-zero, pairwise orthogonal vectors $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}$ is:</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="0"> Always a basis for the vector space.</label>
+                <label><input type="radio" name="q6" value="1" data-correct="true"> Always linearly independent.</label>
+                <label><input type="radio" name="q6" value="2"> Always linearly dependent.</label>
+                <label><input type="radio" name="q6" value="3"> Not necessarily linearly independent.</label>
+            </div>
+            <div class="explanation">
+                <span>A key theorem states that a set of non-zero orthogonal vectors is always linearly independent. To prove this, assume $c_1\mathbf{v}_1 + \dots + c_k\mathbf{v}_k = \mathbf{0}$. Taking the inner product with any $\mathbf{v}_i$ shows that $c_i||\mathbf{v}_i||^2 = 0$, which implies $c_i=0$ since $\mathbf{v}_i \neq \mathbf{0}$.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.14, p. 318.</div>
+            </div>
+        </div>
+
+        <div id="q7" class="question-container">
+            <div class="question-text">7. An $n \times n$ matrix $P$ is called an orthogonal matrix if:</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="0"> Its columns are orthogonal.</label>
+                <label><input type="radio" name="q7" value="1"> $P = P^T$</label>
+                <label><input type="radio" name="q7" value="2" data-correct="true"> $P^{-1} = P^T$</label>
+                <label><input type="radio" name="q7" value="3"> Its determinant is 1.</label>
+            </div>
+            <div class="explanation">
+                <span>The definition of an orthogonal matrix $P$ is that its inverse is equal to its transpose, i.e., $P^T P = I$. While its columns must be orthonormal (not just orthogonal) and its determinant must be $\pm 1$, the defining property is $P^{-1} = P^T$.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.15, p. 319.</div>
+            </div>
+        </div>
+
+        <div id="q8" class="question-container">
+            <div class="question-text">8. What is an orthonormal set of vectors?</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="0"> A set of vectors that are all parallel to each other.</label>
+                <label><input type="radio" name="q8" value="1"> A set of linearly independent vectors.</label>
+                <label><input type="radio" name="q8" value="2" data-correct="true"> A set of orthogonal vectors, each of which has a norm of 1.</label>
+                <label><input type="radio" name="q8" value="3"> A set of vectors that form a basis.</label>
+            </div>
+            <div class="explanation">
+                <span>An orthonormal set combines two properties: "ortho" for orthogonal (the inner product of any two distinct vectors is zero) and "normal" for normalized (each vector has a norm, or length, of 1).</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.19, p. 320.</div>
+            </div>
+        </div>
+
+        <div id="q9" class="question-container">
+            <div class="question-text">9. An $n \times n$ matrix $P$ is orthogonal if and only if its columns form:</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="0"> A basis for $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="1"> An orthogonal set of vectors in $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="2" data-correct="true"> An orthonormal basis for $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="3"> A set of linearly dependent vectors in $\mathbb{R}^n$.</label>
+            </div>
+            <div class="explanation">
+                <span>This is a fundamental theorem connecting the algebraic definition of an orthogonal matrix ($P^T P = I$) to the geometric properties of its column vectors. The entry $(i, j)$ of $P^T P$ is the dot product of the $i$-th column of $P$ with the $j$-th column. For this to be the identity matrix, the dot products must be 0 for $i \neq j$ (orthogonal) and 1 for $i=j$ (unit norm).</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.21, p. 321.</div>
+            </div>
+        </div>
+
+        <div id="q10" class="question-container">
+            <div class="question-text">10. The Gram-Schmidt process is a method for:</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="0"> Finding the eigenvalues of a matrix.</label>
+                <label><input type="radio" name="q10" value="1"> Solving a system of linear equations.</label>
+                <label><input type="radio" name="q10" value="2"> Calculating the determinant of a matrix.</label>
+                <label><input type="radio" name="q10" value="3" data-correct="true"> Converting a set of linearly independent vectors into an orthonormal set that spans the same subspace.</label>
+            </div>
+            <div class="explanation">
+                <span>The Gram-Schmidt process takes a basis and produces an orthonormal basis for the same space by iteratively constructing orthogonal vectors and then normalizing them.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div>
+            </div>
+        </div>
+
+        <!-- ... More questions will follow this pattern ... -->
+
+        <div id="q11" class="question-container">
+            <div class="question-text">11. Using the standard Euclidean inner product, what is the norm of the vector $\mathbf{v} = (1, -2, 2)$ in $\mathbb{R}^3$?</div>
+            <div class="options">
+                <label><input type="radio" name="q11" value="0"> 1</label>
+                <label><input type="radio" name="q11" value="1" data-correct="true"> 3</label>
+                <label><input type="radio" name="q11" value="2"> 5</label>
+                <label><input type="radio" name="q11" value="3"> 9</label>
+            </div>
+            <div class="explanation">
+                <span>The norm is calculated as $||\mathbf{v}|| = \sqrt{1^2 + (-2)^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3$.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.6, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q12" class="question-container">
+            <div class="question-text">12. Which property of an inner product ensures that $\langle \mathbf{u}, k\mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ for a real inner product?</div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="0"> Additivity</label>
+                <label><input type="radio" name="q12" value="1"> Positive-definiteness</label>
+                <label><input type="radio" name="q12" value="2" data-correct="true"> Symmetry and Homogeneity</label>
+                <label><input type="radio" name="q12" value="3"> It is not a property of inner products.</label>
+            </div>
+            <div class="explanation">
+                <span>This is derived from the basic axioms. $\langle \mathbf{u}, k\mathbf{v} \rangle = \langle k\mathbf{v}, \mathbf{u} \rangle$ by symmetry. Then $\langle k\mathbf{v}, \mathbf{u} \rangle = k\langle \mathbf{v}, \mathbf{u} \rangle$ by homogeneity. Finally, $k\langle \mathbf{v}, \mathbf{u} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ by symmetry again.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 1.36, p. 25.</div>
+            </div>
+        </div>
+
+        <div id="q13" class="question-container">
+            <div class="question-text">13. If $||\mathbf{u}|| = 3$, $||\mathbf{v}|| = 4$, and the angle $\theta$ between them is $\pi/3$, what is $\langle \mathbf{u}, \mathbf{v} \rangle$? (Assume standard Euclidean inner product).</div>
+            <div class="options">
+                <label><input type="radio" name="q13" value="0"> 12</label>
+                <label><input type="radio" name="q13" value="1"> $6\sqrt{3}$</label>
+                <label><input type="radio" name="q13" value="2" data-correct="true"> 6</label>
+                <label><input type="radio" name="q13" value="3"> 7</label>
+            </div>
+            <div class="explanation">
+                <span>Using the formula $\langle \mathbf{u}, \mathbf{v} \rangle = ||\mathbf{u}|| ||\mathbf{v}|| \cos\theta$, we get $3 \times 4 \times \cos(\pi/3) = 12 \times (1/2) = 6$.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 1.43, p. 31.</div>
+            </div>
+        </div>
+
+        <div id="q14" class="question-container">
+            <div class="question-text">14. The triangle inequality for norms states that:</div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="0"> $||\mathbf{u}+\mathbf{v}|| \ge ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="1" data-correct="true"> $||\mathbf{u}+\mathbf{v}|| \le ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="2"> $||\mathbf{u}-\mathbf{v}|| \le ||\mathbf{u}|| - ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="3"> $||\mathbf{u}+\mathbf{v}||^2 \le ||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label>
+            </div>
+            <div class="explanation">
+                <span>The triangle inequality states that the length of one side of a triangle (the vector sum $\mathbf{u}+\mathbf{v}$) is less than or equal to the sum of the lengths of the other two sides ($||\mathbf{u}|| + ||\mathbf{v}||$).</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.13, p. 318.</div>
+            </div>
+        </div>
+
+        <div id="q15" class="question-container">
+            <div class="question-text">15. If you apply the Gram-Schmidt process to the vectors $\mathbf{v}_1 = (1, 0)$ and $\mathbf{v}_2 = (1, 1)$, what is the resulting orthonormal basis $\{\mathbf{u}_1, \mathbf{u}_2\}$?</div>
+            <div class="options">
+                <label><input type="radio" name="q15" value="0"> $\{(1, 0), (1, 1)\}$</label>
+                <label><input type="radio" name="q15" value="1"> $\{(1, 0), (0, -1)\}$</label>
+                <label><input type="radio" name="q15" value="2" data-correct="true"> $\{(1, 0), (0, 1)\}$</label>
+                <label><input type="radio" name="q15" value="3"> $\{(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), (-\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\}$</label>
+            </div>
+            <div class="explanation">
+                <span>Step 1: $\mathbf{u}_1 = \frac{\mathbf{v}_1}{||\mathbf{v}_1||} = \frac{(1,0)}{1} = (1,0)$. Step 2: Find $\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1 = (1,1) - (1)(1,0) = (0,1)$. Step 3: Normalize $\mathbf{w}_2$ to get $\mathbf{u}_2 = \frac{(0,1)}{1} = (0,1)$. The resulting basis is the standard basis.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div>
+            </div>
+        </div>
+
+        <div id="q16" class="question-container">
+            <div class="question-text">16. Which of the following matrices is orthogonal?</div>
+            <div class="options">
+                <label><input type="radio" name="q16" value="0"> $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="1" data-correct="true"> $\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="2"> $\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="3"> $\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}$</label>
+            </div>
+            <div class="explanation">
+                <span>A rotation matrix is always orthogonal. Its columns, $(\cos\theta, \sin\theta)$ and $(-\sin\theta, \cos\theta)$, are orthogonal to each other and both have a norm of 1. The other matrices do not have orthonormal columns.</span>
+                <div class="source">Source: Anton & Rorres, Section 6.6, Example 2.</div>
+            </div>
+        </div>
+
+        <div id="q17" class="question-container">
+            <div class="question-text">17. If $P$ is an orthogonal matrix, what is the value of $\det(P)$?</div>
+            <div class="options">
+                <label><input type="radio" name="q17" value="0"> 0</label>
+                <label><input type="radio" name="q17" value="1"> 1</label>
+                <label><input type="radio" name="q17" value="2"> -1</label>
+                <label><input type="radio" name="q17" value="3" data-correct="true"> $\pm 1$</label>
+            </div>
+            <div class="explanation">
+                <span>Since $P^T P = I$, we have $\det(P^T P) = \det(I) = 1$. Using the property $\det(AB) = \det(A)\det(B)$ and $\det(P^T) = \det(P)$, we get $\det(P)^2 = 1$, which implies $\det(P) = \pm 1$.</span>
+                <div class="source">Source: Anthony & Harvey, Exercise 10.4, p. 325.</div>
+            </div>
+        </div>
+
+        <div id="q18" class="question-container">
+            <div class="question-text">18. The set of all vectors in $\mathbb{R}^3$ orthogonal to $\mathbf{v} = (1, 1, 1)$ forms a:</div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="0"> Line through the origin.</label>
+                <label><input type="radio" name="q18" value="1" data-correct="true"> Plane through the origin.</label>
+                <label><input type="radio" name="q18" value="2"> The entire space $\mathbb{R}^3$.</label>
+                <label><input type="radio" name="q18" value="3"> Only the zero vector.</label>
+            </div>
+            <div class="explanation">
+                <span>The set of all vectors $\mathbf{x}=(x,y,z)$ such that $\langle \mathbf{x}, \mathbf{v} \rangle = 0$ is given by the equation $x+y+z=0$. This is the equation of a plane through the origin with normal vector $\mathbf{v}$. This set is the orthogonal complement of the line spanned by $\mathbf{v}$.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.2.1.</div>
+            </div>
+        </div>
+
+        <div id="q19" class="question-container">
+            <div class="question-text">19. Let $V = P_2$, the space of polynomials of degree at most 2, with inner product $\langle p, q \rangle = \int_{-1}^{1} p(x)q(x)dx$. Are the vectors $p(x)=x$ and $q(x)=x^2$ orthogonal?</div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="0" data-correct="true"> Yes, because their inner product is 0.</label>
+                <label><input type="radio" name="q19" value="1"> No, because their inner product is not 0.</label>
+                <label><input type="radio" name="q19" value="2"> No, because they are not linearly independent.</label>
+                <label><input type="radio" name="q19" value="3"> It cannot be determined.</label>
+            </div>
+            <div class="explanation">
+                <span>We compute the inner product: $\langle p, q \rangle = \int_{-1}^{1} x \cdot x^2 dx = \int_{-1}^{1} x^3 dx = \left[\frac{x^4}{4}\right]_{-1}^{1} = \frac{1}{4} - \frac{1}{4} = 0$. Since the inner product is zero, the vectors are orthogonal.</span>
+                <div class="source">Source: Anton & Rorres, Example 4, p. 203.</div>
+            </div>
+        </div>
+
+        <div id="q20" class="question-container">
+            <div class="question-text">20. Normalizing the vector $\mathbf{v} = (3, 4)$ in $\mathbb{R}^2$ with the standard Euclidean inner product results in:</div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="0"> $(3/5, 4/5)$</label>
+                <label><input type="radio" name="q20" value="1" data-correct="true"> $(\frac{3}{5}, \frac{4}{5})$</label>
+                <label><input type="radio" name="q20" value="2"> $(3/7, 4/7)$</label>
+                <label><input type="radio" name="q20" value="3"> $(1, 1)$</label>
+            </div>
+            <div class="explanation">
+                <span>First, find the norm: $||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9+16} = \sqrt{25} = 5$. Then, divide the vector by its norm: $\frac{\mathbf{v}}{||\mathbf{v}||} = \frac{1}{5}(3, 4) = (\frac{3}{5}, \frac{4}{5})$.</span>
+                <div class="source">Source: Anthony & Harvey, p. 315.</div>
+            </div>
+        </div>
+        
+        <!-- Questions 21-50 would continue in this format -->
+        <div id="q21" class="question-container"><div class="question-text">21. The distance $d(\mathbf{u}, \mathbf{v})$ between two vectors in an inner product space is defined as:</div><div class="options"><label><input type="radio" name="q21" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle$</label><label><input type="radio" name="q21" value="1"> $||\mathbf{u}|| - ||\mathbf{v}||$</label><label><input type="radio" name="q21" value="2" data-correct="true"> $||\mathbf{u}-\mathbf{v}||$</label><label><input type="radio" name="q21" value="3"> $\sqrt{\langle \mathbf{u}, \mathbf{v} \rangle}$</label></div><div class="explanation"><span>The distance between two vectors is defined as the norm of their difference. This generalizes the standard distance formula in Euclidean space.</span><div class="source">Source: Anton & Rorres, p. 185.</div></div></div>
+        <div id="q22" class="question-container"><div class="question-text">22. If $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ is an orthonormal basis for $\mathbb{R}^n$ and $\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n$, how is the coefficient $c_i$ found?</div><div class="options"><label><input type="radio" name="q22" value="0"> $c_i = \langle \mathbf{x}, \mathbf{x} \rangle$</label><label><input type="radio" name="q22" value="1" data-correct="true"> $c_i = \langle \mathbf{x}, \mathbf{v}_i \rangle$</label><label><input type="radio" name="q22" value="2"> $c_i = ||\mathbf{v}_i||$</label><label><input type="radio" name="q22" value="3"> It requires solving a linear system.</label></div><div class="explanation"><span>For an orthonormal basis, the coordinates (coefficients) of a vector are simply its inner products with the basis vectors. This is a major advantage of using orthonormal bases. $\langle \mathbf{x}, \mathbf{v}_i \rangle = \langle c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n, \mathbf{v}_i \rangle = c_i\langle \mathbf{v}_i, \mathbf{v}_i \rangle = c_i$.</span><div class="source">Source: Anthony & Harvey, Theorem 10.20, p. 320.</div></div></div>
+        <div id="q23" class="question-container"><div class="question-text">23. Which statement is false?</div><div class="options"><label><input type="radio" name="q23" value="0"> The columns of an orthogonal matrix are orthogonal.</label><label><input type="radio" name="q23" value="1"> The rows of an orthogonal matrix are orthogonal.</label><label><input type="radio" name="q23" value="2"> The columns of an orthogonal matrix have norm 1.</label><label><input type="radio" name="q23" value="3" data-correct="true"> The diagonal entries of an orthogonal matrix must be positive.</label></div><div class="explanation"><span>The columns (and rows) of an orthogonal matrix must form an orthonormal set. However, there is no restriction on the signs of the diagonal entries. For example, a reflection matrix is orthogonal but can have negative entries on the diagonal.</span><div class="source">Source: Anthony & Harvey, Theorem 10.18, p. 319.</div></div></div>
+        <div id="q24" class="question-container"><div class="question-text">24. In the Gram-Schmidt process, when constructing an orthogonal vector $\mathbf{w}_2$ from $\mathbf{v}_1$ and $\mathbf{v}_2$ (where $\mathbf{u}_1$ is the normalized $\mathbf{v}_1$), the formula is:</div><div class="options"><label><input type="radio" name="q24" value="0"> $\mathbf{w}_2 = \mathbf{v}_2 + \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label><label><input type="radio" name="q24" value="1" data-correct="true"> $\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label><label><input type="radio" name="q24" value="2"> $\mathbf{w}_2 = \mathbf{v}_1 - \langle \mathbf{v}_1, \mathbf{u}_1 \rangle \mathbf{u}_2$</label><label><input type="radio" name="q24" value="3"> $\mathbf{w}_2 = \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label></div><div class="explanation"><span>The process works by taking the next vector ($\mathbf{v}_2$) and subtracting its projection onto the subspace spanned by the previously found orthogonal vectors (in this case, just $\mathbf{u}_1$). The result is a vector orthogonal to the previous ones.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q25" class="question-container"><div class="question-text">25. If $\langle \mathbf{u}, \mathbf{v} \rangle = 3u_1v_1 + u_2v_2$ is an inner product on $\mathbb{R}^2$, what is the norm of $\mathbf{u}=(1, -1)$?</div><div class="options"><label><input type="radio" name="q25" value="0"> $\sqrt{2}$</label><label><input type="radio" name="q25" value="1"> 2</label><label><input type="radio" name="q25" value="2" data-correct="true"> 2</label><label><input type="radio" name="q25" value="3"> 4</label></div><div class="explanation"><span>The norm is $||\mathbf{u}|| = \sqrt{\langle \mathbf{u}, \mathbf{u} \rangle} = \sqrt{3(1)(1) + (1)(-1)(-1)} = \sqrt{3+1} = \sqrt{4} = 2$. Note that the standard norm would be $\sqrt{2}$.</span><div class="source">Source: Anton & Rorres, Example 2, p. 184.</div></div></div>
+        <div id="q26" class="question-container"><div class="question-text">26. The property $\langle \mathbf{u}, \mathbf{v}+\mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle$ is a direct consequence of which two fundamental inner product axioms?</div><div class="options"><label><input type="radio" name="q26" value="0"> Homogeneity and Positive-definiteness</label><label><input type="radio" name="q26" value="1"> Additivity and Homogeneity</label><label><input type="radio" name="q26" value="2" data-correct="true"> Symmetry and Additivity</label><label><input type="radio" name="q26" value="3"> Symmetry and Positive-definiteness</label></div><div class="explanation"><span>We have $\langle \mathbf{u}, \mathbf{v}+\mathbf{w} \rangle = \langle \mathbf{v}+\mathbf{w}, \mathbf{u} \rangle$ by symmetry. Then, by additivity, this is $\langle \mathbf{v}, \mathbf{u} \rangle + \langle \mathbf{w}, \mathbf{u} \rangle$. Applying symmetry again to each term gives $\langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle$.</span><div class="source">Source: Anthony & Harvey, Theorem 1.36, p. 25.</div></div></div>
+        <div id="q27" class="question-container"><div class="question-text">27. If a set of vectors is orthonormal, it is:</div><div class="options"><label><input type="radio" name="q27" value="0"> Linearly dependent.</label><label><input type="radio" name="q27" value="1" data-correct="true"> Linearly independent.</label><label><input type="radio" name="q27" value="2"> Not necessarily linearly independent.</label><label><input type="radio" name="q27" value="3"> A spanning set for the entire vector space.</label></div><div class="explanation"><span>An orthonormal set consists of non-zero (norm 1) orthogonal vectors. A set of non-zero orthogonal vectors is always linearly independent. It only becomes a basis (a spanning set) if it contains the "right number" of vectors (equal to the dimension of the space).</span><div class="source">Source: Anthony & Harvey, Theorem 10.14, p. 318.</div></div></div>
+        <div id="q28" class="question-container"><div class="question-text">28. The orthogonal complement of a line through the origin in $\mathbb{R}^3$ is:</div><div class="options"><label><input type="radio" name="q28" value="0"> A line through the origin.</label><label><input type="radio" name="q28" value="1" data-correct="true"> A plane through the origin.</label><label><input type="radio" name="q28" value="2"> The origin itself.</label><label><input type="radio" name="q28" value="3"> The entire space $\mathbb{R}^3$.</label></div><div class="explanation"><span>The orthogonal complement of a subspace W, denoted $W^\perp$, contains all vectors orthogonal to every vector in W. In $\mathbb{R}^3$, all vectors orthogonal to a given line (a 1D subspace) form a plane (a 2D subspace) perpendicular to that line.</span><div class="source">Source: Anton & Rorres, Section 6.2.</div></div></div>
+        <div id="q29" class="question-container"><div class="question-text">29. If $P$ is an orthogonal matrix, then $P^T$ is:</div><div class="options"><label><input type="radio" name="q29" value="0"> The zero matrix.</label><label><input type="radio" name="q29" value="1"> Not necessarily orthogonal.</label><label><input type="radio" name="q29" value="2"> The identity matrix.</label><label><input type="radio" name="q29" value="3" data-correct="true"> Also an orthogonal matrix.</label></div><div class="explanation"><span>If $P$ is orthogonal, $P^T P = P P^T = I$. We need to check if $(P^T)^T (P^T) = I$. This simplifies to $P P^T = I$, which is true by the definition of an orthogonal matrix. Therefore, $P^T$ is also orthogonal.</span><div class="source">Source: Anthony & Harvey, Activity 10.22, p. 321.</div></div></div>
+        <div id="q30" class="question-container"><div class="question-text">30. The Cauchy-Schwarz inequality is an equality if and only if:</div><div class="options"><label><input type="radio" name="q30" value="0"> The vectors are orthogonal.</label><label><input type="radio" name="q30" value="1" data-correct="true"> The vectors are linearly dependent.</label><label><input type="radio" name="q30" value="2"> The vectors are orthonormal.</label><label><input type="radio" name="q30" value="3"> The vectors are in $\mathbb{R}^2$.</label></div><div class="explanation"><span>Equality holds in the Cauchy-Schwarz inequality, $|\langle \mathbf{u}, \mathbf{v} \rangle| = ||\mathbf{u}|| ||\mathbf{v}||$, if and only if one vector is a scalar multiple of the other, meaning they are linearly dependent.</span><div class="source">Source: Anton & Rorres, Section 6.1.</div></div></div>
+        <div id="q31" class="question-container"><div class="question-text">31. What is the result of normalizing the vector $\mathbf{v}=(0, 5, 0)$ in $\mathbb{R}^3$?</div><div class="options"><label><input type="radio" name="q31" value="0"> (0, 5, 0)</label><label><input type="radio" name="q31" value="1"> (0, 0, 0)</label><label><input type="radio" name="q31" value="2" data-correct="true"> (0, 1, 0)</label><label><input type="radio" name="q31" value="3"> (0, 1/5, 0)</label></div><div class="explanation"><span>The norm is $||\mathbf{v}|| = \sqrt{0^2+5^2+0^2} = 5$. Normalizing gives $\frac{1}{5}(0, 5, 0) = (0, 1, 0)$.</span><div class="source">Source: Anthony & Harvey, p. 315.</div></div></div>
+        <div id="q32" class="question-container"><div class="question-text">32. Two vectors $\mathbf{u}$ and $\mathbf{v}$ are orthogonal if $\langle \mathbf{u}, \mathbf{v} \rangle = 0$. This is a:</div><div class="options"><label><input type="radio" name="q32" value="0" data-correct="true"> Definition</label><label><input type="radio" name="q32" value="1"> Theorem</label><label><input type="radio" name="q32" value="2"> Corollary</label><label><input type="radio" name="q32" value="3"> Axiom</label></div><div class="explanation"><span>This is the formal definition of orthogonality in a general inner product space. It is motivated by the geometric property in $\mathbb{R}^2$ and $\mathbb{R}^3$ but is itself a definition.</span><div class="source">Source: Anthony & Harvey, Definition 10.9, p. 317.</div></div></div>
+        <div id="q33" class="question-container"><div class="question-text">33. If $P$ is an $n \times n$ orthogonal matrix, then its rows form:</div><div class="options"><label><input type="radio" name="q33" value="0"> An orthogonal set, but not necessarily a basis.</label><label><input type="radio" name="q33" value="1"> A basis, but not necessarily an orthonormal one.</label><label><input type="radio" name="q33" value="2" data-correct="true"> An orthonormal basis for $\mathbb{R}^n$.</label><label><input type="radio" name="q33" value="3"> A set of linearly dependent vectors.</label></div><div class="explanation"><span>A key property of orthogonal matrices is that both their columns and their rows form an orthonormal basis for $\mathbb{R}^n$. This is because if $P$ is orthogonal, so is $P^T$, and the columns of $P^T$ are the rows of $P$.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q34" class="question-container"><div class="question-text">34. In the Gram-Schmidt process, if $\mathbf{v}_2$ is a scalar multiple of $\mathbf{v}_1$, what happens?</div><div class="options"><label><input type="radio" name="q34" value="0"> The process continues normally.</label><label><input type="radio" name="q34" value="1"> The resulting vectors are not orthogonal.</label><label><input type="radio" name="q34" value="2" data-correct="true"> The vector $\mathbf{w}_2$ becomes the zero vector.</label><label><input type="radio" name="q34" value="3"> The vector $\mathbf{u}_1$ becomes the zero vector.</label></div><div class="explanation"><span>The Gram-Schmidt process requires a linearly independent set of vectors. If $\mathbf{v}_2 = k\mathbf{v}_1$, then $\mathbf{v}_2$ is already in the span of $\mathbf{v}_1$. Its projection onto the span of $\mathbf{v}_1$ is $\mathbf{v}_2$ itself, so $\mathbf{w}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{v}_1}(\mathbf{v}_2) = \mathbf{v}_2 - \mathbf{v}_2 = \mathbf{0}$.</span><div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div></div></div>
+        <div id="q35" class="question-container"><div class="question-text">35. The standard inner product on $\mathbb{C}^n$ is defined as $\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u} \cdot \overline{\mathbf{v}} = u_1\overline{v_1} + \dots + u_n\overline{v_n}$. Why is the conjugate used?</div><div class="options"><label><input type="radio" name="q35" value="0"> To make the inner product symmetric.</label><label><input type="radio" name="q35" value="1" data-correct="true"> To ensure the norm is a non-negative real number.</label><label><input type="radio" name="q35" value="2"> To satisfy additivity.</label><label><input type="radio" name="q35" value="3"> It is just a convention with no specific purpose.</label></div><div class="explanation"><span>The conjugate ensures that $\langle \mathbf{v}, \mathbf{v} \rangle = \sum v_i \overline{v_i} = \sum |v_i|^2$, which is a non-negative real number. Without the conjugate, $\langle \mathbf{v}, \mathbf{v} \rangle$ could be a complex number or even zero for a non-zero vector (e.g., $\langle (1, i), (1, i) \rangle = 1^2 + i^2 = 0$).</span><div class="source">Source: Anthony & Harvey, Section 13.4.1, p. 401.</div></div></div>
+        <div id="q36" class="question-container"><div class="question-text">36. For vectors $\mathbf{u}, \mathbf{v}$ in an inner product space, which of the following is always true?</div><div class="options"><label><input type="radio" name="q36" value="0"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{v}+\mathbf{u}||$</label><label><input type="radio" name="q36" value="1"> $||\mathbf{u}-\mathbf{v}|| = ||\mathbf{v}-\mathbf{u}||$</label><label><input type="radio" name="q36" value="2"> $||\mathbf{u}|| \ge 0$</label><label><input type="radio" name="q36" value="3" data-correct="true"> All of the above.</label></div><div class="explanation"><span>$||\mathbf{u}+\mathbf{v}|| = ||\mathbf{v}+\mathbf{u}||$ by commutativity of vector addition. $||\mathbf{u}-\mathbf{v}|| = ||-(\mathbf{v}-\mathbf{u})|| = |-1| \cdot ||\mathbf{v}-\mathbf{u}|| = ||\mathbf{v}-\mathbf{u}||$. The norm is defined as a square root, so it is always non-negative.</span><div class="source">Source: Anton & Rorres, Theorem 4.1.4, p. 4.</div></div></div>
+        <div id="q37" class="question-container"><div class="question-text">37. If $\langle \mathbf{u}, \mathbf{v} \rangle = 0$ and $\langle \mathbf{v}, \mathbf{w} \rangle = 0$, does it imply $\langle \mathbf{u}, \mathbf{w} \rangle = 0$?</div><div class="options"><label><input type="radio" name="q37" value="0"> Always</label><label><input type="radio" name="q37" value="1" data-correct="true"> Not necessarily</label><label><input type="radio" name="q37" value="2"> Only if $\mathbf{v} = \mathbf{0}$</label><label><input type="radio" name="q37" value="3"> Only in $\mathbb{R}^2$</label></div><div class="explanation"><span>Orthogonality is not transitive. Consider $\mathbf{u}=(1,0,0), \mathbf{v}=(0,1,0), \mathbf{w}=(1,0,1)$ in $\mathbb{R}^3$. $\mathbf{u}$ is orthogonal to $\mathbf{v}$, and $\mathbf{v}$ is orthogonal to $\mathbf{w}$, but $\mathbf{u}$ is not orthogonal to $\mathbf{w}$.</span><div class="source">Source: Conceptual understanding of orthogonality.</div></div></div>
+        <div id="q38" class="question-container"><div class="question-text">38. The set of all vectors orthogonal to a subspace $W$ is called the...</div><div class="options"><label><input type="radio" name="q38" value="0"> Null space of W</label><label><input type="radio" name="q38" value="1"> Row space of W</label><label><input type="radio" name="q38" value="2" data-correct="true"> Orthogonal complement of W</label><label><input type="radio" name="q38" value="3"> Eigenspace of W</label></div><div class="explanation"><span>This is the definition of the orthogonal complement, denoted $W^\perp$. It is itself a subspace.</span><div class="source">Source: Anthony & Harvey, Definition 12.7, p. 367.</div></div></div>
+        <div id="q39" class="question-container"><div class="question-text">39. If $S = \{\mathbf{v}_1, \mathbf{v}_2\}$ is an orthogonal basis for a subspace $W$, the orthogonal projection of $\mathbf{u}$ onto $W$ is given by:</div><div class="options"><label><input type="radio" name="q39" value="0"> $\langle \mathbf{u}, \mathbf{v}_1 \rangle \mathbf{v}_1 + \langle \mathbf{u}, \mathbf{v}_2 \rangle \mathbf{v}_2$</label><label><input type="radio" name="q39" value="1" data-correct="true"> $\frac{\langle \mathbf{u}, \mathbf{v}_1 \rangle}{||\mathbf{v}_1||^2}\mathbf{v}_1 + \frac{\langle \mathbf{u}, \mathbf{v}_2 \rangle}{||\mathbf{v}_2||^2}\mathbf{v}_2$</label><label><input type="radio" name="q39" value="2"> $\frac{\mathbf{v}_1}{||\mathbf{v}_1||} + \frac{\mathbf{v}_2}{||\mathbf{v}_2||}$</label><label><input type="radio" name="q39" value="3"> $\langle \mathbf{u}, \mathbf{v}_1 \rangle + \langle \mathbf{u}, \mathbf{v}_2 \rangle$</label></div><div class="explanation"><span>When the basis is orthogonal but not necessarily orthonormal, you must divide by the square of the norm of each basis vector when calculating the projection coefficients. If the basis were orthonormal, the denominators would be 1.</span><div class="source">Source: Anton & Rorres, Theorem 6.3.5, p. 223.</div></div></div>
+        <div id="q40" class="question-container"><div class="question-text">40. The distance from a point $\mathbf{u}$ to a subspace $W$ is given by:</div><div class="options"><label><input type="radio" name="q40" value="0"> $||\text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="1"> $||\mathbf{u}|| - ||\text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="2" data-correct="true"> $||\mathbf{u} - \text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="3"> $||\mathbf{u}||$</label></div><div class="explanation"><span>The distance from a point to a subspace is the length of the component of the vector that is orthogonal to the subspace. This vector is $\mathbf{u} - \text{proj}_W \mathbf{u}$.</span><div class="source">Source: Anthony & Harvey, Theorem 12.30, p. 379.</div></div></div>
+        <div id="q41" class="question-container"><div class="question-text">41. If $A$ is an orthogonal matrix, then $A^T$ is...</div><div class="options"><label><input type="radio" name="q41" value="0"> $A$</label><label><input type="radio" name="q41" value="1" data-correct="true"> $A^{-1}$</label><label><input type="radio" name="q41" value="2"> $-A$</label><label><input type="radio" name="q41" value="3"> $I$</label></div><div class="explanation"><span>This is the definition of an orthogonal matrix.</span><div class="source">Source: Anthony & Harvey, Definition 10.15, p. 319.</div></div></div>
+        <div id="q42" class="question-container"><div class="question-text">42. If $\mathbf{u}$ and $\mathbf{v}$ are orthogonal, then $||\mathbf{u}-\mathbf{v}||^2$ equals:</div><div class="options"><label><input type="radio" name="q42" value="0"> $||\mathbf{u}||^2 - ||\mathbf{v}||^2$</label><label><input type="radio" name="q42" value="1" data-correct="true"> $||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label><label><input type="radio" name="q42" value="2"> $(||\mathbf{u}|| - ||\mathbf{v}||)^2$</label><label><input type="radio" name="q42" value="3"> 0</label></div><div class="explanation"><span>$||\mathbf{u}-\mathbf{v}||^2 = \langle \mathbf{u}-\mathbf{v}, \mathbf{u}-\mathbf{v} \rangle = \langle \mathbf{u}, \mathbf{u} \rangle - 2\langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle$. Since $\langle \mathbf{u}, \mathbf{v} \rangle = 0$, this simplifies to $||\mathbf{u}||^2 + ||\mathbf{v}||^2$. This is another form of Pythagoras's Theorem.</span><div class="source">Source: Anthony & Harvey, Theorem 10.12, p. 317.</div></div></div>
+        <div id="q43" class="question-container"><div class="question-text">43. The process of creating a unit vector from a non-zero vector $\mathbf{v}$ is called:</div><div class="options"><label><input type="radio" name="q43" value="0"> Orthogonalization</label><label><input type="radio" name="q43" value="1"> Projection</label><label><input type="radio" name="q43" value="2" data-correct="true"> Normalizing</label><label><input type="radio" name="q43" value="3"> Spanning</label></div><div class="explanation"><span>Normalizing a vector means scaling it so that its length (norm) becomes 1, without changing its direction. This is done by dividing the vector by its own norm.</span><div class="source">Source: Anthony & Harvey, p. 315.</div></div></div>
+        <div id="q44" class="question-container"><div class="question-text">44. If $A$ is an $m \times n$ matrix, its row space and nullspace are orthogonal complements in...</div><div class="options"><label><input type="radio" name="q44" value="0"> $\mathbb{R}^m$</label><label><input type="radio" name="q44" value="1" data-correct="true"> $\mathbb{R}^n$</label><label><input type="radio" name="q44" value="2"> $\mathbb{R}^{m+n}$</label><label><input type="radio" name="q44" value="3"> $\mathbb{R}^{mn}$</label></div><div class="explanation"><span>The row vectors and the vectors in the nullspace (solutions to $A\mathbf{x}=\mathbf{0}$) are both vectors with $n$ components, so they are subspaces of $\mathbb{R}^n$. The Fundamental Theorem of Linear Algebra states they are orthogonal complements.</span><div class="source">Source: Anton & Rorres, Theorem 6.2.6, p. 206.</div></div></div>
+        <div id="q45" class="question-container"><div class="question-text">45. Let $\mathbf{u}=(1,1), \mathbf{v}=(1,-1)$ in $\mathbb{R}^2$. Are they orthogonal with respect to the standard inner product?</div><div class="options"><label><input type="radio" name="q45" value="0" data-correct="true"> Yes</label><label><input type="radio" name="q45" value="1"> No</label></div><div class="explanation"><span>The inner product is $\langle \mathbf{u}, \mathbf{v} \rangle = (1)(1) + (1)(-1) = 1 - 1 = 0$. Since the inner product is zero, they are orthogonal.</span><div class="source">Source: Anthony & Harvey, p. 317.</div></div></div>
+        <div id="q46" class="question-container"><div class="question-text">46. The zero vector is orthogonal to every vector in a vector space.</div><div class="options"><label><input type="radio" name="q46" value="0" data-correct="true"> True</label><label><input type="radio" name="q46" value="1"> False</label></div><div class="explanation"><span>This is true because $\langle \mathbf{0}, \mathbf{v} \rangle = \langle 0\mathbf{v}, \mathbf{v} \rangle = 0\langle \mathbf{v}, \mathbf{v} \rangle = 0$ for any vector $\mathbf{v}$.</span><div class="source">Source: Anthony & Harvey, Theorem 6.1.1, p. 191.</div></div></div>
+        <div id="q47" class="question-container"><div class="question-text">47. If $Q$ is an orthogonal matrix, then multiplying a vector $\mathbf{x}$ by $Q$ (i.e., $Q\mathbf{x}$) preserves its...</div><div class="options"><label><input type="radio" name="q47" value="0"> Direction</label><label><input type="radio" name="q47" value="1" data-correct="true"> Length (norm)</label><label><input type="radio" name="q47" value="2"> Eigenvalues</label><label><input type="radio" name="q47" value="3"> Eigenspace</label></div><div class="explanation"><span>Multiplication by an orthogonal matrix is an isometry, which means it preserves lengths and angles. $||Q\mathbf{x}||^2 = \langle Q\mathbf{x}, Q\mathbf{x} \rangle = (Q\mathbf{x})^T(Q\mathbf{x}) = \mathbf{x}^T Q^T Q \mathbf{x} = \mathbf{x}^T I \mathbf{x} = \mathbf{x}^T\mathbf{x} = ||\mathbf{x}||^2$.</span><div class="source">Source: Anton & Rorres, Section 6.6.</div></div></div>
+        <div id="q48" class="question-container"><div class="question-text">48. The first step of the Gram-Schmidt process on a set $\{\mathbf{v}_1, \mathbf{v}_2, \dots\}$ is to set $\mathbf{u}_1 = \dots$</div><div class="options"><label><input type="radio" name="q48" value="0"> $\mathbf{v}_1$</label><label><input type="radio" name="q48" value="1"> $\mathbf{v}_2 - \mathbf{v}_1$</label><label><input type="radio" name="q48" value="2" data-correct="true"> $\mathbf{v}_1 / ||\mathbf{v}_1||$</label><label><input type="radio" name="q48" value="3"> $\mathbf{v}_1 - \text{proj}_{\mathbf{v}_2}\mathbf{v}_1$</label></div><div class="explanation"><span>The process begins by creating the first vector of the new orthonormal basis. This is done by taking the first vector from the original set and normalizing it.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q49" class="question-container"><div class="question-text">49. The set of all vectors orthogonal to every vector in a subspace $W$ is denoted by:</div><div class="options"><label><input type="radio" name="q49" value="0"> $W^T$</label><label><input type="radio" name="q49" value="1"> $N(W)$</label><label><input type="radio" name="q49" value="2" data-correct="true"> $W^\perp$</label><label><input type="radio" name="q49" value="3"> $\text{adj}(W)$</label></div><div class="explanation"><span>This is the standard notation for the orthogonal complement of a subspace $W$. It is read as "W perp".</span><div class="source">Source: Anthony & Harvey, Definition 12.7, p. 367.</div></div></div>
+        <div id="q50" class="question-container"><div class="question-text">50. If $A$ is an $m \times n$ matrix, the orthogonal complement of the row space of $A$ is the...</div><div class="options"><label><input type="radio" name="q50" value="0"> Column space of $A$</label><label><input type="radio" name="q50" value="1"> Row space of $A^T$</label><label><input type="radio" name="q50" value="2" data-correct="true"> Nullspace of $A$</label><label><input type="radio" name="q50" value="3"> Nullspace of $A^T$</label></div><div class="explanation"><span>This is a statement of the Fundamental Theorem of Linear Algebra. The row space and nullspace are orthogonal complements in $\mathbb{R}^n$.</span><div class="source">Source: Anton & Rorres, Theorem 6.2.6, p. 206.</div></div></div>
+
+        <button id="clear-button">Clear All Answers and Restart</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizContainer = document.getElementById('quiz');
+            const questions = quizContainer.querySelectorAll('.question-container');
+
+            function checkAnswer(questionDiv) {
+                const selectedRadio = questionDiv.querySelector('input[type="radio"]:checked');
+                if (!selectedRadio) return;
+
+                const isCorrect = selectedRadio.hasAttribute('data-correct');
+                const explanationDiv = questionDiv.querySelector('.explanation');
+                const radios = questionDiv.querySelectorAll('input[type="radio"]');
+                
+                radios.forEach(radio => {
+                    const label = radio.parentElement;
+                    let resultSpan = label.querySelector('.result');
+                    if (!resultSpan) {
+                        resultSpan = document.createElement('span');
+                        resultSpan.classList.add('result');
+                        label.appendChild(resultSpan);
+                    }
+                    
+                    if (radio.checked) {
+                        resultSpan.textContent = isCorrect ? 'Correct' : 'Incorrect';
+                        resultSpan.className = 'result ' + (isCorrect ? 'correct' : 'incorrect');
+                    } else {
+                        resultSpan.style.display = 'none';
+                    }
+                    resultSpan.style.display = 'inline-block';
+                    radio.disabled = true;
+                });
+
+                explanationDiv.style.display = 'block';
+                saveProgress();
+            }
+
+            function saveProgress() {
+                const answers = {};
+                questions.forEach((q, index) => {
+                    const selected = q.querySelector('input[type="radio"]:checked');
+                    if (selected) {
+                        const options = Array.from(q.querySelectorAll('input[type="radio"]'));
+                        answers[index] = options.indexOf(selected);
+                    }
+                });
+                // Cookie expires in 7 days
+                document.cookie = `quizProgress=${JSON.stringify(answers)};max-age=604800;path=/`;
+            }
+
+            function loadProgress() {
+                const cookies = document.cookie.split(';').map(c => c.trim());
+                const progressCookie = cookies.find(c => c.startsWith('quizProgress='));
+                if (progressCookie) {
+                    const answers = JSON.parse(progressCookie.split('=')[1]);
+                    for (const qIndex in answers) {
+                        const questionDiv = questions[qIndex];
+                        if (questionDiv) {
+                            const radioToCheck = questionDiv.querySelectorAll('input[type="radio"]')[answers[qIndex]];
+                            if (radioToCheck) {
+                                radioToCheck.checked = true;
+                                checkAnswer(questionDiv);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function clearProgress() {
+                document.cookie = 'quizProgress=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+                window.location.reload();
+            }
+
+            quizContainer.addEventListener('change', function(event) {
+                if (event.target.type === 'radio') {
+                    const questionDiv = event.target.closest('.question-container');
+                    checkAnswer(questionDiv);
+                }
+            });
+
+            document.getElementById('clear-button').addEventListener('click', clearProgress);
+
+            loadProgress();
+        });
+    </script>
+
+</body>
+</html>
+], ['\\(', '\\)']]
+                }
+            };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #005a9c;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question-container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .options label:hover {
+            background-color: #f0f8ff;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e9f5fe;
+            border-left: 5px solid #2196F3;
+            border-radius: 5px;
+        }
+        .explanation .source {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+        }
+        .result {
+            display: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: white;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        .correct {
+            background-color: #4CAF50;
+        }
+        .incorrect {
+            background-color: #F44336;
+        }
+        #clear-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #d9534f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #clear-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MT2175: Inner Products and Orthogonality Quiz</h1>
+
+    <div class="quiz-container" id="quiz">
+        
+        <div id="q1" class="question-container">
+            <div class="question-text">1. Which of the following is NOT a required property for an operation $\langle \cdot, \cdot \rangle$ to be an inner product on a real vector space $V$? (u, v, w are vectors in V, k is a scalar)</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle$ (Symmetry)</label>
+                <label><input type="radio" name="q1" value="1" data-correct="true"> $\langle \mathbf{u}, \mathbf{u} \rangle = ||\mathbf{u}||^2$ (Norm definition)</label>
+                <label><input type="radio" name="q1" value="2"> $\langle k\mathbf{u}, \mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ (Homogeneity)</label>
+                <label><input type="radio" name="q1" value="3"> $\langle \mathbf{u}+\mathbf{v}, \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle$ (Additivity)</label>
+            </div>
+            <div class="explanation">
+                <span>The norm $||\mathbf{u}||$ is defined from the inner product as $||\mathbf{u}|| = \sqrt{\langle \mathbf{u}, \mathbf{u} \rangle}$, not the other way around. The three fundamental properties for a real inner product are Symmetry, Linearity (which includes Additivity and Homogeneity), and Positive-definiteness ($\langle \mathbf{u}, \mathbf{u} \rangle \ge 0$ and $\langle \mathbf{u}, \mathbf{u} \rangle = 0 \iff \mathbf{u} = \mathbf{0}$).</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.1, p. 313.</div>
+            </div>
+        </div>
+
+        <div id="q2" class="question-container">
+            <div class="question-text">2. Let $\mathbf{u} = (u_1, u_2)$ and $\mathbf{v} = (v_1, v_2)$ be vectors in $\mathbb{R}^2$. Which of the following is a valid inner product on $\mathbb{R}^2$?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_1 - u_2v_2$</label>
+                <label><input type="radio" name="q2" value="1"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1^2v_1^2 + u_2^2v_2^2$</label>
+                <label><input type="radio" name="q2" value="2" data-correct="true"> $\langle \mathbf{u}, \mathbf{v} \rangle = 2u_1v_1 + 3u_2v_2$</label>
+                <label><input type="radio" name="q2" value="3"> $\langle \mathbf{u}, \mathbf{v} \rangle = u_1v_2 + u_2v_1$</label>
+            </div>
+            <div class="explanation">
+                <span>This is a weighted Euclidean inner product. Option (a) fails positive-definiteness (e.g., for $\mathbf{u}=(1,2)$, $\langle \mathbf{u}, \mathbf{u} \rangle = 1-4 = -3 < 0$). Option (b) is not linear. Option (d) is not positive-definite (e.g., for $\mathbf{u}=(1,-1)$, $\langle \mathbf{u}, \mathbf{u} \rangle = -1-1 = -2 < 0$). Option (c) satisfies all axioms: it's symmetric, linear, and $\langle \mathbf{u}, \mathbf{u} \rangle = 2u_1^2 + 3u_2^2 \ge 0$, with equality only if $u_1=u_2=0$.</span>
+                <div class="source">Source: Anthony & Harvey, Example 10.5, p. 314.</div>
+            </div>
+        </div>
+
+        <div id="q3" class="question-container">
+            <div class="question-text">3. In an inner product space, the norm of a vector $\mathbf{v}$ is defined as:</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="0"> $||\mathbf{v}|| = \langle \mathbf{v}, \mathbf{v} \rangle$</label>
+                <label><input type="radio" name="q3" value="1" data-correct="true"> $||\mathbf{v}|| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}$</label>
+                <label><input type="radio" name="q3" value="2"> $||\mathbf{v}|| = \mathbf{v}^T\mathbf{v}$</label>
+                <label><input type="radio" name="q3" value="3"> $||\mathbf{v}|| = \sum v_i$</label>
+            </div>
+            <div class="explanation">
+                <span>The norm (or length) of a vector is defined as the square root of the inner product of the vector with itself. This ensures the norm is a non-negative real number.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.6, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q4" class="question-container">
+            <div class="question-text">4. The Cauchy-Schwarz inequality states that for any two vectors $\mathbf{u}$ and $\mathbf{v}$ in an inner product space:</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="0"> $|\langle \mathbf{u}, \mathbf{v} \rangle| \ge ||\mathbf{u}|| ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q4" value="1"> $\langle \mathbf{u}, \mathbf{v} \rangle^2 \le \langle \mathbf{u}, \mathbf{u} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle$</label>
+                <label><input type="radio" name="q4" value="2" data-correct="true"> $|\langle \mathbf{u}, \mathbf{v} \rangle| \le ||\mathbf{u}|| ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q4" value="3"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+            </div>
+            <div class="explanation">
+                <span>The Cauchy-Schwarz inequality states that the absolute value of the inner product of two vectors is less than or equal to the product of their norms. This is a fundamental inequality in linear algebra.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.7, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q5" class="question-container">
+            <div class="question-text">5. If $\mathbf{u}$ and $\mathbf{v}$ are orthogonal vectors in an inner product space, the Generalised Pythagoras' Theorem states:</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="0"> $||\mathbf{u}-\mathbf{v}||^2 = ||\mathbf{u}||^2 - ||\mathbf{v}||^2$</label>
+                <label><input type="radio" name="q5" value="1"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q5" value="2"> $\langle \mathbf{u}, \mathbf{v} \rangle = 0$</label>
+                <label><input type="radio" name="q5" value="3" data-correct="true"> $||\mathbf{u}+\mathbf{v}||^2 = ||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label>
+            </div>
+            <div class="explanation">
+                <span>The Generalised Pythagoras' Theorem is a direct consequence of the properties of the inner product. Since $||\mathbf{u}+\mathbf{v}||^2 = \langle \mathbf{u}+\mathbf{v}, \mathbf{u}+\mathbf{v} \rangle = ||\mathbf{u}||^2 + 2\langle \mathbf{u}, \mathbf{v} \rangle + ||\mathbf{v}||^2$ and $\langle \mathbf{u}, \mathbf{v} \rangle = 0$ for orthogonal vectors, the result follows.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.12, p. 317.</div>
+            </div>
+        </div>
+
+        <div id="q6" class="question-container">
+            <div class="question-text">6. A set of non-zero, pairwise orthogonal vectors $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}$ is:</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="0"> Always a basis for the vector space.</label>
+                <label><input type="radio" name="q6" value="1" data-correct="true"> Always linearly independent.</label>
+                <label><input type="radio" name="q6" value="2"> Always linearly dependent.</label>
+                <label><input type="radio" name="q6" value="3"> Not necessarily linearly independent.</label>
+            </div>
+            <div class="explanation">
+                <span>A key theorem states that a set of non-zero orthogonal vectors is always linearly independent. To prove this, assume $c_1\mathbf{v}_1 + \dots + c_k\mathbf{v}_k = \mathbf{0}$. Taking the inner product with any $\mathbf{v}_i$ shows that $c_i||\mathbf{v}_i||^2 = 0$, which implies $c_i=0$ since $\mathbf{v}_i \neq \mathbf{0}$.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.14, p. 318.</div>
+            </div>
+        </div>
+
+        <div id="q7" class="question-container">
+            <div class="question-text">7. An $n \times n$ matrix $P$ is called an orthogonal matrix if:</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="0"> Its columns are orthogonal.</label>
+                <label><input type="radio" name="q7" value="1"> $P = P^T$</label>
+                <label><input type="radio" name="q7" value="2" data-correct="true"> $P^{-1} = P^T$</label>
+                <label><input type="radio" name="q7" value="3"> Its determinant is 1.</label>
+            </div>
+            <div class="explanation">
+                <span>The definition of an orthogonal matrix $P$ is that its inverse is equal to its transpose, i.e., $P^T P = I$. While its columns must be orthonormal (not just orthogonal) and its determinant must be $\pm 1$, the defining property is $P^{-1} = P^T$.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.15, p. 319.</div>
+            </div>
+        </div>
+
+        <div id="q8" class="question-container">
+            <div class="question-text">8. What is an orthonormal set of vectors?</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="0"> A set of vectors that are all parallel to each other.</label>
+                <label><input type="radio" name="q8" value="1"> A set of linearly independent vectors.</label>
+                <label><input type="radio" name="q8" value="2" data-correct="true"> A set of orthogonal vectors, each of which has a norm of 1.</label>
+                <label><input type="radio" name="q8" value="3"> A set of vectors that form a basis.</label>
+            </div>
+            <div class="explanation">
+                <span>An orthonormal set combines two properties: "ortho" for orthogonal (the inner product of any two distinct vectors is zero) and "normal" for normalized (each vector has a norm, or length, of 1).</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.19, p. 320.</div>
+            </div>
+        </div>
+
+        <div id="q9" class="question-container">
+            <div class="question-text">9. An $n \times n$ matrix $P$ is orthogonal if and only if its columns form:</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="0"> A basis for $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="1"> An orthogonal set of vectors in $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="2" data-correct="true"> An orthonormal basis for $\mathbb{R}^n$.</label>
+                <label><input type="radio" name="q9" value="3"> A set of linearly dependent vectors in $\mathbb{R}^n$.</label>
+            </div>
+            <div class="explanation">
+                <span>This is a fundamental theorem connecting the algebraic definition of an orthogonal matrix ($P^T P = I$) to the geometric properties of its column vectors. The entry $(i, j)$ of $P^T P$ is the dot product of the $i$-th column of $P$ with the $j$-th column. For this to be the identity matrix, the dot products must be 0 for $i \neq j$ (orthogonal) and 1 for $i=j$ (unit norm).</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.21, p. 321.</div>
+            </div>
+        </div>
+
+        <div id="q10" class="question-container">
+            <div class="question-text">10. The Gram-Schmidt process is a method for:</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="0"> Finding the eigenvalues of a matrix.</label>
+                <label><input type="radio" name="q10" value="1"> Solving a system of linear equations.</label>
+                <label><input type="radio" name="q10" value="2"> Calculating the determinant of a matrix.</label>
+                <label><input type="radio" name="q10" value="3" data-correct="true"> Converting a set of linearly independent vectors into an orthonormal set that spans the same subspace.</label>
+            </div>
+            <div class="explanation">
+                <span>The Gram-Schmidt process takes a basis and produces an orthonormal basis for the same space by iteratively constructing orthogonal vectors and then normalizing them.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div>
+            </div>
+        </div>
+
+        <!-- ... More questions will follow this pattern ... -->
+
+        <div id="q11" class="question-container">
+            <div class="question-text">11. Using the standard Euclidean inner product, what is the norm of the vector $\mathbf{v} = (1, -2, 2)$ in $\mathbb{R}^3$?</div>
+            <div class="options">
+                <label><input type="radio" name="q11" value="0"> 1</label>
+                <label><input type="radio" name="q11" value="1" data-correct="true"> 3</label>
+                <label><input type="radio" name="q11" value="2"> 5</label>
+                <label><input type="radio" name="q11" value="3"> 9</label>
+            </div>
+            <div class="explanation">
+                <span>The norm is calculated as $||\mathbf{v}|| = \sqrt{1^2 + (-2)^2 + 2^2} = \sqrt{1 + 4 + 4} = \sqrt{9} = 3$.</span>
+                <div class="source">Source: Anthony & Harvey, Definition 10.6, p. 315.</div>
+            </div>
+        </div>
+
+        <div id="q12" class="question-container">
+            <div class="question-text">12. Which property of an inner product ensures that $\langle \mathbf{u}, k\mathbf{v} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ for a real inner product?</div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="0"> Additivity</label>
+                <label><input type="radio" name="q12" value="1"> Positive-definiteness</label>
+                <label><input type="radio" name="q12" value="2" data-correct="true"> Symmetry and Homogeneity</label>
+                <label><input type="radio" name="q12" value="3"> It is not a property of inner products.</label>
+            </div>
+            <div class="explanation">
+                <span>This is derived from the basic axioms. $\langle \mathbf{u}, k\mathbf{v} \rangle = \langle k\mathbf{v}, \mathbf{u} \rangle$ by symmetry. Then $\langle k\mathbf{v}, \mathbf{u} \rangle = k\langle \mathbf{v}, \mathbf{u} \rangle$ by homogeneity. Finally, $k\langle \mathbf{v}, \mathbf{u} \rangle = k\langle \mathbf{u}, \mathbf{v} \rangle$ by symmetry again.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 1.36, p. 25.</div>
+            </div>
+        </div>
+
+        <div id="q13" class="question-container">
+            <div class="question-text">13. If $||\mathbf{u}|| = 3$, $||\mathbf{v}|| = 4$, and the angle $\theta$ between them is $\pi/3$, what is $\langle \mathbf{u}, \mathbf{v} \rangle$? (Assume standard Euclidean inner product).</div>
+            <div class="options">
+                <label><input type="radio" name="q13" value="0"> 12</label>
+                <label><input type="radio" name="q13" value="1"> $6\sqrt{3}$</label>
+                <label><input type="radio" name="q13" value="2" data-correct="true"> 6</label>
+                <label><input type="radio" name="q13" value="3"> 7</label>
+            </div>
+            <div class="explanation">
+                <span>Using the formula $\langle \mathbf{u}, \mathbf{v} \rangle = ||\mathbf{u}|| ||\mathbf{v}|| \cos\theta$, we get $3 \times 4 \times \cos(\pi/3) = 12 \times (1/2) = 6$.</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 1.43, p. 31.</div>
+            </div>
+        </div>
+
+        <div id="q14" class="question-container">
+            <div class="question-text">14. The triangle inequality for norms states that:</div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="0"> $||\mathbf{u}+\mathbf{v}|| \ge ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="1" data-correct="true"> $||\mathbf{u}+\mathbf{v}|| \le ||\mathbf{u}|| + ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="2"> $||\mathbf{u}-\mathbf{v}|| \le ||\mathbf{u}|| - ||\mathbf{v}||$</label>
+                <label><input type="radio" name="q14" value="3"> $||\mathbf{u}+\mathbf{v}||^2 \le ||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label>
+            </div>
+            <div class="explanation">
+                <span>The triangle inequality states that the length of one side of a triangle (the vector sum $\mathbf{u}+\mathbf{v}$) is less than or equal to the sum of the lengths of the other two sides ($||\mathbf{u}|| + ||\mathbf{v}||$).</span>
+                <div class="source">Source: Anthony & Harvey, Theorem 10.13, p. 318.</div>
+            </div>
+        </div>
+
+        <div id="q15" class="question-container">
+            <div class="question-text">15. If you apply the Gram-Schmidt process to the vectors $\mathbf{v}_1 = (1, 0)$ and $\mathbf{v}_2 = (1, 1)$, what is the resulting orthonormal basis $\{\mathbf{u}_1, \mathbf{u}_2\}$?</div>
+            <div class="options">
+                <label><input type="radio" name="q15" value="0"> $\{(1, 0), (1, 1)\}$</label>
+                <label><input type="radio" name="q15" value="1"> $\{(1, 0), (0, -1)\}$</label>
+                <label><input type="radio" name="q15" value="2" data-correct="true"> $\{(1, 0), (0, 1)\}$</label>
+                <label><input type="radio" name="q15" value="3"> $\{(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), (-\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})\}$</label>
+            </div>
+            <div class="explanation">
+                <span>Step 1: $\mathbf{u}_1 = \frac{\mathbf{v}_1}{||\mathbf{v}_1||} = \frac{(1,0)}{1} = (1,0)$. Step 2: Find $\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1 = (1,1) - (1)(1,0) = (0,1)$. Step 3: Normalize $\mathbf{w}_2$ to get $\mathbf{u}_2 = \frac{(0,1)}{1} = (0,1)$. The resulting basis is the standard basis.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div>
+            </div>
+        </div>
+
+        <div id="q16" class="question-container">
+            <div class="question-text">16. Which of the following matrices is orthogonal?</div>
+            <div class="options">
+                <label><input type="radio" name="q16" value="0"> $\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="1" data-correct="true"> $\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="2"> $\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$</label>
+                <label><input type="radio" name="q16" value="3"> $\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}$</label>
+            </div>
+            <div class="explanation">
+                <span>A rotation matrix is always orthogonal. Its columns, $(\cos\theta, \sin\theta)$ and $(-\sin\theta, \cos\theta)$, are orthogonal to each other and both have a norm of 1. The other matrices do not have orthonormal columns.</span>
+                <div class="source">Source: Anton & Rorres, Section 6.6, Example 2.</div>
+            </div>
+        </div>
+
+        <div id="q17" class="question-container">
+            <div class="question-text">17. If $P$ is an orthogonal matrix, what is the value of $\det(P)$?</div>
+            <div class="options">
+                <label><input type="radio" name="q17" value="0"> 0</label>
+                <label><input type="radio" name="q17" value="1"> 1</label>
+                <label><input type="radio" name="q17" value="2"> -1</label>
+                <label><input type="radio" name="q17" value="3" data-correct="true"> $\pm 1$</label>
+            </div>
+            <div class="explanation">
+                <span>Since $P^T P = I$, we have $\det(P^T P) = \det(I) = 1$. Using the property $\det(AB) = \det(A)\det(B)$ and $\det(P^T) = \det(P)$, we get $\det(P)^2 = 1$, which implies $\det(P) = \pm 1$.</span>
+                <div class="source">Source: Anthony & Harvey, Exercise 10.4, p. 325.</div>
+            </div>
+        </div>
+
+        <div id="q18" class="question-container">
+            <div class="question-text">18. The set of all vectors in $\mathbb{R}^3$ orthogonal to $\mathbf{v} = (1, 1, 1)$ forms a:</div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="0"> Line through the origin.</label>
+                <label><input type="radio" name="q18" value="1" data-correct="true"> Plane through the origin.</label>
+                <label><input type="radio" name="q18" value="2"> The entire space $\mathbb{R}^3$.</label>
+                <label><input type="radio" name="q18" value="3"> Only the zero vector.</label>
+            </div>
+            <div class="explanation">
+                <span>The set of all vectors $\mathbf{x}=(x,y,z)$ such that $\langle \mathbf{x}, \mathbf{v} \rangle = 0$ is given by the equation $x+y+z=0$. This is the equation of a plane through the origin with normal vector $\mathbf{v}$. This set is the orthogonal complement of the line spanned by $\mathbf{v}$.</span>
+                <div class="source">Source: Anthony & Harvey, Section 10.2.1.</div>
+            </div>
+        </div>
+
+        <div id="q19" class="question-container">
+            <div class="question-text">19. Let $V = P_2$, the space of polynomials of degree at most 2, with inner product $\langle p, q \rangle = \int_{-1}^{1} p(x)q(x)dx$. Are the vectors $p(x)=x$ and $q(x)=x^2$ orthogonal?</div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="0" data-correct="true"> Yes, because their inner product is 0.</label>
+                <label><input type="radio" name="q19" value="1"> No, because their inner product is not 0.</label>
+                <label><input type="radio" name="q19" value="2"> No, because they are not linearly independent.</label>
+                <label><input type="radio" name="q19" value="3"> It cannot be determined.</label>
+            </div>
+            <div class="explanation">
+                <span>We compute the inner product: $\langle p, q \rangle = \int_{-1}^{1} x \cdot x^2 dx = \int_{-1}^{1} x^3 dx = \left[\frac{x^4}{4}\right]_{-1}^{1} = \frac{1}{4} - \frac{1}{4} = 0$. Since the inner product is zero, the vectors are orthogonal.</span>
+                <div class="source">Source: Anton & Rorres, Example 4, p. 203.</div>
+            </div>
+        </div>
+
+        <div id="q20" class="question-container">
+            <div class="question-text">20. Normalizing the vector $\mathbf{v} = (3, 4)$ in $\mathbb{R}^2$ with the standard Euclidean inner product results in:</div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="0"> $(3/5, 4/5)$</label>
+                <label><input type="radio" name="q20" value="1" data-correct="true"> $(\frac{3}{5}, \frac{4}{5})$</label>
+                <label><input type="radio" name="q20" value="2"> $(3/7, 4/7)$</label>
+                <label><input type="radio" name="q20" value="3"> $(1, 1)$</label>
+            </div>
+            <div class="explanation">
+                <span>First, find the norm: $||\mathbf{v}|| = \sqrt{3^2 + 4^2} = \sqrt{9+16} = \sqrt{25} = 5$. Then, divide the vector by its norm: $\frac{\mathbf{v}}{||\mathbf{v}||} = \frac{1}{5}(3, 4) = (\frac{3}{5}, \frac{4}{5})$.</span>
+                <div class="source">Source: Anthony & Harvey, p. 315.</div>
+            </div>
+        </div>
+        
+        <!-- Questions 21-50 would continue in this format -->
+        <div id="q21" class="question-container"><div class="question-text">21. The distance $d(\mathbf{u}, \mathbf{v})$ between two vectors in an inner product space is defined as:</div><div class="options"><label><input type="radio" name="q21" value="0"> $\langle \mathbf{u}, \mathbf{v} \rangle$</label><label><input type="radio" name="q21" value="1"> $||\mathbf{u}|| - ||\mathbf{v}||$</label><label><input type="radio" name="q21" value="2" data-correct="true"> $||\mathbf{u}-\mathbf{v}||$</label><label><input type="radio" name="q21" value="3"> $\sqrt{\langle \mathbf{u}, \mathbf{v} \rangle}$</label></div><div class="explanation"><span>The distance between two vectors is defined as the norm of their difference. This generalizes the standard distance formula in Euclidean space.</span><div class="source">Source: Anton & Rorres, p. 185.</div></div></div>
+        <div id="q22" class="question-container"><div class="question-text">22. If $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ is an orthonormal basis for $\mathbb{R}^n$ and $\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n$, how is the coefficient $c_i$ found?</div><div class="options"><label><input type="radio" name="q22" value="0"> $c_i = \langle \mathbf{x}, \mathbf{x} \rangle$</label><label><input type="radio" name="q22" value="1" data-correct="true"> $c_i = \langle \mathbf{x}, \mathbf{v}_i \rangle$</label><label><input type="radio" name="q22" value="2"> $c_i = ||\mathbf{v}_i||$</label><label><input type="radio" name="q22" value="3"> It requires solving a linear system.</label></div><div class="explanation"><span>For an orthonormal basis, the coordinates (coefficients) of a vector are simply its inner products with the basis vectors. This is a major advantage of using orthonormal bases. $\langle \mathbf{x}, \mathbf{v}_i \rangle = \langle c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n, \mathbf{v}_i \rangle = c_i\langle \mathbf{v}_i, \mathbf{v}_i \rangle = c_i$.</span><div class="source">Source: Anthony & Harvey, Theorem 10.20, p. 320.</div></div></div>
+        <div id="q23" class="question-container"><div class="question-text">23. Which statement is false?</div><div class="options"><label><input type="radio" name="q23" value="0"> The columns of an orthogonal matrix are orthogonal.</label><label><input type="radio" name="q23" value="1"> The rows of an orthogonal matrix are orthogonal.</label><label><input type="radio" name="q23" value="2"> The columns of an orthogonal matrix have norm 1.</label><label><input type="radio" name="q23" value="3" data-correct="true"> The diagonal entries of an orthogonal matrix must be positive.</label></div><div class="explanation"><span>The columns (and rows) of an orthogonal matrix must form an orthonormal set. However, there is no restriction on the signs of the diagonal entries. For example, a reflection matrix is orthogonal but can have negative entries on the diagonal.</span><div class="source">Source: Anthony & Harvey, Theorem 10.18, p. 319.</div></div></div>
+        <div id="q24" class="question-container"><div class="question-text">24. In the Gram-Schmidt process, when constructing an orthogonal vector $\mathbf{w}_2$ from $\mathbf{v}_1$ and $\mathbf{v}_2$ (where $\mathbf{u}_1$ is the normalized $\mathbf{v}_1$), the formula is:</div><div class="options"><label><input type="radio" name="q24" value="0"> $\mathbf{w}_2 = \mathbf{v}_2 + \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label><label><input type="radio" name="q24" value="1" data-correct="true"> $\mathbf{w}_2 = \mathbf{v}_2 - \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label><label><input type="radio" name="q24" value="2"> $\mathbf{w}_2 = \mathbf{v}_1 - \langle \mathbf{v}_1, \mathbf{u}_1 \rangle \mathbf{u}_2$</label><label><input type="radio" name="q24" value="3"> $\mathbf{w}_2 = \langle \mathbf{v}_2, \mathbf{u}_1 \rangle \mathbf{u}_1$</label></div><div class="explanation"><span>The process works by taking the next vector ($\mathbf{v}_2$) and subtracting its projection onto the subspace spanned by the previously found orthogonal vectors (in this case, just $\mathbf{u}_1$). The result is a vector orthogonal to the previous ones.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q25" class="question-container"><div class="question-text">25. If $\langle \mathbf{u}, \mathbf{v} \rangle = 3u_1v_1 + u_2v_2$ is an inner product on $\mathbb{R}^2$, what is the norm of $\mathbf{u}=(1, -1)$?</div><div class="options"><label><input type="radio" name="q25" value="0"> $\sqrt{2}$</label><label><input type="radio" name="q25" value="1"> 2</label><label><input type="radio" name="q25" value="2" data-correct="true"> 2</label><label><input type="radio" name="q25" value="3"> 4</label></div><div class="explanation"><span>The norm is $||\mathbf{u}|| = \sqrt{\langle \mathbf{u}, \mathbf{u} \rangle} = \sqrt{3(1)(1) + (1)(-1)(-1)} = \sqrt{3+1} = \sqrt{4} = 2$. Note that the standard norm would be $\sqrt{2}$.</span><div class="source">Source: Anton & Rorres, Example 2, p. 184.</div></div></div>
+        <div id="q26" class="question-container"><div class="question-text">26. The property $\langle \mathbf{u}, \mathbf{v}+\mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle$ is a direct consequence of which two fundamental inner product axioms?</div><div class="options"><label><input type="radio" name="q26" value="0"> Homogeneity and Positive-definiteness</label><label><input type="radio" name="q26" value="1"> Additivity and Homogeneity</label><label><input type="radio" name="q26" value="2" data-correct="true"> Symmetry and Additivity</label><label><input type="radio" name="q26" value="3"> Symmetry and Positive-definiteness</label></div><div class="explanation"><span>We have $\langle \mathbf{u}, \mathbf{v}+\mathbf{w} \rangle = \langle \mathbf{v}+\mathbf{w}, \mathbf{u} \rangle$ by symmetry. Then, by additivity, this is $\langle \mathbf{v}, \mathbf{u} \rangle + \langle \mathbf{w}, \mathbf{u} \rangle$. Applying symmetry again to each term gives $\langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{u}, \mathbf{w} \rangle$.</span><div class="source">Source: Anthony & Harvey, Theorem 1.36, p. 25.</div></div></div>
+        <div id="q27" class="question-container"><div class="question-text">27. If a set of vectors is orthonormal, it is:</div><div class="options"><label><input type="radio" name="q27" value="0"> Linearly dependent.</label><label><input type="radio" name="q27" value="1" data-correct="true"> Linearly independent.</label><label><input type="radio" name="q27" value="2"> Not necessarily linearly independent.</label><label><input type="radio" name="q27" value="3"> A spanning set for the entire vector space.</label></div><div class="explanation"><span>An orthonormal set consists of non-zero (norm 1) orthogonal vectors. A set of non-zero orthogonal vectors is always linearly independent. It only becomes a basis (a spanning set) if it contains the "right number" of vectors (equal to the dimension of the space).</span><div class="source">Source: Anthony & Harvey, Theorem 10.14, p. 318.</div></div></div>
+        <div id="q28" class="question-container"><div class="question-text">28. The orthogonal complement of a line through the origin in $\mathbb{R}^3$ is:</div><div class="options"><label><input type="radio" name="q28" value="0"> A line through the origin.</label><label><input type="radio" name="q28" value="1" data-correct="true"> A plane through the origin.</label><label><input type="radio" name="q28" value="2"> The origin itself.</label><label><input type="radio" name="q28" value="3"> The entire space $\mathbb{R}^3$.</label></div><div class="explanation"><span>The orthogonal complement of a subspace W, denoted $W^\perp$, contains all vectors orthogonal to every vector in W. In $\mathbb{R}^3$, all vectors orthogonal to a given line (a 1D subspace) form a plane (a 2D subspace) perpendicular to that line.</span><div class="source">Source: Anton & Rorres, Section 6.2.</div></div></div>
+        <div id="q29" class="question-container"><div class="question-text">29. If $P$ is an orthogonal matrix, then $P^T$ is:</div><div class="options"><label><input type="radio" name="q29" value="0"> The zero matrix.</label><label><input type="radio" name="q29" value="1"> Not necessarily orthogonal.</label><label><input type="radio" name="q29" value="2"> The identity matrix.</label><label><input type="radio" name="q29" value="3" data-correct="true"> Also an orthogonal matrix.</label></div><div class="explanation"><span>If $P$ is orthogonal, $P^T P = P P^T = I$. We need to check if $(P^T)^T (P^T) = I$. This simplifies to $P P^T = I$, which is true by the definition of an orthogonal matrix. Therefore, $P^T$ is also orthogonal.</span><div class="source">Source: Anthony & Harvey, Activity 10.22, p. 321.</div></div></div>
+        <div id="q30" class="question-container"><div class="question-text">30. The Cauchy-Schwarz inequality is an equality if and only if:</div><div class="options"><label><input type="radio" name="q30" value="0"> The vectors are orthogonal.</label><label><input type="radio" name="q30" value="1" data-correct="true"> The vectors are linearly dependent.</label><label><input type="radio" name="q30" value="2"> The vectors are orthonormal.</label><label><input type="radio" name="q30" value="3"> The vectors are in $\mathbb{R}^2$.</label></div><div class="explanation"><span>Equality holds in the Cauchy-Schwarz inequality, $|\langle \mathbf{u}, \mathbf{v} \rangle| = ||\mathbf{u}|| ||\mathbf{v}||$, if and only if one vector is a scalar multiple of the other, meaning they are linearly dependent.</span><div class="source">Source: Anton & Rorres, Section 6.1.</div></div></div>
+        <div id="q31" class="question-container"><div class="question-text">31. What is the result of normalizing the vector $\mathbf{v}=(0, 5, 0)$ in $\mathbb{R}^3$?</div><div class="options"><label><input type="radio" name="q31" value="0"> (0, 5, 0)</label><label><input type="radio" name="q31" value="1"> (0, 0, 0)</label><label><input type="radio" name="q31" value="2" data-correct="true"> (0, 1, 0)</label><label><input type="radio" name="q31" value="3"> (0, 1/5, 0)</label></div><div class="explanation"><span>The norm is $||\mathbf{v}|| = \sqrt{0^2+5^2+0^2} = 5$. Normalizing gives $\frac{1}{5}(0, 5, 0) = (0, 1, 0)$.</span><div class="source">Source: Anthony & Harvey, p. 315.</div></div></div>
+        <div id="q32" class="question-container"><div class="question-text">32. Two vectors $\mathbf{u}$ and $\mathbf{v}$ are orthogonal if $\langle \mathbf{u}, \mathbf{v} \rangle = 0$. This is a:</div><div class="options"><label><input type="radio" name="q32" value="0" data-correct="true"> Definition</label><label><input type="radio" name="q32" value="1"> Theorem</label><label><input type="radio" name="q32" value="2"> Corollary</label><label><input type="radio" name="q32" value="3"> Axiom</label></div><div class="explanation"><span>This is the formal definition of orthogonality in a general inner product space. It is motivated by the geometric property in $\mathbb{R}^2$ and $\mathbb{R}^3$ but is itself a definition.</span><div class="source">Source: Anthony & Harvey, Definition 10.9, p. 317.</div></div></div>
+        <div id="q33" class="question-container"><div class="question-text">33. If $P$ is an $n \times n$ orthogonal matrix, then its rows form:</div><div class="options"><label><input type="radio" name="q33" value="0"> An orthogonal set, but not necessarily a basis.</label><label><input type="radio" name="q33" value="1"> A basis, but not necessarily an orthonormal one.</label><label><input type="radio" name="q33" value="2" data-correct="true"> An orthonormal basis for $\mathbb{R}^n$.</label><label><input type="radio" name="q33" value="3"> A set of linearly dependent vectors.</label></div><div class="explanation"><span>A key property of orthogonal matrices is that both their columns and their rows form an orthonormal basis for $\mathbb{R}^n$. This is because if $P$ is orthogonal, so is $P^T$, and the columns of $P^T$ are the rows of $P$.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q34" class="question-container"><div class="question-text">34. In the Gram-Schmidt process, if $\mathbf{v}_2$ is a scalar multiple of $\mathbf{v}_1$, what happens?</div><div class="options"><label><input type="radio" name="q34" value="0"> The process continues normally.</label><label><input type="radio" name="q34" value="1"> The resulting vectors are not orthogonal.</label><label><input type="radio" name="q34" value="2" data-correct="true"> The vector $\mathbf{w}_2$ becomes the zero vector.</label><label><input type="radio" name="q34" value="3"> The vector $\mathbf{u}_1$ becomes the zero vector.</label></div><div class="explanation"><span>The Gram-Schmidt process requires a linearly independent set of vectors. If $\mathbf{v}_2 = k\mathbf{v}_1$, then $\mathbf{v}_2$ is already in the span of $\mathbf{v}_1$. Its projection onto the span of $\mathbf{v}_1$ is $\mathbf{v}_2$ itself, so $\mathbf{w}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{v}_1}(\mathbf{v}_2) = \mathbf{v}_2 - \mathbf{v}_2 = \mathbf{0}$.</span><div class="source">Source: Anthony & Harvey, Section 10.4, p. 321.</div></div></div>
+        <div id="q35" class="question-container"><div class="question-text">35. The standard inner product on $\mathbb{C}^n$ is defined as $\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u} \cdot \overline{\mathbf{v}} = u_1\overline{v_1} + \dots + u_n\overline{v_n}$. Why is the conjugate used?</div><div class="options"><label><input type="radio" name="q35" value="0"> To make the inner product symmetric.</label><label><input type="radio" name="q35" value="1" data-correct="true"> To ensure the norm is a non-negative real number.</label><label><input type="radio" name="q35" value="2"> To satisfy additivity.</label><label><input type="radio" name="q35" value="3"> It is just a convention with no specific purpose.</label></div><div class="explanation"><span>The conjugate ensures that $\langle \mathbf{v}, \mathbf{v} \rangle = \sum v_i \overline{v_i} = \sum |v_i|^2$, which is a non-negative real number. Without the conjugate, $\langle \mathbf{v}, \mathbf{v} \rangle$ could be a complex number or even zero for a non-zero vector (e.g., $\langle (1, i), (1, i) \rangle = 1^2 + i^2 = 0$).</span><div class="source">Source: Anthony & Harvey, Section 13.4.1, p. 401.</div></div></div>
+        <div id="q36" class="question-container"><div class="question-text">36. For vectors $\mathbf{u}, \mathbf{v}$ in an inner product space, which of the following is always true?</div><div class="options"><label><input type="radio" name="q36" value="0"> $||\mathbf{u}+\mathbf{v}|| = ||\mathbf{v}+\mathbf{u}||$</label><label><input type="radio" name="q36" value="1"> $||\mathbf{u}-\mathbf{v}|| = ||\mathbf{v}-\mathbf{u}||$</label><label><input type="radio" name="q36" value="2"> $||\mathbf{u}|| \ge 0$</label><label><input type="radio" name="q36" value="3" data-correct="true"> All of the above.</label></div><div class="explanation"><span>$||\mathbf{u}+\mathbf{v}|| = ||\mathbf{v}+\mathbf{u}||$ by commutativity of vector addition. $||\mathbf{u}-\mathbf{v}|| = ||-(\mathbf{v}-\mathbf{u})|| = |-1| \cdot ||\mathbf{v}-\mathbf{u}|| = ||\mathbf{v}-\mathbf{u}||$. The norm is defined as a square root, so it is always non-negative.</span><div class="source">Source: Anton & Rorres, Theorem 4.1.4, p. 4.</div></div></div>
+        <div id="q37" class="question-container"><div class="question-text">37. If $\langle \mathbf{u}, \mathbf{v} \rangle = 0$ and $\langle \mathbf{v}, \mathbf{w} \rangle = 0$, does it imply $\langle \mathbf{u}, \mathbf{w} \rangle = 0$?</div><div class="options"><label><input type="radio" name="q37" value="0"> Always</label><label><input type="radio" name="q37" value="1" data-correct="true"> Not necessarily</label><label><input type="radio" name="q37" value="2"> Only if $\mathbf{v} = \mathbf{0}$</label><label><input type="radio" name="q37" value="3"> Only in $\mathbb{R}^2$</label></div><div class="explanation"><span>Orthogonality is not transitive. Consider $\mathbf{u}=(1,0,0), \mathbf{v}=(0,1,0), \mathbf{w}=(1,0,1)$ in $\mathbb{R}^3$. $\mathbf{u}$ is orthogonal to $\mathbf{v}$, and $\mathbf{v}$ is orthogonal to $\mathbf{w}$, but $\mathbf{u}$ is not orthogonal to $\mathbf{w}$.</span><div class="source">Source: Conceptual understanding of orthogonality.</div></div></div>
+        <div id="q38" class="question-container"><div class="question-text">38. The set of all vectors orthogonal to a subspace $W$ is called the...</div><div class="options"><label><input type="radio" name="q38" value="0"> Null space of W</label><label><input type="radio" name="q38" value="1"> Row space of W</label><label><input type="radio" name="q38" value="2" data-correct="true"> Orthogonal complement of W</label><label><input type="radio" name="q38" value="3"> Eigenspace of W</label></div><div class="explanation"><span>This is the definition of the orthogonal complement, denoted $W^\perp$. It is itself a subspace.</span><div class="source">Source: Anthony & Harvey, Definition 12.7, p. 367.</div></div></div>
+        <div id="q39" class="question-container"><div class="question-text">39. If $S = \{\mathbf{v}_1, \mathbf{v}_2\}$ is an orthogonal basis for a subspace $W$, the orthogonal projection of $\mathbf{u}$ onto $W$ is given by:</div><div class="options"><label><input type="radio" name="q39" value="0"> $\langle \mathbf{u}, \mathbf{v}_1 \rangle \mathbf{v}_1 + \langle \mathbf{u}, \mathbf{v}_2 \rangle \mathbf{v}_2$</label><label><input type="radio" name="q39" value="1" data-correct="true"> $\frac{\langle \mathbf{u}, \mathbf{v}_1 \rangle}{||\mathbf{v}_1||^2}\mathbf{v}_1 + \frac{\langle \mathbf{u}, \mathbf{v}_2 \rangle}{||\mathbf{v}_2||^2}\mathbf{v}_2$</label><label><input type="radio" name="q39" value="2"> $\frac{\mathbf{v}_1}{||\mathbf{v}_1||} + \frac{\mathbf{v}_2}{||\mathbf{v}_2||}$</label><label><input type="radio" name="q39" value="3"> $\langle \mathbf{u}, \mathbf{v}_1 \rangle + \langle \mathbf{u}, \mathbf{v}_2 \rangle$</label></div><div class="explanation"><span>When the basis is orthogonal but not necessarily orthonormal, you must divide by the square of the norm of each basis vector when calculating the projection coefficients. If the basis were orthonormal, the denominators would be 1.</span><div class="source">Source: Anton & Rorres, Theorem 6.3.5, p. 223.</div></div></div>
+        <div id="q40" class="question-container"><div class="question-text">40. The distance from a point $\mathbf{u}$ to a subspace $W$ is given by:</div><div class="options"><label><input type="radio" name="q40" value="0"> $||\text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="1"> $||\mathbf{u}|| - ||\text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="2" data-correct="true"> $||\mathbf{u} - \text{proj}_W \mathbf{u}||$</label><label><input type="radio" name="q40" value="3"> $||\mathbf{u}||$</label></div><div class="explanation"><span>The distance from a point to a subspace is the length of the component of the vector that is orthogonal to the subspace. This vector is $\mathbf{u} - \text{proj}_W \mathbf{u}$.</span><div class="source">Source: Anthony & Harvey, Theorem 12.30, p. 379.</div></div></div>
+        <div id="q41" class="question-container"><div class="question-text">41. If $A$ is an orthogonal matrix, then $A^T$ is...</div><div class="options"><label><input type="radio" name="q41" value="0"> $A$</label><label><input type="radio" name="q41" value="1" data-correct="true"> $A^{-1}$</label><label><input type="radio" name="q41" value="2"> $-A$</label><label><input type="radio" name="q41" value="3"> $I$</label></div><div class="explanation"><span>This is the definition of an orthogonal matrix.</span><div class="source">Source: Anthony & Harvey, Definition 10.15, p. 319.</div></div></div>
+        <div id="q42" class="question-container"><div class="question-text">42. If $\mathbf{u}$ and $\mathbf{v}$ are orthogonal, then $||\mathbf{u}-\mathbf{v}||^2$ equals:</div><div class="options"><label><input type="radio" name="q42" value="0"> $||\mathbf{u}||^2 - ||\mathbf{v}||^2$</label><label><input type="radio" name="q42" value="1" data-correct="true"> $||\mathbf{u}||^2 + ||\mathbf{v}||^2$</label><label><input type="radio" name="q42" value="2"> $(||\mathbf{u}|| - ||\mathbf{v}||)^2$</label><label><input type="radio" name="q42" value="3"> 0</label></div><div class="explanation"><span>$||\mathbf{u}-\mathbf{v}||^2 = \langle \mathbf{u}-\mathbf{v}, \mathbf{u}-\mathbf{v} \rangle = \langle \mathbf{u}, \mathbf{u} \rangle - 2\langle \mathbf{u}, \mathbf{v} \rangle + \langle \mathbf{v}, \mathbf{v} \rangle$. Since $\langle \mathbf{u}, \mathbf{v} \rangle = 0$, this simplifies to $||\mathbf{u}||^2 + ||\mathbf{v}||^2$. This is another form of Pythagoras's Theorem.</span><div class="source">Source: Anthony & Harvey, Theorem 10.12, p. 317.</div></div></div>
+        <div id="q43" class="question-container"><div class="question-text">43. The process of creating a unit vector from a non-zero vector $\mathbf{v}$ is called:</div><div class="options"><label><input type="radio" name="q43" value="0"> Orthogonalization</label><label><input type="radio" name="q43" value="1"> Projection</label><label><input type="radio" name="q43" value="2" data-correct="true"> Normalizing</label><label><input type="radio" name="q43" value="3"> Spanning</label></div><div class="explanation"><span>Normalizing a vector means scaling it so that its length (norm) becomes 1, without changing its direction. This is done by dividing the vector by its own norm.</span><div class="source">Source: Anthony & Harvey, p. 315.</div></div></div>
+        <div id="q44" class="question-container"><div class="question-text">44. If $A$ is an $m \times n$ matrix, its row space and nullspace are orthogonal complements in...</div><div class="options"><label><input type="radio" name="q44" value="0"> $\mathbb{R}^m$</label><label><input type="radio" name="q44" value="1" data-correct="true"> $\mathbb{R}^n$</label><label><input type="radio" name="q44" value="2"> $\mathbb{R}^{m+n}$</label><label><input type="radio" name="q44" value="3"> $\mathbb{R}^{mn}$</label></div><div class="explanation"><span>The row vectors and the vectors in the nullspace (solutions to $A\mathbf{x}=\mathbf{0}$) are both vectors with $n$ components, so they are subspaces of $\mathbb{R}^n$. The Fundamental Theorem of Linear Algebra states they are orthogonal complements.</span><div class="source">Source: Anton & Rorres, Theorem 6.2.6, p. 206.</div></div></div>
+        <div id="q45" class="question-container"><div class="question-text">45. Let $\mathbf{u}=(1,1), \mathbf{v}=(1,-1)$ in $\mathbb{R}^2$. Are they orthogonal with respect to the standard inner product?</div><div class="options"><label><input type="radio" name="q45" value="0" data-correct="true"> Yes</label><label><input type="radio" name="q45" value="1"> No</label></div><div class="explanation"><span>The inner product is $\langle \mathbf{u}, \mathbf{v} \rangle = (1)(1) + (1)(-1) = 1 - 1 = 0$. Since the inner product is zero, they are orthogonal.</span><div class="source">Source: Anthony & Harvey, p. 317.</div></div></div>
+        <div id="q46" class="question-container"><div class="question-text">46. The zero vector is orthogonal to every vector in a vector space.</div><div class="options"><label><input type="radio" name="q46" value="0" data-correct="true"> True</label><label><input type="radio" name="q46" value="1"> False</label></div><div class="explanation"><span>This is true because $\langle \mathbf{0}, \mathbf{v} \rangle = \langle 0\mathbf{v}, \mathbf{v} \rangle = 0\langle \mathbf{v}, \mathbf{v} \rangle = 0$ for any vector $\mathbf{v}$.</span><div class="source">Source: Anthony & Harvey, Theorem 6.1.1, p. 191.</div></div></div>
+        <div id="q47" class="question-container"><div class="question-text">47. If $Q$ is an orthogonal matrix, then multiplying a vector $\mathbf{x}$ by $Q$ (i.e., $Q\mathbf{x}$) preserves its...</div><div class="options"><label><input type="radio" name="q47" value="0"> Direction</label><label><input type="radio" name="q47" value="1" data-correct="true"> Length (norm)</label><label><input type="radio" name="q47" value="2"> Eigenvalues</label><label><input type="radio" name="q47" value="3"> Eigenspace</label></div><div class="explanation"><span>Multiplication by an orthogonal matrix is an isometry, which means it preserves lengths and angles. $||Q\mathbf{x}||^2 = \langle Q\mathbf{x}, Q\mathbf{x} \rangle = (Q\mathbf{x})^T(Q\mathbf{x}) = \mathbf{x}^T Q^T Q \mathbf{x} = \mathbf{x}^T I \mathbf{x} = \mathbf{x}^T\mathbf{x} = ||\mathbf{x}||^2$.</span><div class="source">Source: Anton & Rorres, Section 6.6.</div></div></div>
+        <div id="q48" class="question-container"><div class="question-text">48. The first step of the Gram-Schmidt process on a set $\{\mathbf{v}_1, \mathbf{v}_2, \dots\}$ is to set $\mathbf{u}_1 = \dots$</div><div class="options"><label><input type="radio" name="q48" value="0"> $\mathbf{v}_1$</label><label><input type="radio" name="q48" value="1"> $\mathbf{v}_2 - \mathbf{v}_1$</label><label><input type="radio" name="q48" value="2" data-correct="true"> $\mathbf{v}_1 / ||\mathbf{v}_1||$</label><label><input type="radio" name="q48" value="3"> $\mathbf{v}_1 - \text{proj}_{\mathbf{v}_2}\mathbf{v}_1$</label></div><div class="explanation"><span>The process begins by creating the first vector of the new orthonormal basis. This is done by taking the first vector from the original set and normalizing it.</span><div class="source">Source: Anthony & Harvey, p. 321.</div></div></div>
+        <div id="q49" class="question-container"><div class="question-text">49. The set of all vectors orthogonal to every vector in a subspace $W$ is denoted by:</div><div class="options"><label><input type="radio" name="q49" value="0"> $W^T$</label><label><input type="radio" name="q49" value="1"> $N(W)$</label><label><input type="radio" name="q49" value="2" data-correct="true"> $W^\perp$</label><label><input type="radio" name="q49" value="3"> $\text{adj}(W)$</label></div><div class="explanation"><span>This is the standard notation for the orthogonal complement of a subspace $W$. It is read as "W perp".</span><div class="source">Source: Anthony & Harvey, Definition 12.7, p. 367.</div></div></div>
+        <div id="q50" class="question-container"><div class="question-text">50. If $A$ is an $m \times n$ matrix, the orthogonal complement of the row space of $A$ is the...</div><div class="options"><label><input type="radio" name="q50" value="0"> Column space of $A$</label><label><input type="radio" name="q50" value="1"> Row space of $A^T$</label><label><input type="radio" name="q50" value="2" data-correct="true"> Nullspace of $A$</label><label><input type="radio" name="q50" value="3"> Nullspace of $A^T$</label></div><div class="explanation"><span>This is a statement of the Fundamental Theorem of Linear Algebra. The row space and nullspace are orthogonal complements in $\mathbb{R}^n$.</span><div class="source">Source: Anton & Rorres, Theorem 6.2.6, p. 206.</div></div></div>
+
+        <button id="clear-button">Clear All Answers and Restart</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizContainer = document.getElementById('quiz');
+            const questions = quizContainer.querySelectorAll('.question-container');
+
+            function checkAnswer(questionDiv) {
+                const selectedRadio = questionDiv.querySelector('input[type="radio"]:checked');
+                if (!selectedRadio) return;
+
+                const isCorrect = selectedRadio.hasAttribute('data-correct');
+                const explanationDiv = questionDiv.querySelector('.explanation');
+                const radios = questionDiv.querySelectorAll('input[type="radio"]');
+                
+                radios.forEach(radio => {
+                    const label = radio.parentElement;
+                    let resultSpan = label.querySelector('.result');
+                    if (!resultSpan) {
+                        resultSpan = document.createElement('span');
+                        resultSpan.classList.add('result');
+                        label.appendChild(resultSpan);
+                    }
+                    
+                    if (radio.checked) {
+                        resultSpan.textContent = isCorrect ? 'Correct' : 'Incorrect';
+                        resultSpan.className = 'result ' + (isCorrect ? 'correct' : 'incorrect');
+                    } else {
+                        resultSpan.style.display = 'none';
+                    }
+                    resultSpan.style.display = 'inline-block';
+                    radio.disabled = true;
+                });
+
+                explanationDiv.style.display = 'block';
+                saveProgress();
+            }
+
+            function saveProgress() {
+                const answers = {};
+                questions.forEach((q, index) => {
+                    const selected = q.querySelector('input[type="radio"]:checked');
+                    if (selected) {
+                        const options = Array.from(q.querySelectorAll('input[type="radio"]'));
+                        answers[index] = options.indexOf(selected);
+                    }
+                });
+                // Cookie expires in 7 days
+                document.cookie = `quizProgress=${JSON.stringify(answers)};max-age=604800;path=/`;
+            }
+
+            function loadProgress() {
+                const cookies = document.cookie.split(';').map(c => c.trim());
+                const progressCookie = cookies.find(c => c.startsWith('quizProgress='));
+                if (progressCookie) {
+                    const answers = JSON.parse(progressCookie.split('=')[1]);
+                    for (const qIndex in answers) {
+                        const questionDiv = questions[qIndex];
+                        if (questionDiv) {
+                            const radioToCheck = questionDiv.querySelectorAll('input[type="radio"]')[answers[qIndex]];
+                            if (radioToCheck) {
+                                radioToCheck.checked = true;
+                                checkAnswer(questionDiv);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function clearProgress() {
+                document.cookie = 'quizProgress=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+                window.location.reload();
+            }
+
+            quizContainer.addEventListener('change', function(event) {
+                if (event.target.type === 'radio') {
+                    const questionDiv = event.target.closest('.question-container');
+                    checkAnswer(questionDiv);
+                }
+            });
+
+            document.getElementById('clear-button').addEventListener('click', clearProgress);
+
+            loadProgress();
+        });
+    </script>
+
+</body>
+</html>

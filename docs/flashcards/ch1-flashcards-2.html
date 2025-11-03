@@ -1,0 +1,2430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 - Diagonalisation & Differential Equations Flashcards</title>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        h1 {
+            color: #1c3d5a;
+            text-align: center;
+        }
+        .slideshow-container {
+            width: 90vw;
+            max-width: 800px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+        .flashcard-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .flashcard-scene {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 500px;
+            perspective: 1000px;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            overflow-y: auto;
+        }
+        .flashcard-face--back {
+            transform: rotateY(180deg);
+        }
+        .flashcard-content {
+            text-align: left;
+            width: 100%;
+        }
+        .flashcard-content h2 {
+            text-align: center;
+            color: #0056b3;
+            margin-top: 0;
+        }
+        .flashcard-content p, .flashcard-content ul, .flashcard-content ol {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .source {
+            font-size: 0.8rem;
+            color: #666;
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-style: italic;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 90vw;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+        .nav-button, .flip-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover, .flip-button:hover {
+            background-color: #0056b3;
+        }
+        .flip-button-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #progress-counter {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MT2175: Diagonalisation, Jordan Form & Differential Equations</h1>
+
+    <div class="slideshow-container">
+        <div class="flashcard-slider">
+            <!-- Card 1 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-1">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 1</h2>
+                            <p>What is the general form of a square linear system of differential equations, and how can it be represented in matrix form?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A general square linear system of differential equations for functions \(y_1(t), y_2(t), ..., y_n(t)\) has the form:</p>
+                            $$ y'_1 = a_{11}y_1 + a_{12}y_2 + \cdots + a_{1n}y_n $$
+                            $$ y'_2 = a_{21}y_1 + a_{22}y_2 + \cdots + a_{2n}y_n $$
+                            $$ \vdots $$
+                            $$ y'_n = a_{n1}y_1 + a_{n2}y_2 + \cdots + a_{nn}y_n $$
+                            <p>where the \(a_{ij}\) are constants.</p>
+                            <p>This can be represented in matrix form as \( \mathbf{y}' = A\mathbf{y} \), where:</p>
+                            <ul>
+                                <li>\(\mathbf{y}'\) is the vector of derivatives: \((\frac{dy_1}{dt}, ..., \frac{dy_n}{dt})^T\)</li>
+                                <li>\(A\) is the \(n \times n\) matrix of coefficients \((a_{ij})\)</li>
+                                <li>\(\mathbf{y}\) is the vector of functions: \((y_1, ..., y_n)^T\)</li>
+                            </ul>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 16</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-2">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 2</h2>
+                            <p>If a system of differential equations is given by \(\mathbf{y}' = A\mathbf{y}\) and the matrix \(A\) is a diagonal matrix, \(A = \text{diag}(\lambda_1, \lambda_2, ..., \lambda_n)\), what is the general solution for each function \(y_i(t)\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If the matrix \(A\) is diagonal, the system of equations is "uncoupled", meaning each equation can be solved independently.</p>
+                            <p>The system becomes:</p>
+                            $$ y'_1 = \lambda_1 y_1, \quad y'_2 = \lambda_2 y_2, \quad ..., \quad y'_n = \lambda_n y_n $$
+                            <p>Each of these is a simple first-order linear differential equation. The solution for each function \(y_i(t)\) is given by:</p>
+                            $$ y_i(t) = y_i(0)e^{\lambda_i t} $$
+                            <p>where \(y_i(0)\) is the initial condition for that function.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 16</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-3">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 3</h2>
+                            <p>What is the core idea behind using diagonalisation to solve the system \(\mathbf{y}' = A\mathbf{y}\) when \(A\) is a diagonalisable matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The core idea is to perform a **change of variable** to transform the original, coupled system into a new, uncoupled system that is easy to solve.</p>
+                            <p>If \(A\) is diagonalisable, we can write \(D = P^{-1}AP\). We define a new vector of functions \(\mathbf{z}\) such that \(\mathbf{y} = P\mathbf{z}\). By substituting this into the original equation, we get:</p>
+                            $$ (P\mathbf{z})' = A(P\mathbf{z}) \implies P\mathbf{z}' = AP\mathbf{z} \implies \mathbf{z}' = P^{-1}AP\mathbf{z} $$
+                            <p>This simplifies to \(\mathbf{z}' = D\mathbf{z}\), which is a simple, uncoupled diagonal system. Once \(\mathbf{z}\) is found, we can find \(\mathbf{y}\) by transforming back using \(\mathbf{y} = P\mathbf{z}\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, pp. 17-18</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-4">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 4</h2>
+                            <p>When solving \(\mathbf{y}' = A\mathbf{y}\) using the change of variable \(\mathbf{y} = P\mathbf{z}\), how are the initial conditions for \(\mathbf{z}(t)\) related to the initial conditions for \(\mathbf{y}(t)\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The relationship \(\mathbf{y}(t) = P\mathbf{z}(t)\) holds for all \(t\), including \(t=0\). Therefore, the initial condition vector \(\mathbf{y}(0)\) is related to the initial condition vector \(\mathbf{z}(0)\) by the same transformation:</p>
+                            $$ \mathbf{y}(0) = P\mathbf{z}(0) $$
+                            <p>To find the initial conditions for the new system, \(\mathbf{z}(0)\), we simply solve this matrix equation:</p>
+                            $$ \mathbf{z}(0) = P^{-1}\mathbf{y}(0) $$
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 19</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-5">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 5</h2>
+                            <p>What is a Jordan block?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A Jordan block is a square matrix with a specific structure. A \(k \times k\) matrix \(B\) is a Jordan block if it has the same value \(\lambda\) on the main diagonal, 1s on the superdiagonal (the diagonal directly above the main one), and 0s everywhere else.</p>
+                            <p>For \(k \ge 2\), the structure is:</p>
+                            $$ B = \begin{pmatrix} \lambda & 1 & 0 & \cdots & 0 \\ 0 & \lambda & 1 & \cdots & 0 \\ \vdots & & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & \lambda & 1 \\ 0 & \cdots & 0 & 0 & \lambda \end{pmatrix} $$
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 23</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-6">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 6</h2>
+                            <p>What is a Jordan matrix, and what is the Jordan normal form of a matrix A?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **Jordan matrix** is a block diagonal matrix where each diagonal block is a Jordan block.</p>
+                            $$ J = \begin{pmatrix} B_1 & & \\ & \ddots & \\ & & B_r \end{pmatrix} $$
+                            <p>The **Jordan normal form (JNF)** of a square matrix \(A\) is a Jordan matrix \(J\) that is similar to \(A\). This means there exists an invertible matrix \(P\) such that:</p>
+                            $$ J = P^{-1}AP $$
+                            <p>The Jordan Normal Form Theorem states that every square matrix has a Jordan normal form, which is unique up to the ordering of the Jordan blocks.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, pp. 21-23</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-7">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 7</h2>
+                            <p>Why is the Jordan normal form useful for solving systems of differential equations \(\mathbf{y}' = A\mathbf{y}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>Not all matrices are diagonalisable. For any square matrix \(A\), we can find its Jordan form \(J = P^{-1}AP\), which is "almost diagonal". Using the change of variable \(\mathbf{y} = P\mathbf{z}\), we transform the system \(\mathbf{y}' = A\mathbf{y}\) into:</p>
+                            $$ \mathbf{z}' = J\mathbf{z} $$
+                            <p>This new system is not completely uncoupled, but it is "almost uncoupled". The equations corresponding to each Jordan block can be solved sequentially, starting from the last equation in the block and working backwards, which is much simpler than solving the original fully coupled system.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-8">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 8</h2>
+                            <p>Consider the system \(\mathbf{z}' = J\mathbf{z}\) where \(J\) is a single \(3 \times 3\) Jordan block with eigenvalue \(\lambda\). Write out the system of equations for \(z_1, z_2, z_3\).</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A single \(3 \times 3\) Jordan block \(J\) with eigenvalue \(\lambda\) is:
+                            $$ J = \begin{pmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{pmatrix} $$
+                            The system \(\mathbf{z}' = J\mathbf{z}\) is therefore:</p>
+                            $$ z'_1 = \lambda z_1 + z_2 $$
+                            $$ z'_2 = \lambda z_2 + z_3 $$
+                            $$ z'_3 = \lambda z_3 $$
+                            <p>This system can be solved by back substitution, starting with the equation for \(z_3\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 26</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-9">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 9</h2>
+                            <p>State Theorem 2.2 from the subject guide, which gives the general solution to a system of differential equations \(\mathbf{w}' = B\mathbf{w}\) where \(B\) is a single \(k \times k\) Jordan block.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The theorem states that the general solution to \(\mathbf{w}' = B\mathbf{w}\) is given by:</p>
+                            $$ w_k(t) = c_k e^{\lambda t} $$
+                            $$ w_{k-1}(t) = c_{k-1}e^{\lambda t} + c_k t e^{\lambda t} $$
+                            <p>And in general, for \(j = 1, ..., k\):</p>
+                            $$ w_j(t) = e^{\lambda t} \left( c_j + c_{j+1}t + c_{j+2}\frac{t^2}{2!} + \cdots + c_k \frac{t^{k-j}}{(k-j)!} \right) $$
+                            <p>where \(c_j\) are arbitrary constants.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 28</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-10">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 10</h2>
+                            <p>What is a generalised eigenvector?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A non-zero vector \(\mathbf{v}\) is a **generalised eigenvector** of a matrix \(A\) corresponding to an eigenvalue \(\lambda\) if for some positive integer \(k\), it satisfies:</p>
+                            $$ (A - \lambda I)^k \mathbf{v} = \mathbf{0} \quad \text{but} \quad (A - \lambda I)^{k-1} \mathbf{v} \neq \mathbf{0} $$
+                            <p>An ordinary eigenvector is a special case where \(k=1\). The columns of the matrix \(P\) that transforms \(A\) into its Jordan normal form \(J = P^{-1}AP\) form a basis of generalised eigenvectors for \(A\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 25</div>
+                    </div>
+                </div>
+            </div>
+            
+<!-- Card 11 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-11">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 11</h2>
+                            <p>What is the relationship between the algebraic multiplicity and the geometric multiplicity of an eigenvalue, and why is it important for diagonalisation?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For any eigenvalue \(\lambda\) of a square matrix \(A\):</p>
+                            <ul>
+                                <li>The **algebraic multiplicity** is the number of times \((\lambda_i - \lambda)\) appears as a factor in the characteristic polynomial.</li>
+                                <li>The **geometric multiplicity** is the dimension of the eigenspace corresponding to \(\lambda\), which is \(\text{dim}(\text{Nul}(A - \lambda I))\).</li>
+                            </ul>
+                            <p>The relationship is that the geometric multiplicity is always less than or equal to the algebraic multiplicity: </p>
+                            $$ 1 \le \text{geometric multiplicity} \le \text{algebraic multiplicity} $$
+                            <p>This is crucial for diagonalisation because a matrix is diagonalisable if and only if, for every eigenvalue, the geometric multiplicity is equal to the algebraic multiplicity (and all eigenvalues are real).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 269</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 12 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-12">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 12</h2>
+                            <p>If a matrix \(A\) has \(n\) distinct eigenvalues, is it always diagonalisable? Why or why not?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>Yes. If an \(n \times n\) matrix \(A\) has \(n\) distinct eigenvalues, it is always diagonalisable.</p>
+                            <p>This is because eigenvectors corresponding to distinct eigenvalues are always linearly independent. Since there are \(n\) distinct eigenvalues, we can find \(n\) corresponding eigenvectors, which will form a set of \(n\) linearly independent vectors. An \(n \times n\) matrix is diagonalisable if and only if it has \(n\) linearly independent eigenvectors.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 265</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 13 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 13</h2>
+                            <p>Outline the full procedure for solving \(\mathbf{y}' = A\mathbf{y}\) with initial condition \(\mathbf{y}(0)\) when \(A\) is diagonalisable.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <ol>
+                                <li>Find the eigenvalues \(\lambda_i\) and corresponding eigenvectors \(\mathbf{v}_i\) of \(A\).</li>
+                                <li>Construct the matrices \(P = [\mathbf{v}_1, ..., \mathbf{v}_n]\) and \(D = \text{diag}(\lambda_1, ..., \lambda_n)\).</li>
+                                <li>Define the change of variable \(\mathbf{y} = P\mathbf{z}\). The system becomes \(\mathbf{z}' = D\mathbf{z}\).</li>
+                                <li>Solve the uncoupled system: \(z_i(t) = z_i(0)e^{\lambda_i t}\).</li>
+                                <li>Find the initial conditions for \(\mathbf{z}\) using \(\mathbf{z}(0) = P^{-1}\mathbf{y}(0)\).</li>
+                                <li>Write the solution for \(\mathbf{z}(t)\).</li>
+                                <li>Transform back to find the final solution: \(\mathbf{y}(t) = P\mathbf{z}(t)\).</li>
+                            </ol>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, pp. 18-19</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 14 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 14</h2>
+                            <p>If \(J\) is a Jordan matrix, what is the structure of the solution to \(\mathbf{z}' = J\mathbf{z}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The system \(\mathbf{z}' = J\mathbf{z}\) decouples into smaller systems, one for each Jordan block on the diagonal of \(J\). If \(J = \text{diag}(B_1, B_2, ..., B_r)\), then the variables corresponding to each block \(B_i\) can be solved independently of the variables for other blocks \(B_j\) where \(j \neq i\).</p>
+                            <p>Within each block, the equations are solved by back substitution, starting from the last variable in that block's subsystem.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 27</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 15 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 15</h2>
+                            <p>For a \(2 \times 2\) Jordan block \(B = \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}\), what is the general solution to \(\mathbf{w}' = B\mathbf{w}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The system of equations is:</p>
+                            $$ w'_1 = \lambda w_1 + w_2 $$
+                            $$ w'_2 = \lambda w_2 $$
+                            <p>Solving the second equation first gives \(w_2(t) = c_2 e^{\lambda t}\).</p>
+                            <p>Substituting this into the first equation gives \(w'_1 - \lambda w_1 = c_2 e^{\lambda t}\). This is a first-order linear ODE whose solution (using an integrating factor of \(e^{-\lambda t}\)) is:</p>
+                            $$ w_1(t) = c_1 e^{\lambda t} + c_2 t e^{\lambda t} $$
+                            <p>This matches the general formula from Theorem 2.2 for \(k=2\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 29</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 16 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 16</h2>
+                            <p>What is the definition of a Hermitian matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square complex matrix \(A\) is **Hermitian** if it is equal to its conjugate transpose (also known as adjoint), denoted \(A^*\) or \(A^H\).</p>
+                            $$ A = A^* \quad \text{or} \quad A = (\overline{A})^T $$
+                            <p>This means that \(a_{ij} = \overline{a_{ji}}\) for all \(i, j\). If \(A\) is a real matrix, then a Hermitian matrix is simply a symmetric matrix (\(A = A^T\)).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 403</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 17 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 17</h2>
+                            <p>What is the definition of a Unitary matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square complex matrix \(U\) is **Unitary** if its conjugate transpose is also its inverse.</p>
+                            $$ U^*U = UU^* = I $$
+                            <p>This implies that \(U^* = U^{-1}\). If \(U\) is a real matrix, then a unitary matrix is an orthogonal matrix (\(U^T = U^{-1}\)). Unitary matrices preserve the inner product and thus the length of complex vectors.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 404</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 18 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 18</h2>
+                            <p>What is the definition of a Normal matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square complex matrix \(A\) is **Normal** if it commutes with its conjugate transpose.</p>
+                            $$ AA^* = A^*A $$
+                            <p>Hermitian matrices and Unitary matrices are special cases of normal matrices. Normal matrices are precisely those matrices that are diagonalisable by a unitary matrix (i.e., they have a complete set of orthonormal eigenvectors).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 405</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 19 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 19</h2>
+                            <p>State the Spectral Theorem for Hermitian matrices.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The Spectral Theorem for Hermitian matrices states that if \(A\) is a Hermitian matrix, then:</p>
+                            <ol>
+                                <li>All eigenvalues of \(A\) are real.</li>
+                                <li>Eigenvectors corresponding to distinct eigenvalues are orthogonal.</li>
+                                <li>\(A\) is unitarily diagonalisable, meaning there exists a unitary matrix \(U\) such that \(U^*AU = D\), where \(D\) is a diagonal matrix with the eigenvalues of \(A\) on its diagonal. The columns of \(U\) are an orthonormal basis of eigenvectors for \(A\).</li>
+                            </ol>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 406</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 20 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 20</h2>
+                            <p>How can the solution to \(\mathbf{y}' = A\mathbf{y}\) be expressed using the matrix exponential \(e^{At}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The general solution to the system of linear differential equations \(\mathbf{y}' = A\mathbf{y}\) can be expressed using the matrix exponential as:</p>
+                            $$ \mathbf{y}(t) = e^{At} \mathbf{y}(0) $$
+                            <p>where \(\mathbf{y}(0)\) is the initial condition vector. The matrix exponential \(e^{At}\) is defined by the power series:</p>
+                            $$ e^{At} = I + At + \frac{(At)^2}{2!} + \frac{(At)^3}{3!} + \cdots = \sum_{k=0}^{\infty} \frac{(At)^k}{k!} $$
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 21 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 21</h2>
+                            <p>If \(A\) is a diagonalisable matrix with \(D = P^{-1}AP\), how can \(e^{At}\) be computed?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If \(A\) is diagonalisable, then \(A = PDP^{-1}\). Using this, the matrix exponential can be computed as:</p>
+                            $$ e^{At} = P e^{Dt} P^{-1} $$
+                            <p>where \(e^{Dt}\) is easily computed if \(D = \text{diag}(\lambda_1, ..., \lambda_n)\):</p>
+                            $$ e^{Dt} = \text{diag}(e^{\lambda_1 t}, ..., e^{\lambda_n t}) $$
+                            <p>This simplifies the computation of \(e^{At}\) significantly.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 31</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 22 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 22</h2>
+                            <p>If \(A\) is a matrix in Jordan normal form \(J\), how can \(e^{Jt}\) be computed?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If \(J\) is a Jordan matrix, then \(e^{Jt}\) is a block diagonal matrix where each block corresponds to a Jordan block \(B_i\) of \(J\).</p>
+                            <p>For a single \(k \times k\) Jordan block \(B = \lambda I + N\) (where \(N\) is the nilpotent part with 1s on the superdiagonal), the exponential is:</p>
+                            $$ e^{Bt} = e^{\lambda t} e^{Nt} = e^{\lambda t} (I + Nt + \frac{(Nt)^2}{2!} + \cdots + \frac{(Nt)^{k-1}}{(k-1)!}) $$
+                            <p>Since \(N^k = 0\), the series terminates. For example, for a \(3 \times 3\) Jordan block:</p>
+                            $$ e^{Bt} = e^{\lambda t} \begin{pmatrix} 1 & t & t^2/2! \\ 0 & 1 & t \\ 0 & 0 & 1 \end{pmatrix} $$
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 32</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 23 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 23</h2>
+                            <p>What is the definition of an eigenvector and eigenvalue?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An **eigenvector** of a square matrix \(A\) is a non-zero vector \(\mathbf{v}\) such that when \(A\) multiplies \(\mathbf{v}\), the result is a scalar multiple of \(\mathbf{v}\).</p>
+                            <p>The scalar \(\lambda\) is called the **eigenvalue** corresponding to \(\mathbf{v}\).</p>
+                            <p>Mathematically, this is expressed as:</p>
+                            $$ A\mathbf{v} = \lambda\mathbf{v} $$
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 255</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 24 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 24</h2>
+                            <p>How do you find the eigenvalues of a matrix \(A\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>To find the eigenvalues \(\lambda\) of a matrix \(A\), you need to solve the characteristic equation:</p>
+                            $$ \text{det}(A - \lambda I) = 0 $$
+                            <p>where \(I\) is the identity matrix of the same dimension as \(A\). The roots of this polynomial equation are the eigenvalues.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 257</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 25 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 25</h2>
+                            <p>How do you find the eigenvectors corresponding to a given eigenvalue \(\lambda\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>Once an eigenvalue \(\lambda\) is found, the corresponding eigenvectors \(\mathbf{v}\) are the non-zero solutions to the homogeneous system:</p>
+                            $$ (A - \lambda I)\mathbf{v} = \mathbf{0} $$
+                            <p>This involves finding the null space (or kernel) of the matrix \((A - \lambda I)\). The basis vectors for this null space are the eigenvectors for \(\lambda\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 258</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 26 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 26</h2>
+                            <p>What is the definition of a diagonalisable matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square matrix \(A\) is **diagonalisable** if it is similar to a diagonal matrix. This means there exists an invertible matrix \(P\) and a diagonal matrix \(D\) such that:</p>
+                            $$ A = PDP^{-1} \quad \text{or equivalently} \quad D = P^{-1}AP $$
+                            <p>The columns of \(P\) are the linearly independent eigenvectors of \(A\), and the diagonal entries of \(D\) are the corresponding eigenvalues.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 263</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 27 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 27</h2>
+                            <p>What are the conditions for a matrix to be diagonalisable?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An \(n \times n\) matrix \(A\) is diagonalisable if and only if:</p>
+                            <ol>
+                                <li>The sum of the dimensions of its eigenspaces equals \(n\).</li>
+                                <li>It has \(n\) linearly independent eigenvectors.</li>
+                                <li>For each eigenvalue, its geometric multiplicity equals its algebraic multiplicity.</li>
+                            </ol>
+                            <p>If \(A\) has \(n\) distinct eigenvalues, it is automatically diagonalisable.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 269</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 28 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 28</h2>
+                            <p>Explain the concept of a basis of eigenvectors.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **basis of eigenvectors** for an \(n \times n\) matrix \(A\) is a set of \(n\) linearly independent eigenvectors of \(A\) that span the entire vector space \(\mathbb{R}^n\) (or \(\mathbb{C}^n\)).</p>
+                            <p>If a matrix has such a basis, it means that any vector in the space can be written as a linear combination of these eigenvectors. This is precisely the condition for a matrix to be diagonalisable.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 263</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 29 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 29</h2>
+                            <p>What is the significance of the matrix \(P\) in the diagonalisation \(A = PDP^{-1}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The matrix \(P\) is the **change-of-basis matrix** whose columns are the linearly independent eigenvectors of \(A\). It transforms coordinates from the eigenvector basis to the standard basis.</p>
+                            <p>Its inverse, \(P^{-1}\), transforms coordinates from the standard basis to the eigenvector basis. When we write \(D = P^{-1}AP\), it means that \(A\) acts like the diagonal matrix \(D\) when viewed in the basis of its eigenvectors.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 263</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 30 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 30</h2>
+                            <p>What is the definition of a nilpotent matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square matrix \(N\) is **nilpotent** if some positive integer power of \(N\) is the zero matrix. That is, \(N^k = 0\) for some integer \(k \ge 1\).</p>
+                            <p>For example, the matrix \(\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\) is nilpotent because its square is the zero matrix.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 24</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 31 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 31</h2>
+                            <p>How is a Jordan block related to a nilpotent matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A Jordan block \(B\) with eigenvalue \(\lambda\) can be written as the sum of a scalar multiple of the identity matrix and a nilpotent matrix:</p>
+                            $$ B = \lambda I + N $$
+                            <p>where \(N\) is a nilpotent matrix with 1s on the superdiagonal and 0s elsewhere. For example, for a \(3 \times 3\) Jordan block:</p>
+                            $$ \begin{pmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{pmatrix} = \lambda \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} + \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix} $$
+                            <p>The matrix \(N\) here is nilpotent, as \(N^3 = 0\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 24</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 32 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 32</h2>
+                            <p>What is the significance of the uniqueness of the Jordan normal form?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The Jordan normal form of a matrix is unique up to the ordering of the Jordan blocks. This uniqueness means that the JNF provides a canonical form for every square matrix under similarity.</p>
+                            <p>It allows us to classify matrices and determine if two matrices are similar: two matrices are similar if and only if they have the same Jordan normal form (up to block ordering).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 23</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 33 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 33</h2>
+                            <p>How does the size of a Jordan block relate to the algebraic and geometric multiplicities of its eigenvalue?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a given eigenvalue \(\lambda\):</p>
+                            <ul>
+                                <li>The **algebraic multiplicity** of \(\lambda\) is the sum of the sizes of all Jordan blocks corresponding to \(\lambda\).</li>
+                                <li>The **geometric multiplicity** of \(\lambda\) is the number of Jordan blocks corresponding to \(\lambda\).</li>
+                            </ul>
+                            <p>If the geometric multiplicity is less than the algebraic multiplicity, it means there is at least one Jordan block of size greater than 1.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 23</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 34 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 34</h2>
+                            <p>What is the definition of a chain of generalised eigenvectors?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **chain of generalised eigenvectors** of length \(k\) corresponding to an eigenvalue \(\lambda\) is a sequence of non-zero vectors \(\mathbf{v}_1, \mathbf{v}_2, ..., \mathbf{v}_k\) such that:</p>
+                            $$ (A - \lambda I)\mathbf{v}_1 = \mathbf{0} \quad (\text{so } \mathbf{v}_1 \text{ is an eigenvector}) $$
+                            $$ (A - \lambda I)\mathbf{v}_2 = \mathbf{v}_1 $$
+                            $$ \vdots $$
+                            $$ (A - \lambda I)\mathbf{v}_k = \mathbf{v}_{k-1} $$
+                            <p>This can be written more compactly as \((A - \lambda I)^j \mathbf{v}_j = \mathbf{0}\) for \(j=1,...,k\) and \((A - \lambda I)^j \mathbf{v}_k = \mathbf{v}_{k-j}\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 35 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 35</h2>
+                            <p>How are chains of generalised eigenvectors used to construct the matrix \(P\) for Jordan normal form?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The columns of the matrix \(P\) (such that \(J = P^{-1}AP\)) are formed by concatenating the chains of generalised eigenvectors. Each chain corresponds to a Jordan block.</p>
+                            <p>For a Jordan block of size \(k\) corresponding to \(\lambda\), the columns of \(P\) would be \([\mathbf{v}_1, \mathbf{v}_2, ..., \mathbf{v}_k]\) where these vectors form a chain of generalised eigenvectors.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 36 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 36</h2>
+                            <p>What is the primary difference in solving \(\mathbf{y}' = A\mathbf{y}\) when \(A\) is diagonalisable versus when it is not?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>When \(A\) is diagonalisable, the change of variables \(\mathbf{y} = P\mathbf{z}\) leads to a completely uncoupled system \(\mathbf{z}' = D\mathbf{z}\) where \(D\) is diagonal, and each \(z_i' = \lambda_i z_i\) can be solved independently.</p>
+                            <p>When \(A\) is not diagonalisable, the change of variables leads to \(\mathbf{z}' = J\mathbf{z}\) where \(J\) is in Jordan normal form. This system is not completely uncoupled; the equations within each Jordan block are coupled (e.g., \(z_1' = \lambda z_1 + z_2\)), requiring sequential solving (back substitution).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, pp. 17, 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 37 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 37</h2>
+                            <p>What is the definition of a real symmetric matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square real matrix \(A\) is **symmetric** if it is equal to its transpose, i.e., \(A = A^T\).</p>
+                            <p>This means that \(a_{ij} = a_{ji}\) for all \(i, j\). Real symmetric matrices are a special case of Hermitian matrices, and they have many desirable properties, such as always being diagonalisable by an orthogonal matrix and having real eigenvalues.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 403</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 38 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 38</h2>
+                            <p>State the Spectral Theorem for Real Symmetric matrices.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The Spectral Theorem for Real Symmetric matrices states that if \(A\) is a real symmetric matrix, then:</p>
+                            <ol>
+                                <li>All eigenvalues of \(A\) are real.</li>
+                                <li>Eigenvectors corresponding to distinct eigenvalues are orthogonal.</li>
+                                <li>\(A\) is orthogonally diagonalisable, meaning there exists an orthogonal matrix \(P\) (i.e., \(P^T = P^{-1}\)) such that \(P^TAP = D\), where \(D\) is a diagonal matrix with the eigenvalues of \(A\) on its diagonal. The columns of \(P\) are an orthonormal basis of eigenvectors for \(A\).</p>
+                            </ol>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 406</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 39 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 39</h2>
+                            <p>What is the definition of an orthogonal matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square real matrix \(P\) is **orthogonal** if its transpose is also its inverse.</p>
+                            $$ P^TP = PP^T = I $$
+                            <p>This implies that \(P^T = P^{-1}\). Orthogonal matrices preserve the dot product and thus the length and angle of real vectors. Their columns (and rows) form an orthonormal basis.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 404</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 40 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 40</h2>
+                            <p>How can the solution to a non-homogeneous system \(\mathbf{y}' = A\mathbf{y} + \mathbf{f}(t)\) be found?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The general solution to a non-homogeneous system \(\mathbf{y}' = A\mathbf{y} + \mathbf{f}(t)\) is the sum of the general solution to the homogeneous system (\(\mathbf{y}_h(t) = e^{At}\mathbf{c}\)) and a particular solution to the non-homogeneous system (\(\mathbf{y}_p(t)\)).</p>
+                            <p>One method to find \(\mathbf{y}_p(t)\) is **variation of parameters**:</p>
+                            $$ \mathbf{y}_p(t) = e^{At} \int e^{-As} \mathbf{f}(s) ds $$
+                            <p>Alternatively, if \(A\) is diagonalisable, one can transform the system into the diagonal basis, solve the uncoupled non-homogeneous equations, and then transform back.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 33</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 41 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 41</h2>
+                            <p>What is the definition of a positive definite matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A symmetric real matrix \(A\) is **positive definite** if for all non-zero vectors \(\mathbf{x} \in \mathbb{R}^n\), the quadratic form \(\mathbf{x}^TA\mathbf{x} > 0\).</p>
+                            <p>Equivalently, all eigenvalues of a positive definite matrix are strictly positive. Positive definite matrices are important in optimization, stability analysis of differential equations, and defining inner products.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 42 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 42</h2>
+                            <p>What is the definition of a negative definite matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A symmetric real matrix \(A\) is **negative definite** if for all non-zero vectors \(\mathbf{x} \in \mathbb{R}^n\), the quadratic form \(\mathbf{x}^TA\mathbf{x} < 0\).</p>
+                            <p>Equivalently, all eigenvalues of a negative definite matrix are strictly negative.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 43 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 43</h2>
+                            <p>What is the definition of a positive semi-definite matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A symmetric real matrix \(A\) is **positive semi-definite** if for all non-zero vectors \(\mathbf{x} \in \mathbb{R}^n\), the quadratic form \(\mathbf{x}^TA\mathbf{x} \ge 0\).</p>
+                            <p>Equivalently, all eigenvalues of a positive semi-definite matrix are non-negative (greater than or equal to zero).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 44 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 44</h2>
+                            <p>What is the definition of a negative semi-definite matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A symmetric real matrix \(A\) is **negative semi-definite** if for all non-zero vectors \(\mathbf{x} \in \mathbb{R}^n\), the quadratic form \(\mathbf{x}^TA\mathbf{x} \le 0\).</p>
+                            <p>Equivalently, all eigenvalues of a negative semi-definite matrix are non-positive (less than or equal to zero).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 45 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 45</h2>
+                            <p>What is the definition of an indefinite matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A symmetric real matrix \(A\) is **indefinite** if it is neither positive semi-definite nor negative semi-definite. This means there exist vectors \(\mathbf{x}\) and \(\mathbf{y}\) such that \(\mathbf{x}^TA\mathbf{x} > 0\) and \(\mathbf{y}^TA\mathbf{y} < 0\).</p>
+                            <p>Equivalently, an indefinite matrix has both positive and negative eigenvalues.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 46 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 46</h2>
+                            <p>How can the stability of the equilibrium point \(\mathbf{y} = \mathbf{0}\) for the system \(\mathbf{y}' = A\mathbf{y}\) be determined from the eigenvalues of \(A\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The stability of the equilibrium point \(\mathbf{y} = \mathbf{0}\) is determined by the real parts of the eigenvalues of \(A\):</p>
+                            <ul>
+                                <li>If all eigenvalues have **negative real parts**, then \(\mathbf{0}\) is an asymptotically stable equilibrium (solutions approach \(\mathbf{0}\) as \(t \to \infty\)).</li>
+                                <li>If at least one eigenvalue has a **positive real part**, then \(\mathbf{0}\) is an unstable equilibrium (solutions move away from \(\mathbf{0}\)).</li>
+                                <li>If all eigenvalues have **non-positive real parts**, and those with zero real parts have geometric multiplicity equal to their algebraic multiplicity (i.e., corresponding Jordan blocks are \(1 \times 1\)), then \(\mathbf{0}\) is a stable equilibrium (solutions remain bounded).</li>
+                                <li>If there is an eigenvalue with a **zero real part** whose geometric multiplicity is less than its algebraic multiplicity (i.e., a Jordan block of size > 1 for \(\lambda = 0\)), then \(\mathbf{0}\) is unstable.</li>
+                            </ul>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 34</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 47 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 47</h2>
+                            <p>What is the definition of a stable equilibrium point?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An equilibrium point is **stable** if solutions that start sufficiently close to the equilibrium point remain close to it for all future time. This means that for any \(\epsilon > 0\), there exists a \(\delta > 0\) such that if \(\Vert \mathbf{y}(0) - \mathbf{y}_{eq} \Vert < \delta\), then \(\Vert \mathbf{y}(t) - \mathbf{y}_{eq} \Vert < \epsilon\) for all \(t \ge 0\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 34</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 48 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 48</h2>
+                            <p>What is the definition of an asymptotically stable equilibrium point?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An equilibrium point is **asymptotically stable** if it is stable, and additionally, solutions that start sufficiently close to the equilibrium point not only remain close but also approach the equilibrium point as time goes to infinity. That is, \(\lim_{t \to \infty} \mathbf{y}(t) = \mathbf{y}_{eq}\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 34</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 49 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 49</h2>
+                            <p>What is the definition of an unstable equilibrium point?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An equilibrium point is **unstable** if it is not stable. This means that there exist solutions starting arbitrarily close to the equilibrium point that eventually move away from it.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 34</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 50 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 50</h2>
+                            <p>What is the relationship between the eigenvalues of \(A\) and the eigenvalues of \(A^k\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If \(\lambda\) is an eigenvalue of \(A\) with corresponding eigenvector \(\mathbf{v}\), then \(\lambda^k\) is an eigenvalue of \(A^k\) with the same eigenvector \(\mathbf{v}\).</p>
+                            <p>This can be shown by applying \(A\) repeatedly:</p>
+                            $$ A^2\mathbf{v} = A(A\mathbf{v}) = A(\lambda\mathbf{v}) = \lambda(A\mathbf{v}) = \lambda(\lambda\mathbf{v}) = \lambda^2\mathbf{v} $$
+                            <p>And by induction, \(A^k\mathbf{v} = \lambda^k\mathbf{v}\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 260</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 51 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 51</h2>
+                            <p>What is the relationship between the eigenvalues of \(A\) and the eigenvalues of \(A^{-1}\) (if \(A\) is invertible)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If \(A\) is an invertible matrix and \(\lambda\) is an eigenvalue of \(A\) with corresponding eigenvector \(\mathbf{v}\), then \(\frac{1}{\lambda}\) is an eigenvalue of \(A^{-1}\) with the same eigenvector \(\mathbf{v}\).</p>
+                            <p>This can be shown by multiplying \(A\mathbf{v} = \lambda\mathbf{v}\) by \(A^{-1}\):</p>
+                            $$ A^{-1}(A\mathbf{v}) = A^{-1}(\lambda\mathbf{v}) $$
+                            $$ I\mathbf{v} = \lambda A^{-1}\mathbf{v} $$
+                            $$ \mathbf{v} = \lambda A^{-1}\mathbf{v} $$
+                            $$ \frac{1}{\lambda}\mathbf{v} = A^{-1}\mathbf{v} $$
+                            <p>Note that \(\lambda \neq 0\) for \(A\) to be invertible.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 260</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 52 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 52</h2>
+                            <p>What is the relationship between the eigenvalues of \(A\) and the eigenvalues of \(A^T\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A matrix \(A\) and its transpose \(A^T\) have the same eigenvalues. This is because they have the same characteristic polynomial:</p>
+                            $$ \text{det}(A - \lambda I) = \text{det}((A - \lambda I)^T) = \text{det}(A^T - \lambda I^T) = \text{det}(A^T - \lambda I) $$
+                            <p>However, their eigenvectors are generally different.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 260</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 53 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 53</h2>
+                            <p>What is the definition of a defective matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square matrix is **defective** if it does not have a complete set of linearly independent eigenvectors. This occurs when, for at least one eigenvalue, its geometric multiplicity is strictly less than its algebraic multiplicity.</p>
+                            <p>Defective matrices are not diagonalisable, but they do have a Jordan normal form.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 269</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 54 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 54</h2>
+                            <p>What is the relationship between the trace of a matrix and its eigenvalues?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **trace** of a square matrix (the sum of its diagonal entries) is equal to the sum of its eigenvalues (counted with algebraic multiplicity).</p>
+                            $$ \text{tr}(A) = \sum_{i=1}^n a_{ii} = \sum_{i=1}^n \lambda_i $$
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 261</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 55 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 55</h2>
+                            <p>What is the relationship between the determinant of a matrix and its eigenvalues?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **determinant** of a square matrix is equal to the product of its eigenvalues (counted with algebraic multiplicity).</p>
+                            $$ \text{det}(A) = \prod_{i=1}^n \lambda_i $$
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 261</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 56 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 56</h2>
+                            <p>Explain how complex eigenvalues arise in real matrices and their implications for eigenvectors.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a real matrix, if \(\lambda = a + bi\) is a complex eigenvalue (where \(b \neq 0\)), then its complex conjugate \(\overline{\lambda} = a - bi\) must also be an eigenvalue. The corresponding eigenvectors will also be complex conjugates of each other.</p>
+                            <p>This means that complex eigenvalues always appear in conjugate pairs for real matrices. While the matrix cannot be diagonalised over the real numbers, it can be diagonalised over the complex numbers.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 401</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 57 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 57</h2>
+                            <p>How can a real matrix with complex conjugate eigenvalues be transformed into a block diagonal form?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If a real matrix \(A\) has a complex eigenvalue \(\lambda = a - bi\) with eigenvector \(\mathbf{v}\), then \(\overline{\lambda} = a + bi\) is also an eigenvalue with eigenvector \(\overline{\mathbf{v}}\) . We can construct a real invertible matrix \(P\) such that \(P^{-1}AP = C\), where \(C\) is a block diagonal matrix with \(2 \times 2\) blocks of the form:</p>
+                            $$ \begin{pmatrix} a & -b \\ b & a \end{pmatrix} $$
+                            <p>This transformation allows us to analyze the system in real terms without explicitly using complex numbers in the final solution.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 402</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 58 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 58</h2>
+                            <p>What is the general solution for a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\) where \(A\) has complex conjugate eigenvalues \(a \pm bi\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If \(A\) has complex conjugate eigenvalues \(a \pm bi\) with corresponding complex eigenvectors \(\mathbf{v} = \mathbf{v}_R + i\mathbf{v}_I\) and \(\overline{\mathbf{v}} = \mathbf{v}_R - i\mathbf{v}_I\), then two linearly independent real solutions are:</p>
+                            $$ \mathbf{y}_1(t) = e^{at} (\mathbf{v}_R \cos(bt) - \mathbf{v}_I \sin(bt)) $$
+                            $$ \mathbf{y}_2(t) = e^{at} (\mathbf{v}_R \sin(bt) + \mathbf{v}_I \cos(bt)) $$
+                            <p>The general real solution is \(\mathbf{y}(t) = c_1 \mathbf{y}_1(t) + c_2 \mathbf{y}_2(t)\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 402</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 59 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 59</h2>
+                            <p>What is the definition of a quadratic form?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **quadratic form** is a function \(Q: \mathbb{R}^n \to \mathbb{R}\) defined by \(Q(\mathbf{x}) = \mathbf{x}^TA\mathbf{x}\), where \(A\) is a symmetric \(n \times n\) real matrix and \(\mathbf{x}\) is a vector in \(\mathbb{R}^n\).</p>
+                            <p>Quadratic forms are used in various areas, including optimization, geometry (describing conic sections and quadric surfaces), and physics.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 409</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 60 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 60</h2>
+                            <p>How can the nature of a quadratic form (positive definite, etc.) be determined from the eigenvalues of its associated symmetric matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a symmetric matrix \(A\) associated with a quadratic form \(Q(\mathbf{x}) = \mathbf{x}^TA\mathbf{x}\):</p>
+                            <ul>
+                                <li>\(Q\) is positive definite if and only if all eigenvalues of \(A\) are \(> 0\).</li>
+                                <li>\(Q\) is negative definite if and only if all eigenvalues of \(A\) are \(< 0\).</li>
+                                <li>\(Q\) is positive semi-definite if and only if all eigenvalues of \(A\) are \(\ge 0\).</li>
+                                <li>\(Q\) is negative semi-definite if and only if all eigenvalues of \(A\) are \(\le 0\).</li>
+                                <li>\(Q\) is indefinite if and only if \(A\) has both positive and negative eigenvalues.</li>
+                            </ul>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 61 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 61</h2>
+                            <p>What is the definition of a singular matrix in terms of eigenvalues?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A square matrix \(A\) is **singular** (non-invertible) if and only if \(0\) is an eigenvalue of \(A\).</p>
+                            <p>This is because \(\text{det}(A - 0I) = \text{det}(A)\). If \(0\) is an eigenvalue, then \(\text{det}(A) = 0\), which means the matrix is singular.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 261</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 62 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 62</h2>
+                            <p>What is the relationship between the rank of a matrix and its eigenvalues?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **rank** of a matrix is the number of non-zero eigenvalues (counted with algebraic multiplicity) if the matrix is diagonalisable. More generally, the rank is the number of non-zero eigenvalues in its Jordan normal form.</p>
+                            <p>The nullity (dimension of the null space) is the algebraic multiplicity of the eigenvalue \(0\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 261</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 63 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 63</h2>
+                            <p>How can the Cayley-Hamilton Theorem be used in the context of matrix exponentials?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The Cayley-Hamilton Theorem states that every square matrix satisfies its own characteristic equation. This means if \(p(\lambda) = \text{det}(A - \lambda I) = c_n\lambda^n + \cdots + c_1\lambda + c_0\), then \(p(A) = c_nA^n + \cdots + c_1A + c_0I = 0\).</p>
+                            <p>This theorem allows us to express higher powers of \(A\) as linear combinations of lower powers of \(A\) (up to \(A^{n-1}\)). This can simplify the computation of \(e^{At}\) by reducing the infinite series to a finite sum involving powers of \(A\) up to \(A^{n-1}\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 275</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 64 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 64</h2>
+                            <p>What is the definition of a generalised eigenspace?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **generalised eigenspace** \(K_{\lambda}\) corresponding to an eigenvalue \(\lambda\) of a matrix \(A\) is the set of all vectors \(\mathbf{v}\) such that \((A - \lambda I)^k \mathbf{v} = \mathbf{0}\) for some positive integer \(k\).</p>
+                            <p>The dimension of the generalised eigenspace for \(\lambda\) is equal to the algebraic multiplicity of \(\lambda\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 65 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 65</h2>
+                            <p>How do generalised eigenspaces relate to the Jordan normal form?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The entire vector space \(\mathbb{C}^n\) can be decomposed into a direct sum of the generalised eigenspaces of \(A\).</p>
+                            <p>Each Jordan block corresponds to a subspace of a generalised eigenspace. The basis for the Jordan normal form consists of vectors from these generalised eigenspaces, specifically the chains of generalised eigenvectors.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 66 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 66</h2>
+                            <p>What is the definition of a fundamental matrix for \(\mathbf{y}' = A\mathbf{y}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **fundamental matrix** \(\Phi(t)\) for the system \(\mathbf{y}' = A\mathbf{y}\) is any matrix whose columns are \(n\) linearly independent solutions to the system.</p>
+                            <p>If \(\mathbf{y}_1(t), ..., \mathbf{y}_n(t)\) are linearly independent solutions, then \(\Phi(t) = [\mathbf{y}_1(t) \cdots \mathbf{y}_n(t)]\).</p>
+                            <p>The general solution can then be written as \(\mathbf{y}(t) = \Phi(t)\mathbf{c}\), where \(\mathbf{c}\) is a constant vector.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 67 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 67</h2>
+                            <p>How is the matrix exponential \(e^{At}\) related to a fundamental matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The matrix exponential \(e^{At}\) is a special fundamental matrix. Specifically, it is the unique fundamental matrix \(\Phi(t)\) that satisfies the initial condition \(\Phi(0) = I\) (the identity matrix).</p>
+                            <p>Any fundamental matrix \(\Psi(t)\) can be related to \(e^{At}\) by \(\Psi(t) = e^{At}C\) for some constant invertible matrix \(C\).</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 68 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 68</h2>
+                            <p>What is the Wronskian of a set of solutions to a system of differential equations, and what is its significance?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a set of \(n\) solutions \(\mathbf{y}_1(t), ..., \mathbf{y}_n(t)\) to \(\mathbf{y}' = A\mathbf{y}\), the **Wronskian** \(W(t)\) is the determinant of the matrix whose columns are these solutions:</p>
+                            $$ W(t) = \text{det}([\mathbf{y}_1(t) \cdots \mathbf{y}_n(t)]) $$
+                            <p>Its significance is that the solutions are linearly independent if and only if the Wronskian is non-zero for at least one point \(t\) (and thus for all \(t\)). If \(W(t) = 0\) for some \(t\), then the solutions are linearly dependent.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 69 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 69</h2>
+                            <p>State Abel's Theorem for the Wronskian of solutions to \(\mathbf{y}' = A\mathbf{y}\).</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>Abel's Theorem states that for a system \(\mathbf{y}' = A\mathbf{y}\), the Wronskian \(W(t)\) of any set of \(n\) solutions satisfies:</p>
+                            $$ W(t) = W(t_0) e^{\int_{t_0}^t \text{tr}(A(s)) ds} $$
+                            <p>If \(A\) is a constant matrix, this simplifies to \(W(t) = W(t_0) e^{\text{tr}(A)(t - t_0)}\).</p>
+                            <p>This theorem implies that if the Wronskian is non-zero at one point, it is non-zero everywhere, confirming the linear independence criterion.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 70 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 70</h2>
+                            <p>What is the definition of a stable node in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), a **stable node** occurs when both eigenvalues are real, distinct, and negative (\(\lambda_1 < \lambda_2 < 0\)).</p>
+                            <p>In the phase portrait, all trajectories approach the origin as \(t \to \infty\). Trajectories are tangent to the eigenvector corresponding to the eigenvalue closer to zero, except for those along the other eigenvector.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 71 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 71</h2>
+                            <p>What is the definition of an unstable node in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), an **unstable node** occurs when both eigenvalues are real, distinct, and positive (\(0 < \lambda_2 < \lambda_1\)).</p>
+                            <p>In the phase portrait, all trajectories move away from the origin as \(t \to \infty\). Trajectories are tangent to the eigenvector corresponding to the eigenvalue further from zero, except for those along the other eigenvector.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 72 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 72</h2>
+                            <p>What is the definition of a saddle point in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), a **saddle point** occurs when the eigenvalues are real and have opposite signs (\(\lambda_1 < 0 < \lambda_2\)).</p>
+                            <p>In the phase portrait, trajectories approach the origin along the eigenvector corresponding to the negative eigenvalue and move away from the origin along the eigenvector corresponding to the positive eigenvalue. The origin is an unstable equilibrium.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 73 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 73</h2>
+                            <p>What is the definition of a stable spiral in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), a **stable spiral** occurs when the eigenvalues are complex conjugates with a negative real part (\(\lambda = a \pm bi\) with \(a < 0\)).</p>
+                            <p>In the phase portrait, trajectories spiral inwards towards the origin as \(t \to \infty\). The origin is an asymptotically stable equilibrium.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 74 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 74</h2>
+                            <p>What is the definition of an unstable spiral in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), an **unstable spiral** occurs when the eigenvalues are complex conjugates with a positive real part (\(\lambda = a \pm bi\) with \(a > 0\)).</p>
+                            <p>In the phase portrait, trajectories spiral outwards away from the origin as \(t \to \infty\). The origin is an unstable equilibrium.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 75 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 75</h2>
+                            <p>What is the definition of a center in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), a **center** occurs when the eigenvalues are purely imaginary (\(\lambda = \pm bi\) with \(b \neq 0\)).</p>
+                            <p>In the phase portrait, trajectories are closed ellipses around the origin. The origin is a stable (but not asymptotically stable) equilibrium.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 76 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 76</h2>
+                            <p>What is the definition of a degenerate node in phase portraits of \(2 \times 2\) systems?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a \(2 \times 2\) system \(\mathbf{y}' = A\mathbf{y}\), a **degenerate node** occurs when there is a repeated real eigenvalue (\(\lambda_1 = \lambda_2 = \lambda\)) and the matrix is not diagonalisable (i.e., only one linearly independent eigenvector).</p>
+                            <p>If \(\lambda < 0\), it's a stable degenerate node; if \(\lambda > 0\), it's an unstable degenerate node. Trajectories either approach or recede from the origin, often appearing to align with a single direction.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 77 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 77</h2>
+                            <p>How does the phase portrait change if the repeated eigenvalue in a degenerate node case has two linearly independent eigenvectors?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If a repeated real eigenvalue has two linearly independent eigenvectors, the matrix is diagonalisable. In this case, the phase portrait is a **star node** (or proper node).</p>
+                            <p>All trajectories move directly towards (if \(\lambda < 0\)) or away from (if \(\lambda > 0\)) the origin along straight lines, without any curvature or preferred direction.</p>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, p. 35</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 78 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 78</h2>
+                            <p>What is the definition of a linear transformation?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A transformation (or function) \(T: V \to W\) between two vector spaces \(V\) and \(W\) is a **linear transformation** if it satisfies two properties for all vectors \(\mathbf{u}, \mathbf{v}\) in \(V\) and all scalars \(c\):</p>
+                            <ol>
+                                <li>Additivity: \(T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v})\)</li>
+                                <li>Homogeneity of degree 1: \(T(c\mathbf{u}) = cT(\mathbf{u})\)</li>
+                            </ol>
+                            <p>These two properties can be combined into one: \(T(c\mathbf{u} + d\mathbf{v}) = cT(\mathbf{u}) + dT(\mathbf{v})\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 101</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 79 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 79</h2>
+                            <p>How are matrices related to linear transformations?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>Every linear transformation \(T: \mathbb{R}^n \to \mathbb{R}^m\) can be represented by an \(m \times n\) matrix \(A\) such that \(T(\mathbf{x}) = A\mathbf{x}\) for all \(\mathbf{x} \in \mathbb{R}^n\).</p>
+                            <p>Conversely, every \(m \times n\) matrix defines a linear transformation from \(\mathbb{R}^n\) to \(\mathbb{R}^m\). This establishes a fundamental connection between linear algebra and matrix theory.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 108</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 80 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 80</h2>
+                            <p>What is the kernel (or null space) of a linear transformation?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **kernel** (or **null space**) of a linear transformation \(T: V \to W\) is the set of all vectors \(\mathbf{v}\) in \(V\) that are mapped to the zero vector in \(W\).</p>
+                            $$ \text{Ker}(T) = \{\mathbf{v} \in V \mid T(\mathbf{v}) = \mathbf{0}\} $$
+                            <p>For a matrix transformation \(T(\mathbf{x}) = A\mathbf{x}\), the kernel is the null space of the matrix \(A\), i.e., the set of all solutions to \(A\mathbf{x} = \mathbf{0}\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 198</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 81 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 81</h2>
+                            <p>What is the image (or range) of a linear transformation?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **image** (or **range**) of a linear transformation \(T: V \to W\) is the set of all vectors in \(W\) that are the image of at least one vector in \(V\).</p>
+                            $$ \text{Im}(T) = \{T(\mathbf{v}) \mid \mathbf{v} \in V\} $$
+                            <p>For a matrix transformation \(T(\mathbf{x}) = A\mathbf{x}\), the image is the column space of the matrix \(A\), i.e., the span of the columns of \(A\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 200</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 82 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 82</h2>
+                            <p>State the Rank-Nullity Theorem.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **Rank-Nullity Theorem** states that for a linear transformation \(T: V \to W\) (or an \(m \times n\) matrix \(A\)), the dimension of the domain \(V\) is equal to the sum of the dimension of the kernel (nullity) and the dimension of the image (rank).</p>
+                            $$ \text{dim}(V) = \text{dim}(\text{Ker}(T)) + \text{dim}(\text{Im}(T)) $$
+                            <p>For an \(m \times n\) matrix \(A\), this is \(n = \text{nullity}(A) + \text{rank}(A)\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 203</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 83 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 83</h2>
+                            <p>What is the definition of a basis for a vector space?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **basis** for a vector space \(V\) is a set of vectors \(\{\mathbf{v}_1, ..., \mathbf{v}_k\}\) in \(V\) that satisfies two conditions:</p>
+                            <ol>
+                                <li>The set is linearly independent.</li>
+                                <li>The set spans \(V\) (i.e., every vector in \(V\) can be written as a linear combination of the vectors in the set).</li>
+                            </ol>
+                            <p>The number of vectors in a basis is unique for a given vector space and is called the dimension of the vector space.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 175</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 84 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 84</h2>
+                            <p>What is the definition of linear independence?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A set of vectors \(\{\mathbf{v}_1, ..., \mathbf{v}_k\}\) is **linearly independent** if the only solution to the vector equation:</p>
+                            $$ c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \cdots + c_k\mathbf{v}_k = \mathbf{0} $$
+                            <p>is the trivial solution \(c_1 = c_2 = \cdots = c_k = 0\).</p>
+                            <p>If there is a non-trivial solution, the vectors are linearly dependent.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 165</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 85 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 85</h2>
+                            <p>What is the definition of a spanning set for a vector space?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A set of vectors \(\{\mathbf{v}_1, ..., \mathbf{v}_k\}\) is a **spanning set** for a vector space \(V\) if every vector in \(V\) can be expressed as a linear combination of the vectors in the set.</p>
+                            <p>The set of all linear combinations of \(\{\mathbf{v}_1, ..., \mathbf{v}_k\}\) is called the span of these vectors, denoted \(\text{span}\{\mathbf{v}_1, ..., \mathbf{v}_k\}\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 170</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 86 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 86</h2>
+                            <p>What is the definition of a subspace?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **subspace** of a vector space \(V\) is a subset \(H\) of \(V\) that itself is a vector space under the same addition and scalar multiplication operations defined on \(V\).</p>
+                            <p>To verify if a subset \(H\) is a subspace, one must check three conditions:</p>
+                            <ol>
+                                <li>The zero vector of \(V\) is in \(H\).</li>
+                                <li>\(H\) is closed under vector addition (if \(\mathbf{u}, \mathbf{v} \in H\), then \(\mathbf{u} + \mathbf{v} \in H\)).</li>
+                                <li>\(H\) is closed under scalar multiplication (if \(\mathbf{u} \in H\) and \(c\) is a scalar, then \(c\mathbf{u} \in H\)).</li>
+                            </ol>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 150</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 87 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 87</h2>
+                            <p>What is the relationship between the column space of a matrix and its image as a linear transformation?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **column space** of a matrix \(A\), denoted \(\text{Col}(A)\), is the set of all linear combinations of the columns of \(A\).</p>
+                            <p>This is precisely the **image** (or range) of the linear transformation \(T(\mathbf{x}) = A\mathbf{x}\). So, \(\text{Col}(A) = \text{Im}(T)\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 200</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 88 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 88</h2>
+                            <p>What is the relationship between the null space of a matrix and the kernel of its associated linear transformation?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **null space** of a matrix \(A\), denoted \(\text{Nul}(A)\), is the set of all solutions to the homogeneous equation \(A\mathbf{x} = \mathbf{0}\).</p>
+                            <p>This is precisely the **kernel** of the linear transformation \(T(\mathbf{x}) = A\mathbf{x}\). So, \(\text{Nul}(A) = \text{Ker}(T)\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 198</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 89 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 89</h2>
+                            <p>What is the definition of an inner product space?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An **inner product space** is a vector space \(V\) equipped with an inner product, which is a function that takes two vectors \(\mathbf{u}, \mathbf{v} \in V\) and returns a scalar, denoted \(\langle \mathbf{u}, \mathbf{v} \rangle\), satisfying the following axioms for all \(\mathbf{u}, \mathbf{v}, \mathbf{w} \in V\) and scalar \(c\):</p>
+                            <ol>
+                                <li>Symmetry (or conjugate symmetry for complex spaces): \(\langle \mathbf{u}, \mathbf{v} \rangle = \overline{\langle \mathbf{v}, \mathbf{u} \rangle}\)</li>
+                                <li>Linearity in the first argument: \(\langle c\mathbf{u} + \mathbf{v}, \mathbf{w} \rangle = c\langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle\)</li>
+                                <li>Positive-definiteness: \(\langle \mathbf{u}, \mathbf{u} \rangle \ge 0\), and \(\langle \mathbf{u}, \mathbf{u} \rangle = 0\) if and only if \(\mathbf{u} = \mathbf{0}\).</li>
+                            </ol>
+                            <p>The standard dot product in \(\mathbb{R}^n\) is a common example of an inner product.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 335</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 90 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 90</h2>
+                            <p>What is the definition of an orthonormal basis?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>An **orthonormal basis** for an inner product space is a basis \(\{\mathbf{u}_1, ..., \mathbf{u}_k\}\) such that all vectors in the basis are orthogonal to each other and each vector has a norm (length) of 1.</p>
+                            <p>Mathematically, this means \(\langle \mathbf{u}_i, \mathbf{u}_j \rangle = 0\) for \(i \neq j\) and \(\langle \mathbf{u}_i, \mathbf{u}_i \rangle = 1\) for all \(i\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 345</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 91 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 91</h2>
+                            <p>State the Gram-Schmidt process.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **Gram-Schmidt process** is an algorithm for orthogonalizing a set of vectors in an inner product space. Given a basis \(\{\mathbf{x}_1, ..., \mathbf{x}_k\}\) for a subspace \(W\), it constructs an orthogonal basis \(\{\mathbf{v}_1, ..., \mathbf{v}_k\}\) for \(W\) as follows:</p>
+                            <ol>
+                                <li>\(\mathbf{v}_1 = \mathbf{x}_1\)</li>
+                                <li>\(\mathbf{v}_2 = \mathbf{x}_2 - \frac{\langle \mathbf{x}_2, \mathbf{v}_1 \rangle}{\langle \mathbf{v}_1, \mathbf{v}_1 \rangle}\mathbf{v}_1\)</li>
+                                <li>\(\mathbf{v}_3 = \mathbf{x}_3 - \frac{\langle \mathbf{x}_3, \mathbf{v}_1 \rangle}{\langle \mathbf{v}_1, \mathbf{v}_1 \rangle}\mathbf{v}_1 - \frac{\langle \mathbf{x}_3, \mathbf{v}_2 \rangle}{\langle \mathbf{v}_2, \mathbf{v}_2 \rangle}\mathbf{v}_2\)</li>
+                                <li>Continue this process until \(\mathbf{v}_k\) is found.</li>
+                            </ol>
+                            <p>To get an orthonormal basis, each \(\mathbf{v}_i\) is then normalized by dividing by its norm: \(\mathbf{u}_i = \frac{\mathbf{v}_i}{\Vert \mathbf{v}_i \Vert}\).</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 348</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 92 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 92</h2>
+                            <p>What is the QR factorization of a matrix?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **QR factorization** of an \(m \times n\) matrix \(A\) with linearly independent columns is a decomposition \(A = QR\), where:</p>
+                            <ul>
+                                <li>\(Q\) is an \(m \times n\) matrix with orthonormal columns.</li>
+                                <li>\(R\) is an \(n \times n\) upper triangular matrix with positive diagonal entries.</li>
+                            </ul>
+                            <p>The QR factorization can be obtained using the Gram-Schmidt process on the columns of \(A\). It is useful for solving least-squares problems, eigenvalue computations, and numerical stability.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 355</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 93 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 93</h2>
+                            <p>What is the definition of a least-squares solution to \(A\mathbf{x} = \mathbf{b}\)?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A **least-squares solution** to a system \(A\mathbf{x} = \mathbf{b}\) (which may be inconsistent) is a vector \(\hat{\mathbf{x}}\) that minimizes the distance \(\Vert \mathbf{b} - A\mathbf{x} \Vert\).</p>
+                            <p>In other words, it finds the \(\mathbf{x}\) that makes \(A\mathbf{x}\) as close as possible to \(\mathbf{b}\). The least-squares solutions are the solutions to the normal equations:</p>
+                            $$ A^TA\mathbf{x} = A^T\mathbf{b} $$
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 365</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 94 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 94</h2>
+                            <p>How can the least-squares solution be found using QR factorization?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>If \(A = QR\) is the QR factorization of \(A\), then the normal equations \(A^TA\mathbf{x} = A^T\mathbf{b}\) become:</p>
+                            $$ (QR)^T(QR)\mathbf{x} = (QR)^T\mathbf{b} $$
+                            $$ R^TQ^TQR\mathbf{x} = R^TQ^T\mathbf{b} $$
+                            <p>Since \(Q\) has orthonormal columns, \(Q^TQ = I\). So:</p>
+                            $$ R^TR\mathbf{x} = R^TQ^T\mathbf{b} $$
+                            <p>Since \(R\) is invertible (because \(A\) has linearly independent columns), we can multiply by \((R^T)^{-1}\):</p>
+                            $$ R\mathbf{x} = Q^T\mathbf{b} $$
+                            <p>This system can be solved efficiently by back substitution since \(R\) is upper triangular.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 368</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 95 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 95</h2>
+                            <p>What is the definition of a symmetric matrix in terms of its inner product properties?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>A real matrix \(A\) is symmetric if and only if for all vectors \(\mathbf{u}, \mathbf{v}\) in \(\mathbb{R}^n\):</p>
+                            $$ \langle A\mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{u}, A\mathbf{v} \rangle $$
+                            <p>where \(\langle \cdot, \cdot \rangle\) denotes the standard dot product. This property is fundamental to the Spectral Theorem for symmetric matrices.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 403</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 96 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 96</h2>
+                            <p>What is the definition of a self-adjoint operator?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>In an inner product space, a linear operator \(T: V \to V\) is **self-adjoint** if for all \(\mathbf{u}, \mathbf{v} \in V\):</p>
+                            $$ \langle T(\mathbf{u}), \mathbf{v} \rangle = \langle \mathbf{u}, T(\mathbf{v}) \rangle $$
+                            <p>For finite-dimensional real inner product spaces, a linear operator is self-adjoint if and only if its matrix representation with respect to an orthonormal basis is symmetric. For complex inner product spaces, it's self-adjoint if its matrix representation is Hermitian.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 403</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 97 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 97</h2>
+                            <p>What is the relationship between the eigenvalues of a real symmetric matrix and its definiteness?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>For a real symmetric matrix \(A\):</p>
+                            <ul>
+                                <li>\(A\) is positive definite if and only if all its eigenvalues are \(> 0\).</li>
+                                <li>\(A\) is negative definite if and only if all its eigenvalues are \(< 0\).</li>
+                                <li>\(A\) is positive semi-definite if and only if all its eigenvalues are \(\ge 0\).</li>
+                                <li>\(A\) is negative semi-definite if and only if all its eigenvalues are \(\le 0\).</li>
+                                <li>\(A\) is indefinite if and only if it has both positive and negative eigenvalues.</li>
+                            </ul>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 410</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 98 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 98</h2>
+                            <p>What is the definition of a normal operator?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>In an inner product space, a linear operator \(T: V \to V\) is **normal** if it commutes with its adjoint \(T^*\).</p>
+                            $$ TT^* = T^*T $$
+                            <p>For finite-dimensional complex inner product spaces, a linear operator is normal if and only if its matrix representation with respect to an orthonormal basis is a normal matrix (i.e., \(AA^* = A^*A\)). Normal operators are precisely those that are unitarily diagonalisable.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 405</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 99 -->
+            <div class="flashcard-scene">
+                <div class="flashcard">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 99</h2>
+                            <p>What is the significance of the Schur Decomposition Theorem?</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <p>The **Schur Decomposition Theorem** states that every square complex matrix \(A\) can be decomposed as \(A = UTU^*\), where \(U\) is a unitary matrix and \(T\) is an upper triangular matrix whose diagonal entries are the eigenvalues of \(A\).</p>
+                            <p>This theorem is significant because it shows that every matrix is unitarily equivalent to an upper triangular matrix. It is a weaker form of diagonalisation but is always possible, even for non-diagonalisable matrices. It is often used in numerical algorithms for eigenvalue computation.</p>
+                        </div>
+                        <div class="source">Source: anthony.pdf, p. 407</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 100 -->
+            <div class="flashcard-scene">
+                <div class="flashcard" id="card-100">
+                    <div class="flashcard-face flashcard-face--front">
+                        <div class="flashcard-content">
+                            <h2>Question 100</h2>
+                            <p>Summarize the complete procedure for solving a system of linear differential equations \(\mathbf{y}' = A\mathbf{y}\) when \(A\) is not diagonalisable.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-face flashcard-face--back">
+                        <div class="flashcard-content">
+                            <h2>Answer</h2>
+                            <ol>
+                                <li>Find the eigenvalues of \(A\). Determine that it is not diagonalisable (i.e., for some eigenvalue, geometric multiplicity < algebraic multiplicity).</li>
+                                <li>Find the Jordan Normal Form \(J\) of \(A\) and the matrix \(P\) of generalised eigenvectors such that \(J = P^{-1}AP\).</li>
+                                <li>Perform the change of variables \(\mathbf{y} = P\mathbf{z}\) to get the new system \(\mathbf{z}' = J\mathbf{z}\).</li>
+                                <li>Solve the simpler system for \(\mathbf{z}(t)\) by solving for each Jordan block, using back substitution and Theorem 2.2 from the subject guide.</li>
+                                <li>If initial conditions \(\mathbf{y}(0)\) are given, find \(\mathbf{z}(0) = P^{-1}\mathbf{y}(0)\) to determine the constants of integration.</li>
+                                <li>Transform the solution back to the original variables using \(\mathbf{y}(t) = P\mathbf{z}(t)\).</li>
+                            </ol>
+                        </div>
+                        <div class="source">Source: 1_MT2175.pdf, pp. 25-28</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" id="prev-button">Previous</button>
+        <div class="flip-button-container">
+            <button class="flip-button" id="flip-button-main">Flip Card</button>
+        </div>
+        <button class="nav-button" id="next-button">Next</button>
+    </div>
+    <div id="progress-counter">Card 1 of 100</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.querySelector('.flashcard-slider');
+            const scenes = document.querySelectorAll('.flashcard-scene');
+            const totalCards = 100; // Corrected total
+            
+            // Dynamically add card IDs
+            scenes.forEach((scene, index) => {
+                const card = scene.querySelector('.flashcard');
+                if (card) {
+                    card.id = `card-${index + 1}`;
+                }
+            });
+
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            const flipButton = document.getElementById('flip-button-main');
+            const progressCounter = document.getElementById('progress-counter');
+
+            let currentCardIndex = 0;
+
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+            }
+
+            function showCard(index) {
+                const currentCard = document.getElementById(`card-${currentCardIndex + 1}`);
+                if (currentCard && currentCard.classList.contains('is-flipped')) {
+                    currentCard.classList.remove('is-flipped');
+                }
+
+                slider.style.transform = `translateX(-${index * 100}%)`;
+                currentCardIndex = index;
+                progressCounter.textContent = `Card ${index + 1} of ${totalCards}`;
+                setCookie('mt2175_flashcard_progress', index, 7);
+            }
+
+            function flipCard() {
+                const card = document.getElementById(`card-${currentCardIndex + 1}`);
+                if (card) {
+                    card.classList.toggle('is-flipped');
+                }
+            }
+
+            prevButton.addEventListener('click', () => {
+                const newIndex = (currentCardIndex - 1 + totalCards) % totalCards;
+                showCard(newIndex);
+            });
+
+            nextButton.addEventListener('click', () => {
+                const newIndex = (currentCardIndex + 1) % totalCards;
+                showCard(newIndex);
+            });
+
+            flipButton.addEventListener('click', flipCard);
+
+            scenes.forEach((scene) => {
+                const card = scene.querySelector('.flashcard');
+                if(card) {
+                    card.addEventListener('click', (e) => {
+                        if (e.target.tagName.toLowerCase() === 'a' || window.getSelection().toString()) return;
+                        flipCard();
+                    });
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea') return;
+                if (e.key === 'ArrowLeft') {
+                    prevButton.click();
+                } else if (e.key === 'ArrowRight') {
+                    nextButton.click();
+                } else if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    flipCard();
+                }
+            });
+
+            const savedIndex = getCookie('mt2175_flashcard_progress');
+            let initialIndex = 0;
+            if (savedIndex !== undefined && !isNaN(parseInt(savedIndex, 10))) {
+                initialIndex = parseInt(savedIndex, 10);
+                if(initialIndex >= totalCards || initialIndex < 0) initialIndex = 0;
+            }
+            showCard(initialIndex);
+        });
+    </script>
+
+</body>
+</html>
