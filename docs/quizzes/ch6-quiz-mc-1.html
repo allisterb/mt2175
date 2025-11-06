@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 - Generalized Inverses Quiz</title>
+	<script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 2em; background-color: #f8f9fa; color: #212529; }
+        .quiz-container { max-width: 800px; margin: auto; background-color: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .question-container { margin-bottom: 2em; border: 1px solid #dee2e6; padding: 1.5em; border-radius: 8px; }
+        .question { font-weight: 600; margin-bottom: 1em; font-size: 1.1em; }
+        .options ul { list-style-type: none; padding: 0; }
+        .options li { margin-bottom: 0.75em; }
+        .explanation { margin-top: 1.5em; padding: 1em; background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 5px; display: none; }
+        .result { margin-top: 1em; font-weight: bold; }
+        .correct { color: #28a745; }
+        .incorrect { color: #dc3545; }
+        #clear-answers { margin-top: 2em; padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+        #clear-answers:hover { background-color: #0056b3; }
+        .check-btn { padding: 0.5em 1em; background-color: #17a2b8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .check-btn:hover { background-color: #138496; }
+        .check-btn:disabled { background-color: #6c757d; cursor: not-allowed; }
+        h1 { color: #003366; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>MT2175 - Generalized Inverses Quiz</h1>
+    <p>This quiz is designed to help you prepare for the MT2175 Further Linear Algebra exam. The questions cover the topic of "Generalized inverses".</p>
+    <p>Select an answer and click "Check Answer". Your progress will be saved in cookies.</p>
+
+    <div id="quiz-body">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <button id="clear-answers">Clear All Answers</button>
+</div>
+
+<script>
+    const questions = [
+        // 50 questions here
+        {
+            question: `Let $A$ be an $m \\times n$ matrix. A matrix $L$ is a left inverse of $A$ if:`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$LA = I_m$`,
+                `$AL = I_m$`,
+                `$LA = I_n$`,
+                `$AL = I_n$`
+            ],
+            correct: 2,
+            explanation: `A matrix $L$ is a left inverse of $A$ if $LA = I_n$. (Source: Further linear algebra, Definition 6.1)`
+        },
+        {
+            question: `Let $A$ be an $m \\times n$ matrix. A matrix $R$ is a right inverse of $A$ if:`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$RA = I_m$`,
+                `$AR = I_m$`,
+                `$RA = I_n$`,
+                `$AR = I_n$`
+            ],
+            correct: 1,
+            explanation: `A matrix $R$ is a right inverse of $A$ if $AR = I_m$. (Source: Further linear algebra, Definition 6.2)`
+        },
+        {
+            question: `A matrix $A$ has a left inverse if and only if:`,
+            options: [
+                `It has rank m`,
+                `It has rank n`,
+                `It is a square matrix`,
+                `It has a non-zero determinant`
+            ],
+            correct: 1,
+            explanation: `An $m \\times n$ matrix $A$ has a left inverse if and only if it has rank $n$. (Source: Further linear algebra, Theorem 6.1)`
+        },
+        {
+            question: `A matrix $A$ has a right inverse if and only if:`,
+            options: [
+                `It has rank m`,
+                `It has rank n`,
+                `It is a square matrix`,
+                `It has a non-zero determinant`
+            ],
+            correct: 0,
+            explanation: `An $m \\times n$ matrix $A$ has a right inverse if and only if it has rank $m$. (Source: Further linear algebra, Theorem 6.2)`
+        },
+        {
+            question: `If an $m \\times n$ matrix $A$ has a left inverse $L$, what can be said about the system $Ax=b$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `The system has infinitely many solutions.`, 
+                `The system has a unique solution or no solution.`, 
+                `The system always has a unique solution.`, 
+                `The system has no solution.`
+            ],
+            correct: 1,
+            explanation: `If $A$ has a left inverse, then the system $Ax=b$ has a unique solution if it is consistent. If it is inconsistent, it has no solution. (Source: Further linear algebra, Theorem 6.1)`
+        },
+        {
+            question: `If an $m \\times n$ matrix $A$ has a right inverse $R$, what can be said about the system $Ax=b$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `The system has a solution for any $b \\in \\mathbb{R}^m$.`, // Corrected escape for backslash in LaTeX string
+                `The system has a unique solution.`, 
+                `The system has no solution.`, 
+                `The system has a solution only if $b=0$.`
+            ],
+            correct: 0,
+            explanation: `If $A$ has a right inverse, then the system $Ax=b$ has a solution for any $b \\in \\mathbb{R}^m$. (Source: Further linear algebra, Theorem 6.2)`
+        },
+        {
+            question: `What is the definition of a weak generalized inverse (WGI) $A^g$ of a matrix $A$?`,
+            options: [
+                `$A A^g A = A$`,
+                `$A^g A A^g = A^g$`,
+                `$(A A^g)^T = A A^g$`,
+                `$A A^g = I$`
+            ],
+            correct: 0,
+            explanation: `A weak generalized inverse (WGI) of a matrix $A$, denoted by $A^g$, is any matrix that satisfies $A A^g A = A$. (Source: Further linear algebra, Definition 6.3)`
+        },
+        {
+            question: `Is the weak generalized inverse of a matrix unique?`, 
+            options: [
+                `Yes, always.`, 
+                `No, not necessarily.`, 
+                `Only if the matrix is square.`, 
+                `Only if the matrix is invertible.`
+            ],
+            correct: 1,
+            explanation: `Weak generalized inverses need not be unique. (Source: Further linear algebra, Section 6.2)`
+        },
+        {
+            question: `If $A^g$ is a WGI of $A$, then $AA^g$ is a projection onto:`, 
+            options: [
+                `$N(A)$`, 
+                `$R(A)$`, 
+                `$N(A^T)$`, 
+                `$R(A^T)$`
+            ],
+            correct: 1,
+            explanation: `If $A^g$ is a WGI of $A$, then $AA^g$ projects onto the range of $A$, $R(A)$. (Source: Further linear algebra, Theorem 6.3)`
+        },
+        {
+            question: `If $A^g$ is a WGI of $A$, then $A^gA$ is a projection parallel to:`, 
+            options: [
+                `$N(A)$`, 
+                `$R(A)$`, 
+                `$N(A^T)$`, 
+                `$R(A^T)$`
+            ],
+            correct: 0,
+            explanation: `If $A^g$ is a WGI of $A$, then $A^gA$ projects parallel to the null space of $A$, $N(A)$. (Source: Further linear algebra, Theorem 6.3)`
+        },
+        {
+            question: `A system of linear equations $Ax=b$ is consistent if and only if:`, 
+            options: [
+                `$b = A^g A b$ for some WGI $A^g$.`, 
+                `$b = A A^g b$ for some WGI $A^g$.`, 
+                `$b \\in N(A)$`, 
+                `$b$ is the zero vector.`
+            ],
+            correct: 1,
+            explanation: `The system $Ax=b$ is consistent if and only if $b = A A^g b$ for some WGI $A^g$. This is equivalent to saying $b \\in R(A)$. (Source: Further linear algebra, Theorem 6.4)`
+        },
+        {
+            question: `If the system $Ax=b$ is consistent, its general solution is given by:`, 
+            options: [
+                `$x = A^g b$`, 
+                `$x = A^g b + (I - A^g A)w$ for any vector $w$.`, 
+                `$x = A^g b + (I - A A^g)w$ for any vector $w$.`, 
+                `$x = (I - A^g A)w$ for any vector $w$.`
+            ],
+            correct: 1,
+            explanation: `If the system $Ax=b$ is consistent, the general solution is given by $x = A^g b + (I - A^g A)w$ for any vector $w$ of appropriate dimension. (Source: Further linear algebra, Theorem 6.4)`
+        },
+        {
+            question: `Which of the following is NOT a property of the strong generalized inverse (SGI) $A^G$?`, 
+            options: [
+                `$A A^G A = A$`, 
+                `$A^G A A^G = A^G$`, 
+                `$(A A^G)^T = A A^G$`, 
+                `$A A^G = I$`
+            ],
+            correct: 3,
+            explanation: `The strong generalized inverse (SGI) or Moore-Penrose pseudoinverse $A^G$ satisfies four properties: (i) $A A^G A = A$, (ii) $A^G A A^G = A^G$, (iii) $(A A^G)^T = A A^G$, and (iv) $(A^G A)^T = A^G A$. $A A^G = I$ is only true if $A$ has a right inverse. (Source: Further linear algebra, Definition 6.4)`
+        },
+        {
+            question: `Is the strong generalized inverse of a matrix unique?`, 
+            options: [
+                `Yes, always.`, 
+                `No, not necessarily.`, 
+                `Only if the matrix is square.`, 
+                `Only if the matrix is invertible.`
+            ],
+            correct: 0,
+            explanation: `Every matrix has a unique strong generalized inverse. (Source: Further linear algebra, Theorem 6.5)`
+        },
+        {
+            question: `If a matrix $A$ has a left inverse, its SGI is given by:`, 
+            options: [
+                `$A^T$`, 
+                `$(A^T A)^{-1} A^T$`, 
+                `$A^T (A A^T)^{-1}$`, 
+                `$A^{-1}$`
+            ],
+            correct: 1,
+            explanation: `If an $m \\times n$ matrix $A$ has a left inverse (i.e., has rank $n$), then its SGI is $A^G = (A^T A)^{-1} A^T$. (Source: Further linear algebra, Theorem 6.6)`
+        },
+        {
+            question: `If a matrix $A$ has a right inverse, its SGI is given by:`, 
+            options: [
+                `$A^T$`, 
+                `$(A^T A)^{-1} A^T$`, 
+                `$A^T (A A^T)^{-1}$`, 
+                `$A^{-1}$`
+            ],
+            correct: 2,
+            explanation: `If an $m \\times n$ matrix $A$ has a right inverse (i.e., has rank $m$), then its SGI is $A^G = A^T (A A^T)^{-1}$. (Source: Further linear algebra, Theorem 6.6)`
+        },
+        {
+            question: `The general least squares solution to an inconsistent system $Ax=b$ is given by:`, 
+            options: [
+                `$x = A^G b$`, 
+                `$x = A^G b + (I - A^G A)w$ for any vector $w$.`, 
+                `$x = A^g b$ for any WGI $A^g$.`, 
+                `The system has no least squares solution.`
+            ],
+            correct: 1,
+            explanation: `The general least squares solution to $Ax=b$ is given by $x = A^G b + (I - A^G A)w$ for any vector $w$. (Source: Further linear algebra, Theorem 6.8)`
+        },
+        {
+            question: `Among all least squares solutions to $Ax=b$, the one with the smallest norm is:`, 
+            options: [
+                `$x = A^T b$`, 
+                `$x = A^G b$`, 
+                `$x = (A^T A)^{-1} A^T b$`, 
+                `$x = A^g b$ for any WGI $A^g$.`
+            ],
+            correct: 1,
+            explanation: `The vector $x = A^G b$ is the least squares solution of $Ax=b$ that is closest to the origin (i.e., has the smallest norm). (Source: Further linear algebra, Theorem 6.9)`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Which of the following is a left inverse of $A$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$\\begin{pmatrix} 1 & 1/2 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1/5 & 2/5 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 & 0 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `It does not have a left inverse.`
+            ],
+            correct: 1,
+            explanation: `A left inverse $L$ must satisfy $LA=I_1$. Let $L = \\begin{pmatrix} x & y \\end{pmatrix}$. Then $LA = \\begin{pmatrix} x & y \\end{pmatrix} \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = x+2y=1$. The option $\\begin{pmatrix} 1/5 & 2/5 \\end{pmatrix}$ satisfies this since $1/5 + 2(2/5) = 1$. In fact, this is the SGI of A. (Source: Further linear algebra, Example 6.1)`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 1 \\end{pmatrix}$. Which of the following is a right inverse of $A$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1/2 \\\\ 1/2 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `All of the above.`
+            ],
+            correct: 1,
+            explanation: `A right inverse $R$ must satisfy $AR=I_1$. Let $R = \\begin{pmatrix} x \\\\ y \\end{pmatrix}$. Then $AR = \\begin{pmatrix} 1 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = x+y=1$. The option $\\begin{pmatrix} 1/2 \\\\ 1/2 \\end{pmatrix}$ satisfies this. The others do not, except for the first one. However, the SGI is unique and is given by $A^G = A^T(AA^T)^{-1} = \\begin{pmatrix} 1/2 \\\\ 1/2 \\end{pmatrix}$.`
+        },
+        {
+            question: `If $A^G$ is the SGI of $A$, then $A^G A$ is the orthogonal projection onto:`, 
+            options: [
+                `$R(A)$`, 
+                `$N(A)$`, 
+                `$R(A^T)$`, 
+                `$N(A^T)$`
+            ],
+            correct: 2,
+            explanation: `$A^G A$ is the orthogonal projection onto $R(A^T) = R(A^G)$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `If $A^G$ is the SGI of $A$, then $A A^G$ is the orthogonal projection onto:`, 
+            options: [
+                `$R(A)$`, 
+                `$N(A)$`, 
+                `$R(A^T)$`, 
+                `$N(A^T)$`
+            ],
+            correct: 0,
+            explanation: `$A A^G$ is the orthogonal projection onto $R(A)$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `Let $A$ be an $m \\times n$ matrix with $m > n$ and $rank(A)=n$. Then $A$ has:`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `A unique left inverse and infinitely many right inverses.`, 
+                `Infinitely many left inverses and no right inverse.`, 
+                `A unique right inverse and infinitely many left inverses.`, 
+                `A unique left inverse and no right inverse.`
+            ],
+            correct: 1,
+            explanation: `If $rank(A)=n$, $A$ has a left inverse. Since $m>n$, $rank(A) < m$, so it does not have a right inverse. The left inverse is unique if and only if $m=n$. Since $m>n$, there are infinitely many left inverses. (Source: Further linear algebra, Theorems 6.1 and 6.2)`
+        },
+        {
+            question: `Let $A$ be an $m \\times n$ matrix with $n > m$ and $rank(A)=m$. Then $A$ has:`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `A unique left inverse and infinitely many right inverses.`, 
+                `Infinitely many left inverses and no right inverse.`, 
+                `A unique right inverse and infinitely many right inverses.`, 
+                `Infinitely many right inverses and no left inverse.`
+            ],
+            correct: 3,
+            explanation: `If $rank(A)=m$, $A$ has a right inverse. Since $n>m$, $rank(A) < n$, so it does not have a left inverse. The right inverse is unique if and only if $m=n$. Since $n>m$, there are infinitely many right inverses. (Source: Further linear algebra, Theorems 6.1 and 6.2)`
+        },
+        {
+            question: `The matrix $P = A(A^T A)^{-1}A^T$ represents the orthogonal projection onto:`, 
+            options: [
+                `$R(A)$`, 
+                `$N(A)$`, 
+                `$R(A^T)$`, 
+                `$N(A^T)$`
+            ],
+            correct: 0,
+            explanation: `This is the formula for the orthogonal projection matrix onto the column space (range) of $A$, assuming $A$ has full column rank. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `Which of the following is NOT always true for a WGI $A^g$ of $A$?`, 
+            options: [
+                `$A A^g A = A$`, 
+                `$A^g$ is square.`, 
+                `$A A^g$ is idempotent.`, 
+                `$A^g A$ is idempotent.`
+            ],
+            correct: 1,
+            explanation: `$A^g$ has dimensions $n \\times m$ for an $m \\times n$ matrix $A$, so it is not necessarily square. $A A^g$ and $A^g A$ are idempotent since $(A A^g)(A A^g) = A (A^g A A^g) A = A A^g A = A A^g$ is not guaranteed, but $(AA^gA)A^g = AA^g$. (Source: Further linear algebra, Section 6.2)`
+        },
+        {
+            question: `If $A$ is invertible, its SGI $A^G$ is:`, 
+            options: [
+                `$A^T$`, 
+                `$A^{-1}$`, 
+                `$(A^T A)^{-1} A^T$`, 
+                `$A^T (A A^T)^{-1}$`
+            ],
+            correct: 1,
+            explanation: `If $A$ is invertible, it is a square matrix with full rank, so its SGI is simply its inverse $A^{-1}$. (Source: Further linear algebra, Section 6.3)`
+        },
+        {
+            question: `The SGI of a zero matrix is:`, 
+            options: [
+                `The identity matrix.`, 
+                `A zero matrix of the appropriate size.`, 
+                `Undefined.`, 
+                `A matrix of ones.`
+            ],
+            correct: 1,
+            explanation: `The SGI of a zero matrix is a zero matrix of the transposed dimensions. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `For any matrix $A$, $(A^G)^G$ is equal to:`, 
+            options: [
+                `$A$`, 
+                `$A^T$`, 
+                `$A^{-1}$`, 
+                `$(A^G)^T$`
+            ],
+            correct: 0,
+            explanation: `The SGI of the SGI of a matrix is the original matrix itself. $(A^G)^G = A$.`
+        },
+        {
+            question: `For any matrix $A$, $(A^T)^G$ is equal to:`, 
+            options: [
+                `$A^G$`, 
+                `$(A^G)^T$`, 
+                `$A$`, 
+                `$A^T$`
+            ],
+            correct: 1,
+            explanation: `The SGI of the transpose is the transpose of the SGI. $(A^T)^G = (A^G)^T$.`
+        },
+        {
+            question: `If $c$ is a non-zero scalar, $(cA)^G$ is equal to:`, 
+            options: [
+                `$c A^G$`, 
+                `$(1/c) A^G$`, 
+                `$c^2 A^G$`, 
+                `$A^G$`
+            ],
+            correct: 1,
+            explanation: `For a non-zero scalar $c$, $(cA)^G = (1/c)A^G$.`
+        },
+        {
+            question: `The least squares solution of $Ax=b$ minimizes:`, 
+            options: [
+                `$||x||$`, 
+                `$||Ax||$`, 
+                `$||Ax-b||$`, 
+                `$||A||$`
+            ],
+            correct: 2,
+            explanation: `The least squares solution of $Ax=b$ is the vector $x$ that minimizes the Euclidean norm of the residual, $||Ax-b||$. (Source: Further linear algebra, Section 6.5)`
+        },
+        {
+            question: `If $P$ is a projection matrix, then:`, 
+            options: [
+                `$P=P^T$`, 
+                `$P=P^{-1}$`, 
+                `$P^2=P$`, 
+                `$P$ is invertible.`
+            ],
+            correct: 2,
+            explanation: `A matrix $P$ is a projection matrix if it is idempotent, i.e., $P^2=P$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `If $P$ is an orthogonal projection matrix, then:`, 
+            options: [
+                `$P=P^T$ and $P^2=P$`, 
+                `$P=P^{-1}$`, 
+                `$P^2=I$`, 
+                `$P$ is orthogonal.`
+            ],
+            correct: 0,
+            explanation: `A matrix $P$ is an orthogonal projection if it is idempotent ($P^2=P$) and symmetric ($P=P^T$). (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$. Find the SGI of $A$.`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$` // Corrected escape for backslash in LaTeX string
+            ],
+            correct: 0,
+            explanation: `$A$ has full column rank, so $A^G = (A^T A)^{-1} A^T$. $A^T A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$, so $(A^T A)^{-1} = I$. Thus $A^G = A^T = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}$.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$. Which of the following is a WGI of $A$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$\\begin{pmatrix} 1/4 & 1/4 \\\\ 1/4 & 1/4 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1/2 & 0 \\\\ 0 & 1/2 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `All of the above.`
+            ],
+            correct: 0,
+            explanation: `We need to check if $A A^g A = A$. Let $A^g = \\begin{pmatrix} 1/4 & 1/4 \\\\ 1/4 & 1/4 \\end{pmatrix}$. Then $A A^g = \\begin{pmatrix} 1/2 & 1/2 \\\\ 1/2 & 1/2 \\end{pmatrix}$ and $A A^g A = \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix} = A$. So it is a WGI. This is also the SGI.`
+        },
+        {
+            question: `If $A$ has SVD $A = U \\Sigma V^T$, what is $A^G$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$V \\Sigma^G U^T$`, 
+                `$U \\Sigma^G V^T$`, 
+                `$V \\Sigma^{-1} U^T$`, 
+                `$V^T \\Sigma^G U$`
+            ],
+            correct: 0,
+            explanation: `If $A = U \\Sigma V^T$ is the singular value decomposition of $A$, then $A^G = V \\Sigma^G U^T$, where $\\Sigma^G$ is obtained by taking the reciprocal of the non-zero singular values and transposing the resulting matrix. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `The system $Ax=b$ has a least squares solution that is unique if and only if:`, 
+            options: [
+                `$A$ has full row rank.`, 
+                `$A$ has full column rank.`, 
+                `$A$ is square.`, 
+                `$A$ is invertible.`
+            ],
+            correct: 1,
+            explanation: `The least squares solution is unique if and only if the columns of $A$ are linearly independent, which means $A$ has full column rank. In this case, $A^T A$ is invertible. (Source: Further linear algebra, Section 6.5)`
+        },
+        {
+            question: `If $A$ is an $m \\times n$ matrix, then $A^G$ is an $n \\times m$ matrix.`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. The generalized inverse has the transposed dimensions of the original matrix.`
+        },
+        {
+            question: `If $A$ is a symmetric matrix, then $A^G$ is also symmetric.`, 
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. If $A=A^T$, then $(A^G)^T = (A^T)^G = A^G$.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & -1 \\\\ -1 & 1 \\end{pmatrix}$. Find the SGI of $A$.`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `$\\begin{pmatrix} 1/4 & -1/4 \\\\ -1/4 & 1/4 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1/2 & -1/2 \\\\ -1/2 & 1/2 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$`, // Corrected escape for backslash in LaTeX string
+                `$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$` // Corrected escape for backslash in LaTeX string
+            ],
+            correct: 0,
+            explanation: `The rank of $A$ is 1. We can use the formula $A^G = C^T(CC^T)^{-1}(B^TB)^{-1}B^T$ where $A=BC$. Let $B = \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}$ and $C = \\begin{pmatrix} 1 & -1 \\end{pmatrix}$. Then $A^G = \\begin{pmatrix} 1/4 & -1/4 \\\\ -1/4 & 1/4 \\end{pmatrix}$.`
+        },
+        {
+            question: `If $A$ has a WGI $A^g$, then $A^g$ is a right inverse of $A$ if and only if:`, 
+            options: [
+                `$rank(A) = m$`, 
+                `$rank(A) = n$`, 
+                `$A$ is square.`, 
+                `$A^g A = I_n$`
+            ],
+            correct: 0,
+            explanation: `If $rank(A)=m$, $A$ has a right inverse. If $A^g$ is a WGI, then $AA^gA=A$. If $rank(A)=m$, then $A$ has a right inverse $R$, so $AR=I_m$. Then $A A^g A R = AR$, so $A A^g I_m = I_m$, so $A A^g = I_m$.`
+        },
+        {
+            question: `If $A$ has a WGI $A^g$, then $A^g$ is a left inverse of $A$ if and only if:`, 
+            options: [
+                `$rank(A) = m$`, 
+                `$rank(A) = n$`, 
+                `$A$ is square.`, 
+                `$A A^g = I_m$`
+            ],
+            correct: 1,
+            explanation: `If $rank(A)=n$, $A$ has a left inverse. If $A^g$ is a WGI, then $A A^g A = A$. If $rank(A)=n$, then $A$ has a left inverse $L$, so $LA=I_n$. Then $L A A^g A = L A$, so $I_n A^g A = I_n$, so $A^g A = I_n$.`
+        },
+        {
+            question: `The four fundamental subspaces associated with a matrix $A$ are $R(A)$, $N(A)$, $R(A^T)$, and $N(A^T)$. Which pair is orthogonal complements?`, 
+            options: [
+                `$R(A)$ and $N(A)$`, 
+                `$R(A)$ and $R(A^T)$`, 
+                `$R(A)$ and $N(A^T)$`, 
+                `$N(A)$ and $N(A^T)$`
+            ],
+            correct: 2,
+            explanation: `$R(A)$ and $N(A^T)$ are orthogonal complements in $\\mathbb{R}^m$. Also, $R(A^T)$ and $N(A)$ are orthogonal complements in $\\mathbb{R}^n$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\end{pmatrix}$. What is the rank of $A$?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `0`, 
+                `1`, 
+                `2`, 
+                `3`
+            ],
+            correct: 1,
+            explanation: `The second column is a multiple of the first column, so the columns are linearly dependent. The rank is 1.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\end{pmatrix}$. Does $A$ have a left or right inverse?`, // Corrected escape for backslash in LaTeX string
+            options: [
+                `Left inverse only.`, 
+                `Right inverse only.`, 
+                `Both left and right inverses.`, 
+                `Neither a left nor a right inverse.`
+            ],
+            correct: 3,
+            explanation: `The matrix is $2 \\times 2$ and has rank 1. To have a left inverse, it needs rank 2. To have a right inverse, it needs rank 2. So it has neither.`
+        },
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizBody = document.getElementById('quiz-body');
+        const clearButton = document.getElementById('clear-answers');
+
+        questions.forEach((q, i) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'question-container';
+            questionContainer.id = `q${i}`;
+
+            const questionText = document.createElement('div');
+            questionText.className = 'question';
+            questionText.innerHTML = `<span>${i + 1}. </span>${q.question}`;
+            questionContainer.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options';
+            q.options.forEach((opt, j) => {
+                const listItem = document.createElement('li');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${i}`;
+                radio.value = j;
+                radio.id = `q${i}o${j}`;
+                  radio.onchange = () => checkAnswer(i);
+                const label = document.createElement('label');
+                label.htmlFor = `q${i}o${j}`;
+                label.innerHTML = ` ${opt}`;
+                
+                listItem.appendChild(radio);
+                listItem.appendChild(label);
+                optionsList.appendChild(listItem);
+            });
+            questionContainer.appendChild(optionsList);
+
+              
+
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result';
+            resultDiv.id = `result${i}`;
+            questionContainer.appendChild(resultDiv);
+
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'explanation';
+            explanationDiv.id = `explanation${i}`;
+            explanationDiv.innerHTML = `<b>Explanation:</b> ${q.explanation}`;
+            questionContainer.appendChild(explanationDiv);
+
+            quizBody.appendChild(questionContainer);
+        });
+
+        MathJax.typesetPromise();
+        loadProgress();
+
+        clearButton.onclick = () => {
+            questions.forEach((q, i) => {
+                deleteCookie(`q${i}`);
+            });
+            location.reload();
+        };
+    });
+
+    function checkAnswer(qIndex) {
+        const selectedOption = document.querySelector(`input[name="q${qIndex}"]:checked`);
+        if (!selectedOption) {
+            alert('Please select an answer.');
+            return;
+        }
+
+        const resultDiv = document.getElementById(`result${qIndex}`);
+        const explanationDiv = document.getElementById(`explanation${qIndex}`);
+        const radios = document.getElementsByName(`q${qIndex}`);
+        const checkButton = document.querySelector(`#q${qIndex} .check-btn`);
+
+        if (parseInt(selectedOption.value) === questions[qIndex].correct) {
+            resultDiv.textContent = 'Correct!';
+            resultDiv.className = 'result correct';
+        } else {
+            resultDiv.textContent = `Incorrect. The correct answer is: ${questions[qIndex].options[questions[qIndex].correct]}`;
+            resultDiv.className = 'result incorrect';
+        }
+
+        explanationDiv.style.display = 'block';
+        MathJax.typesetPromise([explanationDiv]);
+        radios.forEach(r => r.disabled = true);
+        checkButton.disabled = true;
+
+        setCookie(`q${qIndex}`, selectedOption.value, 365);
+    }
+
+    function loadProgress() {
+        questions.forEach((q, i) => {
+            const answer = getCookie(`q${i}`);
+            if (answer !== "") {
+                const radio = document.getElementById(`q${i}o${answer}`);
+                if(radio) {
+                    radio.checked = true;
+                    checkAnswer(i);
+                }
+            }
+        });
+    }
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return "";
+    }
+    
+    function deleteCookie(name) {   
+        document.cookie = name+'=; Max-Age=-99999999;';  
+    }
+
+</script>
+
+</body>
+</html>

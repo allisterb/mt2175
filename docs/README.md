@@ -9,9 +9,11 @@ This document provides links to the study materials for the MT2176 Further Linea
 * [Chapter 2: Inner products and orthogonality](./flashcards/ch2-flashcards-2.html)
 * [Chapter 4: Direct sums and projections](./flashcards/ch4-flashcards-1.html)
 * [Chapter 5: Complex matrices and vector spaces](./flashcards/ch5-flashcards-2.html)
-
+* [Chapter 6: Generalized inverses](./flashcards/ch6-flashcards-1.html)
 
 ## Quizzes
-* [Chapter 1: Diagonalisation, Jordan normal form and differential equations Multiple-Choice 1](./quizzzes/ch1-quiz-mc-1.html)
+* [Chapter 1: Diagonalisation, Jordan normal form and differential equations Multiple-Choice 1](./quizzes/ch1-quiz-mc-1.html)
 * [Chapter 2: Inner products and orthogonality Multiple-Choice 1](./quizzzes/ch2-quiz-mc-1.html)
 * [Chapter 4: Direct sums and projections Multiple-Choice 1](./quizzzes/ch4-quiz-mc-1.html)
+* [Chapter 6: Generalized inverses Multiple-Choice 1](./quizzzes/ch6-quiz-mc-1.html)
+* [Chapter 6: Generalized inverses Multiple-Choice 2](./quizzzes/ch6-quiz-mc-2.html)

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 - Generalized Inverses Quiz (Set 2)</title>
+	<script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 2em; background-color: #f8f9fa; color: #212529; }
+        .quiz-container { max-width: 800px; margin: auto; background-color: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .question-container { margin-bottom: 2em; border: 1px solid #dee2e6; padding: 1.5em; border-radius: 8px; }
+        .question { font-weight: 600; margin-bottom: 1em; font-size: 1.1em; }
+        .options ul { list-style-type: none; padding: 0; }
+        .options li { margin-bottom: 0.75em; }
+        .explanation { margin-top: 1.5em; padding: 1em; background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 5px; display: none; }
+        .result { margin-top: 1em; font-weight: bold; }
+        .correct { color: #28a745; }
+        .incorrect { color: #dc3545; }
+        #clear-answers { margin-top: 2em; padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+        #clear-answers:hover { background-color: #0056b3; }
+        .check-btn { padding: 0.5em 1em; background-color: #17a2b8; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .check-btn:hover { background-color: #138496; }
+        .check-btn:disabled { background-color: #6c757d; cursor: not-allowed; }
+        h1 { color: #003366; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>MT2175 - Generalized Inverses Quiz (Set 2)</h1>
+    <p>This is the second set of questions on "Generalized inverses".</p>
+
+    <div id="quiz-body">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <button id="clear-answers">Clear All Answers</button>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: `If $A$ is an $m \\times n$ matrix and $L$ is a left inverse, what are the dimensions of $L$?`,
+            options: [
+                `$m \\times n$`, 
+                `$n \\times m$`, 
+                `$m \\times m$`, 
+                `$n \\times n$`
+            ],
+            correct: 1,
+            explanation: `For the product $LA$ to be defined and equal to $I_n$, if $A$ is $m \\times n$, $L$ must be $n \\times m$. (Source: Further linear algebra, Definition 6.1)`
+        },
+        {
+            question: `If an $m \\times n$ matrix $A$ has a unique left inverse, what can we conclude about $m$ and $n$?`,
+            options: [
+                `$m > n$`, 
+                `$m < n$`, 
+                `$m = n$`, 
+                `No conclusion can be made.`
+            ],
+            correct: 2,
+            explanation: `A matrix has a unique left inverse if and only if it is square and invertible, which means $m=n$. (Source: Further linear algebra, Section 6.1)`
+        },
+        {
+            question: `If the system $Ax=b$ has a unique solution for every $b$, then $A$ must be:`,
+            options: [
+                `Tall (more rows than columns)`, 
+                `Wide (more columns than rows)`, 
+                `Square and invertible`, 
+                `A zero matrix`
+            ],
+            correct: 2,
+            explanation: `For the system to have a unique solution for every $b$, the matrix $A$ must be square and invertible. This implies the existence of both a unique left and a unique right inverse (which are the same). (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 4)`
+        },
+        {
+            question: `Which of the following is a right inverse for $A = \\begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \\end{pmatrix}$?`,
+            options: [
+                `$\\\begin{pmatrix} 1 & -2 \\ 0 & 1 \\ 0 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 & 0 \\ 0 & 1 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 & 0 \\ -2 & 1 \\ 1 & 0 \\end{pmatrix}$`, 
+                `It has no right inverse.`
+            ],
+            correct: 0,
+            explanation: `We need $AR=I_2$. Let's check the first option: $\\\begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \\end{pmatrix} \\\begin{pmatrix} 1 & -2 \\ 0 & 1 \\ 0 & 0 \\end{pmatrix} = \\\begin{pmatrix} 1 & 0 \\ 0 & 1 \\end{pmatrix}$. So this is a right inverse.`
+        },
+        {
+            question: `If $A^g$ is a WGI of $A$, which statement is always true?`,
+            options: [
+                `$A A^g$ is symmetric.`, 
+                `$A^g A$ is symmetric.`, 
+                `$A A^g$ is idempotent.`, 
+                `$A^g$ is unique.`
+            ],
+            correct: 2,
+            explanation: `The matrix $A A^g$ is always idempotent because $(A A^g)(A A^g) = A(A^g A A^g)A = A(A^g)A = A A^g$. This is not true in general, but $(AA^gA)A^g = AA^g$. The correct property is that $AA^g$ is a projection onto $R(A)$, and projections are idempotent. (Source: Further linear algebra, Theorem 6.3)`
+        },
+        {
+            question: `Let $A^g$ be a WGI for $A$. The general solution to the homogeneous system $Ax=0$ is:`,
+            options: [
+                `$x = (I - A^g A)w$ for any vector $w$.`, 
+                `$x = (I - A A^g)w$ for any vector $w$.`, 
+                `$x = A^g w$ for any vector $w$.`, 
+                `$x=0$ only.`
+            ],
+            correct: 0,
+            explanation: `The general solution to $Ax=b$ is $x_p + x_h$, where $x_p$ is a particular solution and $x_h$ is the general solution to the homogeneous equation $Ax=0$. The set of solutions to $Ax=0$ is the null space $N(A)$. The projector onto $N(A)$ is $(I-A^gA)$. So the solutions are of the form $(I-A^gA)w$. (Source: Further linear algebra, Theorem 6.4)`
+        },
+        {
+            question: `Which of the four Penrose conditions for an SGI $A^G$ ensures that $A^G A$ is an orthogonal projection?`,
+            options: [
+                `$A A^G A = A$`, 
+                `$A^G A A^G = A^G$`, 
+                `$(A A^G)^T = A A^G$`, 
+                `$(A^G A)^T = A^G A$`
+            ],
+            correct: 3,
+            explanation: `For a projection to be orthogonal, it must be symmetric. The condition $(A^G A)^T = A^G A$ ensures that the projection $A^G A$ is symmetric, and therefore orthogonal. (Source: Further linear algebra, Definition 6.4)`
+        },
+        {
+            question: `If $A$ is a matrix, then $A^G A$ is an orthogonal projection onto:`,
+            options: [
+                `$R(A)$`, 
+                `$N(A)$`, 
+                `$R(A^G)$`, 
+                `$N(A^G)$`
+            ],
+            correct: 2,
+            explanation: `$A^G A$ is the orthogonal projection onto the range of $A^G$, which is the same as the range of $A^T$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `The SGI of a scalar $c$ is:`,
+            options: [
+                `$1/c$ if $c \neq 0$, and $0$ if $c=0$.`, 
+                `$c$`, 
+                `$1/c$ for all $c$.`, 
+                `$0$ for all $c$.`
+            ],
+            correct: 0,
+            explanation: `The SGI generalizes the concept of an inverse. For a non-zero scalar, the inverse is $1/c$. For a zero scalar, the SGI is 0.`
+        },
+        {
+            question: `If $A$ is an orthogonal matrix, then $A^G$ is:`,
+            options: [
+                `$A$`, 
+                `$A^T$`, 
+                `$A^{-1}$`, 
+                `Both $A^T$ and $A^{-1}$`
+            ],
+            correct: 3,
+            explanation: `For an orthogonal matrix, $A^{-1} = A^T$. Since it's invertible, $A^G = A^{-1}$. Therefore, $A^G = A^T = A^{-1}$.`
+        },
+        {
+            question: `The least squares solution to $Ax=b$ is a true solution (i.e., $Ax=b$) if and only if:`,
+            options: [
+                `$b$ is in the null space of $A$.`, 
+                `$b$ is in the column space of $A$.`, 
+                `$A$ has full rank.`, 
+                `$b=0$.`
+            ],
+            correct: 1,
+            explanation: `If $b$ is in the column space of $A$, then the system is consistent and a true solution exists. The least squares solution will then be the same as the true solution.`
+        },
+        {
+            question: `If $A$ is an $m \\times n$ matrix with $rank(A)=n$, the least squares solution to $Ax=b$ is:`,
+            options: [
+                `$x = (A^T A)^{-1} A^T b$`, 
+                `$x = A^T (A A^T)^{-1} b$`, 
+                `$x = A^T b$`, 
+                `$x = A^{-1} b$`
+            ],
+            correct: 0,
+            explanation: `When $A$ has full column rank, $A^T A$ is invertible, and the unique least squares solution is given by the normal equations: $x = (A^T A)^{-1} A^T b$. This is also the SGI solution since $A^G = (A^T A)^{-1} A^T$. (Source: Further linear algebra, Section 6.5)`
+        },
+        {
+            question: `The vector $A^G b$ gives the minimal norm solution to $Ax=b$ only when the system is consistent.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 1,
+            explanation: `False. $A^G b$ gives the minimal norm *least squares* solution. If the system is consistent, this will be the minimal norm solution from the set of all solutions.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 1 \\ 0 & 0 \\end{pmatrix}$. Which of the following is a WGI of $A$?`,
+            options: [
+                `$\\\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1/2 & 0 \\ 1/2 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 & 1 \\ 0 & 0 \\end{pmatrix}$`, 
+                `All of the above.`
+            ],
+            correct: 0,
+            explanation: `We check $AA^gA=A$. For the first option, $A^g = \\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$. $AA^g = \\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$, and $AA^gA = \\begin{pmatrix} 1 & 1 \\ 0 & 0 \\end{pmatrix} = A$. So it is a WGI.`
+        },
+        {
+            question: `If $A$ is a diagonal matrix, its SGI $A^G$ is found by:`,
+            options: [
+                `Inverting the diagonal entries.`, 
+                `Taking the reciprocal of non-zero diagonal entries and leaving zeros as they are.`, 
+                `Transposing the matrix.`, 
+                `Taking the square root of the diagonal entries.`
+            ],
+            correct: 1,
+            explanation: `For a diagonal matrix, the SGI is obtained by taking the reciprocal of the non-zero diagonal entries and keeping the zero entries as zero.`
+        },
+        {
+            question: `The problem of finding the least squares solution to $Ax=b$ is equivalent to solving:`,
+            options: [
+                `$A^T A x = A^T b$`, 
+                `$A A^T x = A b$`, 
+                `$A x = P b$ where $P$ is a projection onto $R(A)$`, 
+                `Both a and c.`
+            ],
+            correct: 3,
+            explanation: `The normal equations $A^T A x = A^T b$ define the least squares solution. Also, solving $Ax=Pb$ where $P$ is the orthogonal projection onto $R(A)$ gives the same solution, as $Ax$ must be the projection of $b$ onto $R(A)$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `If $A$ is an $m \\times n$ matrix, the projection matrix onto its null space is:`,
+            options: [
+                `$I - A A^G$`, 
+                `$I - A^G A$`, 
+                `$A A^G$`, 
+                `$A^G A$`
+            ],
+            correct: 1,
+            explanation: `$A^G A$ projects onto $R(A^T)$, the orthogonal complement of $N(A)$. Therefore, $I - A^G A$ projects onto $N(A)$.`
+        },
+        {
+            question: `A matrix $A$ has a non-trivial null space if and only if:`,
+            options: [
+                `It does not have a left inverse.`, 
+                `It does not have a right inverse.`, 
+                `It is not square.`, 
+                `It has a zero column.`
+            ],
+            correct: 0,
+            explanation: `A non-trivial null space means there are non-zero solutions to $Ax=0$. This is equivalent to the columns being linearly dependent, which means $rank(A) < n$. This is also the condition for not having a left inverse. (Source: Further linear algebra, Theorem 6.1)`
+        },
+        {
+            question: `If $A$ is a wide matrix ($m<n$) with full row rank, then the system $Ax=b$ has:`,
+            options: [
+                `A unique solution.`, 
+                `No solution.`, 
+                `Infinitely many solutions.`, 
+                `A unique least squares solution.`
+            ],
+            correct: 2,
+            explanation: `If $A$ has full row rank ($m$), it has a right inverse, so the system is always consistent. Since $n>m$, there are $n-m$ free variables, leading to infinitely many solutions. (Source: Further linear algebra, Theorem 6.2)`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 0 \\end{pmatrix}$. Calculate $A^G$.`,
+            options: [
+                `$\\\begin{pmatrix} 1/2 & 0 & 1/2 \\ 0 & 1 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1/2 & 0 \\ 0 & 1 \\ 1/2 & 0 \\end{pmatrix}$`
+            ],
+            correct: 0,
+            explanation: `$A$ has full column rank (2). So $A^G = (A^T A)^{-1} A^T$. $A^T A = \\begin{pmatrix} 2 & 0 \\ 0 & 1 \\end{pmatrix}$, so $(A^T A)^{-1} = \\begin{pmatrix} 1/2 & 0 \\ 0 & 1 \\end{pmatrix}$. Then $A^G = \\begin{pmatrix} 1/2 & 0 \\ 0 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 & 1 \\ 0 & 1 & 0 \\end{pmatrix} = \\begin{pmatrix} 1/2 & 0 & 1/2 \\ 0 & 1 & 0 \\end{pmatrix}$.`
+        },
+        {
+            question: `The SGI is also known as the:`,
+            options: [
+                `Penrose inverse`, 
+                `Moore-Penrose inverse`, 
+                `Generalized inverse`, 
+                `Weak inverse`
+            ],
+            correct: 1,
+            explanation: `The strong generalized inverse is also commonly known as the Moore-Penrose pseudoinverse. (Source: Further linear algebra, Section 6.3)`
+        },
+        {
+            question: `If $A^g$ is a WGI of $A$, then $A^g$ is an SGI if and only if:`,
+            options: [
+                `$A^g A A^g = A^g$`, 
+                `$(A A^g)^T = A A^g$ and $(A^g A)^T = A^g A$`, 
+                `$A^g$ is unique.`, 
+                `$A$ is invertible.`
+            ],
+            correct: 1,
+            explanation: `A WGI $A^g$ is an SGI if it also satisfies the other three Penrose conditions. However, if we already have $AA^gA=A$, the key additional requirements for it to be the SGI are that the projections $AA^g$ and $A^gA$ are symmetric (orthogonal projections).`
+        },
+        {
+            question: `If $x_0$ is a particular solution to $Ax=b$, then the set of all solutions is:`,
+            options: [
+                `$x_0 + R(A)$`, 
+                `$x_0 + N(A)$`, 
+                `$x_0 + R(A^T)$`, 
+                `$x_0 + N(A^T)$`
+            ],
+            correct: 1,
+            explanation: `The general solution of a linear system is the sum of a particular solution and the null space of the matrix. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 2)`
+        },
+        {
+            question: `If $A$ is an $m \\times n$ matrix, then $A^G A$ is an $n \\times n$ matrix.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. $A^G$ is $n \\times m$, so the product $A^G A$ is $(n \\times m) \\times (m \\times n) = n \\times n$.`
+        },
+        {
+            question: `If $A$ is an $m \\times n$ matrix, then $A A^G$ is an $m \\times m$ matrix.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. $A$ is $m \\times n$ and $A^G$ is $n \\times m$, so the product $A A^G$ is $(m \\times n) \\times (n \\times m) = m \\times m$.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 1 \\ 1 & 1 \\end{pmatrix}$ and $b = \\begin{pmatrix} 3 \\ 3 \\end{pmatrix}$. Find the minimal norm solution to $Ax=b$.`,
+            options: [
+                `$\\\begin{pmatrix} 3/2 \\ 3/2 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 \\ 2 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 2 \\ 1 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 3 \\ 0 \\end{pmatrix}$`
+            ],
+            correct: 0,
+            explanation: `The system is consistent. The SGI of $A$ is $A^G = \\begin{pmatrix} 1/4 & 1/4 \\ 1/4 & 1/4 \\end{pmatrix}$. The minimal norm solution is $x = A^G b = \\begin{pmatrix} 1/4 & 1/4 \\ 1/4 & 1/4 \\end{pmatrix} \\begin{pmatrix} 3 \\ 3 \\end{pmatrix} = \\begin{pmatrix} 3/2 \\ 3/2 \\end{pmatrix}$.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 \\ 0 \\end{pmatrix}$ and $b = \\begin{pmatrix} 2 \\ 2 \\end{pmatrix}$. Find the least squares solution to $Ax=b$.`,
+            options: [
+                `$x=1$`, 
+                `$x=2$`, 
+                `$x=3$`, 
+                `$x=4$`
+            ],
+            correct: 1,
+            explanation: `$A$ has full column rank. The least squares solution is $x = (A^T A)^{-1} A^T b = (1)^{-1} \\begin{pmatrix} 1 & 0 \\end{pmatrix} \\begin{pmatrix} 2 \\ 2 \\end{pmatrix} = 2$.`
+        },
+        {
+            question: `If $A$ is a matrix where $A^G = A$, what can be said about $A$?`,
+            options: [
+                `$A$ must be a projection matrix.`, 
+                `$A$ must be an orthogonal projection matrix.`, 
+                `$A$ must be the identity matrix.`, 
+                `$A$ must be a zero matrix.`
+            ],
+            correct: 1,
+            explanation: `If $A^G=A$, then $A$ must satisfy the Penrose conditions with $A^G$ replaced by $A$. In particular, $A^2A=A$ and $(A^2)^T=A^2$. This implies $A$ is an orthogonal projection.`
+        },
+        {
+            question: `The concept of a generalized inverse is useful for matrices that are:`,
+            options: [
+                `Invertible`, 
+                `Singular or non-square`, 
+                `Symmetric`, 
+                `Orthogonal`
+            ],
+            correct: 1,
+            explanation: `Generalized inverses are particularly useful for singular (non-invertible) square matrices and for non-square matrices, where the standard inverse is not defined.`
+        },
+        {
+            question: `If $A$ has a left inverse $L$, then $LA=I_n$. This implies that the linear transformation $T(x)=Ax$ is:`,
+            options: [
+                `Injective (one-to-one)`, 
+                `Surjective (onto)`, 
+                `Bijective`, 
+                `Neither injective nor surjective`
+            ],
+            correct: 0,
+            explanation: `The existence of a left inverse implies that the null space of $A$ is trivial, which means the transformation is injective (one-to-one).`
+        },
+        {
+            question: `If $A$ has a right inverse $R$, then $AR=I_m$. This implies that the linear transformation $T(x)=Ax$ is:`,
+            options: [
+                `Injective (one-to-one)`, 
+                `Surjective (onto)`, 
+                `Bijective`, 
+                `Neither injective nor surjective`
+            ],
+            correct: 1,
+            explanation: `The existence of a right inverse implies that the range of $A$ is all of $\\mathbb{R}^m$, which means the transformation is surjective (onto).`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$. Which of the following is a WGI of $A$?`,
+            options: [
+                `$\\\begin{pmatrix} 1 & 0 \\ 0 & 1 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 0 & 0 \\ 0 & 1 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 0 & 1 \\ 1 & 0 \\end{pmatrix}$`
+            ],
+            correct: 1,
+            explanation: `We need $AA^gA=A$. Let $A^g = \\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$. Then $AA^g = \\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix}$ and $AA^gA = \\begin{pmatrix} 1 & 0 \\ 0 & 0 \\end{pmatrix} = A$.`
+        },
+        {
+            question: `The set of all solutions to $Ax=b$ can be expressed in terms of one particular solution $x_p$ and the null space $N(A)$.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. The solution set is the affine subspace $x_p + N(A)$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 2)`
+        },
+        {
+            question: `If $A^g$ is a WGI of $A$, then $I - A^g A$ is a projection onto:`,
+            options: [
+                `$R(A)$`, 
+                `$N(A)$`, 
+                `$R(A^T)$`, 
+                `$N(A^T)$`
+            ],
+            correct: 1,
+            explanation: `$A^g A$ projects onto $R(A^g)$ parallel to $N(A)$. So $I - A^g A$ projects onto $N(A)$ parallel to $R(A^g)$.`
+        },
+        {
+            question: `The SGI $A^G$ always satisfies $(A^G)^T = (A^T)^G$.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True, this is one of the properties of the Moore-Penrose inverse.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} 1 & 1 \\ 1 & 1 \\end{pmatrix}$ and $b = \\begin{pmatrix} 1 \\ 2 \\end{pmatrix}$. Find the least squares solution $x^*$ closest to the origin.`,
+            options: [
+                `$\\\begin{pmatrix} 3/4 \\ 3/4 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1/2 \\ 1/2 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 1 \\ 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 0 \\ 1 \\end{pmatrix}$`
+            ],
+            correct: 0,
+            explanation: `The SGI of $A$ is $A^G = \\begin{pmatrix} 1/4 & 1/4 \\ 1/4 & 1/4 \\end{pmatrix}$. The minimal norm least squares solution is $x^* = A^G b = \\begin{pmatrix} 1/4 & 1/4 \\ 1/4 & 1/4 \\end{pmatrix} \\begin{pmatrix} 1 \\ 2 \\end{pmatrix} = \\begin{pmatrix} 3/4 \\ 3/4 \\end{pmatrix}$.`
+        },
+        {
+            question: `If $A$ is a matrix, $AA^G$ is the orthogonal projection onto $R(A)$.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. This is a fundamental property of the strong generalized inverse. (Source: Further linear algebra, Section 6.3)`
+        },
+        {
+            question: `If $A$ is a matrix, $A^GA$ is the orthogonal projection onto $R(A^T)$.`,
+            options: [
+                `True`, 
+                `False`
+            ],
+            correct: 0,
+            explanation: `True. This is a fundamental property of the strong generalized inverse. $R(A^T)$ is the row space of $A$.`
+        },
+        {
+            question: `If $A$ is a non-zero column vector, $A^G$ is:`,
+            options: [
+                `A row vector.`, 
+                `A column vector.`, 
+                `A scalar.`, 
+                `A square matrix.`
+            ],
+            correct: 0,
+            explanation: `If $A$ is $m \\times 1$, then $A^G$ is $1 \\times m$, which is a row vector.`
+        },
+        {
+            question: `If $A$ is a non-zero row vector, $A^G$ is:`,
+            options: [
+                `A row vector.`, 
+                `A column vector.`, 
+                `A scalar.`, 
+                `A square matrix.`
+            ],
+            correct: 1,
+            explanation: `If $A$ is $1 \\times n$, then $A^G$ is $n \\times 1$, which is a column vector.`
+        },
+        {
+            question: `Let $A = \\begin{pmatrix} k & 0 \\ 0 & 0 \\end{pmatrix}$ with $k \neq 0$. Find $A^G$.`,
+            options: [
+                `$\\\begin{pmatrix} 1/k & 0 \\ 0 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} k & 0 \\ 0 & 0 \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 0 & 0 \\ 0 & 1/k \\end{pmatrix}$`, 
+                `$\\\begin{pmatrix} 0 & 1/k \\ 0 & 0 \\end{pmatrix}$`
+            ],
+            correct: 0,
+            explanation: `For a diagonal matrix, the SGI is found by taking the reciprocal of the non-zero entries. So $A^G = \\begin{pmatrix} 1/k & 0 \\ 0 & 0 \\end{pmatrix}$.`
+        },
+        {
+            question: `The equation $Ax=b$ has a solution if and only if $b$ is orthogonal to:`,
+            options: [
+                `$N(A)$`, 
+                `$R(A)$`, 
+                `$N(A^T)$`, 
+                `$R(A^T)$`
+            ],
+            correct: 2,
+            explanation: `The system $Ax=b$ is consistent if and only if $b$ is in the column space of $A$, $R(A)$. The orthogonal complement of $R(A)$ is the null space of $A^T$, $N(A^T)$. So $b$ must be orthogonal to every vector in $N(A^T)$. (Source: Anthony, M. and Harvey, M. (2012) Linear Algebra: Concepts and Methods. Cambridge University Press, Chapter 12)`
+        },
+        {
+            question: `If $A$ is an $m \\times n$ matrix, then $I - AA^G$ is the orthogonal projection onto:`,
+            options: [
+                `$R(A)$`, 
+                `$N(A)$`, 
+                `$R(A^T)$`, 
+                `$N(A^T)$`
+            ],
+            correct: 3,
+            explanation: `$AA^G$ is the orthogonal projection onto $R(A)$. The orthogonal complement of $R(A)$ is $N(A^T)$. Therefore, $I - AA^G$ is the orthogonal projection onto $N(A^T)$.`
+        },
+        {
+            question: `The Moore-Penrose inverse is named after:`,
+            options: [
+                `E. H. Moore and Roger Penrose`, 
+                `Eliakim Moore and Roger Penrose`, 
+                `Edward Moore and Roger Penrose`, 
+                `E. H. Moore and Penrose Roger`
+            ],
+            correct: 0,
+            explanation: `The Moore-Penrose inverse is named after E. H. Moore and Roger Penrose, who independently defined it.`
+        },
+        {
+            question: `If $A$ is a matrix with full row rank, then $A^G$ is a:`,
+            options: [
+                `Left inverse.`, 
+                `Right inverse.`, 
+                `Both a left and right inverse.`, 
+                `Neither a left nor a right inverse.`
+            ],
+            correct: 1,
+            explanation: `If $A$ has full row rank, then $A$ has a right inverse. The SGI $A^G$ is one of these right inverses.`
+        },
+        {
+            question: `If $A$ is a matrix with full column rank, then $A^G$ is a:`,
+            options: [
+                `Left inverse.`, 
+                `Right inverse.`, 
+                `Both a left and right inverse.`, 
+                `Neither a left nor a right inverse.`
+            ],
+            correct: 0,
+            explanation: `If $A$ has full column rank, then $A$ has a left inverse. The SGI $A^G$ is one of these left inverses.`
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizBody = document.getElementById('quiz-body');
+        const clearButton = document.getElementById('clear-answers');
+
+        questions.forEach((q, i) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'question-container';
+            questionContainer.id = `q${i}`;
+
+            const questionText = document.createElement('div');
+            questionText.className = 'question';
+            questionText.innerHTML = `<span>${i + 1}. </span>${q.question}`;
+            questionContainer.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options';
+            q.options.forEach((opt, j) => {
+                const listItem = document.createElement('li');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${i}`;
+                radio.value = j;
+                radio.id = `q${i}o${j}`;
+                 radio.onchange = () => checkAnswer(i);
+                const label = document.createElement('label');
+                label.htmlFor = `q${i}o${j}`;
+                label.innerHTML = ` ${opt}`;
+                
+                listItem.appendChild(radio);
+                listItem.appendChild(label);
+                optionsList.appendChild(listItem);
+            });
+            questionContainer.appendChild(optionsList);
+
+               
+
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result';
+            resultDiv.id = `result${i}`;
+            questionContainer.appendChild(resultDiv);
+
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'explanation';
+            explanationDiv.id = `explanation${i}`;
+            explanationDiv.innerHTML = `<b>Explanation:</b> ${q.explanation}`;
+            questionContainer.appendChild(explanationDiv);
+
+            quizBody.appendChild(questionContainer);
+        });
+
+        MathJax.typesetPromise();
+        loadProgress();
+
+        clearButton.onclick = () => {
+            questions.forEach((q, i) => {
+                deleteCookie(`q${i}`);
+            });
+            location.reload();
+        };
+    });
+
+    function checkAnswer(qIndex) {
+        const selectedOption = document.querySelector(`input[name="q${qIndex}"]:checked`);
+        if (!selectedOption) {
+            alert('Please select an answer.');
+            return;
+        }
+
+        const resultDiv = document.getElementById(`result${qIndex}`);
+        const explanationDiv = document.getElementById(`explanation${qIndex}`);
+        const radios = document.getElementsByName(`q${qIndex}`);
+        const checkButton = document.querySelector(`#q${qIndex} .check-btn`);
+
+        if (parseInt(selectedOption.value) === questions[qIndex].correct) {
+            resultDiv.textContent = 'Correct!';
+            resultDiv.className = 'result correct';
+        } else {
+            resultDiv.textContent = `Incorrect. The correct answer is: ${questions[qIndex].options[questions[qIndex].correct]}`;
+            resultDiv.className = 'result incorrect';
+        }
+
+        explanationDiv.style.display = 'block';
+        MathJax.typesetPromise([explanationDiv]);
+        radios.forEach(r => r.disabled = true);
+        checkButton.disabled = true;
+
+        setCookie(`q${qIndex}`, selectedOption.value, 365);
+    }
+
+    function loadProgress() {
+        questions.forEach((q, i) => {
+            const answer = getCookie(`q${i}`);
+            if (answer !== "") {
+                const radio = document.getElementById(`q${i}o${answer}`);
+                if(radio) {
+                    radio.checked = true;
+                    checkAnswer(i);
+                }
+            }
+        });
+    }
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return "";
+    }
+    
+    function deleteCookie(name) {   
+        document.cookie = name+'=; Max-Age=-99999999;';  
+    }
+
+</script>
+
+</body>
+</html>

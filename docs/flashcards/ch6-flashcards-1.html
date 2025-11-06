@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT2175 Further Linear Algebra - Generalised Inverses Flashcards</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; align-items: center; background-color: #f0f2f5; color: #333; line-height: 1.6; margin-top: 50px; }
+        h1 { color: #1d2129; text-align: center; }
+        .slideshow-container { width: 90%; max-width: 800px; position: relative; margin: auto; }
+        .flashcard { display: none; background-color: transparent; width: 100%; height: 450px; perspective: 1000px; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.is-flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; background-color: #ffffff; border: 1px solid #dddfe2; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); padding: 25px; box-sizing: border-box; }
+        .card-back { transform: rotateY(180deg); }
+        .question-content, .answer-content { font-size: 1.3em; }
+        .source { font-size: 0.8em; color: #606770; margin-top: auto; padding-top: 15px; border-top: 1px solid #eee; width: 100%; text-align: center; }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -25px; padding: 16px; color: white; font-weight: bold; font-size: 20px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.5); z-index: 10; }
+        .next { right: -60px; border-radius: 3px 0 0 3px; }
+        .prev { left: -60px; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+        .progress-container {
+    width: 100%;
+    background-color: #ddd;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.1em;
+    color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+}
+        .flip-button { background-color: #1877f2; color: white; border: none; padding: 12px 24px; margin-top: 20px; cursor: pointer; border-radius: 6px; font-size: 1em; font-weight: bold; transition: background-color 0.3s; }
+        .flip-button:hover { background-color: #166fe5; }
+    </style>
+</head>
+<body>
+
+<h1>MT2175 Further Linear Algebra: Generalised Inverses</h1>
+
+<div class="slideshow-container">
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the definition of a <strong>left inverse</strong> of a matrix?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) is an \(m \times n\) matrix, then an \(n \times m\) matrix \(L\) is a <strong>left inverse</strong> of \(A\) if \(LA\) is the \(n \times n\) identity matrix \(I_n\).
+                    <br>
+                    \[ LA = I_n \]
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.1.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the definition of a <strong>right inverse</strong> of a matrix?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) is an \(m \times n\) matrix, then an \(n \times m\) matrix \(R\) is a <strong>right inverse</strong> of \(A\) if \(AR\) is the \(m 	imes m\) identity matrix \(I_m\).
+                    <br>
+                    \[ AR = I_m \]
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.2.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(L\) is a left inverse of \(A\), what is the relationship of \(A\) to \(L\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(L\) is a left inverse of \(A\), then \(A\) is a right inverse of \(L\). Similarly, if \(R\) is a right inverse of \(A\), then \(A\) is a left inverse of \(R\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 73.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What condition on the rank of an \(m 	imes n\) matrix \(A\) guarantees the existence of a left inverse?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a left inverse if and only if it has <strong>rank \(n\)</strong> (full column rank). This is equivalent to its columns being linearly independent, or its null space being \(N(A) = \{0\}\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.1.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If an \(m 	imes n\) matrix \(A\) has rank \(n\), provide a formula for a left inverse.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) has rank \(n\), the \(n 	imes n\) matrix \(A^T A\) is invertible. A left inverse \(L\) is then given by the formula:
+                \[ L = (A^T A)^{-1} A^T \]
+                This specific left inverse is also the Strong Generalised Inverse (SGI) of \(A\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 73 & Theorem 6.6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What condition on the rank of an \(m 	imes n\) matrix \(A\) guarantees the existence of a right inverse?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a right inverse if and only if it has <strong>rank \(m\)</strong> (full row rank). This is equivalent to its columns spanning \(\mathbb{R}^m\), or its range being \(R(A) = \mathbb{R}^m\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.2.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If an \(m 	imes n\) matrix \(A\) has rank \(m\), provide a formula for a right inverse.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) has rank \(m\), the \(m 	imes m\) matrix \(A A^T\) is invertible. A right inverse \(R\) is then given by the formula:
+                \[ R = A^T (A A^T)^{-1} \]
+                This specific right inverse is also the Strong Generalised Inverse (SGI) of \(A\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 76 & Theorem 6.6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What are the implications for the linear system \(Ax=b\) if a left inverse of \(A\) exists?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If a left inverse \(L\) of \(A\) exists, the system \(Ax=b\) has <strong>at most one solution</strong>.
+                    <ul>
+                        <li>If a solution exists, it is unique and given by \(x=Lb\).</li>
+                        <li>To check if a solution exists, one must verify if \(A(Lb)=b\). If this equality does not hold, no solution exists.</li>
+                    </ul>
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.1.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What are the implications for the linear system \(Ax=b\) if a right inverse of \(A\) exists?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If a right inverse \(R\) of \(A\) exists, the system \(Ax=b\) has <strong>at least one solution for every</strong> vector \(b \in \mathbb{R}^m\).
+                    <ul>
+                        <li>One particular solution is given by \(x=Rb\).</li>
+                        <li>If the null space of \(A\) is non-trivial (i.e., \(N(A) \neq \{0\}\)), there will be infinitely many solutions.</li>
+                    </ul>
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.2.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Can a non-square matrix have a unique left inverse?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">No. If an \(m 	imes n\) matrix \(A\) with \(m > n\) has a left inverse, it must have infinitely many. A left inverse exists if rank is \(n\). The general form of a left inverse can be found by solving \(LA=I_n\), which often has free parameters, leading to infinite solutions. Only when \(m=n\) and \(A\) is invertible is the left inverse unique (and it is \(A^{-1}\)).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Example 6.2.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Verify if \(L = \begin{pmatrix} 1 & 0 & 1 \\ 0.5 & 0.5 & 0 \end{pmatrix}\) is a left inverse for \(A = \begin{pmatrix} 1 & -1 \\ -1 & 1 \\ 0 & 2 \end{pmatrix}\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">To verify, we compute \(LA\):
+                \[ LA = \begin{pmatrix} 1 & 0 & 1 \\ 0.5 & 0.5 & 0 \end{pmatrix} \begin{pmatrix} 1 & -1 \\ -1 & 1 \\ 0 & 2 \end{pmatrix} = \begin{pmatrix} 1(1)+0(-1)+1(0) & 1(-1)+0(1)+1(2) \\ 0.5(1)+0.5(-1)+0(0) & 0.5(-1)+0.5(1)+0(2) \end{pmatrix} \]
+                \[ = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix} \]
+                Since \(LA \neq I_2\), \(L\) is <strong>not</strong> a left inverse of \(A\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the definition of a <strong>Weak Generalised Inverse (WGI)</strong>?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Let \(A\) be an \(m 	imes n\) matrix. A <strong>Weak Generalised Inverse (WGI)</strong> of \(A\), denoted by \(A^g\), is any \(n 	imes m\) matrix that satisfies the following condition:
+                \[ AA^gA = A \]</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.3.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Are Weak Generalised Inverses (WGIs) unique?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">No, WGIs are generally not unique. If \(A^g\) is a WGI of \(A\), and \(B\) is a matrix such that \(ABA=0\), then \(A^g+B\) is also a WGI of \(A\). For example, any left or right inverse is a WGI, and matrices can have many different left or right inverses.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 77.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI of \(A\), what does the matrix \(AA^g\) represent?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(AA^g\) is an idempotent matrix (\((AA^g)^2 = AA^g\)) that represents a <strong>projection from \(\mathbb{R}^m\) onto the range of \(A\), \(R(A)\)</strong>.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.3.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI of \(A\), what does the matrix \(A^gA\) represent?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(A^gA\) is an idempotent matrix (\((A^gA)^2 = A^gA\)) that represents a <strong>projection from \(\mathbb{R}^n\) parallel to the null space of \(A\), \(N(A)\)</strong>. This means it projects onto a space \(S\) such that \(\mathbb{R}^n = S \oplus N(A)\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.3.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the condition for a system of equations \(Ax=b\) to be consistent, in terms of a WGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix equation \(Ax=b\) is consistent (i.e., has at least one solution) if and only if \(b = AA^gb\) for any WGI \(A^g\) of \(A\).
+                <br><br>
+                This condition means that \(b\) must be in the range of \(A\), \(R(A)\), since \(AA^g\) projects onto \(R(A)\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If the system \(Ax=b\) is consistent, what is its general solution in terms of a WGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">When the system \(Ax=b\) is consistent, its general solution is given by the formula:
+                \[ x = A^gb + (I - A^gA)w \]
+                where \(A^g\) is any WGI of \(A\) and \(w\) is any vector in \(\mathbb{R}^n\).
+                <br>\(A^gb\) is a particular solution, and \((I - A^gA)w\) represents the general solution to the associated homogeneous system \(Ax=0\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What are the four conditions that define a <strong>Strong Generalised Inverse (SGI)</strong>, \(A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">A matrix \(A^G\) is a Strong Generalised Inverse (or Moore-Penrose pseudoinverse) of \(A\) if it satisfies:
+                <ol>
+                    <li>\(AA^GA = A\) (It is a WGI)</li>
+                    <li>\(A^GAA^G = A^G\) (It is a WGI of itself)</li>
+                    <li>\(A A^G\) orthogonally projects \(\mathbb{R}^m\) onto \(R(A)\). (i.e., \(A A^G\) is symmetric)</li>
+                    <li>\(A^G A\) orthogonally projects \(\mathbb{R}^n\) onto \(N(A)^\perp = R(A^T)\). (i.e., \(A^G A\) is symmetric)</li>
+                </ol>
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Is the Strong Generalised Inverse (SGI) of a matrix unique?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Yes, every matrix \(A\) has exactly one SGI, denoted \(A^G\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.5.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">How do you calculate the SGI of a matrix \(A\) using full rank factorisation?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If a matrix \(A\) of rank \(k \ge 1\) is factorised as \(A=BC\), where \(B\) is \(m 	imes k\) and \(C\) is \(k 	imes n\), both of rank \(k\), then the SGI of \(A\) is given by:
+                \[ A^G = C^T(CC^T)^{-1}(B^TB)^{-1}B^T \]
+                Note that \(C^T(CC^T)^{-1}\) is the SGI of \(C\) and \((B^TB)^{-1}B^T\) is the SGI of \(B\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.7.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the connection between the SGI and the general least squares solution of a linear system \(Ax=b\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The general least squares solution to the system \(Ax=b\) (which minimises \(\|Ax-b\|^2\)) is given by:
+                \[ x = A^Gb + (I - A^GA)w \]
+                where \(w\) is any vector in \(\mathbb{R}^n\). This formula provides all vectors \(x\) that are least squares solutions.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.8.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Among all least squares solutions to \(Ax=b\), which one is special and how is it represented using the SGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The vector \(x^* = A^Gb\) is the unique least squares solution to \(Ax=b\) that has the smallest norm (i.e., is closest to the origin).
+                <br><br>
+                This is because any other least squares solution is of the form \(x = A^Gb + z\) where \(z \in N(A)\). Since \(A^Gb \in R(A^G) = R(A^T) = N(A)^\perp\), the vectors \(A^Gb\) and \(z\) are orthogonal. By Pythagoras' theorem, \(\|x\|^2 = \|A^Gb\|^2 + \|z\|^2 \ge \|A^Gb\|^2\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.9.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) has a left inverse, what is its SGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If the \(m 	imes n\) matrix \(A\) has a left inverse, it must have rank \(n\). In this case, its SGI is given by the formula for the specific left inverse:
+                \[ A^G = (A^T A)^{-1} A^T \]</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) has a right inverse, what is its SGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If the \(m 	imes n\) matrix \(A\) has a right inverse, it must have rank \(m\). In this case, its SGI is given by the formula for the specific right inverse:
+                \[ A^G = A^T (A A^T)^{-1} \]</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Explain why \(A^G b\) is a least squares solution to \(Ax=b\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">A least squares solution \(x^*\) minimizes \(\|Ax-b\|^2\). This occurs when \(Ax^*\) is the orthogonal projection of \(b\) onto the range of \(A\), \(R(A)\).
+                <br><br>
+                From the definition of the SGI, \(AA^G\) is the matrix for the orthogonal projection onto \(R(A)\). Therefore, \(Ax^* = AA^Gb\).
+                <br><br>
+                By setting \(x^* = A^Gb\), we get \(A(A^Gb) = AA^Gb\), which shows that \(x^*=A^Gb\) is indeed a least squares solution.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 86.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">True or False: If \(A^g\) is a WGI of \(A\), then \(A^g\) is also a WGI of \(A^g\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">False. This is not true in general for a WGI. The condition \(A^gAA^g = A^g\) is one of the specific properties of the Strong Generalised Inverse (SGI), not a general property of all WGIs.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI, is \(AA^g\) always a symmetric matrix?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">No. \(AA^g\) is a projection onto \(R(A)\), but it is not necessarily an <em>orthogonal</em> projection. The matrix of an orthogonal projection must be symmetric. The condition that \(A A^G\) is symmetric is a specific requirement for the Strong Generalised Inverse \(A^G\), not for any WGI \(A^g\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI, is \(A^gA\) always a symmetric matrix?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">No. \(A^gA\) is a projection, but not necessarily an orthogonal one. The matrix of an orthogonal projection must be symmetric. The condition that \(A^GA\) is symmetric is a specific requirement for the Strong Generalised Inverse \(A^G\), not for any WGI \(A^g\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the relationship between the null space of \(A\) and the range of \(I - A^gA\), where \(A^g\) is a WGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">They are the same. The matrix \(I - A^gA\) is a projection onto the null space of \(A\), \(N(A)\).
+                <br><br>
+                This is because for any \(z \in N(A)\), \(Az=0\), so \((I-A^gA)z = z - A^g(Az) = z\). And for any vector \(w\), the vector \(x = (I-A^gA)w\) is in \(N(A)\) because \(Ax = A(I-A^gA)w = (A-AA^gA)w = (A-A)w = 0\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 85.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is an invertible \(n 	imes n\) matrix, what is its SGI, \(A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) is invertible, its SGI is simply its inverse, \(A^{-1}\).
+                <br><br>
+                This is because \(A^{-1}\) satisfies all four Moore-Penrose conditions:
+                <ol>
+                    <li>\(AA^{-1}A = IA = A\)</li>
+                    <li>\(A^{-1}AA^{-1} = IA^{-1} = A^{-1}\)</li>
+                    <li>\(AA^{-1} = I\), which is symmetric.</li>
+                    <li>\(A^{-1}A = I\), which is symmetric.</li>
+                </ol>
+                </div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Why is the SGI useful for solving least squares problems?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI is useful because it provides a way to find the least squares solution even when \(A^TA\) is not invertible (i.e., when \(A\) does not have full column rank). The formula \(x^* = A^Gb\) gives the unique least squares solution with the minimum norm, regardless of the rank of \(A\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 85.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Let \(A = \begin{pmatrix} 1 \\ 2 \end{pmatrix}\). Calculate its SGI, \(A^G\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(A\) is \(2 	imes 1\) and has rank 1 (full column rank). We can use the formula for a left inverse: \(A^G = (A^TA)^{-1}A^T\).
+                \[ A^TA = \begin{pmatrix} 1 & 2 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = (1+4) = (5) \]
+                \[ (A^TA)^{-1} = (1/5) \]
+                \[ A^G = (1/5) \begin{pmatrix} 1 & 2 \end{pmatrix} = \begin{pmatrix} 1/5 & 2/5 \end{pmatrix} \]
+                </div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Let \(A = \begin{pmatrix} 1 & 1 \end{pmatrix}\). Calculate its SGI, \(A^G\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(A\) is \(1 	imes 2\) and has rank 1 (full row rank). We can use the formula for a right inverse: \(A^G = A^T(AA^T)^{-1}\).
+                \[ AA^T = \begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = (1+1) = (2) \]
+                \[ (AA^T)^{-1} = (1/2) \]
+                \[ A^G = \begin{pmatrix} 1 \\ 1 \end{pmatrix} (1/2) = \begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix} \]
+                </div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Explain the geometric meaning of the least squares solution \(x^* = A^G b\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The vector \(Ax^* = AA^Gb\) is the orthogonal projection of \(b\) onto the column space (range) of \(A\). This means \(Ax^*\) is the vector in \(R(A)\) that is closest to \(b\). The vector \(x^* = A^G b\) itself is the unique vector of minimum norm (closest to the origin in \(\mathbb{R}^n\)) that produces this closest point \(Ax^*\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 87.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI, what is the relationship between \(R(A)\) and \(R(AA^g)\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">They are equal: \(R(A) = R(AA^g)\).
+                <br><br>
+                Proof:
+                <br>1. For any \(y 
+                <br>2. For any \(y 
+                <br>Therefore, the ranges are identical.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 84.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI of \(A\), what is the relationship between \(N(A)\) and \(N(A^gA)\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">They are equal: \(N(A) = N(A^gA)\).
+                <br><br>
+                Proof:
+                <br>1. If \(y 
+                <br>2. If \(y 
+                <br>Therefore, the null spaces are identical.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 84.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) has full column rank, show that \(A^G = (A^TA)^{-1}A^T\) satisfies \(A^GAA^G = A^G\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Let \(L = (A^TA)^{-1}A^T\). We need to show \(LAL = L\).
+                \[ LAL = [(A^TA)^{-1}A^T] A [(A^TA)^{-1}A^T] \]
+                \[ = (A^TA)^{-1}(A^TA)(A^TA)^{-1}A^T \]
+                \[ = I (A^TA)^{-1}A^T \]
+                \[ = (A^TA)^{-1}A^T = L \]
+                The property is satisfied.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) has full row rank, show that \(A^G = A^T(AA^T)^{-1}\) satisfies \(AA^GA = A\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Let \(R = A^T(AA^T)^{-1}\). We need to show \(ARA = A\).
+                \[ ARA = A [A^T(AA^T)^{-1}] A \]
+                \[ = (AA^T)(AA^T)^{-1} A \]
+                \[ = I A = A \]
+                The property is satisfied.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Why is the least squares solution \(x^* = A^G b\) closest to the origin?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Any least squares solution has the form \(x = A^Gb + z\) where \(z \in N(A)\). The SGI \(A^G\) has the property that its range \(R(A^G)\) is the row space of \(A\), \(R(A^T)\). The row space and null space are orthogonal complements, so \(R(A^T) = N(A)^\perp\).
+                <br><br>
+                This means \(A^Gb \in R(A^T)\) and \(z \in N(A)\) are orthogonal. By the Generalised Pythagoras' Theorem:
+                \[ \|x\|^2 = \|A^Gb + z\|^2 = \|A^Gb\|^2 + \|z\|^2 \]
+                This norm is minimised when \(\|z\|^2 = 0\), which means \(z=0\). Thus, the solution with the minimum norm is \(x = A^Gb\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.9.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of a zero matrix \(O\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of a zero matrix \(O_{m 	imes n}\) is its transpose, the zero matrix \(O_{n 	imes m}\).
+                <br><br>
+                Let's check the four conditions with \(A=O\) and \(A^G=O^T=O\):
+                <ol>
+                    <li>\(OAO = O = A\)</li>
+                    <li>\(AOA = O = A\)</li>
+                    <li>\(AA^G = OO = O\), which is symmetric.</li>
+                    <li>\(A^GA = OO = O\), which is symmetric.</li>
+                </ol>
+                All conditions hold.</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(P\) is an orthogonal projection matrix, what is its SGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(P\) is an orthogonal projection matrix, it is symmetric (\(P=P^T\)) and idempotent (\(P^2=P\)). Its SGI is itself, \(P^G = P\).
+                <br><br>
+                Let's check the four conditions with \(A=P\) and \(A^G=P\):
+                <ol>
+                    <li>\(PPP = P^2P = PP = P^2 = P\)</li>
+                    <li>\(PPP = P\)</li>
+                    <li>\(PP = P^2 = P\), which is symmetric.</li>
+                    <li>\(PP = P^2 = P\), which is symmetric.</li>
+                </ol>
+                All conditions hold.</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">True or False: For any matrix \(A\), \((A^G)^G = A\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">True. The relationship between a matrix and its SGI is reflexive. This is a fundamental property of the Moore-Penrose pseudoinverse.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses, mentioned in Anthony, M. and Harvey, M. Linear Algebra: Concepts and Methods.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">True or False: For any matrix \(A\), \((A^T)^G = (A^G)^T\).</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">True. This is one of the identities of the Moore-Penrose pseudoinverse. The pseudoinverse of the transpose is the transpose of the pseudoinverse.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a symmetric matrix, is its SGI \(A^G\) also symmetric?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Yes. If \(A\) is symmetric, then \(A=A^T\). Using the identity \((A^T)^G = (A^G)^T\), we have:
+                \[ A^G = (A^T)^G = (A^G)^T \]
+                A matrix that equals its own transpose is symmetric.</div>
+                <div class="source">Source: Based on properties of the SGI.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of a scalar \(\lambda\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of a scalar \(\lambda\) (which is a \(1 	imes 1\) matrix) is:
+                \[ \lambda^G = \begin{cases} 1/\lambda & \text{if } \lambda 
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(D\) is a diagonal matrix, what is its SGI \(D^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(D\) is a diagonal matrix with diagonal entries \(d_1, d_2, ..., d_n\), its SGI \(D^G\) is a diagonal matrix with diagonal entries \(d_1^G, d_2^G, ..., d_n^G\), where
+                \[ d_i^G = \begin{cases} 1/d_i & \text{if } d_i 
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the rank of \(A^G\) compared to the rank of \(A\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The rank of \(A^G\) is the same as the rank of \(A\).
+                \[ \text{rank}(A) = \text{rank}(A^G) = \text{rank}(AA^G) = \text{rank}(A^GA) \]
+                This is because \(A = AA^GA\), so \(\text{rank}(A) 
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is an \(m 	imes n\) matrix, what are the dimensions of its SGI, \(A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI \(A^G\) has the transposed dimensions of \(A\). If \(A\) is \(m 	imes n\), then \(A^G\) is \(n 	imes m\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.4.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(A^T\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of \(A^T\) is the transpose of the SGI of \(A\).
+                \[ (A^T)^G = (A^G)^T \]</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(\bar{A}\) (the complex conjugate of A)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of \(\bar{A}\) is the complex conjugate of the SGI of \(A\).
+                \[ (\bar{A})^G = \overline{(A^G)} \]</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(A^*\) (the Hermitian conjugate of A)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of \(A^*\) is the Hermitian conjugate of the SGI of \(A\).
+                \[ (A^*)^G = (A^G)^* \]
+                This follows from combining the transpose and conjugate properties: \((A^*)^G = (\bar{A}^T)^G = ((\bar{A})^G)^T = (\overline{A^G})^T = (A^G)^*\).</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(c\) is a non-zero scalar, what is the SGI of \(cA\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(c 
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the null space of \(A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The null space of \(A^G\) is the same as the null space of \(A^T\).
+                \[ N(A^G) = N(A^T) \]
+                This is because \(R(A) = R(AA^G)\) and taking orthogonal complements gives \(R(A)^\perp = N(A^T) = N((AA^G)^T) = N(A^GA) = N(A^G)\).</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the range of \(A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The range of \(A^G\) is the same as the range of \(A^T\) (which is the row space of \(A\)).
+                \[ R(A^G) = R(A^T) \]
+                This is because \(A^GA\) is the orthogonal projection onto \(R(A^G)\), and it is also the orthogonal projection onto \(R(A^T)\).</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) has orthonormal columns, what is its SGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) has orthonormal columns, then \(A^TA = I\). This means \(A\) has a left inverse \(L=A^T\).
+                <br><br>
+                Since \(A\) has full column rank, its SGI is given by the left inverse formula:
+                \[ A^G = (A^TA)^{-1}A^T = I^{-1}A^T = A^T \]
+                So, the SGI is simply its transpose.</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) has orthonormal rows, what is its SGI?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) has orthonormal rows, then \(AA^T = I\). This means \(A\) has a right inverse \(R=A^T\).
+                <br><br>
+                Since \(A\) has full row rank, its SGI is given by the right inverse formula:
+                \[ A^G = A^T(AA^T)^{-1} = A^T I^{-1} = A^T \]
+                So, the SGI is also its transpose.</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of a column vector \(v\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">For a non-zero column vector \(v\), it has full column rank. Its SGI is given by the left inverse formula:
+                \[ v^G = (v^Tv)^{-1}v^T \]
+                Since \(v^Tv = \|v\|^2\) (a scalar), its inverse is \(1/\|v\|^2\).
+                \[ v^G = \frac{v^T}{\|v\|^2} \]
+                If \(v=0\), then \(v^G=0^T\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of a row vector \(v^T\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">For a non-zero row vector \(v^T\), it has full row rank. Its SGI is given by the right inverse formula:
+                \[ (v^T)^G = (v^T)^T(v^T(v^T)^T)^{-1} = v(v^Tv)^{-1} \]
+                Since \(v^Tv = \|v\|^2\) (a scalar), its inverse is \(1/\|v\|^2\).
+                \[ (v^T)^G = \frac{v}{\|v\|^2} \]
+                If \(v=0\), then \((v^T)^G=0\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">When does a matrix have a left inverse but no right inverse?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a left inverse if \(\text{rank}(A) = n\) and a right inverse if \(\text{rank}(A) = m\).
+                <br><br>
+                For a left inverse to exist but not a right inverse, we need \(\text{rank}(A) = n\) and \(\text{rank}(A) 
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">When does a matrix have a right inverse but no left inverse?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a right inverse if \(\text{rank}(A) = m\) and a left inverse if \(\text{rank}(A) = n\).
+                <br><br>
+                For a right inverse to exist but not a left inverse, we need \(\text{rank}(A) = m\) and \(\text{rank}(A) 
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI, what is \(A(I-A^gA)\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">We can distribute \(A\) to get:
+                \[ A(I-A^gA) = AI - AA^gA \]
+                Since \(AI=A\) and \(AA^gA=A\) by the definition of a WGI, this simplifies to:
+                \[ A - A = O \]
+                Where \(O\) is the zero matrix. This confirms that any vector in the range of \(I-A^gA\) is in the null space of \(A\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of \(A^G\) is \(A\) itself.
+                \[ (A^G)^G = A \]
+                The Moore-Penrose pseudoinverse is a reflexive generalized inverse.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a normal matrix (\(AA^*=A^*A\)), is its SGI \(A^G\) also normal?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Yes. If \(A\) is normal, its SGI \(A^G\) is also normal. This is a standard property of the Moore-Penrose inverse.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix, what is the SGI of \(A^TA\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of \(A^TA\) is \((A^TA)^G = (A^G)^T A^G\). This is a known identity for Moore-Penrose inverses.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix, what is the SGI of \(AA^T\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI of \(AA^T\) is \((AA^T)^G = A(A^T)^G\). This is a known identity for Moore-Penrose inverses.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the key difference between a projection and an orthogonal projection?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">A projection is represented by any idempotent matrix \(P\) (where \(P^2=P\)). It projects onto its range \(R(P)\) parallel to its null space \(N(P)\).
+                <br><br>
+                An <strong>orthogonal</strong> projection is a projection where the range and null space are orthogonal complements. This occurs if and only if the projection matrix \(P\) is also <strong>symmetric</strong> (\(P=P^T\)).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 5.8.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">How does the SGI relate to the four fundamental subspaces?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The SGI provides a map between the fundamental subspaces.
+                <ul>
+                    <li>\(A^G\) maps vectors from the range of \(A\), \(R(A)\), to the row space of \(A\), \(R(A^T)\).</li>
+                    <li>\(A\) maps vectors from its row space, \(R(A^T)\), to its column space, \(R(A)\).</li>
+                </ul>
+                The matrix \(A^GA\) is the orthogonal projection onto \(R(A^T)\), and \(AA^G\) is the orthogonal projection onto \(R(A)\).</div>
+                <div class="source">Source: Standard properties of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix, is \(A^G\) a left inverse of \(A\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Not necessarily. \(A^GA\) is not always the identity matrix. \(A^GA=I\) only if \(A\) has full column rank (rank \(n\)). In that specific case, \(A^G\) is indeed a left inverse. In general, \(A^GA\) is the orthogonal projection onto the row space of \(A\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix, is \(A^G\) a right inverse of \(A\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Not necessarily. \(AA^G\) is not always the identity matrix. \(AA^G=I\) only if \(A\) has full row rank (rank \(m\)). In that specific case, \(A^G\) is indeed a right inverse. In general, \(AA^G\) is the orthogonal projection onto the column space of \(A\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(A^TA\) if \(A\) has full column rank?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) has full column rank, then \(A^TA\) is an invertible square matrix. The SGI of any invertible matrix is its standard inverse. Therefore,
+                \[ (A^TA)^G = (A^TA)^{-1} \]</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(AA^T\) if \(A\) has full row rank?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) has full row rank, then \(AA^T\) is an invertible square matrix. The SGI of any invertible matrix is its standard inverse. Therefore,
+                \[ (AA^T)^G = (AA^T)^{-1} \]</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 6.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^g\) is a WGI, what is the null space of the projection \(I-A^gA\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The null space of the projection \(P = I-A^gA\) is the range of the complementary projection \(Q = A^gA\).
+                \[ N(I-A^gA) = R(A^gA) \]
+                Since \(A^gA\) projects onto a space \(S\) parallel to \(N(A)\), its range is \(S\). So \(N(I-A^gA) = S\).</div>
+                <div class="source">Source: Based on concepts from Further linear algebra (MT2175) subject guide, Chapter 5.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^G\) is the SGI of \(A\), what is \(R(A^GA)\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(A^GA\) is an orthogonal projection onto the row space of \(A\), \(R(A^T)\). Therefore, its range is the row space of \(A\).
+                \[ R(A^GA) = R(A^T) \]</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A^G\) is the SGI of \(A\), what is \(N(AA^G)\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(AA^G\) is an orthogonal projection onto the column space of \(A\), \(R(A)\). The null space of an orthogonal projection is the orthogonal complement of its range. Therefore,
+                \[ N(AA^G) = R(A)^\perp \]
+                From the Fundamental Theorem of Linear Algebra, we know that \(R(A)^\perp = N(A^T)\). So, \(N(AA^G) = N(A^T)\).</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix where \(A=BC\) is a full rank factorization, what are the ranks of \(B\) and \(C\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">If \(A\) is an \(m 	imes n\) matrix of rank \(k\), and \(A=BC\) is a full rank factorization, then:
+                <ul>
+                    <li>\(B\) is an \(m 	imes k\) matrix with \(\text{rank}(B)=k\) (full column rank).</li>
+                    <li>\(C\) is a \(k 	imes n\) matrix with \(\text{rank}(C)=k\) (full row rank).</li>
+                </ul>
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 82.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">How can you find a full rank factorization \(A=BC\) for a matrix \(A\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">One common method is to use the reduced row echelon form (RREF) of \(A\).
+                <ul>
+                    <li>The matrix \(B\) is formed by taking the columns of \(A\) that correspond to the pivot columns (columns with leading ones) in the RREF of \(A\).</li>
+                    <li>The matrix \(C\) is formed by taking the non-zero rows of the RREF of \(A\).</li>
+                </ul>
+                </div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Example 6.3.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">Why does the formula \(A^G = C^T(CC^T)^{-1}(B^TB)^{-1}B^T\) require \(B\) and \(C\) to have full rank?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The formula requires the inverses of \(CC^T\) and \(B^TB\) to exist.
+                <ul>
+                    <li>If \(C\) (size \(k 	imes n\)) has full row rank \(k\), then the \(k 	imes k\) matrix \(CC^T\) is invertible.</li>
+                    <li>If \(B\) (size \(m 	imes k\)) has full column rank \(k\), then the \(k 	imes k\) matrix \(B^TB\) is invertible.</li>
+                </ul>
+                This is why the factorization must be a "full rank" factorization.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 82.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(A^G A\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(P = A^G A\) is an orthogonal projection matrix. For any orthogonal projection, \(P^G = P\). Therefore,
+                \[ (A^G A)^G = A^G A \]</div>
+                <div class="source">Source: Based on properties of SGI and projection matrices.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the SGI of \(A A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">The matrix \(P = A A^G\) is an orthogonal projection matrix. For any orthogonal projection, \(P^G = P\). Therefore,
+                \[ (A A^G)^G = A A^G \]</div>
+                <div class="source">Source: Based on properties of SGI and projection matrices.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix, what is \(A^G A A^T\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">This cannot be simplified in general without more information. However, if \(A\) has full row rank, then \(A^G = A^T(AA^T)^{-1}\).
+                <br><br>
+                In that case:
+                \[ A^G A A^T = [A^T(AA^T)^{-1}] A A^T = A^T[(AA^T)^{-1}(AA^T)] = A^T I = A^T \]</div>
+                <div class="source">Source: Based on properties of the SGI.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a matrix, what is \(A^T A A^G\)?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">This cannot be simplified in general. However, if \(A\) has full column rank, then \(A^G = (A^TA)^{-1}A^T\).
+                <br><br>
+                In that case:
+                \[ A^T A A^G = A^T A [(A^TA)^{-1}A^T] = (A^TA)(A^TA)^{-1}A^T = I A^T = A^T \]</div>
+                <div class="source">Source: Based on properties of the SGI.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a symmetric matrix, show that \(A^G\) is also symmetric.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">We use the identity \((A^G)^T = (A^T)^G\).
+                <br><br>
+                Since \(A\) is symmetric, \(A = A^T\).
+                <br><br>
+                Therefore, \((A^G)^T = (A^T)^G = A^G\).
+                <br><br>
+                Since the transpose of \(A^G\) is equal to itself, \(A^G\) is symmetric.</div>
+                <div class="source">Source: Standard property of Moore-Penrose inverses.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">If \(A\) is a normal matrix and \(U\) is a unitary matrix, is \(U^*AU\) normal?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Yes. Let \(B = U^*AU\). We check if \(BB^*=B^*B\).
+                \[ BB^* = (U^*AU)(U^*AU)^* = (U^*AU)(U^*A^*U) = U^*A(UU^*)A^*U = U^*AIA^*U = U^*AA^*U \]
+                \[ B^*B = (U^*AU)^*(U^*AU) = (U^*A^*U)(U^*AU) = U^*A^*(UU^*)AU = U^*A^*IAU = U^*A^*AU \]
+                Since \(A\) is normal, \(AA^*=A^*A\). Therefore, \(BB^*=B^*B\), and \(U^*AU\) is normal.</div>
+                <div class="source">Source: Standard property of normal matrices.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">What is the least squares solution?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">For an inconsistent system \(Ax=b\), a least squares solution is a vector \(x^*\) that minimizes the squared error \(\|Ax-b\|^2\). This is equivalent to finding the vector \(x^*\) such that \(Ax^*\) is the orthogonal projection of \(b\) onto the column space of \(A\).</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 85.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="question-content">How were generalised inverses motivated by the problem of fitting functions to data?</div>
+                <button class="flip-button">Flip</button>
+            </div>
+            <div class="card-back">
+                <div class="answer-content">Fitting a linear model \(Y = a+bX\) to data points \((X_i, Y_i)\) leads to a system of linear equations \(Az=b\), where \(z = (a, b)^T\). This system is often inconsistent. The goal is to find the 'best fit', which means finding a least squares solution for \(z\).
+                <br><br>
+                The least squares solution requires finding an orthogonal projection onto \(R(A)\). While the formula \(A(A^TA)^{-1}A^T\) works when \(A\) has full column rank, generalised inverses, particularly the SGI, provide a method that works for any matrix \(A\), allowing us to solve the least squares problem in all cases.</div>
+                <div class="source">Source: Further linear algebra (MT2175) subject guide, Chapter 5, Section 5.7.</div>
+                <button class="flip-button">Flip</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="progress-container">
+    <span id="progress-text"></span>
+</div>
+
+<script>
+    let slideIndex = 1;
+
+    function getCookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for(let i=0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            let date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=Lax";
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("flashcard");
+        if (slides.length === 0) return;
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            slides[i].classList.remove("is-flipped");
+        }
+        slides[slideIndex-1].style.display = "block";
+        setCookie("mt2175_progress", slideIndex, 7);
+        document.getElementById("progress-text").innerText = "Card " + slideIndex + " of " + slides.length;
+    }
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let progress = getCookie("mt2175_progress");
+        if (progress) {
+            slideIndex = parseInt(progress, 10);
+        }
+        showSlides(slideIndex);
+
+        document.querySelectorAll('.flashcard').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Prevent clicks on buttons from flipping the card twice
+                if (e.target.tagName.toLowerCase() !== 'button') {
+                    card.classList.toggle('is-flipped');
+                }
+            });
+        });
+        document.querySelectorAll('.flip-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                button.closest('.flashcard').classList.toggle('is-flipped');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
