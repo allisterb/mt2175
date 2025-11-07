@@ -70,7 +70,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If \(A\) is an \(m \times n\) matrix, then an \(n \times m\) matrix \(R\) is a <strong>right inverse</strong> of \(A\) if \(AR\) is the \(m 	imes m\) identity matrix \(I_m\).
+                <div class="answer-content">If \(A\) is an \(m \times n\) matrix, then an \(n \times m\) matrix \(R\) is a <strong>right inverse</strong> of \(A\) if \(AR\) is the \(m 	\times m\) identity matrix \(I_m\).
                     <br>
                     \[ AR = I_m \]
                 </div>
@@ -97,11 +97,11 @@
     <div class="flashcard">
         <div class="card-inner">
             <div class="card-front">
-                <div class="question-content">What condition on the rank of an \(m 	imes n\) matrix \(A\) guarantees the existence of a left inverse?</div>
+                <div class="question-content">What condition on the rank of an \(m 	\times n\) matrix \(A\) guarantees the existence of a left inverse?</div>
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a left inverse if and only if it has <strong>rank \(n\)</strong> (full column rank). This is equivalent to its columns being linearly independent, or its null space being \(N(A) = \{0\}\).</div>
+                <div class="answer-content">An \(m 	\times n\) matrix \(A\) has a left inverse if and only if it has <strong>rank \(n\)</strong> (full column rank). This is equivalent to its columns being linearly independent, or its null space being \(N(A) = \{0\}\).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.1.</div>
                 <button class="flip-button">Flip</button>
             </div>
@@ -111,11 +111,11 @@
     <div class="flashcard">
         <div class="card-inner">
             <div class="card-front">
-                <div class="question-content">If an \(m 	imes n\) matrix \(A\) has rank \(n\), provide a formula for a left inverse.</div>
+                <div class="question-content">If an \(m 	\times n\) matrix \(A\) has rank \(n\), provide a formula for a left inverse.</div>
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If \(A\) has rank \(n\), the \(n 	imes n\) matrix \(A^T A\) is invertible. A left inverse \(L\) is then given by the formula:
+                <div class="answer-content">If \(A\) has rank \(n\), the \(n 	\times n\) matrix \(A^T A\) is invertible. A left inverse \(L\) is then given by the formula:
                 \[ L = (A^T A)^{-1} A^T \]
                 This specific left inverse is also the Strong Generalised Inverse (SGI) of \(A\).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 73 & Theorem 6.6.</div>
@@ -127,11 +127,11 @@
     <div class="flashcard">
         <div class="card-inner">
             <div class="card-front">
-                <div class="question-content">What condition on the rank of an \(m 	imes n\) matrix \(A\) guarantees the existence of a right inverse?</div>
+                <div class="question-content">What condition on the rank of an \(m 	\times n\) matrix \(A\) guarantees the existence of a right inverse?</div>
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a right inverse if and only if it has <strong>rank \(m\)</strong> (full row rank). This is equivalent to its columns spanning \(\mathbb{R}^m\), or its range being \(R(A) = \mathbb{R}^m\).</div>
+                <div class="answer-content">An \(m 	\times n\) matrix \(A\) has a right inverse if and only if it has <strong>rank \(m\)</strong> (full row rank). This is equivalent to its columns spanning \(\mathbb{R}^m\), or its range being \(R(A) = \mathbb{R}^m\).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.2.</div>
                 <button class="flip-button">Flip</button>
             </div>
@@ -141,11 +141,11 @@
     <div class="flashcard">
         <div class="card-inner">
             <div class="card-front">
-                <div class="question-content">If an \(m 	imes n\) matrix \(A\) has rank \(m\), provide a formula for a right inverse.</div>
+                <div class="question-content">If an \(m 	\times n\) matrix \(A\) has rank \(m\), provide a formula for a right inverse.</div>
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If \(A\) has rank \(m\), the \(m 	imes m\) matrix \(A A^T\) is invertible. A right inverse \(R\) is then given by the formula:
+                <div class="answer-content">If \(A\) has rank \(m\), the \(m 	\times m\) matrix \(A A^T\) is invertible. A right inverse \(R\) is then given by the formula:
                 \[ R = A^T (A A^T)^{-1} \]
                 This specific right inverse is also the Strong Generalised Inverse (SGI) of \(A\).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 76 & Theorem 6.6.</div>
@@ -199,7 +199,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">No. If an \(m 	imes n\) matrix \(A\) with \(m > n\) has a left inverse, it must have infinitely many. A left inverse exists if rank is \(n\). The general form of a left inverse can be found by solving \(LA=I_n\), which often has free parameters, leading to infinite solutions. Only when \(m=n\) and \(A\) is invertible is the left inverse unique (and it is \(A^{-1}\)).</div>
+                <div class="answer-content">No. If an \(m 	\times n\) matrix \(A\) with \(m > n\) has a left inverse, it must have infinitely many. A left inverse exists if rank is \(n\). The general form of a left inverse can be found by solving \(LA=I_n\), which often has free parameters, leading to infinite solutions. Only when \(m=n\) and \(A\) is invertible is the left inverse unique (and it is \(A^{-1}\)).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Example 6.2.</div>
                 <button class="flip-button">Flip</button>
             </div>
@@ -230,7 +230,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">Let \(A\) be an \(m 	imes n\) matrix. A <strong>Weak Generalised Inverse (WGI)</strong> of \(A\), denoted by \(A^g\), is any \(n 	imes m\) matrix that satisfies the following condition:
+                <div class="answer-content">Let \(A\) be an \(m 	\times n\) matrix. A <strong>Weak Generalised Inverse (WGI)</strong> of \(A\), denoted by \(A^g\), is any \(n 	\times m\) matrix that satisfies the following condition:
                 \[ AA^gA = A \]</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.3.</div>
                 <button class="flip-button">Flip</button>
@@ -355,7 +355,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If a matrix \(A\) of rank \(k \ge 1\) is factorised as \(A=BC\), where \(B\) is \(m 	imes k\) and \(C\) is \(k 	imes n\), both of rank \(k\), then the SGI of \(A\) is given by:
+                <div class="answer-content">If a matrix \(A\) of rank \(k \ge 1\) is factorised as \(A=BC\), where \(B\) is \(m 	\times k\) and \(C\) is \(k 	\times n\), both of rank \(k\), then the SGI of \(A\) is given by:
                 \[ A^G = C^T(CC^T)^{-1}(B^TB)^{-1}B^T \]
                 Note that \(C^T(CC^T)^{-1}\) is the SGI of \(C\) and \((B^TB)^{-1}B^T\) is the SGI of \(B\).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.7.</div>
@@ -403,7 +403,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If the \(m 	imes n\) matrix \(A\) has a left inverse, it must have rank \(n\). In this case, its SGI is given by the formula for the specific left inverse:
+                <div class="answer-content">If the \(m 	\times n\) matrix \(A\) has a left inverse, it must have rank \(n\). In this case, its SGI is given by the formula for the specific left inverse:
                 \[ A^G = (A^T A)^{-1} A^T \]</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.6.</div>
                 <button class="flip-button">Flip</button>
@@ -418,7 +418,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If the \(m 	imes n\) matrix \(A\) has a right inverse, it must have rank \(m\). In this case, its SGI is given by the formula for the specific right inverse:
+                <div class="answer-content">If the \(m 	\times n\) matrix \(A\) has a right inverse, it must have rank \(m\). In this case, its SGI is given by the formula for the specific right inverse:
                 \[ A^G = A^T (A A^T)^{-1} \]</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Theorem 6.6.</div>
                 <button class="flip-button">Flip</button>
@@ -505,7 +505,7 @@
     <div class="flashcard">
         <div class="card-inner">
             <div class="card-front">
-                <div class="question-content">If \(A\) is an invertible \(n 	imes n\) matrix, what is its SGI, \(A^G\)?</div>
+                <div class="question-content">If \(A\) is an invertible \(n 	\times n\) matrix, what is its SGI, \(A^G\)?</div>
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
@@ -546,7 +546,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">The matrix \(A\) is \(2 	imes 1\) and has rank 1 (full column rank). We can use the formula for a left inverse: \(A^G = (A^TA)^{-1}A^T\).
+                <div class="answer-content">The matrix \(A\) is \(2 	\times 1\) and has rank 1 (full column rank). We can use the formula for a left inverse: \(A^G = (A^TA)^{-1}A^T\).
                 \[ A^TA = \begin{pmatrix} 1 & 2 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = (1+4) = (5) \]
                 \[ (A^TA)^{-1} = (1/5) \]
                 \[ A^G = (1/5) \begin{pmatrix} 1 & 2 \end{pmatrix} = \begin{pmatrix} 1/5 & 2/5 \end{pmatrix} \]
@@ -564,7 +564,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">The matrix \(A\) is \(1 	imes 2\) and has rank 1 (full row rank). We can use the formula for a right inverse: \(A^G = A^T(AA^T)^{-1}\).
+                <div class="answer-content">The matrix \(A\) is \(1 	\times 2\) and has rank 1 (full row rank). We can use the formula for a right inverse: \(A^G = A^T(AA^T)^{-1}\).
                 \[ AA^T = \begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = (1+1) = (2) \]
                 \[ (AA^T)^{-1} = (1/2) \]
                 \[ A^G = \begin{pmatrix} 1 \\ 1 \end{pmatrix} (1/2) = \begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix} \]
@@ -689,7 +689,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">The SGI of a zero matrix \(O_{m 	imes n}\) is its transpose, the zero matrix \(O_{n 	imes m}\).
+                <div class="answer-content">The SGI of a zero matrix \(O_{m 	\times n}\) is its transpose, the zero matrix \(O_{n 	\times m}\).
                 <br><br>
                 Let's check the four conditions with \(A=O\) and \(A^G=O^T=O\):
                 <ol>
@@ -779,7 +779,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">The SGI of a scalar \(\lambda\) (which is a \(1 	imes 1\) matrix) is:
+                <div class="answer-content">The SGI of a scalar \(\lambda\) (which is a \(1 	\times 1\) matrix) is:
                 \[ \lambda^G = \begin{cases} 1/\lambda & \text{if } \lambda 
                 <button class="flip-button">Flip</button>
             </div>
@@ -818,11 +818,11 @@
     <div class="flashcard">
         <div class="card-inner">
             <div class="card-front">
-                <div class="question-content">If \(A\) is an \(m 	imes n\) matrix, what are the dimensions of its SGI, \(A^G\)?</div>
+                <div class="question-content">If \(A\) is an \(m 	\times n\) matrix, what are the dimensions of its SGI, \(A^G\)?</div>
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">The SGI \(A^G\) has the transposed dimensions of \(A\). If \(A\) is \(m 	imes n\), then \(A^G\) is \(n 	imes m\).</div>
+                <div class="answer-content">The SGI \(A^G\) has the transposed dimensions of \(A\). If \(A\) is \(m 	\times n\), then \(A^G\) is \(n 	\times m\).</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, Definition 6.4.</div>
                 <button class="flip-button">Flip</button>
             </div>
@@ -999,7 +999,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a left inverse if \(\text{rank}(A) = n\) and a right inverse if \(\text{rank}(A) = m\).
+                <div class="answer-content">An \(m 	\times n\) matrix \(A\) has a left inverse if \(\text{rank}(A) = n\) and a right inverse if \(\text{rank}(A) = m\).
                 <br><br>
                 For a left inverse to exist but not a right inverse, we need \(\text{rank}(A) = n\) and \(\text{rank}(A) 
                 <button class="flip-button">Flip</button>
@@ -1014,7 +1014,7 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">An \(m 	imes n\) matrix \(A\) has a right inverse if \(\text{rank}(A) = m\) and a left inverse if \(\text{rank}(A) = n\).
+                <div class="answer-content">An \(m 	\times n\) matrix \(A\) has a right inverse if \(\text{rank}(A) = m\) and a left inverse if \(\text{rank}(A) = n\).
                 <br><br>
                 For a right inverse to exist but not a left inverse, we need \(\text{rank}(A) = m\) and \(\text{rank}(A) 
                 <button class="flip-button">Flip</button>
@@ -1245,10 +1245,10 @@
                 <button class="flip-button">Flip</button>
             </div>
             <div class="card-back">
-                <div class="answer-content">If \(A\) is an \(m 	imes n\) matrix of rank \(k\), and \(A=BC\) is a full rank factorization, then:
+                <div class="answer-content">If \(A\) is an \(m 	\times n\) matrix of rank \(k\), and \(A=BC\) is a full rank factorization, then:
                 <ul>
-                    <li>\(B\) is an \(m 	imes k\) matrix with \(\text{rank}(B)=k\) (full column rank).</li>
-                    <li>\(C\) is a \(k 	imes n\) matrix with \(\text{rank}(C)=k\) (full row rank).</li>
+                    <li>\(B\) is an \(m 	\times k\) matrix with \(\text{rank}(B)=k\) (full column rank).</li>
+                    <li>\(C\) is a \(k 	\times n\) matrix with \(\text{rank}(C)=k\) (full row rank).</li>
                 </ul>
                 </div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 82.</div>
@@ -1285,8 +1285,8 @@
             <div class="card-back">
                 <div class="answer-content">The formula requires the inverses of \(CC^T\) and \(B^TB\) to exist.
                 <ul>
-                    <li>If \(C\) (size \(k 	imes n\)) has full row rank \(k\), then the \(k 	imes k\) matrix \(CC^T\) is invertible.</li>
-                    <li>If \(B\) (size \(m 	imes k\)) has full column rank \(k\), then the \(k 	imes k\) matrix \(B^TB\) is invertible.</li>
+                    <li>If \(C\) (size \(k 	\times n\)) has full row rank \(k\), then the \(k 	\times k\) matrix \(CC^T\) is invertible.</li>
+                    <li>If \(B\) (size \(m 	\times k\)) has full column rank \(k\), then the \(k 	\times k\) matrix \(B^TB\) is invertible.</li>
                 </ul>
                 This is why the factorization must be a "full rank" factorization.</div>
                 <div class="source">Source: Further linear algebra (MT2175) subject guide, p. 82.</div>
